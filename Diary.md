@@ -59,5 +59,6 @@ Writer: Breki hlynsson
     2. Continued to work on the map
     3. Started work on the happy paths
     4. Started fixing the use cases to match the map
+    5. finished usecases for A, B and C
 
 ---
