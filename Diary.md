@@ -8,8 +8,6 @@ Date:
 
 Writer: 
 
-Summary of events:
-
 Text:
 
 
@@ -21,11 +19,11 @@ Date:24.11.2025
 Writer: Breki Hlynsson
 
 
-First meeting was conducted and general discussion was had
+    First meeting was conducted and general discussion was had
 
-The meeting consisted of indtucuctions and creations of reposotory and groups, and discussing the project
+    The meeting consisted of indtucuctions and creations of reposotory and groups, and discussing the project
 
-Later we created and filled out most of the requirement list 
+    Later we created and filled out most of the requirement list 
 
 
 ---
@@ -50,3 +48,16 @@ Writer: Nökkvi Fannar Halldórsson
     3. Kept working on the UI design
     4. Finished the class diagram
     5. Completed the full layers view
+
+---
+
+Date: 26.11.2025 20:33
+
+Writer: Breki hlynsson
+
+    1. Continued to work on the report
+    2. Continued to work on the map
+    3. Started work on the happy paths
+    4. Started fixing the use cases to match the map
+
+---
