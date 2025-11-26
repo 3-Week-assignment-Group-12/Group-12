@@ -35,6 +35,18 @@ Date: 25.11.2025
 Writer: Aron Bjarki Ingvason
 
     1. We started by Writing the usecases for all the A requirements
-    2. We started on class diagram and three layers.
+    2. We started on class diagram and full layers view.
     3. We finished the User group analysis.
     4. Started doing the UI design.
+
+---
+
+Date: 26.11.2025
+
+Writer: Nökkvi Fannar Halldórsson
+
+    1. Finished writing the usecases for A requirements and arranged them in the correct order in our design document
+    2. Started writing the usecases for B and C requirements
+    3. Kept working on the UI design
+    4. Finished the class diagram
+    5. Completed the full layers view
