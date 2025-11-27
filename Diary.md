@@ -77,3 +77,19 @@ Writer: Diana Al Barouki
     1. Continued working on Happy Paths
     2. Continued working on the report
     3. Writing the introduction and the final word
+
+---
+
+Date 27.11.2025 18:57
+
+Writer: Breki Hlynsson
+
+Note: Nökkvi was absent due to sicknes
+
+    1. Created the Task tracker project
+    2. Tried and failed to create a workflow to automaticly set start date when issue is assigned
+    3. Added to the menu map
+    4. continued to fix use cases
+    5. continued to work on report
+    
+    
