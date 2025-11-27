@@ -1,0 +1,93 @@
+name: Set Start Date When Issue Is Assigned
+
+on:
+  issues:
+    types: [assigned]
+
+jobs:
+  set-start-date:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      issues: read
+      pull-requests: read
+      project: write   # important for updating project fields
+
+    steps:
+      - name: Get project item for this issue
+        id: find_item
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issueNodeId = context.payload.issue.node_id;
+
+            // Query all project items for this issue
+            const query = `
+              query($id: ID!) {
+                node(id: $id) {
+                  ... on Issue {
+                    projectItems(first: 20) {
+                      nodes {
+                        id
+                        project {
+                          id
+                          title
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            `;
+
+            const result = await github.graphql(query, { id: issueNodeId });
+
+            // Find the item that belongs to YOUR project
+            const targetProjectId = "4"; // <— fill this in
+            const item = result.node.projectItems.nodes.find(
+              node => node.project.id === targetProjectId
+            );
+
+            if (!item) {
+              core.setFailed("Issue is not in the target project.");
+              return;
+            }
+
+            core.setOutput("itemId", item.id);
+
+      - name: Set Start Date field
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const itemId = core.getInput("itemId", { required: true });
+
+            const mutation = `
+              mutation($item: ID!, $field: ID!, $value: ProjectV2FieldValue!) {
+                updateProjectV2ItemFieldValue(
+                  input: {
+                    itemId: $item,
+                    fieldId: $field,
+                    projectId: "YOUR_PROJECT_ID"
+                    value: $value
+                  }
+                ) {
+                  projectV2Item {
+                    id
+                  }
+                }
+              }
+            `;
+
+            // Set today's date
+            const today = new Date().toISOString().split('T')[0];
+
+            await github.graphql(mutation, {
+              item: itemId,
+              field: "241055108",  // <— fill this in
+              value: { 
+                date: today
+              }
+            });
+          with:
+            itemId: ${{ steps.find_item.outputs.itemId }}
