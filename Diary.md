@@ -1,7 +1,14 @@
-Format:
+### Note, the [Task tracker](https://github.com/orgs/3-Week-assignment-Group-12/projects/4/views/1) will be used to manage who is assigned to what
+
+
+
+
 
 
 Subject to change
+
+
+Format:
 
 ---
 Date:
