@@ -8,4 +8,4 @@
 
 ### Design Document: [Google docs](https://docs.google.com/document/d/13eKM6aUsl72Hj8WaheqNizN_ty65vgnFWbzWAyhU_bY/edit?tab=t.0)
 
-### Task tracker : [link](https://github.com/orgs/3-Week-assignment-Group-12/projects/4)
+### Task tracker : [link](https://github.com/orgs/3-Week-assignment-Group-12/projects/4/views/1)
