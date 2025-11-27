@@ -62,3 +62,11 @@ Writer: Breki hlynsson
     5. finished usecases for A, B and C
 
 ---
+
+Date: 27.11.2025
+
+Writer: Diana Al Barouki
+
+    1. Continued working on Happy Paths
+    2. Continued working on the report
+    3. Writing the introduction and the final word
