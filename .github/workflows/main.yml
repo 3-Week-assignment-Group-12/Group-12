@@ -12,7 +12,6 @@ jobs:
       contents: read
       issues: read
       pull-requests: read
-      project: write   # important for updating project fields
 
     steps:
       - name: Get project item for this issue
