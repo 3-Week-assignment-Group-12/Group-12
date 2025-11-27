@@ -92,4 +92,13 @@ Note: Nökkvi was absent due to sicknes
     4. continued to fix use cases
     5. continued to work on report
     
-    
+---
+
+Date: 27.11.2025 19:00
+
+Writer: Jingjing Wang
+
+    1. Done Happy Paths of requirements B and C
+    2. Done the writing of Github handbook
+    3. Fixing the wireframe of requirement A
+    4. Done the introduction of the report
