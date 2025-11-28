@@ -105,7 +105,7 @@ Writer: Jingjing Wang
 
 ---
 
-Date: 27.11.2025
+Date: 28.11.2025
 
 Writer: Nökkvi Fannar Halldórsson
 
