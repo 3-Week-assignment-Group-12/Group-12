@@ -17,3 +17,6 @@ class LogicWrapper:
 
         # 3. Pass to Data Layer
         return self.data_wrapper.write_player(new_player)
+    
+    def modify_player(self, name):
+        

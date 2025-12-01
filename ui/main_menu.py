@@ -30,3 +30,4 @@ little functionality has been added
         # UI talks ONLY to Logic
         self.logic_wrapper.create_player(name)
         
+    
