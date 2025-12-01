@@ -1,14 +1,35 @@
-from __future__ import annotations
 
 from UI_layer.UL_API import UL_API
+from logic_layer.LL_API import LL_API
+from data_layer.DL_API import DL_API
 
 def main():
-    UI_api = run_setup()
-    UI_api.start_menu()
+    UL_api, LL_api, DL_api = run_setup() # pyright: ignore[reportUnusedVariable]
+    
+    
+    while True:
+    
+        ret = UL_api.start_menu()
+        if ret == 1:
+            
+            break
 
 
-def run_setup():
-    return UL_API.create_api()
 
-def test(x,y):
-    return x+y
+
+def run_setup() -> tuple[UL_API, LL_API, DL_API]:
+    
+    UL_api = UL_API.create_api()    
+    LL_api = LL_API.create_api()    
+    DL_api = DL_API.create_api()
+   
+    
+    return (UL_api, LL_api, DL_api)
+
+
+if __name__ == "__main__":
+    main()
+
+# example not allowed in strict
+#def test(x,y):
+#    return x+y
