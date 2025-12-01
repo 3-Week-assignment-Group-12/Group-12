@@ -1,0 +1,13 @@
+from __future__ import annotations
+
+class LL_API:
+    
+    def __init__(self) -> None:
+        pass
+
+    @staticmethod
+    def create_api() -> LL_API:
+        return LL_API()
+        
+
+    
