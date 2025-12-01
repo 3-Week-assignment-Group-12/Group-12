@@ -1,7 +1,7 @@
 from __future__ import annotations
 
+
 class LL_API:
-    
     def __init__(self) -> None:
         pass
 
@@ -9,5 +9,3 @@ class LL_API:
     def create_api() -> LL_API:
         return LL_API()
         
-
-    

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from .main_UI_manager import UI_manager
+from main_UI_manager import UI_manager
 
 class UL_API:
     def __init__(self) -> None:

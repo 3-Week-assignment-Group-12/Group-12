@@ -1,5 +1,5 @@
 from __future__ import annotations
-from main_data_manager import MainData
+from .main_data_manager import MainData
 
 class DL_API:
     
