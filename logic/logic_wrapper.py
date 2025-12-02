@@ -39,5 +39,6 @@ class LogicWrapper:
     
     def get_teams(self):
         return self.data_wrapper.get_teams()
+    
 
 
