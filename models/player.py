@@ -1,8 +1,21 @@
 from __future__ import annotations
-import datetime
+
 
 
 class Player:
+    """
+    kt: int
+    
+    name: str
+    
+    dob: str
+    
+    phone: int
+    
+    address: str
+    
+    email: str
+    """
     
     def __init__(self, KT:int, name:str, dob:str, phone:int, address:str, email:str) -> None: 
         self.kt: int  = KT
