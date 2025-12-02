@@ -5,6 +5,7 @@ class MainMenu:
     def __init__(self):
         # The UI creates an instance of the Logic Wrapper
         self.logic_wrapper = LogicWrapper()
+        self.backlist = []
 
 
 
@@ -27,15 +28,15 @@ q. Quit
 
         match choice:
             case "1": 
-                pass
+                self.organizer_menu()
             case "2": 
-                pass
+                self.team_leader_menu()
             case "3": 
-                pass
+                self.public_main_menu()
             case "4": 
-                pass
+                self.enable_high_quality_menu() # Mögulega laga því fer bara á mainscreen, mögulega myndum senda bara beint í function
             case "q": 
-                pass
+                return
             case _: 
                 pass
         return
@@ -56,9 +57,9 @@ b. Back
 
         match choice:
             case "1": 
-                pass
+                self.player_management_menu()
             case "2": 
-                pass
+                self.tournament_management_menu()
             case "b": 
                 pass
         return
@@ -83,16 +84,17 @@ b. Back
             case "1": 
                 pass
             case "2": 
-                pass
+                
+                self.edit_player_menu(int(input("Player National ID:")))  #Asks the user for Players National Id before going to the edit page
             case "3": 
                 pass
             case "4": 
-                pass
+                self.view_players_menu()
             case "b": 
                 pass
         return
 
-    def edit_player_menu(self):
+    def edit_player_menu(self,Player_ID):
         print(
 """ 
 Edit Players info 
@@ -147,15 +149,15 @@ b. Back
             case "1": 
                 pass
             case "2": 
-                pass
+                self.edit_tournament_menu(int(input("Enter Tournament ID: ")))
             case "3": 
                 pass
             case "4": 
-                pass
+                self.select_tournament_menu()
             case "b": 
                 pass
         return
-    def edit_tournament_menu(self):
+    def edit_tournament_menu(self,tournamentID):
         print(
 """ 
 Edit Tournament Information
@@ -231,29 +233,54 @@ Team Leader Menu
 6. Manage Club
 7. Rewards menu
 b. Back 
-
-
 """)
         choice=input("Enter input: ")
 
         match choice:
             case "1": 
-                pass
+                self.view_team_teamleader_menu()
             case "2": 
-                pass
+                self.register_for_tournament_menu()
             case "3": 
-                pass
+                self.create_team()
             case "4": 
-                pass
+                self.edit_team_menu(int(input("Enter Team ID: ")))  # before going to the page, it askes the user for id of the team that the user wants to edit
             case "5": 
-                pass
+                pass  #call funciton delete_team()
             case "6": 
-                pass
+                self.club_menu()
             case "7": 
-                pass
+                self.rewards_menu_teamleader()
             case "b": 
                 pass
         return
+    
+
+
+
+    def rewards_menu_teamleader(self):
+        print(
+""" 
+Rewards Menu
+
+1. Rewards points
+2. Rewards Log
+b. Back 
+""")
+        choice=input("Enter input: ")
+
+        match choice:
+            case "1": 
+                pass  #function rewardspoints
+            case "2": 
+                pass # funtion rewardslog
+            case "b": 
+                pass
+        return
+    
+
+
+
     def view_team_teamleader_menu(self):
         print(
 """ 
@@ -262,19 +289,21 @@ View Team
 1. View My Team Info (view menu shortcut)
 2. View My Tournaments (view menu shortcut)
 b. Back 
-
-
 """)
         choice=input("Enter input: ")
 
         match choice:
             case "1": 
-                pass
+                pass  # call funtion for specific team to check out
             case "2": 
-                pass
+                pass # call funtion for specific team to check ou
             case "b": 
                 pass
         return
+    
+
+
+
     def register_for_tournament_menu(self):
         print(
 """ 
@@ -297,7 +326,7 @@ b. Back
                 pass
         return
 
-    def edit_team_menu(self):
+    def edit_team_menu(self,team_to_edit):
         print(
 """ 
 Edit Team Menu
@@ -348,13 +377,13 @@ b. Back
 
         match choice:
             case "1": 
-                pass
+                pass #create club function
             case "2": 
-                pass
+                pass # join club function
             case "3": 
-                pass
+                pass # view club by id
             case "4": 
-                pass
+                self.edit_club_menu()
             case "b": 
                 pass
         return
@@ -417,17 +446,17 @@ b. Back
 
         match choice:
             case "1": 
-                pass
+                self.view_players_menu()
             case "2": 
-                pass
+                self.view_team_menu()
             case "3": 
-                pass
+                self.view_tournaments_menu()
             case "4": 
-                pass
+                self.view_clubs()
             case "5": 
-                pass
+                self.view_scoreboard()
             case "6": 
-                pass
+                self.view_organizers()
             case "b": 
                 pass
         return
@@ -449,15 +478,15 @@ b. Back
 
         match choice:
             case "1": 
-                pass
+                pass #view all players
             case "2": 
-                pass
+                pass # View players in team
             case "3": 
-                pass
+                pass # view player in tournament
             case "4": 
-                pass
+                pass # view specific player
             case "5": 
-                pass
+                pass # view statistics
             case "b": 
                 pass
         return
@@ -480,7 +509,7 @@ b. Back
 
         match choice:
             case "1": 
-                pass
+                pass # view all teams
             case "2": 
                 pass
             case "3": 
@@ -583,8 +612,8 @@ b. Back
         return
         
     
-    def create_team(self, id_of_user:int):
-        
+    def create_team(self):
+        id_of_user= input("Enter Captains National ID: ")
         name = input("Enter team name: ")
         tag = input("Enter team tag (max 20 char): ")
         team_size = int(input("Enter team size: "))
