@@ -27,19 +27,19 @@ q. Quit
         choice=input("Enter input: ")
 
         match choice:
-            case 1: 
+            case "1": 
                 pass
-            case 2: 
+            case "2": 
                 pass
-            case 3: 
+            case "3": 
                 pass
-            case 4: 
+            case "4": 
                 pass
-            case q: 
+            case "q": 
                 pass
             case _: 
                 pass
-        
+        return
 
 
     def organizer_menu(self):
@@ -56,13 +56,13 @@ b. Back
         choice=input("Enter input: ")
 
         match choice:
-            case 1: 
+            case "1": 
                 pass
-            case 2: 
+            case "2": 
                 pass
-            case b: 
+            case "b": 
                 pass
-
+        return
 
 
     def player_management_menu(self):
@@ -81,17 +81,17 @@ b. Back
         choice=input("Enter input: ")
 
         match choice:
-            case 1: 
+            case "1": 
                 pass
-            case 2: 
+            case "2": 
                 pass
-            case 3: 
+            case "3": 
                 pass
-            case 4: 
+            case "4": 
                 pass
-            case b: 
+            case "b": 
                 pass
-    
+        return
 
     def edit_player_menu(self):
         print(
@@ -112,23 +112,23 @@ Edit Players info
         choice=input("Enter input: ")
 
         match choice:
-            case 1: 
+            case "1": 
                 pass
-            case 2: 
+            case "2": 
                 pass
-            case 3: 
+            case "3": 
                 pass
-            case 4: 
+            case "4": 
                 pass
-            case 5: 
+            case "5": 
                 pass
-            case 6: 
+            case "6": 
                 pass
-            case 7: 
+            case "7": 
                 pass
-            case 8: 
+            case "8": 
                 pass
-
+        return
     def tournament_management_menu(self):
         print(
 """ 
@@ -145,17 +145,17 @@ b. Back
         choice=input("Enter input: ")
 
         match choice:
-            case 1: 
+            case "1": 
                 pass
-            case 2: 
+            case "2": 
                 pass
-            case 3: 
+            case "3": 
                 pass
-            case 4: 
+            case "4": 
                 pass
-            case b: 
+            case "b": 
                 pass
-
+        return
     def edit_tournament_menu(self):
         print(
 """ 
@@ -174,21 +174,21 @@ b. Back
         choice=input("Enter input: ")
 
         match choice:
-            case 1: 
+            case "1": 
                 pass
-            case 2: 
+            case "2": 
                 pass
-            case 3: 
+            case "3": 
                 pass
-            case 4: 
+            case "4": 
                 pass
-            case 5: 
+            case "5": 
                 pass
-            case 6: 
+            case "6": 
                 pass
-            case b: 
+            case "b": 
                 pass
-
+        return
     def select_tournament_menu(self):
         print(
 """ 
@@ -206,19 +206,19 @@ b. Back
         choice=input("Enter input: ")
 
         match choice:
-            case 1: 
+            case "1": 
                 pass
-            case 2: 
+            case "2": 
                 pass
-            case 3: 
+            case "3": 
                 pass
-            case 4: 
+            case "4": 
                 pass
-            case 5: 
+            case "5": 
                 pass
-            case b: 
+            case "b": 
                 pass
-
+        return 
     def team_leader_menu(self):
         print(
 """ 
@@ -238,23 +238,23 @@ b. Back
         choice=input("Enter input: ")
 
         match choice:
-            case 1: 
+            case "1": 
                 pass
-            case 2: 
+            case "2": 
                 pass
-            case 3: 
+            case "3": 
                 pass
-            case 4: 
+            case "4": 
                 pass
-            case 5: 
+            case "5": 
                 pass
-            case 6: 
+            case "6": 
                 pass
-            case 7: 
+            case "7": 
                 pass
-            case b: 
+            case "b": 
                 pass
-
+        return
     def view_team_teamleader_menu(self):
         print(
 """ 
@@ -269,13 +269,13 @@ b. Back
         choice=input("Enter input: ")
 
         match choice:
-            case 1: 
+            case "1": 
                 pass
-            case 2: 
+            case "2": 
                 pass
-            case b: 
+            case "b": 
                 pass
-        
+        return
     def register_for_tournament_menu(self):
         print(
 """ 
@@ -290,13 +290,13 @@ b. Back
         choice=input("Enter input: ")
 
         match choice:
-            case 1: 
+            case "1": 
                 pass
-            case 2: 
+            case "2": 
                 pass
-            case b: 
+            case "b": 
                 pass
-
+        return
 
     def edit_team_menu(self):
         print(
@@ -316,21 +316,21 @@ b. Back
         choice=input("Enter input: ")
 
         match choice:
-            case 1: 
+            case "1": 
                 pass
-            case 2: 
+            case "2": 
                 pass
-            case 3: 
+            case "3": 
                 pass
-            case 4: 
+            case "4": 
                 pass
-            case 5: 
+            case "5": 
                 pass
-            case 6: 
+            case "6": 
                 pass
-            case b: 
+            case "b": 
                 pass
-
+        return
     
     def club_menu(self):
         print(
@@ -348,17 +348,17 @@ b. Back
         choice=input("Enter input: ")
 
         match choice:
-            case 1: 
+            case "1": 
                 pass
-            case 2: 
+            case "2": 
                 pass
-            case 3: 
+            case "3": 
                 pass
-            case 4: 
+            case "4": 
                 pass
-            case b: 
+            case "b": 
                 pass
-
+        return
     
     def edit_club_menu(self):
         print(
@@ -376,17 +376,17 @@ b. Back
         choice=input("Enter input: ")
 
         match choice:
-            case 1: 
+            case "1": 
                 pass
-            case 2: 
+            case "2": 
                 pass
-            case 3: 
+            case "3": 
                 pass
-            case 4: 
+            case "4": 
                 pass
-            case b: 
+            case "b": 
                 pass
-
+        return
     def enable_high_quality_menu(self):
         print(
 """ 
@@ -396,12 +396,12 @@ Enable high quality (Y/N)
         choice=input("Enter input: ")
 
         match choice:
-            case 1: 
-
+            case "1": 
+                pass
+        return
 
     def public_main_menu(self):
-        print(
-""" 
+        print(""" 
 Public main menu
 
 1. View Players
@@ -417,21 +417,21 @@ b. Back
         choice=input("Enter input: ")
 
         match choice:
-            case 1: 
+            case "1": 
                 pass
-            case 2: 
+            case "2": 
                 pass
-            case 3: 
+            case "3": 
                 pass
-            case 4: 
+            case "4": 
                 pass
-            case 5: 
+            case "5": 
                 pass
-            case 6: 
+            case "6": 
                 pass
-            case b: 
+            case "b": 
                 pass
-
+        return
     def view_players_menu(self):
         print(
 """ 
@@ -449,19 +449,19 @@ b. Back
         choice=input("Enter input: ")
 
         match choice:
-            case 1: 
+            case "1": 
                 pass
-            case 2: 
+            case "2": 
                 pass
-            case 3: 
+            case "3": 
                 pass
-            case 4: 
+            case "4": 
                 pass
-            case 5: 
+            case "5": 
                 pass
-            case b: 
+            case "b": 
                 pass
-
+        return
 
     def view_team_menu(self):
         print(
@@ -480,19 +480,19 @@ b. Back
         choice=input("Enter input: ")
 
         match choice:
-            case 1: 
+            case "1": 
                 pass
-            case 2: 
+            case "2": 
                 pass
-            case 3: 
+            case "3": 
                 pass
-            case 4: 
+            case "4": 
                 pass
-            case 5: 
+            case "5": 
                 pass
-            case b: 
+            case "b": 
                 pass
-
+        return
 
     def view_tournaments_menu(self):
         print(
@@ -510,17 +510,17 @@ b. Back
         choice=input("Enter input: ")
 
         match choice:
-            case 1: 
+            case "1": 
                 pass
-            case 2: 
+            case "2": 
                 pass
-            case 3: 
+            case "3": 
                 pass
-            case 4: 
+            case "4": 
                 pass
-            case b: 
+            case "b": 
                 pass
-
+        return
     def view_clubs(self):
         print(
 """ 
@@ -536,15 +536,15 @@ b. Back
         choice=input("Enter input: ")
 
         match choice:
-            case 1: 
+            case "1": 
                 pass
-            case 2: 
+            case "2": 
                 pass
-            case 3: 
+            case "3": 
                 pass
-            case b: 
+            case "b": 
                 pass
-    
+        return
 
     def view_organizers(self):
         print(
@@ -559,11 +559,11 @@ b. Back
         choice=input("Enter input: ")
 
         match choice:
-            case 1: 
+            case "1": 
                 pass
-            case b: 
+            case "b": 
                 pass
-
+        return
     def view_scoreboard(self):
         print(
 """ 
@@ -577,11 +577,11 @@ b. Back
         choice=input("Enter input: ")
 
         match choice:
-            case 1: 
+            case "1": 
                 pass
-            case b: 
+            case "b": 
                 pass
-
+        return
         
     
     def create_team(self, id_of_user:int):
