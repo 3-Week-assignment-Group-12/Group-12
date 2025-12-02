@@ -6,7 +6,8 @@ from models.team import Team
     
 class Main_data:
     def __init__(self):
-        self.playerFilePath:str = "./data/files/players_data.csv" #the file location
+        #self.playerFilePath:str = "./data/files/players_data.csv" #the file location dummy_data/dummy_player.csv
+        self.playerFilePath:str = "./dummy_data/dummy_player.csv"
         self.teamFilePath:str = "./data/files/teams_data.csv"
         
 
@@ -176,6 +177,12 @@ class Main_data:
         return True
     
     
+        
+    def get_players_by_ID(self,ID):
+        for x in self.get_players(self.playerFilePath):
+            if x.kt==ID:
+                return x
+        raise Exception("no player by that id")
         
         
                 

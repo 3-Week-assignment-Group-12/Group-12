@@ -9,8 +9,8 @@ class DataWrapper:
         self.main_data:Main_data = Main_data()
         
     def get_dummy_data(self):
-        self.main_data.get_players("./dummy_data/dummy_player.csv")
-        self.main_data.get_teams("./dummy_data/dummy_teams.csv")
+        self.main_data.get_players("./dummy_data/dummy_player.csv")  
+        #self.main_data.get_teams("./dummy_data/dummy_teams.csv")
         
     
     def write_player(self, new_player:Player) -> bool:
@@ -35,3 +35,6 @@ class DataWrapper:
     
     def modify_team(self,new_data:Team):
         return self.main_data.modify_team(new_data)
+
+    def get_player_by_ID(self,ID):
+        return self.main_data.get_players_by_ID(ID)

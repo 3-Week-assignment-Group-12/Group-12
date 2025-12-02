@@ -1,5 +1,8 @@
+from __future__ import annotations
 # ui_layer/main_menu.py
 from logic.logic_wrapper import LogicWrapper
+
+from models.player import Player
 
 class MainMenu:
     def __init__(self):
@@ -12,8 +15,7 @@ class MainMenu:
 
 
     def run(self):
-        self.create_player()
-        self.create_team(1234567890)
+        
         print(
 """ 
 Welcome To the menu. 
@@ -86,7 +88,6 @@ b. Back
             case "1": 
                 pass
             case "2": 
-                
                 self.edit_player_menu(int(input("Player National ID:")))  #Asks the user for Players National Id before going to the edit page
             case "3": 
                 pass
@@ -96,7 +97,7 @@ b. Back
                 pass
         return
 
-    def edit_player_menu(self,Player_ID):
+    def edit_player_menu(self,Player_ID:int):
         print(
 """ 
 Edit Players info 
@@ -113,24 +114,30 @@ Edit Players info
 
 """)
         choice=input("Enter input: ")
+        temp:Player = self.logic_wrapper.get_player_by_ID(Player_ID)
 
         match choice:
             case "1": 
-                pass
+                temp.name = input("Enter New name: ")
+
             case "2": 
-                pass
+                temp.phone = int(input("Enter New number: "))
+                #self.logic_wrapper.data_wrapper.modify_player((self.logic_wrapper.get_player_by_ID(Player_ID).phone = int(input("New name: ")))) Reyndum oneliner
             case "3": 
-                pass
+                temp.address = input("Enter New address: ")
+                #self.logic_wrapper.data_wrapper.modify_player((self.logic_wrapper.get_player_by_ID(Player_ID).address := input("New name: ")))
             case "4": 
-                pass
+                temp.email = input("Enter New email: ")
+                #self.logic_wrapper.data_wrapper.modify_player((self.logic_wrapper.get_player_by_ID(Player_ID).email = input("New name: ")))
             case "5": 
-                pass
+                pass #self.logic_wrapper.data_wrapper.modify_player((self.logic_wrapper.get_player_by_ID(Player_ID).handle = input("New name: ")))
             case "6": 
-                pass
+                pass#self.logic_wrapper.data_wrapper.modify_player((self.logic_wrapper.get_player_by_ID(Player_ID).link = input("New name: ")))
             case "7": 
-                pass
+                pass#self.logic_wrapper.data_wrapper.modify_player((self.logic_wrapper.get_player_by_ID(Player_ID).portrait = input("New name: ")))
             case "8": 
                 pass
+        self.logic_wrapper.modify_player(temp)
         return
     def tournament_management_menu(self):
         print(
