@@ -111,8 +111,8 @@ class Main_data:
     
 
     def overwrite_players(self, new_list:list[Player]):
-        
-        with open( self.playerFilePath, "W" ) as theFile: # wipes file. then writes
+        print(os.path.abspath(self.playerFilePath))
+        with open( os.path.abspath(self.playerFilePath), "w" ) as theFile: # wipes file. then writes
             
             csvWriter = csv.writer(theFile)
             
