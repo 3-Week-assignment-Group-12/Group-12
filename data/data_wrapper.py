@@ -7,6 +7,7 @@ class DataWrapper:
     def __init__(self):
 
         self.main_data:Main_data = Main_data()
+        
     
     def write_player(self, new_player:Player) -> bool:
         """Writes new player instance. 
@@ -21,3 +22,6 @@ class DataWrapper:
     
     def get_teams(self) -> list[Team]:
         return self.main_data.get_teams()
+    
+    def write_team(self, new_team:Team):
+        return self.main_data.write_team(new_team)
