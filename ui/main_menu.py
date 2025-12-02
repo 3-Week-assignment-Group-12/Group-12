@@ -32,5 +32,9 @@ little functionality has been added
         address = input("address: ")
         email = input("email: ")
         # UI talks ONLY to Logic
-        self.logic_wrapper.create_player(kt,name,phone,address,email)
+        self.logic_wrapper.create_player(name)
         
+
+    def get_players(self): #Requirement 4
+        # UI talks ONLY to Logic
+        self.logic_wrapper.get_players()
