@@ -14,4 +14,8 @@ class LogicWrapper:
     
     def get_players(self):
         return self.data_wrapper.get_players()
+    
+    def get_teams(self):
+        return self.data_wrapper.get_teams()
+
 

@@ -23,3 +23,4 @@ class Player:
     
     def toCSVList(self) -> list[str|int]:
         return [self.kt,self.name,self.dob,self.phone,self.address,self.email]
+    

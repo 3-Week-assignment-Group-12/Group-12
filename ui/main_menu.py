@@ -34,3 +34,8 @@ little functionality has been added
     def get_players(self): #Requirement 4
         # UI talks ONLY to Logic
         self.logic_wrapper.get_players()
+
+
+    def get_teams(self): #Requirement 7
+        # UI talks ONLY to Logic
+        self.logic_wrapper.get_teams()

@@ -1,6 +1,6 @@
 from data.main_data_manager import Main_data
 from models.player import Player
-
+from models.team import Team
 class DataWrapper:
 
     
@@ -19,7 +19,5 @@ class DataWrapper:
         
         return self.main_data.get_players()
     
-    
-    
-    
-    
+    def get_teams(self) -> list[Team]:
+        return self.main_data.get_teams()
