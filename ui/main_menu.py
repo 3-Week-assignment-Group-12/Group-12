@@ -11,7 +11,6 @@ class MainMenu:
 
 
     def run(self):
-        self.create_team(1)
         print(
 """ 
 Welcome To the menu. 
