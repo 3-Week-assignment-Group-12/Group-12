@@ -1,9 +1,21 @@
 from __future__ import annotations
-from models.player import Player
 
 
 
 class Team:
+    """
+        id: int
+        
+        name: str
+        
+        tag: str
+        
+        creator_id: int
+        
+        team_size: int
+        
+        team_list: list[int]
+    """
     
     def __init__(self, TID:int, name:str, tag:str, creator_id:int, team_size:int,team_list:list[int]) -> None:
         self.id: int = TID

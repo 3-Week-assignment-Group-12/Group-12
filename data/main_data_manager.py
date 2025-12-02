@@ -1,14 +1,42 @@
+import os
 from models.player import Player
 import csv
 
 from models.team import Team
-
-to_int = lambda a: int(a)
     
 class Main_data:
     def __init__(self):
         self.playerFilePath:str = "./data/files/players_data.txt" #the file location
         self.teamFilePath:str = "./data/files/teams_data.txt"
+        
+
+        self.check_files()
+        
+        
+    def check_files(self) -> None:
+        # make sure the folder exists
+        os.makedirs("./data/files", exist_ok=True)
+        
+        # attempts to create files if they dont exist
+        try:
+            file = open(self.teamFilePath, "x")
+            csvWriter = csv.writer(file) #creates a csv handler
+            
+            csvWriter.writerow(["id", "name", "tag", "creator_id", "team_size", "team_list"])
+            del csvWriter
+            file.close()
+        except FileExistsError:
+            pass # if file exists, then ignore
+        
+        try:
+            file =open(self.playerFilePath, "x+")
+            csvWriter = csv.writer(file) #creates a csv handler
+            
+            csvWriter.writerow(["name","tag","capitan_id","team_size","team_list"])
+            del csvWriter
+            file.close()
+        except FileExistsError:
+            pass # if file exists, then ignore
     
     
     def write_player(self, new_player:Player) -> bool:
@@ -37,13 +65,16 @@ class Main_data:
             
             csvReader = csv.reader(theFile) #creates a csv handler
             
-            #next(csvReader) # skip header    -- add when file has header
+            next(csvReader) # skip header
             
             for line in csvReader: # reads line by line
                 
 				# turn csv line into player instance
-                player = Player( int(line[0]),line[1],line[2], int(line[3]),line[4],line[5] ) # more attrebutes as needed currently only has name
-                Players.append(player)  #add player to players list
+                try:
+                    player = Player( int(line[0]),line[1],line[2], int(line[3]),line[4],line[5] ) # more attrebutes as needed currently only has name
+                    Players.append(player)  #add player to players list
+                except IndexError:
+                    pass
 
         theFile.close()
         return Players #return the players
@@ -74,14 +105,16 @@ class Main_data:
             
             csvReader = csv.reader(theFile) #creates a csv handler
             
-            #next(csvReader) # skip header    -- add when file has header
+            next(csvReader) # skip header
             
             for line in csvReader: # reads line by line
                 
 				# turn csv line into team instance
-                
-                team = Team( int(line[0]),line[1],line[2], int(line[3]),int(line[4]), [( lambda a: int(a)) (x) for x in line[5].split(",")]) # uses list comprehension to convert str to list[int]
-                teams.append(team)  #add player to team list
+                try:
+                    team = Team( int(line[0]),line[1],line[2], int(line[3]),int(line[4]), [( lambda a: int(a)) (x) for x in line[5].split(",")]) # uses list comprehension to convert str to list[int]
+                    teams.append(team)  #add player to team list
+                except IndexError:
+                    pass
 
         theFile.close()
         return teams #return the players
