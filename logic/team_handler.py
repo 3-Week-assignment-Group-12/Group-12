@@ -1,23 +1,23 @@
 
 from models.team import Team
-from models.player import Player
 
 class team_handler:
     
-    def create_team(self, name:str, tag:str, creator_id:int, team_size:int,teams:list[Team],team_list:list[Player]) -> Team| bool:
+    def create_team(self, name:str, tag:str, creator_id:int, team_size:int,teams:list[Team],team_list:list[int]) -> Team| bool:
         # 1. Validate Input (Business Logic)        
-        if len(str(creator_id)) != 10: ##validate length of KT
+        if len(str(creator_id)) != 10 or len(tag) > 20: ##validate length of KT and tag length
             return False
         
-        
-        for x in playerList:
-            if x.kt == KT or x.phone == phone or x.email == email:
-                return False
+        highest:int = 0
+        for x in teams:
+            if x.id > highest:
+                highest = x.id
+        highest+=1 # find new id
         
         
         
         # 2. Create Model Object
-        new_team = Team(name,tag,creator_id,team_size,team_list)
+        new_team = Team(highest,name,tag,creator_id,team_size,team_list)
 
         # 3. Pass to Data Layer
         return new_team

@@ -9,8 +9,9 @@ class LogicWrapper:
         self.data_wrapper = DataWrapper()
         self.player_handler = player_handler()
         
-    def create_player(self,KT,name,dob,phone,address,email):
-        return self.player_handler.create_player(KT,name,dob,phone,address,email,playerList)
+    def create_player(self,KT,name,db,phone,address,email):
+        
+        return self.player_handler.create_player(KT,name,phone,address,email,self.data_wrapper.get_players())
     
     def get_players(self):
         return self.data_wrapper.get_players()
