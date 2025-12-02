@@ -7,4 +7,8 @@ class LogicWrapper:
     def __init__(self):
         # Logic creates an instance of the Data Wrapper
         self.data_wrapper = DataWrapper()
+        self.player_handler = player_handler()
+        
+    def create_player(self,KT,name,dob,phone,address,email):
+        return self.player_handler.create_player(KT,name,dob,phone,address,email,playerList)
 
