@@ -27,6 +27,10 @@ little functionality has been added
     def create_player(self): # Requirement nr 1
         # UI gathers input
         name = input("Name: ")
+        kt = int(input("kennitala:"))
+        phone = int(input("phone: "))
+        address = input("address: ")
+        email = input("email: ")
         # UI talks ONLY to Logic
         self.logic_wrapper.create_player(name)
         
@@ -34,8 +38,3 @@ little functionality has been added
     def get_players(self): #Requirement 4
         # UI talks ONLY to Logic
         self.logic_wrapper.get_players()
-
-
-    def get_teams(self): #Requirement 7
-        # UI talks ONLY to Logic
-        self.logic_wrapper.get_teams()
