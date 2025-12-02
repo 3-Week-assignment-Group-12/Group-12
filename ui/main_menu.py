@@ -11,7 +11,8 @@ class MainMenu:
 
 
     def run(self):
-        self.create_team(1)
+        self.create_player()
+        self.create_team(1234567890)
         print(
 """ 
 Welcome To the menu. 
@@ -35,7 +36,7 @@ q. Quit
                 pass
             case 4: 
                 pass
-            case q: 
+            case "q": 
                 pass
             case _: 
                 pass
@@ -397,6 +398,7 @@ Enable high quality (Y/N)
 
         match choice:
             case 1: 
+                pass
 
 
     def public_main_menu(self):
