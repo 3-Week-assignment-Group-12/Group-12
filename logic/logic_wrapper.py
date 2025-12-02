@@ -11,4 +11,7 @@ class LogicWrapper:
         
     def create_player(self,KT,name,dob,phone,address,email):
         return self.player_handler.create_player(KT,name,dob,phone,address,email,playerList)
+    
+    def get_players(self):
+        return self.data_wrapper.get_players()
 
