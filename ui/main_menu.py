@@ -139,6 +139,8 @@ b. Back
                 
                 print(
 """ 
+Invalid Input!!
+
 Edit Players info 
 
 1. Edit Name
@@ -150,10 +152,9 @@ Edit Players info
 7. Edit Portrait
 b. Back
 
-
+Try again!!
 """)
-                print("Option invalid!")
-
+             
             temp:Player = self.logic_wrapper.get_player_by_ID(Player_ID)
 
             match choice:
@@ -175,7 +176,12 @@ b. Back
                     return
             self.logic_wrapper.modify_player(temp)
         
-        return
+        
+    
+
+
+
+
     def tournament_management_menu(self):
         print(
 """ 
@@ -189,20 +195,43 @@ b. Back
 
 
 """)
-        choice=input("Enter input: ")
+        
+        while True:
+            choice=input("Enter input: ")
+            if choice not in ["1","2","3","4","b","B"]:
+                
+                print(
+""" 
+Invalid Input!!
 
-        match choice:
-            case "1": 
-                pass
-            case "2": 
-                self.edit_tournament_menu(int(input("Enter Tournament ID: ")))
-            case "3": 
-                pass
-            case "4": 
-                self.select_tournament_menu()
-            case "b": 
-                pass
-        return
+Tournament Management 
+
+1. Create Tournament
+2. Edit Tournament information 
+3. Cancel Tournament
+4. Select Tournament
+b. Back 
+
+Try again!!
+""")
+            
+            match choice:
+                case "1": 
+                    pass
+                case "2": 
+                    self.edit_tournament_menu(int(input("Enter Tournament ID: ")))
+                case "3": 
+                    pass
+                case "4": 
+                    self.select_tournament_menu()
+                case "b": 
+                    return
+            
+        
+
+
+
+
     def edit_tournament_menu(self,tournamentID):
         print(
 """ 
