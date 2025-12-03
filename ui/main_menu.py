@@ -624,7 +624,16 @@ b. Back
             case "1": 
                 self.logic_wrapper.get_teams() #view all teams
             case "2": 
-                pass
+                tournaments = self.logic_wrapper.get_turnaments()
+                for i in tournaments:
+                    tournament=self.logic_wrapper.get_tournament_by_ID(i.id) # type: ignore
+                    if type(tournament) == Tournament:
+                        print(f"Tournament: {tournament.name}\n")
+                        for j in tournament.team_list:
+                            team = self.logic_wrapper.get_team_by_ID(j)
+                            if type(team) == Team:
+                                print(f"Team: {team.name}\n")
+
             case "3": 
                 pass
             case "4": 
