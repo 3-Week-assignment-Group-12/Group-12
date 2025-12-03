@@ -128,31 +128,53 @@ Edit Players info
 5. Edit Player Handle
 6. Edit Player Link
 7. Edit Portrait
-8. Confirm or cancel
+b. Back
 
 
 """)
-        choice=input("Enter input: ")
-        temp:Player = self.logic_wrapper.get_player_by_ID(Player_ID)
+        
+        while True:
+            choice=input("Enter input: ")
+            if choice not in ["1","2","3","4","5","6","7","b","B"]:
+                
+                print(
+""" 
+Edit Players info 
 
-        match choice:
-            case "1": 
-                temp.name = input("Enter New name: ")
-            case "2": 
-                temp.phone = int(input("Enter New number: "))
-            case "3": 
-                temp.address = input("Enter New address: ")     
-            case "4": 
-                temp.email = input("Enter New email: ")
-            case "5": 
-                pass 
-            case "6": 
-                pass
-            case "7": 
-                pass
-            case "8": 
-                pass
-        self.logic_wrapper.modify_player(temp)
+1. Edit Name
+2. Edit Phone Number
+3. Edit Address
+4. Edit Email
+5. Edit Player Handle
+6. Edit Player Link
+7. Edit Portrait
+b. Back
+
+
+""")
+                print("Option invalid!")
+
+            temp:Player = self.logic_wrapper.get_player_by_ID(Player_ID)
+
+            match choice:
+                case "1": 
+                    temp.name = input("Enter New name: ")
+                case "2": 
+                    temp.phone = int(input("Enter New number: "))
+                case "3": 
+                    temp.address = input("Enter New address: ")     
+                case "4": 
+                    temp.email = input("Enter New email: ")
+                case "5": 
+                    pass 
+                case "6": 
+                    pass
+                case "7": 
+                    pass
+                case "b": 
+                    return
+            self.logic_wrapper.modify_player(temp)
+        
         return
     def tournament_management_menu(self):
         print(
