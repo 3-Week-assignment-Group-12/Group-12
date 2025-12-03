@@ -44,7 +44,7 @@ class FakeMainData(Main_data):
         return [Tournament(1, "Cup", "2025-12-01", "2025-12-03", "Stadium", 1, "c@example.com", 555-0000, [1], [1])]
 
 def test_get_tournaments_reads_file(tmp_path):
-    csv_content = "1,MyCup,2025-12-01,2025-12-03,MainVenue,Org,org@example.com,5551111,1,2\n"
+    csv_content = "1,MyCup,2025-12-01,2025-12-03,MainVenue,1,org@example.com,5551111,1,2\n"
     file = tmp_path / "tournaments_test.csv"
     file.write_text(csv_content, encoding="utf-8")
 
