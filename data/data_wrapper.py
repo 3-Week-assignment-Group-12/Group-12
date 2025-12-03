@@ -25,3 +25,6 @@ class DataWrapper:
     
     def write_team(self, new_team:Team):
         return self.main_data.write_team(new_team)
+    
+    def view_tournaments(self):
+        return self.main_data.view_tournaments

@@ -117,7 +117,4 @@ class Main_data:
                     pass
 
         theFile.close()
-        return teams #return the players
-    
-    
-        
+        return teams #return the players        

@@ -40,4 +40,5 @@ class LogicWrapper:
     def get_teams(self):
         return self.data_wrapper.get_teams()
 
-
+    def veiw_turnaments(self):
+        return self.data_wrapper.view_tournaments()
