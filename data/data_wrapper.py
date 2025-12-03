@@ -99,9 +99,31 @@ class DataWrapper:
             ID: Player ID
             
         Returns:
-            Player: Player instance matching the ID
+            Player|bool: Player instance if found, False otherwise
         """
         return self.main_data.get_players_by_ID(ID)
+    
+    def get_team_by_ID(self, ID:int) -> Team|bool:
+        """Retrieve a team by its ID.
+        
+        Args:
+            ID (int): Team ID
+            
+        Returns:
+            Team|bool: Team instance if found, False otherwise
+        """
+        return self.main_data.get_team_by_ID(ID)
+    
+    def get_tournament_by_ID(self, ID:int) -> Tournament|bool:
+        """Retrieve a tournament by its ID.
+        
+        Args:
+            ID (int): Tournament ID
+            
+        Returns:
+            Tournament|bool: Tournament instance if found, False otherwise
+        """
+        return self.main_data.get_tournament_by_ID(ID)
     
     def delete_player(self, player_id:int) -> bool:
         """Delete a player by their ID.
@@ -124,3 +146,15 @@ class DataWrapper:
             bool: Success status
         """
         return self.main_data.delete_team(team_id)
+    
+    def delete_tournament(self, tournament_id:int) -> bool:
+        """Delete a tournament by ID.
+
+        Args:
+            tournament_id (int): ID of tournament to delete
+
+        Returns:
+            bool: Success status
+        """
+        return self.main_data.delete_tournament(tournament_id)
+    

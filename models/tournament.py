@@ -14,15 +14,15 @@ class Tournament:
         start_date (date): Tournament start date
         end_date (str): Tournament end date
         venue_name (str): Name of the venue where the tournament is held
-        contact_name (str): Name of the tournament contact person
+        contact_id (int): Name of the tournament contact person
         contact_email (str): Email address of the contact person
-        contact_phone (str): Phone number of the contact person
+        contact_phone (int): Phone number of the contact person
         team_list (list[int]): List of team IDs participating in the tournament
         matches (list[int]): List of match IDs scheduled in the tournament
     """
     
     def __init__(self, tournament_id: int, name: str, start_date: str, end_date: str, 
-                 venue_name: str, contact_name: str, contact_email: str, contact_phone: str, 
+                 venue_name: str, contact_id: int, contact_email: str, contact_phone: int, 
                  team_list: list[int], matches: list[int]) -> None:
         """Initialize a Tournament instance.
         
@@ -35,9 +35,9 @@ class Tournament:
             start_date (str): Tournament start date
             end_date (str): Tournament end date
             venue_name (str): Name of the venue where the tournament is held
-            contact_name (str): Name of the tournament contact person
+            contact_id (int): Name of the tournament contact person
             contact_email (str): Email address of the contact person
-            contact_phone (str): Phone number of the contact person
+            contact_phone (int): Phone number of the contact person
             team_list (list[int]): List of team IDs participating in the tournament
             matches (list[int]): List of match IDs scheduled in the tournament
         """
@@ -53,9 +53,9 @@ class Tournament:
         self.venue_name: str = venue_name
         
         # Contact information
-        self.contact_name: str = contact_name
+        self.contact_id: int = contact_id
         self.contact_email: str = contact_email
-        self.contact_phone: str = contact_phone
+        self.contact_phone: int = contact_phone
         
         # Participants and events
         self.team_list: list[int] = team_list
@@ -70,7 +70,7 @@ class Tournament:
         Returns:
             str: Formatted tournament information
         """
-        return f"ID: {self.id}, Tournament: {self.name}, Venue: {self.venue_name}, Start: {self.start_date}, End: {self.end_date}, Contact: {self.contact_name} ({self.contact_email})"
+        return f"ID: {self.id}, Tournament: {self.name}, Venue: {self.venue_name}, Start: {self.start_date}, End: {self.end_date}, Contact: {self.contact_id} ({self.contact_email})"
     
     def toCSVList(self) -> list[str | int | list[int]]:
         """Convert tournament data to a list for CSV export.
@@ -81,6 +81,6 @@ class Tournament:
         
         Returns:
             list: Tournament data as a list in the following order:
-                [id,name, start_date, end_date, venue_name, contact_name, contact_email, contact_phone, team_list, matches]
+                [id, name, start_date, end_date, venue_name, contact_id, contact_email, contact_phone, team_list, matches]
         """
-        return [self.id, self.name, self.start_date, self.end_date, self.venue_name, self.contact_name, self.contact_email, self.contact_phone, self.team_list, self.matches]
+        return [self.id, self.name, self.start_date, self.end_date, self.venue_name, self.contact_id, self.contact_email, self.contact_phone, self.team_list, self.matches]
