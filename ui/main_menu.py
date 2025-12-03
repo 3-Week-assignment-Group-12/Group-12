@@ -86,11 +86,30 @@ b. Back
 
         match choice:
             case "1": 
-                pass
+                nID:int=int(input("National ID:"))
+                name:str=input("Name: ")
+                phone:int=int(input("Phone number:"))
+                address:str=input("Address: ")
+                email:str=input("Email: ")
+                self.logic_wrapper.create_player(nID,name,phone,address,email)
             case "2": 
                 self.edit_player_menu(int(input("Player National ID:")))  #Asks the user for Players National Id before going to the edit page
             case "3": 
-                pass
+                ID=int(input("Enter National ID: "))
+
+                check= self.logic_wrapper.get_player_by_ID(ID)
+                while check is False:
+                    print("Player does not exist, Try different ID")
+                    ID=int(input("Enter National ID: "))
+                    check= self.logic_wrapper.get_player_by_ID(ID)
+                x=input("Are you sure? (Y/N)")
+                if x=="y" or x=="Y":
+                    self.logic_wrapper.delete_player(ID)
+                return
+
+                
+
+                
             case "4": 
                 self.view_players_menu()
             case "b": 
@@ -119,22 +138,18 @@ Edit Players info
         match choice:
             case "1": 
                 temp.name = input("Enter New name: ")
-
             case "2": 
                 temp.phone = int(input("Enter New number: "))
-                #self.logic_wrapper.data_wrapper.modify_player((self.logic_wrapper.get_player_by_ID(Player_ID).phone = int(input("New name: ")))) Reyndum oneliner
             case "3": 
-                temp.address = input("Enter New address: ")
-                #self.logic_wrapper.data_wrapper.modify_player((self.logic_wrapper.get_player_by_ID(Player_ID).address := input("New name: ")))
+                temp.address = input("Enter New address: ")     
             case "4": 
                 temp.email = input("Enter New email: ")
-                #self.logic_wrapper.data_wrapper.modify_player((self.logic_wrapper.get_player_by_ID(Player_ID).email = input("New name: ")))
             case "5": 
-                pass #self.logic_wrapper.data_wrapper.modify_player((self.logic_wrapper.get_player_by_ID(Player_ID).handle = input("New name: ")))
+                pass 
             case "6": 
-                pass#self.logic_wrapper.data_wrapper.modify_player((self.logic_wrapper.get_player_by_ID(Player_ID).link = input("New name: ")))
+                pass
             case "7": 
-                pass#self.logic_wrapper.data_wrapper.modify_player((self.logic_wrapper.get_player_by_ID(Player_ID).portrait = input("New name: ")))
+                pass
             case "8": 
                 pass
         self.logic_wrapper.modify_player(temp)
@@ -487,7 +502,7 @@ b. Back
 
         match choice:
             case "1": 
-                pass #view all players
+                self.logic_wrapper.get_players() #view all players
             case "2": 
                 pass # View players in team
             case "3": 

@@ -38,3 +38,8 @@ class DataWrapper:
 
     def get_player_by_ID(self,ID):
         return self.main_data.get_players_by_ID(ID)
+    
+    def delete_player(self,ID):
+        return self.main_data.delete_player(ID)
+    
+    
