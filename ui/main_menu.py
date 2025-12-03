@@ -871,6 +871,32 @@ b. Back
 Invalid Input!!
 
 View Team menu
+        match choice:
+            case "1": 
+                self.logic_wrapper.get_teams() #view all teams
+            case "2": 
+                tournaments = self.logic_wrapper.get_turnaments()
+                for i in tournaments:
+                    tournament=self.logic_wrapper.get_tournament_by_ID(i.id) # type: ignore
+                    if type(tournament) == Tournament:
+                        print(f"Tournament: {tournament.name}\n")
+                        for j in tournament.team_list:
+                            team = self.logic_wrapper.get_team_by_ID(j)
+                            if type(team) == Team:
+                                print(f"Team: {team.name}\n")
+
+            case "3": 
+                pass
+            case "4": 
+                pass
+            case "5":
+                team_ID = input("Enter team ID: ")
+                i = self.logic_wrapper.get_team_by_ID(team_ID)
+                print(f"name: {i.name}")
+                print(f"tag: {i.tag}")
+                print(f"creator_id: {i.creator_id}")
+                print(f"team_size: {i.team_size}")
+                print(f"member_list: {i.member_list}")
 
 1. View All Teams
 2. View Teams In Tournament
@@ -907,7 +933,7 @@ Try again!!
     def view_tournaments_menu(self):
         print(
 """ 
-View Team menu
+View Tournament menu
 
 1. View All tournaments
 2. View Visual Tournament Tree
