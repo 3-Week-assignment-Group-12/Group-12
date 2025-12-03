@@ -63,10 +63,10 @@ class DataWrapper:
         Returns:
             bool: Success status
         """
-    def view_tournaments(self):
-        return self.main_data.view_tournaments
-    def modify_player(self,new_data:Player):
         return self.main_data.modify_player(new_data)
+    
+    def view_tournaments(self):
+        return self.main_data.view_tournaments() # type: ignore
     
     def modify_team(self, new_data:Team) -> bool:
         """Modify an existing team's data.
