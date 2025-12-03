@@ -6,11 +6,13 @@ from models.team import Team
     
 class Main_data:
     def __init__(self):
-        self.playerFilePath:str = "./data/files/players_data.txt" #the file location
-        self.teamFilePath:str = "./data/files/teams_data.txt"
+        #self.playerFilePath:str = "./data/files/players_data.csv" #the file location dummy_data/dummy_player.csv
+        self.playerFilePath:str = "./dummy_data/dummy_player.csv"
+        self.teamFilePath:str = "./data/files/teams_data.csv"
         
 
         self.check_files()
+        
         
         
     def check_files(self) -> None:
@@ -20,20 +22,12 @@ class Main_data:
         # attempts to create files if they dont exist
         try:
             file = open(self.teamFilePath, "x")
-            csvWriter = csv.writer(file) #creates a csv handler
-            
-            csvWriter.writerow(["id", "name", "tag", "creator_id", "team_size", "team_list"])
-            del csvWriter
             file.close()
         except FileExistsError:
             pass # if file exists, then ignore
         
         try:
-            file =open(self.playerFilePath, "x+")
-            csvWriter = csv.writer(file) #creates a csv handler
-            
-            csvWriter.writerow(["name","tag","capitan_id","team_size","team_list"])
-            del csvWriter
+            file =open(self.playerFilePath, "x")
             file.close()
         except FileExistsError:
             pass # if file exists, then ignore
@@ -57,15 +51,13 @@ class Main_data:
             
             
             
-    def get_players(self) -> list[Player]:
+    def get_players(self,path:str) -> list[Player]:
         """ opens file and returns a list of players """
         Players = [] # empty list 
         
-        with open( self.playerFilePath, "r+" ) as theFile: # opens file in read mode
+        with open( path, "r+" ) as theFile: # opens file in read mode
             
             csvReader = csv.reader(theFile) #creates a csv handler
-            
-            next(csvReader) # skip header
             
             for line in csvReader: # reads line by line
                 
@@ -96,16 +88,14 @@ class Main_data:
         theFile.close()
         return True # return True
     
-    def get_teams(self) -> list[Team]:
+    def get_teams(self,path) -> list[Team]:
         """ opens file and returns a list of Teams """
         
         teams: list[Team] = [] # empty list 
         
-        with open( self.teamFilePath, "r+" ) as theFile: # opens file in read mode
+        with open( path, "r+" ) as theFile: # opens file in read mode
             
             csvReader = csv.reader(theFile) #creates a csv handler
-            
-            next(csvReader) # skip header
             
             for line in csvReader: # reads line by line
                 
@@ -117,4 +107,86 @@ class Main_data:
                     pass
 
         theFile.close()
-        return teams #return the players        
+        return teams #return the players
+    
+
+    def overwrite_players(self, new_list:list[Player]):
+        print(os.path.abspath(self.playerFilePath))
+        with open( os.path.abspath(self.playerFilePath), "w" ) as theFile: # wipes file. then writes
+            
+            csvWriter = csv.writer(theFile)
+            
+            for player in new_list:
+                try:
+                    csvWriter.writerow( player.toCSVList( ) ) # try to write a row
+                except:
+                    # if we fail, we return false to indicate this.
+                    return False
+        
+        return True
+    
+    
+    def overwrite_teams(self, new_list:list[Team]):
+        
+        with open( self.teamFilePath, "W" ) as theFile: # wipes file. then writes
+            
+            csvWriter = csv.writer(theFile)
+            
+            for team in new_list:
+                try:
+                    csvWriter.writerow( team.toCSVList( ) ) # try to write a row
+                except:
+                    # if we fail, we return false to indicate this.
+                    return False
+        
+        return True
+                
+    
+    
+    def modify_player(self,new_data_player:Player):
+        
+        player_list = self.get_players(self.playerFilePath)
+
+        
+        index = 0
+        for x in player_list:
+            if x.kt == new_data_player.kt:
+                break
+            
+            index +=1
+            
+        player_list[index] = new_data_player
+        
+        self.overwrite_players(player_list)
+        
+    def modify_team(self,new_data_team:Team):
+        
+        team_list = self.get_teams(self.teamFilePath)
+
+        
+        index = 0
+        for x in team_list:
+            if x.id == new_data_team.id:
+                break
+            
+            index +=1
+            
+        team_list[index] = new_data_team
+        
+        self.overwrite_teams(team_list)
+        return True
+    
+    
+        
+    def get_players_by_ID(self,ID):
+        for x in self.get_players(self.playerFilePath):
+            if x.kt==ID:
+                return x
+        raise Exception("no player by that id")
+        
+        
+                
+        
+    
+    
+        

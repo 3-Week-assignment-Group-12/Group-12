@@ -42,3 +42,13 @@ class LogicWrapper:
 
     def veiw_turnaments(self):
         return self.data_wrapper.view_tournaments()
+    
+    def modify_player(self,new_data: Player):
+        return self.data_wrapper.modify_player(new_data)
+    
+    def get_player_by_ID(self,ID:int) -> Player:
+        return self.data_wrapper.get_player_by_ID(ID)
+    
+    def delete_player(self,ID): 
+        return self.data_wrapper.delete_player(ID)
+
