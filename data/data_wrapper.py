@@ -216,3 +216,4 @@ class DataWrapper:
             bool: Success status
         """
         return self.main_data.delete_match(match_id)
+    

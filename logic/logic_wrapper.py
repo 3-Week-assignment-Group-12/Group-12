@@ -226,3 +226,15 @@ class LogicWrapper:
             Tournament|bool: Tournament instance if found, False otherwise
         """
         return self.data_wrapper.get_tournament_by_ID(ID)
+
+    
+    def get_team_by_ID(self, ID: int) -> Team|bool:
+        """Retrieve a team by its ID.
+        
+        Args:
+            ID (int): Team ID
+            
+        Returns:
+            Team|bool: Team instance if found, False otherwise
+        """
+        return self.data_wrapper.get_team_by_ID(ID)

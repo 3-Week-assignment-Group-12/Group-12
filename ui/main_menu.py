@@ -1,6 +1,8 @@
 from __future__ import annotations
 # ui_layer/main_menu.py
 from logic.logic_wrapper import LogicWrapper
+from models.team import Team
+from models.tournament import Tournament
 
 from models.player import Player
 
@@ -535,6 +537,9 @@ b. Back
             case "b": 
                 pass
         return
+    
+
+
     def view_players_menu(self):
         print(
 """ 
@@ -544,7 +549,7 @@ View Players menu
 2. View Player In Teams
 3. View PLayers In Tournaments
 4. View Specific Players
-5. View Specific Team
+5. View Statistics
 b. Back
 
 
@@ -555,14 +560,37 @@ b. Back
             case "1": 
                 self.logic_wrapper.get_players() #view all players
             case "2": 
-                pass # View players in team
+                teams=self.logic_wrapper.get_teams()
+                for x in teams:
+                    team=self.logic_wrapper.get_team_by_ID(x.id)
+                    if type(team) == Team:
+                        print(f"Team: {team.name}\n")
+                        for pl in team.member_list:
+                            print(pl)
+
+                
+                
+                
+                
+                 # View players in team
             case "3": 
+                tournaments=self.logic_wrapper.get_turnaments()
+                for i in tournaments:
+                    tournament=self.logic_wrapper.get_tournament_by_ID(i.id) # type: ignore
+                    if type(tournament) == Tournament:
+                        print(f"Tournament: {tournament.name}\n")
+                        for j in tournament.team_list:
+                            team = self.logic_wrapper.get_team_by_ID(j)
+                            if type(team) == Team:
+                                print(f"Team: {team.name}\n")
+                                for pl in team.member_list:
+                                    print(pl)
                 pass#self.logic_wrapper.
                 #self.logic_wrapper.get_team_by_ID(input("Enter Team : "))
             case "4": 
                 pass # view specific player
             case "5": 
-                pass # view statistics
+                pass # view statistics team
             case "b": 
                 pass
         return
