@@ -51,4 +51,8 @@ class LogicWrapper:
     
     def delete_player(self,ID): 
         return self.data_wrapper.delete_player(ID)
-
+    
+"""    def get_team_by_ID(self,ID):
+        return 
+    def get_all_teams_in_tournament(self,ID): 
+        return self.data_wrapper."""
