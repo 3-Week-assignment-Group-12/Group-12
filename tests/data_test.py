@@ -41,7 +41,7 @@ class FakeMainData(Main_data):
         return True
 
     def get_tournaments(self, path=None):
-        return [Tournament(1, "Cup", "2025-12-01", "2025-12-03", "Stadium", "Contact", "c@example.com", "555-0000", [1], [1])]
+        return [Tournament(1, "Cup", "2025-12-01", "2025-12-03", "Stadium", 1, "c@example.com", 555-0000, [1], [1])]
 
 def test_get_tournaments_reads_file(tmp_path):
     csv_content = "1,MyCup,2025-12-01,2025-12-03,MainVenue,Org,org@example.com,5551111,1,2\n"
@@ -88,6 +88,6 @@ def test_datawrapper_tournament_wrappers():
     assert isinstance(tours, list)
     assert tours and isinstance(tours[0], Tournament)
 
-    new_tour = Tournament(2, "Cup2", "2026-01-01", "2026-01-02", "Hall", "Org", "org@e.com", "000", [2], [20])
+    new_tour = Tournament(2, "Cup2", "2026-01-01", "2026-01-02", "Hall", 2, "org@e.com", 000, [2], [20])
     assert dw.write_tournament(new_tour) is True
     assert fake.saved_tournament is new_tour
