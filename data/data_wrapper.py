@@ -1,6 +1,7 @@
 from data.main_data_manager import Main_data
 from models.player import Player
 from models.team import Team
+from models.tournament import Tournament
 class DataWrapper:
 
     
@@ -65,8 +66,20 @@ class DataWrapper:
         """
         return self.main_data.modify_player(new_data)
     
-    def view_tournaments(self):
-        return self.main_data.view_tournaments() # type: ignore
+    def get_tournaments(self) -> list[Tournament]:
+        return self.main_data.get_tournaments(self.main_data.tournamentFilePath)
+    
+    def write_tournament(self, new_tournament:Tournament) -> bool:
+        """Write a new tournament instance to file.
+        
+        Args:
+            new_tournament (Tournament): Tournament instance to write
+            
+        Returns:
+            bool: Success status
+        """
+        return self.main_data.write_tournament(new_tournament)
+    
     
     def modify_team(self, new_data:Team) -> bool:
         """Modify an existing team's data.

@@ -9,10 +9,10 @@ class Tournament:
     identification, dates, venue details, contact information, and participating teams/matches.
     
     Attributes:
-        tournament_id (int): Unique identifier for the tournament
+        id (int): Unique identifier for the tournament
         name (str): Name of the tournament
         start_date (date): Tournament start date
-        end_date (date): Tournament end date
+        end_date (str): Tournament end date
         venue_name (str): Name of the venue where the tournament is held
         contact_name (str): Name of the tournament contact person
         contact_email (str): Email address of the contact person
@@ -30,10 +30,10 @@ class Tournament:
         venue details, contact information, and participant/match lists.
         
         Args:
-            tournament_id (int): Unique identifier for the tournament
+            id (int): Unique identifier for the tournament
             name (str): Name of the tournament
-            start_date (date): Tournament start date
-            end_date (date): Tournament end date
+            start_date (str): Tournament start date
+            end_date (str): Tournament end date
             venue_name (str): Name of the venue where the tournament is held
             contact_name (str): Name of the tournament contact person
             contact_email (str): Email address of the contact person
@@ -70,7 +70,7 @@ class Tournament:
         Returns:
             str: Formatted tournament information
         """
-        return f"Tournament: {self.name}, Venue: {self.venue_name}, Start: {self.start_date}, End: {self.end_date}, Contact: {self.contact_name} ({self.contact_email})"
+        return f"ID: {self.id}, Tournament: {self.name}, Venue: {self.venue_name}, Start: {self.start_date}, End: {self.end_date}, Contact: {self.contact_name} ({self.contact_email})"
     
     def toCSVList(self) -> list[str | int | list[int]]:
         """Convert tournament data to a list for CSV export.
@@ -81,7 +81,6 @@ class Tournament:
         
         Returns:
             list: Tournament data as a list in the following order:
-                [name, start_date, end_date, venue_name, contact_name,
-                 contact_email, contact_phone, team_list, matches]
+                [id,name, start_date, end_date, venue_name, contact_name, contact_email, contact_phone, team_list, matches]
         """
         return [self.id, self.name, self.start_date, self.end_date, self.venue_name, self.contact_name, self.contact_email, self.contact_phone, self.team_list, self.matches]
