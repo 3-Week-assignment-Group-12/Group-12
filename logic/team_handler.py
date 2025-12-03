@@ -3,7 +3,7 @@ from models.team import Team
 
 class team_handler:
     
-    def create_team(self, name:str, tag:str, creator_id:int, team_size:int,teams:list[Team],member_list:list[int]) -> Team| bool:
+    def create_team(self, name:str, tag:str, creator_id:int, team_size:int, teams:list[Team], member_list:list[int]) -> Team| bool:
         # 1. Validate Input (Business Logic)        
         if len(str(creator_id)) != 10 or len(tag) > 20: ##validate length of KT and tag length
             return False
