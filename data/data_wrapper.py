@@ -1,4 +1,5 @@
 from data.main_data_manager import Main_data
+from models.match import Match
 from models.player import Player
 from models.team import Team
 from models.tournament import Tournament
@@ -13,6 +14,8 @@ class DataWrapper:
         """Load dummy data from CSV files for testing purposes."""
         self.main_data.get_players("./dummy_data/dummy_player.csv")  
         self.main_data.get_teams("./dummy_data/dummy_teams.csv")
+        #self.main_data.get_tournaments("./dummy_data/dummy_tournaments.csv") no data available
+        #self.main_data.get_matches("./dummy_data/dummy_matches.csv") no data available
         
     
     def write_player(self, new_player:Player) -> bool:
@@ -35,6 +38,14 @@ class DataWrapper:
             list[Player]: List of all players
         """
         return self.main_data.get_players(self.main_data.playerFilePath)
+    
+    def get_matches(self) -> list[Match]:
+        """Retrieve all matches from file.
+        
+        Returns:
+            list[PlMatchayer]: List of all Matches
+        """
+        return self.main_data.get_matches(self.main_data.matchfilePath)
     
     def get_teams(self) -> list[Team]:
         """Retrieve all teams from file.
@@ -80,6 +91,17 @@ class DataWrapper:
         """
         return self.main_data.write_tournament(new_tournament)
     
+    def write_match(self, new_match:Match) -> bool:
+        """Write a new match instance to file.
+        
+        Args:
+            new_match (Match): match instance to write
+            
+        Returns:
+            bool: Success status
+        """
+        return self.main_data.write_match(new_match)
+    
     
     def modify_team(self, new_data:Team) -> bool:
         """Modify an existing team's data.
@@ -91,6 +113,17 @@ class DataWrapper:
             bool: Success status
         """
         return self.main_data.modify_team(new_data)
+    
+    def modify_match(self, new_data:Match) -> bool:
+        """Modify an existing match's data.
+        
+        Args:
+            new_data (Match): Updated match instance
+            
+        Returns:
+            bool: Success status
+        """
+        return self.main_data.modify_match(new_data)
 
     def get_player_by_ID(self, ID) -> Player|bool:
         """Retrieve a player by their ID.
@@ -125,6 +158,21 @@ class DataWrapper:
         """
         return self.main_data.get_tournament_by_ID(ID)
     
+    
+    def get_match_by_ID(self, ID:int) -> Match|bool:
+        """Retrieve a tournament by its ID.
+        
+        Args:
+            ID (int): Match ID
+            
+        Returns:
+            Match|bool: Match instance if found, False otherwise
+        """
+        return self.main_data.get_match_by_ID(ID)
+    
+    
+    
+    
     def delete_player(self, player_id:int) -> bool:
         """Delete a player by their ID.
         
@@ -157,4 +205,15 @@ class DataWrapper:
             bool: Success status
         """
         return self.main_data.delete_tournament(tournament_id)
+    
+    def delete_match(self, match_id:int) -> bool:
+        """Delete a match by ID.
+
+        Args:
+            match_id (int): ID of match to delete
+
+        Returns:
+            bool: Success status
+        """
+        return self.main_data.delete_match(match_id)
     

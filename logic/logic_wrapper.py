@@ -3,9 +3,11 @@ from data.data_wrapper import DataWrapper
 from logic.player_handler import player_handler
 from logic.team_handler import team_handler
 from logic.tournament_handler import tournament_handler
+from logic.match_handler import match_handler
 from models.tournament import Tournament
 from models.player import Player
 from models.team import Team
+from models.match import Match
 
 
 class LogicWrapper:
@@ -16,6 +18,7 @@ class LogicWrapper:
         self.player_handler = player_handler()
         self.team_handler = team_handler()
         self.tournament_handler = tournament_handler()
+        self.match_handler = match_handler()
         
     def create_player(self, KT, name, phone, address, email) -> bool:
         """Create a new player with validation.
@@ -33,6 +36,28 @@ class LogicWrapper:
         new_player: Player|bool = self.player_handler.create_player(KT, name, phone, address, email, self.data_wrapper.get_players())
         if type(new_player) == Player:
             return self.data_wrapper.write_player(new_player)
+        else:
+            return False
+        
+    def create_match(self, team1_id: int,team2_id: int,date: str, time: str,server_id: int,winner_id: int | None,Score:int) -> bool:
+        """Create a new match with validation.
+        
+        Args:
+            match_id: int
+            team1_id: int
+            team2_id: int
+            date: str
+            match time: str
+            server_id: int
+            winner_id: int | None
+            Score:int
+            
+        Returns:
+            bool: Success status
+        """
+        new_match: Match|bool = self.match_handler.create_match(team1_id,team2_id,date, time,server_id,winner_id,Score,self.data_wrapper.get_matches())
+        if type(new_match) == Match:
+            return self.data_wrapper.write_match(new_match)
         else:
             return False
     
@@ -96,6 +121,17 @@ class LogicWrapper:
         """
         return self.data_wrapper.modify_player(new_data)
     
+    def modify_match(self, new_data: Match) -> bool:
+        """Modify an existing Match's data.
+        
+        Args:
+            new_data (PlMatchayer): Updated Match instance
+            
+        Returns:
+            bool: Success status
+        """
+        return self.data_wrapper.modify_match(new_data)
+    
     def get_player_by_ID(self, ID: int) -> Player|bool:
         """Retrieve a player by their ID.
         
@@ -106,6 +142,17 @@ class LogicWrapper:
             Player|bool: Player instance if found, False otherwise
         """
         return self.data_wrapper.get_player_by_ID(ID)
+
+    def get_match_by_ID(self, ID: int) -> Match|bool:
+        """Retrieve a match by their ID.
+        
+        Args:
+            ID (int): match ID
+            
+        Returns:
+            Match|bool: Match instance if found, False otherwise
+        """
+        return self.data_wrapper.get_match_by_ID(ID)
     
     def delete_player(self, ID: int) -> bool:
         """Delete a player by their ID.
@@ -117,6 +164,17 @@ class LogicWrapper:
             bool: Success status
         """
         return self.data_wrapper.delete_player(ID)
+    
+    def delete_match(self, ID: int) -> bool:
+        """Delete a match by their ID.
+        
+        Args:
+            ID (int): match ID to delete
+            
+        Returns:
+            bool: Success status
+        """
+        return self.data_wrapper.delete_match(ID)
     
     def create_tournament(self, name: str, start_date: str, end_date: str,  venue:str, contact_id:int, contact_email:str, contact_phone: int, team_list: list[int], matches:list[int]) -> bool:
         """Create a new tournament with validation.
