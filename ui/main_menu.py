@@ -613,7 +613,7 @@ View Team menu
 2. View Teams In Tournament
 3. View Visual Team Tournaments
 4. View Statistics
-5. View Statistic
+5. View specific team
 b. Back
 
 
@@ -622,15 +622,22 @@ b. Back
 
         match choice:
             case "1": 
-                pass # view all teams
+                self.logic_wrapper.get_teams() #view all teams
             case "2": 
                 pass
             case "3": 
                 pass
             case "4": 
                 pass
-            case "5": 
-                pass
+            case "5":
+                team_ID = input("Enter team ID: ")
+                i = self.logic_wrapper.get_team_by_ID(team_ID)
+                print(f"name: {i.name}")
+                print(f"tag: {i.tag}")
+                print(f"creator_id: {i.creator_id}")
+                print(f"team_size: {i.team_size}")
+                print(f"member_list: {i.member_list}")
+
             case "b": 
                 pass
         return
