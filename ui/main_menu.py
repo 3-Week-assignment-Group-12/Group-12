@@ -833,48 +833,20 @@ Try again!!
                                         print(pl)
                     pass#self.logic_wrapper.
                     #self.logic_wrapper.get_team_by_ID(input("Enter Team : "))
-                case "4": 
-                    pass # view specific player
+                case "4":
+                    player_ID = int(input("Enter player ID: "))
+                    x = self.logic_wrapper.get_player_by_ID(player_ID)
+                    print(f"name: {x.name}") 
+                    print(f"KT: {x.kt}")
+                    print(f"dob: {x.dob}")
+                    print(f"phone: {x.phone}")
+                    print(f"address: {x.address}")
+                    print(f"email: {x.email}")
                 case "5": 
                     pass # view statistics team
                 case "b": 
                     pass
-            
-                
-                
-                
-                
-                 # View players in team
-            case "3": 
-                tournaments=self.logic_wrapper.get_turnaments()
-                for i in tournaments:
-                    tournament=self.logic_wrapper.get_tournament_by_ID(i.id) # type: ignore
-                    if type(tournament) == Tournament:
-                        print(f"Tournament: {tournament.name}\n")
-                        for j in tournament.team_list:
-                            team = self.logic_wrapper.get_team_by_ID(j)
-                            if type(team) == Team:
-                                print(f"Team: {team.name}\n")
-                                for pl in team.member_list:
-                                    print(pl)
-                pass#self.logic_wrapper.
-                #self.logic_wrapper.get_team_by_ID(input("Enter Team : "))
-            case "4": 
-                player_ID = input("Enter player ID: ")
-                x = self.logic_wrapper.get_player_by_ID(player_ID)
-                print(f"name: {x.name}")
-                print(f"KT: {x.kt}")
-                print(f"dob: {x.dob}")
-                print(f"phone: {x.phone}")
-                print(f"address: {x.address}")
-                print(f"email: {x.email}")
-
-                # view specific player
-            case "5": 
-                pass # view statistics team
-            case "b": 
-                pass
-        return
+        
 
     def view_team_menu(self):
         print(
@@ -909,42 +881,28 @@ b. Back
 
 Try again!!
 """)
-
+            
             match choice:
                 case "1": 
-                    pass # view all teams
+                    self.logic_wrapper.get_teams() #view all teams
                 case "2": 
                     pass
                 case "3": 
                     pass
                 case "4": 
                     pass
-                case "5": 
-                    pass
+                case "5":
+                    team_ID = int(input("Enter team ID: "))
+                    i = self.logic_wrapper.get_team_by_ID(team_ID)
+                    print(f"name: {i.name}")
+                    print(f"tag: {i.tag}")
+                    print(f"creator_id: {i.creator_id}")
+                    print(f"team_size: {i.team_size}")
+                    print(f"member_list: {i.member_list}")
+
                 case "b": 
                     pass
-            
-        match choice:
-            case "1": 
-                self.logic_wrapper.get_teams() #view all teams
-            case "2": 
-                pass
-            case "3": 
-                pass
-            case "4": 
-                pass
-            case "5":
-                team_ID = input("Enter team ID: ")
-                i = self.logic_wrapper.get_team_by_ID(team_ID)
-                print(f"name: {i.name}")
-                print(f"tag: {i.tag}")
-                print(f"creator_id: {i.creator_id}")
-                print(f"team_size: {i.team_size}")
-                print(f"member_list: {i.member_list}")
-
-            case "b": 
-                pass
-        return
+            return
 
     def view_tournaments_menu(self):
         print(
