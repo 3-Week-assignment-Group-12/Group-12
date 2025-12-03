@@ -1,6 +1,8 @@
 from __future__ import annotations
 # ui_layer/main_menu.py
 from logic.logic_wrapper import LogicWrapper
+from models.team import Team
+from models.tournament import Tournament
 
 from models.player import Player
 
@@ -555,8 +557,38 @@ b. Back
             case "1": 
                 self.logic_wrapper.get_players() #view all players
             case "2": 
-                pass # View players in team
+                teams=self.logic_wrapper.get_teams()
+                for x in teams:
+                    team=self.logic_wrapper.get_team_by_ID(x.id)
+                    if type(team) == Team:
+                        print(f"Team: {team.name}\n")
+                        for pl in team.member_list:
+                            print(pl)
+
+                
+                
+                
+                
+                 # View players in team
             case "3": 
+                tournaments=self.logic_wrapper.get_turnaments()
+                for i in tournaments:
+                    tournament=self.logic_wrapper.get_tournament_by_ID(i.id) # type: ignore
+                    
+
+
+
+                    teams=self.logic_wrapper.get_teams()
+                    for x in teams:
+                        team=self.logic_wrapper.get_team_by_ID(x.id)
+                        if type(team) == Team:
+                            print(f"Team: {team.name}\n")
+                            for pl in team.member_list:
+                                print(pl)
+
+                    
+
+
                 pass#self.logic_wrapper.
                 #self.logic_wrapper.get_team_by_ID(input("Enter Team : "))
             case "4": 
