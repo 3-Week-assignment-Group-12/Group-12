@@ -11,7 +11,7 @@ class DataWrapper:
     def get_dummy_data(self):
         """Load dummy data from CSV files for testing purposes."""
         self.main_data.get_players("./dummy_data/dummy_player.csv")  
-        #self.main_data.get_teams("./dummy_data/dummy_teams.csv")
+        #self.main_data.get_teams("./dummy_data/dummy_teams.csv") dummy teams are broken
         
     
     def write_player(self, new_player:Player) -> bool:
