@@ -629,7 +629,7 @@ b. Back
     def view_tournaments_menu(self):
         print(
 """ 
-View Team menu
+View Tournament menu
 
 1. View All tournaments
 2. View Visual Tournament Tree
