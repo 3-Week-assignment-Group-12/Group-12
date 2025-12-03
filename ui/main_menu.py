@@ -588,7 +588,16 @@ b. Back
                 pass#self.logic_wrapper.
                 #self.logic_wrapper.get_team_by_ID(input("Enter Team : "))
             case "4": 
-                pass # view specific player
+                player_ID = input("Enter player ID: ")
+                x = self.logic_wrapper.get_player_by_ID(player_ID)
+                print(f"name: {x.name}")
+                print(f"KT: {x.kt}")
+                print(f"dob: {x.dob}")
+                print(f"phone: {x.phone}")
+                print(f"address: {x.address}")
+                print(f"email: {x.email}")
+
+                # view specific player
             case "5": 
                 pass # view statistics team
             case "b": 
