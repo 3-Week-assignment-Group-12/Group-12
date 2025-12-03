@@ -167,14 +167,14 @@ class Main_data:
                     start_date = line[2]
                     end_date = line[3]
                     venue_name = line[4]
-                    contact_name = line[5]
+                    contact_id = int(line[5])
                     contact_email = line[6]
-                    contact_phone = line[7]
+                    contact_phone = int(line[7])
                     team_list = [int(x) for x in line[8].split(",") if x]
                     matches = [int(x) for x in line[9].split(",") if x]
                     tournament = Tournament(
                         tournament_id, name, start_date, end_date, venue_name,
-                        contact_name, contact_email, contact_phone, team_list, matches
+                        contact_id, contact_email, contact_phone, team_list, matches
                     )
                     tournaments.append(tournament)
                 except (IndexError, ValueError):
@@ -296,6 +296,18 @@ class Main_data:
             if x.kt==ID:
                 return x
         return False
+    
+    def get_team_by_ID(self,ID):
+        for x in self.get_teams(self.teamFilePath):
+            if x.id==ID:
+                return x
+        return False
+    
+    def get_tournament_by_ID(self,ID):
+        for x in self.get_tournaments(self.tournamentFilePath):
+            if x.id==ID:
+                return x
+        return False
         
         
     def delete_player(self,player_id:int) -> bool:
@@ -330,6 +342,23 @@ class Main_data:
         team_list.pop(count)
         
         self.overwrite_teams(team_list)
+        return True
+    
+    def delete_tournament(self,tournament_id:int) -> bool:
+        
+        tournament_list = self.get_tournaments(self.tournamentFilePath)
+        
+        count:int = 0
+        for tournament in tournament_list:
+            if tournament.id == tournament_id:
+                break
+            count +=1
+        if count == len(tournament_list)+1:
+            return False
+        
+        tournament_list.pop(count)
+        
+        self.overwrite_tournaments(tournament_list)
         return True
 
 

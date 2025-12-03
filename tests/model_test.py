@@ -28,7 +28,7 @@ def test_team_to_csv_and_factory():
 
 def test_tournament_to_csv_and_str():
     # use simple values; tests don't enforce date type to avoid coupling to implementation
-    tour = Tournament(1, "Cup", "2025-12-01", "2025-12-03", "Stadium", "Contact", "c@example.com", "555-0000", [1, 2], [10, 11])
+    tour = Tournament(1, "Cup", "2025-12-01", "2025-12-03", "Stadium", 1, "c@example.com", 555-0000, [1, 2], [10, 11])
     csv = tour.toCSVList()
     assert csv[0] == 1
     assert csv[4] == "Stadium"

@@ -17,7 +17,7 @@ class Team:
         team_list (list[int]): List of player IDs currently in the team
     """
     
-    def __init__(self, TID: int, name: str, tag: str, creator_id: int, team_size: int, team_list: list[int]) -> None:
+    def __init__(self, TID: int, name: str, tag: str, creator_id: int, team_size: int, member_list: list[int]) -> None:
         """Initialize a Team instance.
         
         Creates a new team with the specified details including identification,
@@ -36,7 +36,7 @@ class Team:
         self.tag: str = tag
         self.creator_id: int = creator_id
         self.team_size: int = team_size
-        self.team_list: list[int] = team_list
+        self.member_list: list[int] = member_list
         
         
     def __str__(self) -> str:
@@ -79,4 +79,4 @@ class Team:
             list: Team data as a list in the following order:
                 [name, tag, creator_id, team_size, team_list]
         """
-        return [self.name, self.tag, self.creator_id, self.team_size, self.team_list]
+        return [self.name, self.tag, self.creator_id, self.team_size, self.member_list]
