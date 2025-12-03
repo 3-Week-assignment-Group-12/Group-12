@@ -89,7 +89,16 @@ class Main_data:
         return True # return True
     
     def get_teams(self,path) -> list[Team]:
-        """ opens file and returns a list of Teams """
+        """ opens file and returns a list of Teams
+
+        Args:
+            path (str): use self.teampath
+
+        Returns:
+            list[Team]: list of all teams
+        """
+        
+        
         
         teams: list[Team] = [] # empty list 
         
@@ -110,7 +119,7 @@ class Main_data:
         return teams #return the players
     
 
-    def overwrite_players(self, new_list:list[Player]):
+    def overwrite_players(self, new_list:list[Player]) -> bool:
         print(os.path.abspath(self.playerFilePath))
         with open( os.path.abspath(self.playerFilePath), "w" ) as theFile: # wipes file. then writes
             
@@ -126,7 +135,7 @@ class Main_data:
         return True
     
     
-    def overwrite_teams(self, new_list:list[Team]):
+    def overwrite_teams(self, new_list:list[Team]) -> bool:
         
         with open( self.teamFilePath, "W" ) as theFile: # wipes file. then writes
             
@@ -143,7 +152,7 @@ class Main_data:
                 
     
     
-    def modify_player(self,new_data_player:Player):
+    def modify_player(self,new_data_player:Player) -> bool:
         
         player_list = self.get_players(self.playerFilePath)
 
@@ -152,14 +161,16 @@ class Main_data:
         for x in player_list:
             if x.kt == new_data_player.kt:
                 break
-            
             index +=1
+        if index == len(player_list)+1:
+            return False
             
         player_list[index] = new_data_player
         
         self.overwrite_players(player_list)
+        return True
         
-    def modify_team(self,new_data_team:Team):
+    def modify_team(self,new_data_team:Team) -> bool:
         
         team_list = self.get_teams(self.teamFilePath)
 
@@ -168,8 +179,9 @@ class Main_data:
         for x in team_list:
             if x.id == new_data_team.id:
                 break
-            
             index +=1
+        if index == len(team_list)+1:
+            return False
             
         team_list[index] = new_data_team
         
@@ -182,10 +194,47 @@ class Main_data:
         for x in self.get_players(self.playerFilePath):
             if x.kt==ID:
                 return x
-        raise Exception("no player by that id")
+        return False
         
+        
+    def delete_player(self,player_id:int) -> bool:
+        player_list = self.get_players(self.playerFilePath)
+        
+        count:int = 0
+        for player in player_list:
+            if player.kt == player_id:
+                break
+            count +=1
+        if count == len(player_list)+1:
+            return False
+        
+        player_list.pop(count)
+        
+        self.overwrite_players(player_list)
+        return True
+        
+        
+    def delete_team(self,team_id:int) -> bool:
+        
+        team_list = self.get_teams(self.teamFilePath)
+        
+        count:int = 0
+        for player in team_list:
+            if player.id == team_id:
+                break
+            count +=1
+        if count == len(team_list)+1:
+            return False
+        
+        team_list.pop(count)
+        
+        self.overwrite_teams(team_list)
+        return True
         
                 
+        
+        
+        
         
     
     
