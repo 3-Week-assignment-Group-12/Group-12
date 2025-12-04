@@ -257,3 +257,13 @@ class LogicWrapper:
         """
         
         return self.tournament_handler.generate_bracket(tournament, preveus_matches)
+    
+
+    def get_clubs(self):
+        """Retrieve all clubs.
+        
+        Returns:
+            list[Clubs]: List of all clubs
+        """
+        #return self.data_wrapper.get_clubs()
+        return
