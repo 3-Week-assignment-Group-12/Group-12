@@ -3,7 +3,7 @@ from models.match import Match
 
 class match_handler:
     
-    def create_match(self, team1_id: int,team2_id: int,date: str, time: str,server_id: int,winner_id: int | None,Score:int,existing_matches:list[Match]) -> Match:
+    def create_match(self, team1_id: int,team2_id: int,tournament_id:int ,date: str, time: str,server_id: int,winner_id: int,Score:int,existing_matches:list[Match]) -> Match:
         # 1. Validate Input (Business Logic)        
         
         
@@ -14,7 +14,7 @@ class match_handler:
         highest+=1 # find new id
         
         # 2. Create Model Object
-        new_match = Match(highest, team1_id,team2_id,date, time,server_id,winner_id,Score)
+        new_match = Match(highest, team1_id,team2_id,tournament_id,date, time,server_id,winner_id,Score)
 
         # 3. Pass to Data Layer
         return new_match

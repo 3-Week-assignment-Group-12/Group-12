@@ -55,6 +55,16 @@ class DataWrapper:
         """
         return self.main_data.get_teams(self.main_data.teamFilePath)
     
+    def get_matches_by_tournament_ID(self, tournament_id:int) -> list[Match]:
+        """Retrieve all matches for a specific tournament ID.
+        
+        Args:
+            tournament_id (int): Tournament ID to filter matches
+        Returns:
+            list[Match]: List of matches for the specified tournament
+        """
+        return self.main_data.get_matches_by_tournament_ID(tournament_id)
+    
     def write_team(self, new_team:Team) -> bool:
         """Write a new team instance to file.
         
@@ -216,4 +226,5 @@ class DataWrapper:
             bool: Success status
         """
         return self.main_data.delete_match(match_id)
+    
     

@@ -1,4 +1,5 @@
 
+from models.match import Match
 from models.tournament import Tournament
 
 class tournament_handler:
@@ -21,3 +22,6 @@ class tournament_handler:
 
         # 3. Pass to Data Layer
         return new_team
+    
+    def generate_bracket(self, tournament: Tournament, previus_matches: list[Match]) -> list[tuple[int, int]] | int:
+        return tournament.generate_knockout_bracket(previus_matches)
