@@ -2,6 +2,13 @@
     "python.testing.pytestArgs": [
         "tests"
     ],
-    "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.unittestEnabled": true,
+    "python.testing.pytestEnabled": true,
+    "python.autoComplete.extraPaths": [
+
+        "UI_layer/UL_API.py",
+        "logic_layer/LL_API.py",
+        "data_layer/DL_API.py",
+        "models/*"
+    ],
 }

@@ -5,7 +5,6 @@ from models.bracket import Bracket
 from models.player import Player
 from models.team import Team
 from models.tournament import Tournament
-from models.match import Match
     
 class Main_data:
     def __init__(self):
