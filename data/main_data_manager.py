@@ -1,15 +1,17 @@
 import os
-from models.player import Player
 import csv
 
+from models.player import Player
 from models.team import Team
 from models.tournament import Tournament
+from models.match import Match
     
 class Main_data:
     def __init__(self):
         self.playerFilePath:str = "./data/files/players_data.csv"
         self.teamFilePath:str = "./data/files/teams_data.csv"
         self.tournamentFilePath:str = "./data/files/tournaments_data.csv"
+        self.matchfilePath:str = "./data/files/matches_data.csv"
         
 
         self.check_files()
@@ -84,6 +86,22 @@ class Main_data:
             
             try:
                 csvWriter.writerow( new_taurnament.toCSVList( ) ) # try to write a row
+            except:
+				# if we fail, we return false to indicate this.
+                return False
+            
+        theFile.close()
+        return True # return True
+    
+    def write_match(self, new_match:Match) -> bool:
+        """ Writes new match data. returns False if failed and True if it worked"""
+        
+        with open( self.matchfilePath, 'a' ) as theFile: #open file in append mode
+            
+            csvWriter = csv.writer(theFile) #creates a csv handler
+            
+            try:
+                csvWriter.writerow( new_match.toCSVList( ) ) # try to write a row
             except:
 				# if we fail, we return false to indicate this.
                 return False
@@ -183,7 +201,34 @@ class Main_data:
 
         return tournaments
     
-    
+    def get_matches(self,path) -> list[Match]:
+        """ opens file and returns a list of Matches
+
+        Args:
+            path (str):
+
+        Returns:
+            list[Match]: list of all matches
+        """
+        
+        Matches: list[Match] = [] # empty list 
+        
+        with open( path, "r+" ) as theFile: # opens file in read mode
+            
+            csvReader = csv.reader(theFile) #creates a csv handler
+            
+            for line in csvReader: # reads line by line
+                
+				# turn csv line into team instance
+                try:
+                    match = Match( int(line[0]),int(line[1]),int(line[2]), line[3],line[4], int(line[5]), int(line[6]) if line[6] != 'None' else None ,int(line[7]) )
+                    Matches.append(match)  #add player to team list
+                except (IndexError, ValueError):
+                    # Skip lines that don't match expected format
+                    pass
+
+        theFile.close()
+        return Matches #return the players
 
     
 
@@ -227,6 +272,21 @@ class Main_data:
             for tournament in new_list:
                 try:
                     csvWriter.writerow( tournament.toCSVList( ) ) # try to write a row
+                except:
+                    # if we fail, we return false to indicate this.
+                    return False
+        
+        return True
+    
+    def overwrite_matches(self, new_list:list[Match]) -> bool:
+        
+        with open( self.matchfilePath, "w" ) as theFile: # wipes file. then writes
+            
+            csvWriter = csv.writer(theFile)
+            
+            for match in new_list:
+                try:
+                    csvWriter.writerow( match.toCSVList( ) ) # try to write a row
                 except:
                     # if we fail, we return false to indicate this.
                     return False
@@ -289,6 +349,24 @@ class Main_data:
         self.overwrite_teams(team_list)
         return True
     
+    def modify_match(self,new_data_match:Match) -> bool:
+        
+        match_list = self.get_matches(self.teamFilePath)
+
+        
+        index = 0
+        for x in match_list:
+            if x.match_id == new_data_match.match_id:
+                break
+            index +=1
+        if index == len(match_list)+1:
+            return False
+            
+        match_list[index] = new_data_match
+        
+        self.overwrite_matches(match_list)
+        return True
+    
     
         
     def get_players_by_ID(self,ID):
@@ -306,6 +384,12 @@ class Main_data:
     def get_tournament_by_ID(self,ID):
         for x in self.get_tournaments(self.tournamentFilePath):
             if x.id==ID:
+                return x
+        return False
+    
+    def get_match_by_ID(self,ID):
+        for x in self.get_matches(self.tournamentFilePath):
+            if x.match_id==ID:
                 return x
         return False
         
@@ -359,6 +443,23 @@ class Main_data:
         tournament_list.pop(count)
         
         self.overwrite_tournaments(tournament_list)
+        return True
+    
+    def delete_match(self,match_id:int) -> bool:
+        
+        match_list = self.get_matches(self.tournamentFilePath)
+        
+        count:int = 0
+        for tournament in match_list:
+            if tournament.match_id == match_id:
+                break
+            count +=1
+        if count == len(match_list)+1:
+            return False
+        
+        match_list.pop(count)
+        
+        self.overwrite_matches(match_list)
         return True
 
 

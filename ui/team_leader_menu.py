@@ -1,0 +1,303 @@
+from __future__ import annotations
+# ui_layer/main_menu.py
+from logic.logic_wrapper import LogicWrapper
+from models.team import Team
+from models.tournament import Tournament
+
+from models.player import Player
+from ui.Organizer_menu import OrganizerMenu
+from ui.tournament_management import TournamentManagement
+
+class TeamLeader()
+    def __init__(self,low : LogicWrapper) -> None:
+        self.logic_wrapper = low
+        pass
+
+
+
+    def teamleader_menu(self):
+        print(
+""" 
+View Team
+
+1. View My Team Info (view menu shortcut)
+2. View My Tournaments (view menu shortcut)
+b. Back 
+""")
+        while True:
+            choice=input("Enter input: ")
+            if choice not in ["1","2","b","B"]:
+
+                print(
+""" 
+Invalid Input!!
+
+View Team
+
+1. View My Team Info (view menu shortcut)
+2. View My Tournaments (view menu shortcut)
+b. Back 
+
+Try again!!
+""")
+
+            match choice:
+                case "1": 
+                    pass  # call funtion for specific team to check out
+                case "2": 
+                    pass # call funtion for specific team to check ou
+                case "b": 
+                    pass
+           
+    
+    
+
+    def view_team_teamleader_menu(self):
+        print(
+""" 
+View Team
+
+1. View My Team Info (view menu shortcut)
+2. View My Tournaments (view menu shortcut)
+b. Back 
+""")
+        while True:
+            choice=input("Enter input: ")
+            if choice not in ["1","2","b","B"]:
+
+                print(
+""" 
+Invalid Input!!
+
+View Team
+
+1. View My Team Info (view menu shortcut)
+2. View My Tournaments (view menu shortcut)
+b. Back 
+
+Try again!!
+""")
+
+            match choice:
+                case "1": 
+                    pass  # call funtion for specific team to check out
+                case "2": 
+                    pass # call funtion for specific team to check ou
+                case "b": 
+                    pass
+           
+    
+    def rewards_menu_teamleader(self):
+        print(
+""" 
+Rewards Menu
+
+1. Rewards points
+2. Rewards Log
+b. Back 
+""")
+        while True:
+            choice=input("Enter input: ")
+            if choice not in ["1","2","b","B"]:
+
+                print(
+""" 
+Invalid Input!!
+
+Rewards Menu
+
+1. Rewards points
+2. Rewards Log
+b. Back 
+
+Try again!!
+""")
+
+            match choice:
+                case "1": 
+                    pass  #function rewardspoints
+                case "2": 
+                    pass # funtion rewardslog
+                case "b": 
+                    pass
+            
+
+    def register_for_tournament_menu(self):
+        print(
+""" 
+Register For Tournament Menu
+
+1. Request to Join Tournament
+2. Leave Tournament (view menu shortcut)
+b. Back 
+
+
+""")
+        while True:
+            choice=input("Enter input: ")
+            if choice not in ["1","2","b","B"]:
+
+                print(
+""" 
+Invalid Input!!
+
+Register For Tournament Menu
+
+1. Request to Join Tournament
+2. Leave Tournament (view menu shortcut)
+b. Back 
+
+Try again!!
+""")
+
+            match choice:
+                case "1": 
+                    pass
+                case "2": 
+                    pass
+                case "b": 
+                    pass
+          
+
+    def edit_team_menu(self,team_to_edit):
+        print(
+""" 
+Edit Team Menu
+
+1. Add Member
+2. Remove Member
+3. Change Team Name
+4. Change Team Tag
+5. Change Team Captain
+6. Change ASCII art
+b. Back 
+
+
+""")
+        while True:
+            choice=input("Enter input: ")
+            if choice not in ["1","2","3","4","5","6","b","B"]:
+                
+                print(
+""" 
+Invalid Input!!
+
+Edit Team Menu
+
+1. Add Member
+2. Remove Member
+3. Change Team Name
+4. Change Team Tag
+5. Change Team Captain
+6. Change ASCII art
+b. Back 
+
+Try again!!
+""")
+
+            match choice:
+                case "1": 
+                    pass
+                case "2": 
+                    pass
+                case "3": 
+                    pass
+                case "4": 
+                    pass
+                case "5": 
+                    pass
+                case "6": 
+                    pass
+                case "b": 
+                    pass
+           
+    
+    def club_menu(self):
+        print(
+""" 
+Club Menu
+
+1. Create Club (removed after creation)
+2. Join Club (remove after joining)
+3. View My Club Info (view emenu shortcut)
+4. Edit Club
+b. Back 
+
+
+""")
+        while True:
+            choice=input("Enter input: ")
+            if choice not in ["1","2","3","4","b","B"]:
+                
+                print(
+""" 
+Invalid Input!!
+
+Club Menu
+
+1. Create Club (removed after creation)
+2. Join Club (remove after joining)
+3. View My Club Info (view emenu shortcut)
+4. Edit Club
+b. Back 
+
+Try again!!
+""")
+
+            match choice:
+                case "1": 
+                    pass #create club function
+                case "2": 
+                    pass # join club function
+                case "3": 
+                    pass # view club by id
+                case "4": 
+                    self.edit_club_menu()
+                case "b": 
+                    pass
+            
+    
+    def edit_club_menu(self):
+        print(
+""" 
+Edit Club Menu
+
+1. Change colour
+2. Quit club
+3. Change club name
+4. Change club location
+b. Back
+
+
+""")
+        while True:
+            choice=input("Enter input: ")
+            if choice not in ["1","2","3","4","b","B"]:
+                
+                print(
+""" 
+Invalid Input!!
+
+Edit Club Menu
+
+1. Change colour
+2. Quit club
+3. Change club name
+4. Change club location
+b. Back
+
+Try again!!
+""")
+
+            match choice:
+                case "1": 
+                    pass
+                case "2": 
+                    pass
+                case "3": 
+                    pass
+                case "4": 
+                    pass
+                case "b": 
+                    pass
+       
