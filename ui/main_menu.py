@@ -621,8 +621,13 @@ b. Back
         choice=input("Enter input: ")
 
         match choice:
-            case "1": 
-                self.logic_wrapper.get_teams() #view all teams
+            case "1":                      
+                # Diana
+                teams = self.logic_wrapper.get_teams(teams)
+                for team_Id in teams:
+                    team = self.logic_wrapper.get_team_by_ID(team_Id)
+                    print(team.name)
+
             case "2": 
                 tournaments = self.logic_wrapper.get_turnaments()
                 for i in tournaments:
