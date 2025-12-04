@@ -882,62 +882,43 @@ b. Back
 
 
 """)
-        while True:
-            choice=input("Enter input: ")
-            if choice not in ["1","2","3","4","5","b","B"]:
-                
-                print(
-""" 
-Invalid Input!!
+        choice=input("Enter input: ")
 
-View Team menu
-        
+        match choice:
+            case "1":                      
+                # Diana
+                teams = self.logic_wrapper.get_teams(teams)
+                for team_Id in teams:
+                    team = self.logic_wrapper.get_team_by_ID(team_Id)
+                    print(team.name)
 
-1. View All Teams
-2. View Teams In Tournament
-3. View Visual Team Tournaments
-4. View Statistics
-5. View Statistic
-b. Back
+            case "2": 
+                tournaments = self.logic_wrapper.get_turnaments()
+                for i in tournaments:
+                    tournament=self.logic_wrapper.get_tournament_by_ID(i.id) # type: ignore
+                    if type(tournament) == Tournament:
+                        print(f"Tournament: {tournament.name}\n")
+                        for j in tournament.team_list:
+                            team = self.logic_wrapper.get_team_by_ID(j)
+                            if type(team) == Team:
+                                print(f"Team: {team.name}\n")
 
-Try again!!
-""")
-            match choice:
-                case "1": 
-                    self.logic_wrapper.get_teams() #view all teams
-                case "2": 
-                    tournaments = self.logic_wrapper.get_turnaments()
-                    for i in tournaments:
-                        tournament=self.logic_wrapper.get_tournament_by_ID(i.id) # type: ignore
-                        if type(tournament) == Tournament:
-                            print(f"Tournament: {tournament.name}\n")
-                            for j in tournament.team_list:
-                                team = self.logic_wrapper.get_team_by_ID(j)
-                                if type(team) == Team:
-                                    print(f"Team: {team.name}\n")
+            case "3": 
+                pass
+            case "4": 
+                pass
+            case "5":
+                team_ID = input("Enter team ID: ")
+                i = self.logic_wrapper.get_team_by_ID(team_ID)
+                print(f"name: {i.name}")
+                print(f"tag: {i.tag}")
+                print(f"creator_id: {i.creator_id}")
+                print(f"team_size: {i.team_size}")
+                print(f"member_list: {i.member_list}")
 
-                case "3": 
-                    team_ID = int(input("Enter team ID: "))
-                    i = self.logic_wrapper.get_team_by_ID(team_ID)
-                    print(f"name: {i.name}")
-                    print(f"tag: {i.tag}")
-                    print(f"creator_id: {i.creator_id}")
-                    print(f"team_size: {i.team_size}")
-                    print(f"member_list: {i.member_list}")
-                case "4": 
-                    pass
-                case "5":
-                    team_ID = int(input("Enter team ID: "))
-                    i = self.logic_wrapper.get_team_by_ID(team_ID)
-                    print(f"name: {i.name}")
-                    print(f"tag: {i.tag}")
-                    print(f"creator_id: {i.creator_id}")
-                    print(f"team_size: {i.team_size}")
-                    print(f"member_list: {i.member_list}")
-
-                case "b": 
-                    pass
-            return
+            case "b": 
+                pass
+        return
 
     def view_tournaments_menu(self):
         print(
