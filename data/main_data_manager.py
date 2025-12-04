@@ -1,6 +1,7 @@
 import os
 import csv
 
+from models.bracket import Bracket
 from models.player import Player
 from models.team import Team
 from models.tournament import Tournament
@@ -12,6 +13,7 @@ class Main_data:
         self.teamFilePath:str = "./data/files/teams_data.csv"
         self.tournamentFilePath:str = "./data/files/tournaments_data.csv"
         self.matchfilePath:str = "./data/files/matches_data.csv"
+        self.bracketFilePath:str = "./data/files/brackets_data.csv"
         
 
         self.check_files()
@@ -221,7 +223,7 @@ class Main_data:
                 
 				# turn csv line into team instance
                 try:
-                    match = Match( int(line[0]),int(line[1]),int(line[2]), line[3],line[4], int(line[5]), int(line[6]) if line[6] != 'None' else None ,int(line[7]) )
+                    match = Match( int(line[0]),int(line[1]),int(line[2]), int(line[3]), line[4],line[5], int(line[6]), int(line[7]) ,int(line[8]) )
                     Matches.append(match)  #add player to team list
                 except (IndexError, ValueError):
                     # Skip lines that don't match expected format
@@ -392,6 +394,16 @@ class Main_data:
             if x.match_id==ID:
                 return x
         return False
+    
+    def get_matches_by_tournament_ID(self,tournament_id:int) -> list[Match]:
+        match_list = self.get_matches(self.matchfilePath)
+        matches_in_tournament: list[Match] = []
+        
+        for match in match_list:
+            if match.tournament_id == tournament_id:
+                matches_in_tournament.append(match)
+        
+        return matches_in_tournament
         
         
     def delete_player(self,player_id:int) -> bool:
@@ -462,10 +474,30 @@ class Main_data:
         self.overwrite_matches(match_list)
         return True
 
+    def write_bracket(self, new_bracket: Bracket, tournament_id: int) -> bool:
+        """Writes the generated bracket as matches to the data layer.
 
-
-
-
+        Args:
+            bracket (list[tuple[int, int]]): List of team ID pairs representing the bracket.
+            tournament_id (int): ID of the tournament for which the bracket is generated.
+        
+        Returns:
+            bool: Success status of writing matches.
+        """
+        
+        
+        with open( self.bracketFilePath, 'a' ) as theFile: #open file in append mode
+            
+            csvWriter = csv.writer(theFile) #creates a csv handler
+            
+            try:
+                csvWriter.writerow( new_bracket.toCSVList( ) ) # try to write a row
+            except:
+				# if we fail, we return false to indicate this.
+                return False
+            
+        theFile.close()
+        return True # return True
 
 
 

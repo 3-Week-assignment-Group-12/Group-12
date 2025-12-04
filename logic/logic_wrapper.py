@@ -39,7 +39,7 @@ class LogicWrapper:
         else:
             return False
         
-    def create_match(self, team1_id: int,team2_id: int,date: str, time: str,server_id: int,winner_id: int | None,Score:int) -> bool:
+    def create_match(self, team1_id: int,team2_id: int,tournament_id:int,date: str, time: str,server_id: int,winner_id: int,Score:int) -> bool:
         """Create a new match with validation.
         
         Args:
@@ -55,7 +55,7 @@ class LogicWrapper:
         Returns:
             bool: Success status
         """
-        new_match: Match|bool = self.match_handler.create_match(team1_id,team2_id,date, time,server_id,winner_id,Score,self.data_wrapper.get_matches())
+        new_match: Match|bool = self.match_handler.create_match(team1_id,team2_id,tournament_id,date, time,server_id,winner_id,Score,self.data_wrapper.get_matches())
         if type(new_match) == Match:
             return self.data_wrapper.write_match(new_match)
         else:
@@ -238,3 +238,22 @@ class LogicWrapper:
             Team|bool: Team instance if found, False otherwise
         """
         return self.data_wrapper.get_team_by_ID(ID)
+    
+    
+    def generate_bracket(self, tournament: Tournament, preveus_matches: list[Match]) -> list[tuple[int, int]] | int:
+        """Generate a knockout bracket for a tournament.
+        
+        Args:
+            tournament (Tournament): Tournament instance
+            preveus_matches (list[Match]): List of previous matches
+            
+        Returns:
+            list[tuple[int, int]] | int: Generated bracket as a list of team ID pairs or error code
+            int if an error occurs
+            
+        Errors:
+            -1: Not enough teams to form a bracket
+            -2: Odd number of teams cannot form pairs
+        """
+        
+        return self.tournament_handler.generate_bracket(tournament, preveus_matches)

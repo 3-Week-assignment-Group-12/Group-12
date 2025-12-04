@@ -12,6 +12,7 @@ class Match:
         match_id: int
         team1_id: int
         team2_id: int
+        tournament_id: int
         date: str
         match time: str
         server_id: int
@@ -19,7 +20,7 @@ class Match:
         Score:int
     """
     
-    def __init__(self, match_id: int, team1_id: int,team2_id: int,date: str, time: str,server_id: int,winner_id: int | None,Score:int) -> None:
+    def __init__(self, match_id: int, team1_id: int,team2_id: int, tournament_id: int, date: str, time: str,server_id: int,winner_id: int,Score:int) -> None:
         """Initialize a Player instance.
         
         Creates a new player with the specified personal and contact information.
@@ -28,6 +29,7 @@ class Match:
             match_id: int
             team1_id: int
             team2_id: int
+            tournament_id: int
             date: str
             match time: str
             server_id: int
@@ -37,10 +39,11 @@ class Match:
         self.match_id: int = match_id
         self.team1_id: int = team1_id
         self.team2_id: int = team2_id
+        self.tournament_id: int = tournament_id
         self.date: str = date
         self.match_time: str = time
         self.server_id: int = server_id
-        self.winner_id: int | None = winner_id
+        self.winner_id: int = winner_id
         self.Score:int = Score
         
     def __str__(self) -> str:
@@ -51,7 +54,7 @@ class Match:
         """
         return f"id: {self.match_id}, team1_id: {self.team1_id}, team2_id: {self.team2_id},date: {self.date}, time: {self.match_time},server_id: {self.server_id},winner_id: {self.winner_id} | None,Score: {self.Score}"
         
-    def create_match(self,match_id:int, team1_id: int,team2_id: int,date: str, time: str,server_id: int,winner_id: int | None,Score:int) -> Match:
+    def create_match(self,match_id:int, team1_id: int,team2_id: int, tournament_id:int, date: str, time: str,server_id: int,winner_id: int,Score:int) -> Match:
         """Create and return a new Player instance.
         
         Factory method that instantiates a new Match with the provided parameters.
@@ -60,18 +63,19 @@ class Match:
             match_id: int
             team1_id: int
             team2_id: int
+            tournament_id
             date: str
             match time: str
             server_id: int
-            winner_id: int | None
+            winner_id: int
             Score:int
             
         Returns:
             Match: A new Match instance with the specified attributes
         """
-        return Match(match_id, team1_id,team2_id,date, time,server_id,winner_id,Score)
+        return Match(match_id, team1_id,team2_id,tournament_id,date, time,server_id,winner_id,Score)
     
-    def toCSVList(self) -> list[str | int | None]:
+    def toCSVList(self) -> list[str | int]:
         """Convert match data to a list for CSV export.
         
         Transforms all match attributes into a flat list format suitable
@@ -79,7 +83,7 @@ class Match:
         
         Returns:
             list: match data as a list in the following order:
-                [kt, name, dob, phone, address, email]
+                [match_id, team1_id, team2_id,tournament_id , date, match_time, server_id, winner_id, Score]
         """
-        return [self.match_id, self.team1_id, self.team2_id, self.date, self.match_time, self.server_id, self.winner_id, self.Score]
+        return [self.match_id, self.team1_id, self.team2_id,self.tournament_id , self.date, self.match_time, self.server_id, self.winner_id, self.Score]
 

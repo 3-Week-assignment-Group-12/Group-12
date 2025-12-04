@@ -1,4 +1,5 @@
 from __future__ import annotations
+from models.match import Match
 
 
 class Tournament:
@@ -84,3 +85,40 @@ class Tournament:
                 [id, name, start_date, end_date, venue_name, contact_id, contact_email, contact_phone, team_list, matches]
         """
         return [self.id, self.name, self.start_date, self.end_date, self.venue_name, self.contact_id, self.contact_email, self.contact_phone, self.team_list, self.matches]
+    
+    
+    def generate_knockout_bracket(self, previus_matches:list[Match]) -> list[tuple[int, int]]|int:
+        """Generate a knockout bracket for the tournament.
+        
+        Creates a list of match pairings for a knockout stage based on the
+        participating teams. Each match is represented as a tuple of team IDs.
+        
+        Returns:
+            list[tuple[int, int]]|int: A list of tuples representing match pairings,
+            int for errors.
+            
+        Errors:
+            -1: Not enough teams to generate a schedule
+            -2: Odd number of teams cannot form pairs
+        """
+        
+        if len(self.team_list) > 2:
+            return -1  # Not enough teams to generate a schedule
+        
+        elif len(self.team_list) % 2 != 0:
+            return -2  # Odd number of teams cannot form pairs
+        
+        
+        
+        if len(previus_matches) != 0:
+            awailable_teams: list[int] = [team.winner_id for team in previus_matches]
+        else:
+            awailable_teams: list[int] = self.team_list.copy()
+            
+        
+        bracket: list[tuple[int, int]] = []
+        for i in range(0, len(awailable_teams), 2):
+            bracket.append((awailable_teams[i], awailable_teams[i+1]))
+        
+        
+        return bracket
