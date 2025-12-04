@@ -19,6 +19,37 @@ class Main_data:
         self.check_files()
         
         
+    def general_read(self, scope: int,  obj_type:str) -> None:
+        """ General data reader
+
+        Args:
+            scope (int): value to determine the scope of the read
+            obj_type (str): type of object to read
+            
+        returns:
+
+        """
+                
+        match obj_type:
+            case "player":
+                path = self.playerFilePath
+                returned_list: list[Player] = [] # empty list 
+            case "team":
+                path = self.teamFilePath
+                returned_list: list[Team] = [] # empty list 
+            case "tournament":
+                path = self.tournamentFilePath
+                returned_list: list[Tournament] = [] # empty list 
+            case "match":
+                path = self.matchfilePath
+                returned_list: list[Match] = [] # empty list 
+            case _:
+                return None
+                
+        
+    
+    
+        
         
     def check_files(self) -> None:
         # make sure the folder exists
