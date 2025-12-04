@@ -181,8 +181,7 @@ b. Back
 
 
 """)
-        temp : Player = self.logic_wrapper.get_player_by_ID(Player_ID) 
-        print(temp.name)
+        temp : Player = self.logic_wrapper.get_player_by_ID(Player_ID)  
         while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","5","6","7","b","B"]:
@@ -264,11 +263,21 @@ Try again!!
             
             match choice:
                 case "1": 
-                    pass
+                    name = input("Name of Tournament: ")
+                    startDate = input("Start date: ")
+                    endDate = input("End date: ")
+                    venue=input("Location of Tournament: ")
+                    contactID = int(input("Contact ID"))
+                    contactEmail = input("Contact Email: ")
+                    contactPhone = int(input("Contact Phone: "))
+                    team_list=[]  # SKoða þetta
+                    matches=[]    # sKoða þetta
+                    self.logic_wrapper.create_tournament(name,startDate,endDate,venue,contactID,contactEmail,contactPhone,team_list,matches)
                 case "2": 
                     self.edit_tournament_menu(int(input("Enter Tournament ID: ")))
                 case "3": 
-                    pass
+                    TID=int(input("Tournament ID"))
+                    self.logic_wrapper.delete_tournament(TID)
                 case "4": 
                     self.select_tournament_menu()
                 case "b": 
@@ -287,18 +296,19 @@ Edit Tournament Information
 1. Name Of Tournament
 2. Start Date 
 3. End Date
-4. Location
-5. Enter Number Of Teams
-6. Edit Tournament Structure
+4. Venue name
+5. Contact ID
+6. Contact Email
+7. Contact Phone
 b. Back 
 
 
 """)
             
-            
+        temp : Tournament = self.logic_wrapper.get_tournament_by_ID(tournamentID)   
         while True:
             choice=input("Enter input: ")
-            if choice not in ["1","2","3","4","5","6","b","B"]:
+            if choice not in ["1","2","3","4","5","6","7","b","B"]:
 
                  print(
 """ 
@@ -309,9 +319,10 @@ Edit Tournament Information
 1. Name Of Tournament
 2. Start Date 
 3. End Date
-4. Location
-5. Enter Number Of Teams
-6. Edit Tournament Structure
+4. Venue name
+5. Contact ID
+6. Contact Email
+7. Contact Phone
 b. Back 
 
 Try again!!
@@ -319,17 +330,25 @@ Try again!!
 
             match choice:
                 case "1": 
-                    pass
+                    temp.name = input("Enter New Name: ")
                 case "2": 
-                    pass
+                    temp.start_date = input("Enter New Start Date: ")
                 case "3": 
-                    pass
+                    temp.end_date = input("Enter New End date: ")
                 case "4": 
-                    pass
+                    temp.venue_name = input("Enter New : ")
                 case "5": 
-                    pass
+                    temp.contact_id = int(input("Enter New Contact ID: "))
                 case "6": 
+                    temp.contact_email = input("Enter New Contact Email: ")
+                case "7": 
+                    temp.contact_phone = int(input("Enter New Contact Phone Number: "))
+                case "8": 
                     pass
+                    #temp.team_list 
+                case "9": 
+                    pass
+                    #temp.matches 
                 case "b": 
                     pass
           
