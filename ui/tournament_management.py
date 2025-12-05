@@ -25,11 +25,18 @@ class TournamentManagement():
 
 
 
-
-
-
-
     #--------------Menus--------------------
+
+
+
+
+
+    #--------------Tournament Management Menu--------------------
+
+
+
+
+
 
     def tournament_management_menu(self):
         
@@ -66,16 +73,30 @@ b. Back
                     matches=[]    # sKoða þetta
                     self.logic_wrapper.create_tournament(name,startDate,endDate,venue,contactID,contactEmail,contactPhone,team_list,matches)
                 case "2": 
-                    self.edit_tournament_menu(int(input("Enter Tournament ID: ")))
+                    ID = self.logic_wrapper.inputTournamentID()
+                    self.edit_tournament_menu(ID)
                 case "3": 
-                    TID=int(input("Tournament ID"))
-                    self.logic_wrapper.delete_tournament(TID)
+                    ID = self.logic_wrapper.inputTournamentID()
+                    x = input("Are you sure? (Y/N): ")
+                    if x == "y" or x == "Y":
+                        self.logic_wrapper.delete_tournament(ID)
+                    return
                 case "4": 
-                    self.select_tournament_menu()
+                    ID = self.logic_wrapper.inputTournamentID()
+                    self.select_tournament_menu(ID)
                 case "b": 
                     return
                 case _:
                     print("Invalid input")
+
+
+
+
+
+    #--------------Edit Tournament Menu--------------------
+
+
+
 
 
     def edit_tournament_menu(self,tournamentID):
@@ -141,8 +162,20 @@ Try again!!
                     #temp.matches 
                 case "b": 
                     pass
+            
+            self.logic_wrapper.modify_tournament(temp)
           
-    def select_tournament_menu(self):
+
+          
+
+
+    #--------------Select Tournement Menu--------------------
+
+
+
+
+
+    def select_tournament_menu(self, ID):
         print(
 """ 
 Select "nafn liðs"   ATH !!!!
@@ -178,7 +211,7 @@ Try again!!
 
             match choice:
                 case "1": 
-                    pass
+                    self.logic_wrapper.generate_bracket(ID)
                 case "2": 
                     pass
                 case "3": 

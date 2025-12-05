@@ -297,3 +297,26 @@ class LogicWrapper:
             bool: Success status
         """
         return self.data_wrapper.delete_team(ID)
+    
+
+
+    def inputTournamentID(self):
+        tournamentID=int(input("Enter Tournament ID: "))
+        check= self.get_tournament_by_ID(tournamentID)
+        while check is False:
+            print("Tournament does not exist, Try different ID")
+            tournamentID=int(input("Enter Tournament ID: "))
+            check= self.get_tournament_by_ID(tournamentID)
+        return tournamentID
+    
+
+    def delete_tournament(self, ID: int) -> bool:
+        """Delete a team by their ID.
+        
+        Args:
+            ID (int): Team ID to delete
+            
+        Returns:
+            bool: Success status
+        """
+        return self.data_wrapper.delete_tournament(ID)
