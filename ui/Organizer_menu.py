@@ -3,15 +3,13 @@ from __future__ import annotations
 from logic.logic_wrapper import LogicWrapper
 from models.team import Team
 from models.tournament import Tournament
-
 from models.player import Player
-from ui.Organizer_menu import OrganizerMenu
 from ui.tournament_management import TournamentManagement
 
 
-class OrganizerMenu()
+class OrganizerMenu():
     def __init__(self, low : LogicWrapper) -> None:
-        self.tournament_management = TournamentManagement
+        self.tournament_management = TournamentManagement(low)
         self.logic_wrapper = low
         pass
 
@@ -47,7 +45,7 @@ Try again!!
                 case "1": 
                     self.player_management_menu()
                 case "2": 
-                    self.tournament_management.tournament_management_menu() # type: ignore
+                    self.tournament_management.tournament_management_menu()
                 case "b": 
                     pass
     
@@ -92,25 +90,23 @@ Try again!!
                     phone:int=int(input("Phone number:"))
                     address:str=input("Address: ")
                     email:str=input("Email: ")
-                    self.logic_wrapper.create_player(nID,name,phone,address,email)
+                    self.logic_wrapper.create_player(nID,name,phone,address,email)==True
+                    print("Player added!!")
+                    self.player_management_menu()
                 case "2": 
-                    self.edit_player_menu(int(input("Player National ID:")))  #Asks the user for Players National Id before going to the edit page
-                case "3": 
-                    ID=int(input("Enter National ID: "))
-
-                    check= self.logic_wrapper.get_player_by_ID(ID)
-                    while check is False:
-                        print("Player does not exist, Try different ID")
-                        ID=int(input("Enter National ID: "))
-                        check= self.logic_wrapper.get_player_by_ID(ID)
+                    ID=self.logic_wrapper.inputplayersID()
+                    self.edit_player_menu(ID)  #Asks the user for Players National Id before going to the edit page
+                case "3":
+                    ID=self.logic_wrapper.inputplayersID()
                     x=input("Are you sure? (Y/N)")
                     if x=="y" or x=="Y":
-                        self.logic_wrapper.delete_player(ID)
+                        self.logic_wrapper.delete_player(ID) # type: ignore
                     return   
-                case "4": 
+                case "4":
+                    pass 
                     #self.view_players_menu()  
                 case "b": 
-                    pass
+                    return
 
     def edit_player_menu(self,Player_ID:int):
 
@@ -170,5 +166,6 @@ Try again!!
                 case "b": 
                     return
             self.logic_wrapper.modify_player(temp)
-        
-        
+
+    
+    
