@@ -154,6 +154,11 @@ Try again!!
                 case "b": 
                     pass
         
+
+
+
+
+
 #----------------------- Veiw Team ----------------------------
 
 
@@ -214,6 +219,11 @@ b. Back
             case "b": 
                 pass
         return
+    
+
+
+
+
 #-----------------------Veiw Tournament ----------------------------
 
 
@@ -266,6 +276,11 @@ Try again!!
                     pass
                 case "b": 
                     return
+                
+
+
+
+
     #-----------------------Veiw Clubs ----------------------------     
 
 
@@ -316,6 +331,13 @@ Try again!!
                     pass
                 case "b": 
                     return
+                
+
+
+
+
+
+                
         
 #-----------------------Veiw Organizer ----------------------------
     def view_organizers(self):
