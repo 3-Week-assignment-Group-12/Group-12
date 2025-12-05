@@ -16,7 +16,7 @@ class PublicMainMenu():
         self.logic_wrapper = low
         pass
 
-    
+    #-----------------------Public Main menu----------------------------
     def public_menu(self):
         print(""" 
 Public main menu
@@ -69,6 +69,9 @@ Try again!!
                     pass
            
     
+#-----------------------Veiw player ----------------------------
+
+
 
 
     def view_players_menu(self):
@@ -134,19 +137,32 @@ Try again!!
                     pass#self.logic_wrapper.
                     #self.logic_wrapper.get_team_by_ID(input("Enter Team : "))
                 case "4":
-                    player_ID = int(input("Enter player ID: "))
-                    x = self.logic_wrapper.get_player_by_ID(player_ID)
-                    print(f"name: {x.name}") 
-                    print(f"KT: {x.kt}")
-                    print(f"dob: {x.dob}")
-                    print(f"phone: {x.phone}")
-                    print(f"address: {x.address}")
-                    print(f"email: {x.email}")
+                    while True:
+                        player_ID = int(input("Enter player ID: "))
+                        if self.logic_wrapper.get_player_by_ID(player_ID) is False:
+                            print("Incorrect ID")
+                        else:
+                            playerinfo = self.logic_wrapper.get_player_by_ID(player_ID)
+                            print(f"name: {playerinfo.name}") 
+                            print(f"KT: {playerinfo.kt}")
+                            print(f"dob: {playerinfo.dob}")
+                            print(f"phone: {playerinfo.phone}")
+                            print(f"address: {playerinfo.address}")
+                            print(f"email: {playerinfo.email}")
                 case "5": 
                     pass # view statistics team
                 case "b": 
                     pass
         
+
+
+
+
+
+#----------------------- Veiw Team ----------------------------
+
+
+
 
     def view_team_menu(self):
         print(
@@ -167,9 +183,8 @@ b. Back
         match choice:
             case "1":                      
                 # Diana
-                teams = self.logic_wrapper.get_teams()
-                for team_Id in teams:
-                    team = self.logic_wrapper.get_team_by_ID(team_Id)
+                teamID = self.logic_wrapper.get_teams()
+                for team in teamID:
                     print(team.name)
 
             case "2": 
@@ -178,8 +193,8 @@ b. Back
                     tournament=self.logic_wrapper.get_tournament_by_ID(i.id) # type: ignore
                     if type(tournament) == Tournament:
                         print(f"Tournament: {tournament.name}\n")
-                        for j in tournament.team_list:
-                            team = self.logic_wrapper.get_team_by_ID(j)
+                        for teamID in tournament.team_list:
+                            team = self.logic_wrapper.get_team_by_ID(teamID)
                             if type(team) == Team:
                                 print(f"Team: {team.name}\n")
 
@@ -188,17 +203,31 @@ b. Back
             case "4": 
                 pass
             case "5":
-                team_ID = input("Enter team ID: ")
-                i = self.logic_wrapper.get_team_by_ID(team_ID)
-                print(f"name: {i.name}")
-                print(f"tag: {i.tag}")
-                print(f"creator_id: {i.creator_id}")
-                print(f"team_size: {i.team_size}")
-                print(f"member_list: {i.member_list}")
+                while True:
+                    team_ID = int(input("Enter team ID: "))
+                    if self.logic_wrapper.get_team_by_ID(team_ID) is False:
+                        print("Incorrect ID")
+                    else:
+                        team = self.logic_wrapper.get_team_by_ID(team_ID)
+                        if type(team) == Team:
+                            print(f"name: {team.name}")
+                            print(f"tag: {team.tag}")
+                            print(f"creator_id: {team.creator_id}")
+                            print(f"team_size: {team.team_size}")
+                            print(f"member_list: {team.member_list}")
 
             case "b": 
                 pass
         return
+    
+
+
+
+
+#-----------------------Veiw Tournament ----------------------------
+
+
+
 
     def view_tournaments_menu(self):
         print(
@@ -234,7 +263,11 @@ Try again!!
 
             match choice:
                 case "1": 
-                    pass
+                    list_of_tournaments=self.logic_wrapper.get_turnaments()
+                    for id in list_of_tournaments:
+                        tournament=self.logic_wrapper.get_tournament_by_ID(id)
+                        if type(tournament) == Tournament:
+                            print(tournament.name)
                 case "2": 
                     pass
                 case "3": 
@@ -242,8 +275,17 @@ Try again!!
                 case "4": 
                     pass
                 case "b": 
-                    pass
-            
+                    return
+                
+
+
+
+
+    #-----------------------Veiw Clubs ----------------------------     
+
+
+
+
     def view_clubs(self):
         print(
 """ 
@@ -276,15 +318,28 @@ Try again!!
 
             match choice:
                 case "1": 
-                    pass
+                    list_of_clubs=self.logic_wrapper.get_clubs()
+                    for clubID in list_of_clubs:
+                        club= self.logic_wrapper.get_clubs_by_ID(clubID)
+                        #if type(club) == Club:
+                            #print(club.name)
                 case "2": 
-                    pass
+                    while True:
+                        int(input("Enter club ID: "))
+                    self.logic_wrapper.get_club_by_ID()
                 case "3": 
                     pass
                 case "b": 
-                    pass
-        
+                    return
+                
 
+
+
+
+
+                
+        
+#-----------------------Veiw Organizer ----------------------------
     def view_organizers(self):
         print(
 """ 
@@ -313,10 +368,15 @@ Try again!!
 
             match choice:
                 case "1": 
+                    list_of_organizer=self.logic_wrapper.get_Organizer()
+                    for organizerID in list_of_organizer:
+                        organizer=self.logic_wrapper.get_organizer_by_ID(organizerID)
+                        #if type(organizer) == Organizer:
+                        #   #print(organizer.name)
                     pass
                 case "b": 
-                    pass
-            
+                    return
+    #----------------------- Veiw Scoreboard ----------------------------     
     def view_scoreboard(self):
         print(
 """ 
@@ -345,9 +405,10 @@ Try again!!
 
             match choice:
                 case "1": 
+                    #self.logic_wrapper.get_turnaments()
                     pass
                 case "b": 
-                    pass
+                    return
             
         
     

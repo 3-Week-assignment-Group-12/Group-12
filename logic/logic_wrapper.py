@@ -329,4 +329,65 @@ class LogicWrapper:
         
         return self.tournament_handler.generate_bracket(tournament, self.data_wrapper.get_matches_by_tournament_ID(tournament.id))
     
+
+    def get_clubs(self):
+        """Retrieve all clubs.
+        
+        Returns:
+            list[Clubs]: List of all clubs
+        """
+        #return self.data_wrapper.get_clubs()
+        return
     
+    def inputplayersID(self):
+        playersID=int(input("Enter National ID: "))
+        check= self.get_player_by_ID(playersID)
+        while check is False:
+            print("Player does not exist, Try different ID")
+            playersID=int(input("Enter National ID: "))
+            check= self.get_player_by_ID(playersID)
+        return playersID
+    
+    def inputTeamID(self):
+        teamID=int(input("Enter Team ID: "))
+        check= self.get_team_by_ID(teamID)
+        while check is False:
+            print("Team does not exist, Try different ID")
+            teamID=int(input("Enter Team ID: "))
+            check= self.get_team_by_ID(teamID)
+        return teamID
+    
+
+    def delete_team(self, ID: int) -> bool:
+        """Delete a team by their ID.
+        
+        Args:
+            ID (int): Team ID to delete
+            
+        Returns:
+            bool: Success status
+        """
+        return self.data_wrapper.delete_team(ID)
+    
+
+
+    def inputTournamentID(self):
+        tournamentID=int(input("Enter Tournament ID: "))
+        check= self.get_tournament_by_ID(tournamentID)
+        while check is False:
+            print("Tournament does not exist, Try different ID")
+            tournamentID=int(input("Enter Tournament ID: "))
+            check= self.get_tournament_by_ID(tournamentID)
+        return tournamentID
+    
+
+    def delete_tournament(self, ID: int) -> bool:
+        """Delete a team by their ID.
+        
+        Args:
+            ID (int): Team ID to delete
+            
+        Returns:
+            bool: Success status
+        """
+        return self.data_wrapper.delete_tournament(ID)

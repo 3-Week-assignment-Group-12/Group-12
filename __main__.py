@@ -7,6 +7,7 @@ def main():
     ui.logic_wrapper.data_wrapper.get_dummy_data()
     ui.run()
     
+    
 
 if __name__ == "__main__":
     main()
