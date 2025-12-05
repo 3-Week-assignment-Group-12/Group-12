@@ -1,12 +1,13 @@
 from __future__ import annotations
 # ui_layer/main_menu.py
 from logic.logic_wrapper import LogicWrapper
-from models.team import Team
-from models.tournament import Tournament
+
 
 from models.player import Player
-from ui.Organizer_menu import OrganizerMenu
-from ui.tournament_management import TournamentManagement
+
+from models.tournament import Tournament
+
+from models.team import Team
 
 class TournamentManagement():
     def __init__(self,low : LogicWrapper) -> None:
@@ -45,7 +46,7 @@ Tournament Management
 4. Select Tournament
 b. Back 
 
-Try again!!
+
 """)
             choice=input("Enter input: ")
             

@@ -267,3 +267,33 @@ class LogicWrapper:
         """
         #return self.data_wrapper.get_clubs()
         return
+    
+    def inputplayersID(self):
+        playersID=int(input("Enter National ID: "))
+        check= self.get_player_by_ID(playersID)
+        while check is False:
+            print("Player does not exist, Try different ID")
+            playersID=int(input("Enter National ID: "))
+            check= self.get_player_by_ID(playersID)
+        return playersID
+    
+    def inputTeamID(self):
+        teamID=int(input("Enter Team ID: "))
+        check= self.get_team_by_ID(teamID)
+        while check is False:
+            print("Team does not exist, Try different ID")
+            teamID=int(input("Enter Team ID: "))
+            check= self.get_team_by_ID(teamID)
+        return teamID
+    
+
+    def delete_team(self, ID: int) -> bool:
+        """Delete a team by their ID.
+        
+        Args:
+            ID (int): Team ID to delete
+            
+        Returns:
+            bool: Success status
+        """
+        return self.data_wrapper.delete_team(ID)
