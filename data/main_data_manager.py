@@ -5,6 +5,13 @@ from models.bracket import Bracket
 from models.player import Player
 from models.team import Team
 from models.tournament import Tournament
+from models.match import Match
+
+
+
+
+# Allert: This class is deprecated and will be replaced with JsonRepository in future versions.
+
     
 class Main_data:
     def __init__(self):
@@ -17,37 +24,8 @@ class Main_data:
 
         self.check_files()
         
-        
-    def general_read(self, scope: int,  obj_type:str) -> None:
-        """ General data reader
-
-        Args:
-            scope (int): value to determine the scope of the read
-            obj_type (str): type of object to read
-            
-        returns:
-
-        """
-                
-        match obj_type:
-            case "player":
-                path = self.playerFilePath
-                returned_list: list[Player] = [] # empty list 
-            case "team":
-                path = self.teamFilePath
-                returned_list: list[Team] = [] # empty list 
-            case "tournament":
-                path = self.tournamentFilePath
-                returned_list: list[Tournament] = [] # empty list 
-            case "match":
-                path = self.matchfilePath
-                returned_list: list[Match] = [] # empty list 
-            case _:
-                return None
-                
-        
     
-    
+ 
         
         
     def check_files(self) -> None:
@@ -79,7 +57,7 @@ class Main_data:
         
         with open( self.playerFilePath, 'a' ) as theFile: #open file in append mode
             
-            csvWriter = csv.writer(theFile) #creates a csv handler
+            csvWriter = csv.writer(theFile,delimiter="-") #creates a csv handler
             
             try:
                 csvWriter.writerow( new_player.toCSVList( ) ) # try to write a row
@@ -96,7 +74,7 @@ class Main_data:
         
         with open( self.teamFilePath, 'a' ) as theFile: #open file in append mode
             
-            csvWriter = csv.writer(theFile) #creates a csv handler
+            csvWriter = csv.writer(theFile,delimiter="-") #creates a csv handler
             
             try:
                 csvWriter.writerow( new_team.toCSVList( ) ) # try to write a row
@@ -114,7 +92,7 @@ class Main_data:
         
         with open( self.tournamentFilePath, 'a' ) as theFile: #open file in append mode
             
-            csvWriter = csv.writer(theFile) #creates a csv handler
+            csvWriter = csv.writer(theFile,delimiter="-") #creates a csv handler
             
             try:
                 csvWriter.writerow( new_taurnament.toCSVList( ) ) # try to write a row
@@ -130,7 +108,7 @@ class Main_data:
         
         with open( self.matchfilePath, 'a' ) as theFile: #open file in append mode
             
-            csvWriter = csv.writer(theFile) #creates a csv handler
+            csvWriter = csv.writer(theFile,delimiter="-") #creates a csv handler
             
             try:
                 csvWriter.writerow( new_match.toCSVList( ) ) # try to write a row
@@ -149,7 +127,7 @@ class Main_data:
         
         with open( path, "r+" ) as theFile: # opens file in read mode
             
-            csvReader = csv.reader(theFile) #creates a csv handler
+            csvReader = csv.reader(theFile,delimiter="-") #creates a csv handler
             
             for line in csvReader: # reads line by line
                 
@@ -179,7 +157,7 @@ class Main_data:
         
         with open( path, "r+" ) as theFile: # opens file in read mode
             
-            csvReader = csv.reader(theFile) #creates a csv handler
+            csvReader = csv.reader(theFile,delimiter="-") #creates a csv handler
             
             for line in csvReader: # reads line by line
                 
@@ -208,7 +186,7 @@ class Main_data:
         tournaments: list[Tournament] = []
 
         with open(path, "r") as theFile:  # opens file in read mode
-            csvReader = csv.reader(theFile)
+            csvReader = csv.reader(theFile,delimiter="-")
             for line in csvReader:
                 # Each line should represent a tournament; parse and convert fields
                 try:
@@ -247,7 +225,7 @@ class Main_data:
         
         with open( path, "r+" ) as theFile: # opens file in read mode
             
-            csvReader = csv.reader(theFile) #creates a csv handler
+            csvReader = csv.reader(theFile,delimiter="-") #creates a csv handler
             
             for line in csvReader: # reads line by line
                 
@@ -268,7 +246,7 @@ class Main_data:
         print(os.path.abspath(self.playerFilePath))
         with open( os.path.abspath(self.playerFilePath), "w" ) as theFile: # wipes file. then writes
             
-            csvWriter = csv.writer(theFile)
+            csvWriter = csv.writer(theFile,delimiter="-")
             
             for player in new_list:
                 try:
@@ -284,7 +262,7 @@ class Main_data:
         
         with open( self.teamFilePath, "w" ) as theFile: # wipes file. then writes
             
-            csvWriter = csv.writer(theFile)
+            csvWriter = csv.writer(theFile,delimiter="-")
             
             for team in new_list:
                 try:
@@ -299,7 +277,7 @@ class Main_data:
         
         with open( self.tournamentFilePath, "w" ) as theFile: # wipes file. then writes
             
-            csvWriter = csv.writer(theFile)
+            csvWriter = csv.writer(theFile,delimiter="-")
             
             for tournament in new_list:
                 try:
@@ -314,7 +292,7 @@ class Main_data:
         
         with open( self.matchfilePath, "w" ) as theFile: # wipes file. then writes
             
-            csvWriter = csv.writer(theFile)
+            csvWriter = csv.writer(theFile,delimiter="-")
             
             for match in new_list:
                 try:
@@ -518,7 +496,7 @@ class Main_data:
         
         with open( self.bracketFilePath, 'a' ) as theFile: #open file in append mode
             
-            csvWriter = csv.writer(theFile) #creates a csv handler
+            csvWriter = csv.writer(theFile,delimiter="-") #creates a csv handler
             
             try:
                 csvWriter.writerow( new_bracket.toCSVList( ) ) # try to write a row

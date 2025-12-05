@@ -4,8 +4,8 @@ from models.bracket import Bracket
 class bracket_handler:
     
     def create_bracket(self, matchups: list[tuple[int,int]] ,tournament_id:int, existing_brackets:list[Bracket]) -> Bracket:
-        # 1. Validate Input (Business Logic)        
         
+        # 1. Validate Input (Business Logic)        
         
         highest:int = 0
         for x in existing_brackets:
