@@ -9,8 +9,8 @@ class match_handler:
         
         highest:int = 0
         for x in existing_matches:
-            if x.match_id > highest:
-                highest = x.match_id
+            if x.id > highest:
+                highest = x.id
         highest+=1 # find new id
         
         # 2. Create Model Object
