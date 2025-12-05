@@ -77,3 +77,41 @@ Writer: Diana Al Barouki
     1. Continued working on Happy Paths
     2. Continued working on the report
     3. Writing the introduction and the final word
+
+Date 28.11.2025
+
+    1. Finished putting the report together then just submit
+
+Writer: Aron Bjarki Ingvason
+
+
+
+Date  01.12.2025
+
+    1. Planing what to code, then just setting up everything so its ready to code
+
+Writer: Aron Bjarki Ingvason
+
+
+Date  02.12.2025
+
+    1. We just started from the top of the requirement list and started coding in the logic, data and main datalayers.
+    2. We made the whole skeleton for each mainscreen(UI). only need to fill in the lines needed code for each selection.
+    3. started with some of the selection from the requirement list.
+
+Writer: Aron Bjarki Ingvason
+
+Date  03.12.2025
+
+    1. Keep going with going down the requirement list in UI.
+    2. Helping others with programing, pearprograming hours did: 4-5
+
+Writer: Aron Bjarki Ingvason
+
+Date  04.12.2025
+
+    1. Keep going with going down the requirement list in UI.
+    2. Helping others with programing, pearprograming hours did: 8
+
+Writer: Aron Bjarki Ingvason
+
