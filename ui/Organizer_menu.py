@@ -14,7 +14,9 @@ class OrganizerMenu():
         pass
 
     def show_organizer_menu(self):
-        print(
+
+        while True:
+            print(
 """ 
 Organizer Menu
 
@@ -24,7 +26,6 @@ b. Back
 
 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","b","B"]:
 
@@ -51,7 +52,10 @@ Try again!!
     
 
     def player_management_menu(self):
-        print(
+
+        
+        while True:
+            print(
 """ 
 Player Management 
 
@@ -63,8 +67,6 @@ b. Back
 
 
 """)
-        
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","b","B"]:
 
@@ -111,7 +113,10 @@ Try again!!
 
     def edit_player_menu(self,Player_ID:int):
 
-        print(
+
+        temp : Player|bool = self.logic_wrapper.get_player_by_ID(Player_ID)  
+        while True:
+            print(
 """ 
 Edit Players info 
 
@@ -126,8 +131,6 @@ b. Back
 
 
 """)
-        temp : Player|bool = self.logic_wrapper.get_player_by_ID(Player_ID)  
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","5","6","7","b","B"]:
                 

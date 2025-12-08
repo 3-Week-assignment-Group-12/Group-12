@@ -1,6 +1,5 @@
 # logic_layer/logic_wrapper.py
-from logic import club_handler
-from ..models.club import Club
+
 from data.data_wrapper import DataWrapper
 from logic.player_handler import player_handler
 from logic.team_handler import team_handler

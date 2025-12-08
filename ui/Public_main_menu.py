@@ -1,6 +1,6 @@
 from __future__ import annotations
 # ui_layer/main_menu.py
-from ..models.club import Club
+from models.club import Club
 from logic.logic_wrapper import LogicWrapper
 from models.team import Team
 from models.tournament import Tournament
@@ -19,7 +19,9 @@ class PublicMainMenu():
 
     #-----------------------Public Main menu----------------------------
     def public_menu(self):
-        print(""" 
+
+        while True:
+            print(""" 
 Public main menu
 
 1. View Players
@@ -32,7 +34,6 @@ b. Back
 
 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","5","6","b","B"]:
                 
@@ -76,7 +77,9 @@ Try again!!
 
 
     def view_players_menu(self):
-        print(
+
+        while True:
+            print(
 """ 
 View Players menu
 
@@ -89,7 +92,6 @@ b. Back
 
 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","5","b","B"]:
                 
@@ -167,7 +169,8 @@ Try again!!
 
 
     def view_team_menu(self):
-        print(
+        while True:
+            print(
 """ 
 View Team menu
 
@@ -180,47 +183,47 @@ b. Back
 
 
 """)
-        choice=input("Enter input: ")
+            choice=input("Enter input: ")
 
-        match choice:
-            case "1":                      
-                # Diana
-                teamID = self.logic_wrapper.get_teams()
-                for team in teamID:
-                    print(team.name)
+            match choice:
+                case "1":                      
+                    # Diana
+                    teamID = self.logic_wrapper.get_teams()
+                    for team in teamID:
+                        print(team.name)
 
-            case "2": 
-                tournaments = self.logic_wrapper.get_tournaments()
-                for i in tournaments:
-                    tournament=self.logic_wrapper.get_tournament_by_ID(i.id) # type: ignore
-                    if type(tournament) == Tournament:
-                        print(f"Tournament: {tournament.name}\n")
-                        for teamID in tournament.team_list:
-                            team = self.logic_wrapper.get_team_by_ID(teamID)
+                case "2": 
+                    tournaments = self.logic_wrapper.get_tournaments()
+                    for i in tournaments:
+                        tournament=self.logic_wrapper.get_tournament_by_ID(i.id) # type: ignore
+                        if type(tournament) == Tournament:
+                            print(f"Tournament: {tournament.name}\n")
+                            for teamID in tournament.team_list:
+                                team = self.logic_wrapper.get_team_by_ID(teamID)
+                                if type(team) == Team:
+                                    print(f"Team: {team.name}\n")
+
+                case "3": 
+                    pass
+                case "4": 
+                    pass
+                case "5":
+                    while True:
+                        team_ID = int(input("Enter team ID: "))
+                        if self.logic_wrapper.get_team_by_ID(team_ID) is False:
+                            print("Incorrect ID")
+                        else:
+                            team = self.logic_wrapper.get_team_by_ID(team_ID)
                             if type(team) == Team:
-                                print(f"Team: {team.name}\n")
+                                print(f"name: {team.name}")
+                                print(f"tag: {team.tag}")
+                                print(f"creator_id: {team.creator_id}")
+                                print(f"team_size: {team.team_size}")
+                                print(f"member_list: {team.member_list}")
 
-            case "3": 
-                pass
-            case "4": 
-                pass
-            case "5":
-                while True:
-                    team_ID = int(input("Enter team ID: "))
-                    if self.logic_wrapper.get_team_by_ID(team_ID) is False:
-                        print("Incorrect ID")
-                    else:
-                        team = self.logic_wrapper.get_team_by_ID(team_ID)
-                        if type(team) == Team:
-                            print(f"name: {team.name}")
-                            print(f"tag: {team.tag}")
-                            print(f"creator_id: {team.creator_id}")
-                            print(f"team_size: {team.team_size}")
-                            print(f"member_list: {team.member_list}")
-
-            case "b": 
-                pass
-        return
+                case "b": 
+                    pass
+            return
     
 
 
@@ -232,7 +235,9 @@ b. Back
 
 
     def view_tournaments_menu(self):
-        print(
+
+        while True:
+            print(
 """ 
 View Tournament menu
 
@@ -244,7 +249,6 @@ b. Back
 
 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","b","B"]:
                 
@@ -289,7 +293,9 @@ Try again!!
 
 
     def view_clubs(self):
-        print(
+
+        while True:
+            print(
 """ 
 View Clubs Menu
 
@@ -300,7 +306,6 @@ b. Back
 
 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","b","B"]:
                 

@@ -178,7 +178,9 @@ Try again!!
 
 
     def select_tournament_menu(self, ID):
-        print(
+
+        while True:
+            print(
 """ 
 Select "nafn liðs"   ATH !!!!
 
@@ -191,7 +193,6 @@ b. Back
 
 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","5","b","B"]:
 

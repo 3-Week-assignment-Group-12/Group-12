@@ -26,7 +26,10 @@ class MainMenu:
 
 
     def run(self):
-        print( """
+
+        while True:
+            
+            print( """
 +---------------------------------------------------+
 |                                                   |
 |  ____  _   _        ____                   _      |
@@ -38,7 +41,7 @@ class MainMenu:
 |                                                   |
 +---------------------------------------------------+
 """)
-        print(
+            print(
             
 """ 
 Welcome To the menu. 
@@ -51,7 +54,6 @@ q. Quit
 
 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","q","Q"]:
 
@@ -83,6 +85,7 @@ Try again!!
                     return
                 case _: 
                     pass
+            self.run()
             
     def enable_high_quality_menu(self):
         print(
