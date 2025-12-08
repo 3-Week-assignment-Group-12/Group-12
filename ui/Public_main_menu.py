@@ -67,7 +67,7 @@ Try again!!
                 case "6": 
                     self.view_organizers()
                 case "b": 
-                    pass
+                    return
            
     
 #-----------------------Veiw player ----------------------------
@@ -155,7 +155,7 @@ Try again!!
                 case "5": 
                     pass # view statistics team
                 case "b": 
-                    pass
+                    return
         
 
 
@@ -221,7 +221,7 @@ b. Back
                                 print(f"member_list: {team.member_list}")
 
                 case "b": 
-                    pass
+                    return
             return
     
 
