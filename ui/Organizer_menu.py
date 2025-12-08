@@ -109,7 +109,7 @@ Try again!!
                         print("Player added!!")
                     
                 case "2": 
-                    id=self.inputplayersID()
+                    id=input("Enter player ID: ")
                     self.edit_player_menu(id)  #Asks the user for Players National Id before going to the edit page
                 case "3":
                     ID=self.inputplayersID()
@@ -125,7 +125,7 @@ Try again!!
     def edit_player_menu(self,Player_ID:str):
 
 
-        temp : Player|bool = self.logic_wrapper.get_player_by_ID(Player_ID)  
+        temp : Player|int = self.logic_wrapper.get_player_by_ID(Player_ID)  
         while True:
             print(
 """ 
@@ -162,7 +162,7 @@ b. Back
 
 Try again!!
 """)   
-            if isinstance(temp, bool):
+            if isinstance(temp, int):
                 print("Player not found")
                 return
             
@@ -223,7 +223,7 @@ Try again!!
     def inputplayersID(self):
         playersID=input("Enter National ID: ")
         check= self.logic_wrapper.get_player_by_ID(playersID)
-        while check is False:
+        while isinstance(check,int):
             print("Player does not exist, Try different ID")
             playersID=input("Enter National ID: ")
             check= self.logic_wrapper.get_player_by_ID(playersID)
