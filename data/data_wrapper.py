@@ -229,19 +229,19 @@ class DataWrapper:
     # ------------------- Get by id Methods ------------------ #
     
 
-    def get_player_by_ID(self, ID) -> Player|bool:
+    def get_player_by_ID(self, ID) -> Player|int:
         """Retrieve a player by their ID.
         
         Args:
             ID: Player ID
             
         Returns:
-            Player|bool: Player instance if found, False otherwise
+            Player|int: Player instance if found, False otherwise
         """
         try:
             return self.player_repo.read(lambda x: x.id == ID)[0]
         except IndexError:
-            return False
+            return -2 # error reading data
     
     def get_team_by_ID(self, ID:int) -> Team|bool:
         """Retrieve a team by its ID.

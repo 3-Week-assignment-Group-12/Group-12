@@ -113,16 +113,22 @@ Try again!!
             match choice:
                 case "1": 
                     list_of_players=self.logic_wrapper.get_players() #view all players
+                    count = 0
                     for i in list_of_players:
-                        print(i.name)
+                        print(f"{count}: {i.name}, ID: {i.id}")
                 case "2": 
                     teams=self.logic_wrapper.get_teams()
                     for x in teams:
                         team=self.logic_wrapper.get_team_by_ID(x.id)
                         if type(team) == Team:
                             print(f"Team: {team.name}\n")
+                            count = 0
                             for pl in team.member_list:
-                                print(pl)
+                                player = self.logic_wrapper.get_player_by_ID(pl)
+                                if type(player) == Player:
+                                    
+                                    print(f"{count}: {player.name}, ID: {player.id}")
+                                    count +=1
                     # View players in team
                 case "3": 
                     tournaments=self.logic_wrapper.get_tournaments()
@@ -134,14 +140,19 @@ Try again!!
                                 team = self.logic_wrapper.get_team_by_ID(j)
                                 if type(team) == Team:
                                     print(f"Team: {team.name}\n")
+                                    count =1
                                     for pl in team.member_list:
-                                        print(pl)
+                                        player = self.logic_wrapper.get_player_by_ID(pl)
+                                        if type(player) == Player:
+                                    
+                                            print(f"{count}: {player.name}, ID: {player.id}")
+                                            count +=1
                     pass#self.logic_wrapper.
                     #self.logic_wrapper.get_team_by_ID(input("Enter Team : "))
                 case "4":
                     while True:
                         player_ID = input("Enter player ID: ")
-                        if self.logic_wrapper.get_player_by_ID(player_ID) is False:
+                        if isinstance(self.logic_wrapper.get_player_by_ID(player_ID),int) :
                             print("Incorrect ID")
                         else:
                             playerinfo = self.logic_wrapper.get_player_by_ID(player_ID)

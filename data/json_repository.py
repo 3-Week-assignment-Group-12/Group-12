@@ -141,7 +141,7 @@ class JsonRepository:
             return False
         
         
-    def read_dummy_data(self) -> list:
+    def read_dummy_data(self):
         """
         Read dummy data from the JSON file for testing purposes.
         
@@ -149,5 +149,3 @@ class JsonRepository:
             list: List of objects read from the file
         """
         pass
-        list_of_files = 
-        return self.read()
