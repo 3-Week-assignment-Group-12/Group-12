@@ -10,6 +10,7 @@ from models.player import Player
 from models.team import Team
 from models.match import Match
 from models.bracket import Bracket
+from models.bracket import Club
 
 
 
@@ -214,6 +215,17 @@ class LogicWrapper:
         """
         return self.data_wrapper.get_team_by_ID(ID)
     
+    def get_club_by_ID(self, ID: int) -> Club|bool:
+        """Retrieve a team by its ID.
+        
+        Args:
+            ID (int): Club ID
+            
+        Returns:
+            Team|bool: Club instance if found, False otherwise
+        """
+        return self.data_wrapper.get_club_by_ID(ID)
+    
     def get_matches_by_tournament_ID(self, ID:int) -> list[Match]:
         """Retrieve matches by tournament ID.
         
@@ -262,16 +274,7 @@ class LogicWrapper:
         """
         return self.data_wrapper.delete_player(ID)
     
-    def delete_team(self, ID: int) -> bool:
-        """Delete a team by their ID.
-        
-        Args:
-            ID (int): Team ID to delete
-            
-        Returns:
-            bool: Success status
-        """
-        return self.data_wrapper.delete_team(ID)
+    
     
     def delete_bracket(self, ID: int) -> bool:
         """Delete a bracket by their ID.
@@ -284,27 +287,34 @@ class LogicWrapper:
         """
         return self.data_wrapper.delete_bracket(ID)
     
-    def delete_tournament(self, ID: int) -> bool:
-        """Delete a tournament by its ID.
+
+
+    def delete_team(self, ID: int) -> bool:
+        """Delete a team by their ID.
         
         Args:
-            ID (int): Tournament ID to delete
+            ID (int): Team ID to delete
+            
+        Returns:
+            bool: Success status
+        """
+        return self.data_wrapper.delete_team(ID)
+    
+
+
+
+    def delete_tournament(self, ID: int) -> bool:
+        """Delete a team by their ID.
+        
+        Args:
+            ID (int): Team ID to delete
             
         Returns:
             bool: Success status
         """
         return self.data_wrapper.delete_tournament(ID)
     
-    def delete_match(self, ID: int) -> bool:
-        """Delete a match by their ID.
-        
-        Args:
-            ID (int): match ID to delete
-            
-        Returns:
-            bool: Success status
-        """
-        return self.data_wrapper.delete_match(ID)
+    
     
 
     
@@ -339,99 +349,5 @@ class LogicWrapper:
         #return self.data_wrapper.get_clubs()
         return
     
-    def inputplayersID(self):
-        playersID=int(input("Enter National ID: "))
-        check= self.get_player_by_ID(playersID)
-        while check is False:
-            print("Player does not exist, Try different ID")
-            playersID=int(input("Enter National ID: "))
-            check= self.get_player_by_ID(playersID)
-        return playersID
-    
-    def inputTeamID(self):
-        teamID=int(input("Enter Team ID: "))
-        check= self.get_team_by_ID(teamID)
-        while check is False:
-            print("Team does not exist, Try different ID")
-            teamID=int(input("Enter Team ID: "))
-            check= self.get_team_by_ID(teamID)
-        return teamID
     
 
-    def delete_team(self, ID: int) -> bool:
-        """Delete a team by their ID.
-        
-        Args:
-            ID (int): Team ID to delete
-            
-        Returns:
-            bool: Success status
-        """
-        return self.data_wrapper.delete_team(ID)
-    
-
-
-    def inputTournamentID(self):
-        tournamentID=int(input("Enter Tournament ID: "))
-        check= self.get_tournament_by_ID(tournamentID)
-        while check is False:
-            print("Tournament does not exist, Try different ID")
-            tournamentID=int(input("Enter Tournament ID: "))
-            check= self.get_tournament_by_ID(tournamentID)
-        return tournamentID
-    
-
-    def delete_tournament(self, ID: int) -> bool:
-        """Delete a team by their ID.
-        
-        Args:
-            ID (int): Team ID to delete
-            
-        Returns:
-            bool: Success status
-        """
-        return self.data_wrapper.delete_tournament(ID)
-    
-    #--------------team checks --------------------
-    def check_for_team_name(self,name):
-        list_of_teams=self.get_teams()
-        for teamID in list_of_teams:
-            teaminfo=self.get_team_by_ID(teamID.id)
-            if isinstance(teaminfo,Team):
-                if name == teaminfo.name:
-                    return False
-                else:
-                    return True
-            
-    def check_for_team_tag(self,tag):
-        list_of_teams=self.get_teams()
-        for teamID in list_of_teams:
-            teaminfo=self.get_team_by_ID(teamID.id)
-            if isinstance(teaminfo,Team):
-                if tag == teaminfo.tag: 
-                    return False
-                else:
-                    return True
-    #--------------Player checks --------------------
-    def check_for_player_kt(self,kt):
-        list_of_players=self.get_players()
-        for player in list_of_players:
-            playerinfo=self.get_team_by_ID(player.kt)
-            if isinstance(playerinfo,Player):
-                if kt == playerinfo.kt: 
-                    return False
-                else:
-                    return True
-    
-    #--------------Tournament checks --------------------
-                
-    def check_for_tournament_ID(self,ID):
-        list_of_tournaments=self.get_tournaments()
-        for tournamentID in list_of_tournaments:
-            tournament_info=self.get_team_by_ID(tournamentID.id)
-            if isinstance(tournament_info,Tournament):
-                if ID == tournament_info.id: 
-                    return False
-                else:
-                    return True
-    

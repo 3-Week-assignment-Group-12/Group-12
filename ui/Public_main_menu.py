@@ -3,7 +3,6 @@ from __future__ import annotations
 from logic.logic_wrapper import LogicWrapper
 from models.team import Team
 from models.tournament import Tournament
-
 from models.player import Player
 from ui.Organizer_menu import OrganizerMenu
 from ui.tournament_management import TournamentManagement
@@ -199,7 +198,7 @@ b. Back
                                 print(f"Team: {team.name}\n")
 
             case "3": 
-                pass
+                pass #C requirement
             case "4": 
                 pass
             case "5":
@@ -269,9 +268,9 @@ Try again!!
                         if type(tournament) == Tournament:
                             print(tournament.name)
                 case "2": 
-                    pass
+                    pass # c Requirement
                 case "3": 
-                    pass
+                    pass 
                 case "4": 
                     pass
                 case "b": 
@@ -320,9 +319,9 @@ Try again!!
                 case "1": 
                     list_of_clubs=self.logic_wrapper.get_clubs()
                     for clubID in list_of_clubs:
-                        club= self.logic_wrapper.get_clubs_by_ID(clubID)
-                        #if type(club) == Club:
-                            #print(club.name)
+                        clubinfo= self.logic_wrapper.get_clubs_by_ID(clubID)
+                        if isinstance(clubinfo,Club):
+                            print(clubinfo.name)
                 case "2": 
                     while True:
                         int(input("Enter club ID: "))
@@ -405,10 +404,31 @@ Try again!!
 
             match choice:
                 case "1": 
-                    #self.logic_wrapper.get_turnaments()
-                    pass
+                    tournaments=self.logic_wrapper.get_turnaments()
+                    for tournamentID in tournaments:
+                        tournamentinfo= self.logic_wrapper.get_tournament_by_ID(tournamentID)
+                        if isinstance(tournamentinfo,Tournament):
+                            print(tournamentinfo.name)
+                    
                 case "b": 
                     return
             
-        
+    #--------------Functions-------------------
+    #     
+    def inputTeamID(self):
+        teamID=int(input("Enter Team ID: "))
+        check= self.logic_wrapper.get_team_by_ID(teamID)
+        while check is False:
+            print("Team does not exist, Try different ID")
+            teamID=int(input("Enter Team ID: "))
+            check= self.get_team_by_ID(teamID)
+        return teamID
     
+    def inputplayersID(self):
+        playersID=int(input("Enter National ID: "))
+        check= self.logic_wrapper.get_player_by_ID(playersID)
+        while check is False:
+            print("Player does not exist, Try different ID")
+            playersID=int(input("Enter National ID: "))
+            check= self.logic_wrapper.get_player_by_ID(playersID)
+        return playersID

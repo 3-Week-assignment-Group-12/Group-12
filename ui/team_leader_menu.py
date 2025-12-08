@@ -56,18 +56,18 @@ Try again!!
                 case "2": 
                     self.register_for_tournament_menu() 
                 case "3": 
-                    name = input("Enter team name: ")
-                    team_tag = input("Enter team tag: ")
+                    name = self.check_for_team_name()
+                    team_tag = self.check_for_team_tag()
                     creator_id = int(input("Enter team creator id: "))
                     team_size = int(input("Enter team size: "))
                     team_list = [] #laga team list 
                     self.logic_wrapper.create_team(name, team_tag, creator_id, team_size, team_list) 
                     print("Team has been created!") 
                 case "4": 
-                    ID=self.logic_wrapper.inputTeamID()
+                    ID=self.inputTeamID()
                     self.edit_team_menu(ID) 
                 case "5": 
-                    ID=self.logic_wrapper.inputTeamID()
+                    ID=self.inputTeamID()
                     x=input("Are you sure? (Y/N)")
                     if x=="y" or x=="Y":
                         self.logic_wrapper.delete_team(ID) # type: ignore
@@ -110,7 +110,7 @@ Try again!!
 
             match choice:
                 case "1": 
-                    teamID = self.logic_wrapper.inputTeamID()
+                    teamID = self.inputTeamID()
                     team = self.logic_wrapper.get_team_by_ID(teamID)
                     print(team.id)  # call funtion for specific team to check out
                     print(team.name)
@@ -119,7 +119,7 @@ Try again!!
                     print(team.team_size)
                     print(team.member_list)
                 case "2": 
-                    teamID = self.logic_wrapper.inputTeamID()
+                    teamID = self.inputTeamID()
                     list_of_tournaments= self.logic_wrapper.get_turnaments()
                     for tournament in list_of_tournaments:
                         listOfTeamID=tournament.team_list
@@ -342,4 +342,47 @@ Try again!!
                     pass
                 case "b": 
                     pass
-       
+    
+    #-------------Functions-----------------
+
+    def check_for_team_name(self):
+
+        name = input("Enter team name: ")
+        list_of_teams=self.logic_wrapper.get_teams()
+        while True:
+            for teamID in list_of_teams:
+                teaminfo=self.logic_wrapper.get_team_by_ID(teamID.id)
+                if isinstance(teaminfo,Team):
+                    if name == teaminfo.name:
+                        print("Name already exists!")
+                        name = input("Enter different team name: ")
+                    else:
+                        return name
+            
+    def check_for_team_tag(self):
+    
+        tag = input("Enter team tag: ")
+        list_of_teams=self.logic_wrapper.get_teams()
+        while True: 
+            
+            if list_of_teams is None or list_of_teams == []:
+                    return tag
+            for teamID in list_of_teams:
+                teaminfo=self.logic_wrapper.get_team_by_ID(teamID.id)
+                if isinstance(teaminfo,Team):
+                    if tag == teaminfo.tag: 
+                        print("Tag already exists!")
+                        tag = input("Enter different team tag: ")
+                    else:
+                        return tag
+                    
+
+
+    def inputTeamID(self):
+        teamID=int(input("Enter Team ID: "))
+        check= self.logic_wrapper.get_team_by_ID(teamID)
+        while check is False:
+            print("Team does not exist, Try different ID")
+            teamID=int(input("Enter Team ID: "))
+            check= self.logic_wrapper.get_team_by_ID(teamID)
+        return teamID
