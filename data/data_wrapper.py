@@ -1,10 +1,11 @@
 from data.json_repository import JsonRepository
-#from data.main_data_manager import Main_data
 from models.match import Match
 from models.player import Player
 from models.team import Team
 from models.bracket import Bracket
 from models.tournament import Tournament
+from models.club import Club
+
 class DataWrapper:
 
     
@@ -16,6 +17,7 @@ class DataWrapper:
         self.tournament_repo = JsonRepository(Tournament)
         self.match_repo = JsonRepository(Match)
         self.bracket_repo = JsonRepository(Bracket)
+        self.club_repo = JsonRepository(Club)
         
         
     def get_dummy_data(self):
@@ -24,7 +26,8 @@ class DataWrapper:
         #self.main_data.get_teams("./dummy_data/dummy_teams.csv")
         #self.main_data.get_tournaments("./dummy_data/dummy_tournaments.csv") no data available
         #self.main_data.get_matches("./dummy_data/dummy_matches.csv") no data available
-        pass
+        
+        self.player_repo.read()
         
     
     # ------------------- Read Methods ------------------ #
@@ -64,12 +67,23 @@ class DataWrapper:
 
 
     def get_brackets(self) -> list[Bracket]:
-        """Retrieve all brackets from file.
+        """Retrieve all Clubs from file.
         
         Returns:
-            list[Bracket]: List of brackets
+            list[Club]: List of tournaments
         """
         return self.bracket_repo.read()
+    
+    def get_clubs(self) -> list[Club]:
+        """Retrieve all Clubs from file.
+        
+        Returns:
+            list[Club]: List of Clubs
+        """
+        
+        
+        return self.club_repo.read()
+    
     
     # ------------------- Create Methods ------------------ #
     
@@ -131,6 +145,17 @@ class DataWrapper:
         """
         return self.bracket_repo.create(new_bracket)
     
+    def write_club(self, new_club:Club) -> bool:
+        """Write a new club instance to file.
+        
+        Args:
+            new_club (Club): Club instance to write
+            
+        Returns:
+            bool: Success status
+        """
+        return self.club_repo.create(new_club)
+    
     # ------------------- Modify Methods ------------------ #
     
     def modify_team(self, new_data:Team) -> bool:
@@ -164,7 +189,7 @@ class DataWrapper:
         Returns:
             bool: Success status
         """
-        return self.player_repo.update(lambda x: x.kt == new_data.id, lambda x: new_data)
+        return self.player_repo.update(lambda x: x.id == new_data.id, lambda x: new_data)
     
     def modify_tournament(self, new_data:Tournament) -> bool:
         """Modify an existing tournament's data.
@@ -187,6 +212,17 @@ class DataWrapper:
             bool: Success status
         """
         return self.bracket_repo.update(lambda x: x.id == new_data.id, lambda x: new_data)
+    
+    def modify_club(self, new_data:Club) -> bool:
+        """Modify an existing club's data.
+        
+        Args:
+            new_data (Club): Updated club instance
+            
+        Returns:
+            bool: Success status
+        """
+        return self.club_repo.update(lambda x: x.id == new_data.id, lambda x: new_data)
     
     
     
@@ -250,6 +286,17 @@ class DataWrapper:
         """
         return self.bracket_repo.read(lambda x: x.id == ID)[0] or False
     
+    def get_club_by_ID(self, ID:int) -> Club|bool:
+        """Retrieve a club by its ID.
+        
+        Args:
+            ID (int): club ID
+            
+        Returns:
+            club|bool: club instance if found, False otherwise
+        """
+        return self.club_repo.read(lambda x: x.id == ID)[0] or False
+    
     
     
     
@@ -282,8 +329,38 @@ class DataWrapper:
         else:
             return self.player_repo.read(lambda x: x.id in [p for p in team.member_list])
         
+        
+    def get_teams_by_club_ID(self, club_id:int) -> list[Team] | bool:
+        """Retrieve all teams for a specific club ID.
+        
+        Args:
+            club_id (int): club ID to filter players
+        
+        Returns:
+            list[Team]: List of teams for the specified club
+        """
+        
+        club = self.get_club_by_ID(club_id)
+        if isinstance(club, bool):
+            return False
+        else:
+            return self.club_repo.read(lambda x: x.id in [p for p in club.teams])
     
-    
+    def get_team_by_tournament_ID(self, tournament_id:int) -> list[Team] | bool:
+        """Retrieve all teams for a specific tournament ID.
+        
+        Args:
+            tournament (int): tournament ID to filter teams
+        
+        Returns:
+            list[Team]: List of teams for the specified tournamnet
+        """
+        
+        tournmaent = self.get_tournament_by_ID(tournament_id)
+        if isinstance(tournmaent, bool):
+            return False
+        else:
+            return self.club_repo.read(lambda x: x.id in [p for p in tournmaent.team_list])
     
     # ------------------- Delete Methods ------------------ #
     
@@ -341,3 +418,14 @@ class DataWrapper:
             bool: Success status
         """
         return self.bracket_repo.delete(lambda x: x.id == bracket_id)
+    
+    def delete_club(self, club_id:int) -> bool:
+        """Delete a club by ID.
+
+        Args:
+            club_id (int): ID of club to delete
+
+        Returns:
+            bool: Success status
+        """
+        return self.bracket_repo.delete(lambda x: x.id == club_id)
