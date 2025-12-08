@@ -109,7 +109,7 @@ Try again!!
                         print("Player added!!")
                     
                 case "2": 
-                    id=input("Enter player ID: ")
+                    id=self.inputplayersID()
                     self.edit_player_menu(id)  #Asks the user for Players National Id before going to the edit page
                 case "3":
                     ID=self.inputplayersID()
@@ -164,26 +164,26 @@ Try again!!
 """)   
             if isinstance(temp, int):
                 print("Player not found")
-                return
-            
-            match choice:
-                case "1": 
-                    temp.name = input("Enter New name: ")
-                case "2": 
-                    temp.phone = int(input("Enter New number: "))
-                case "3": 
-                    temp.address = input("Enter New address: ")     
-                case "4": 
-                    temp.email = self.check_for_player_email() 
-                case "5": 
-                    pass 
-                case "6": 
-                    pass
-                case "7": 
-                    pass
-                case "b": 
-                    return
-            self.logic_wrapper.modify_player(temp)
+            else:
+                
+                match choice:
+                    case "1": 
+                        temp.name = input("Enter New name: ")
+                    case "2": 
+                        temp.phone = int(input("Enter New number: "))
+                    case "3": 
+                        temp.address = input("Enter New address: ")     
+                    case "4": 
+                        temp.email = self.check_for_player_email() 
+                    case "5": 
+                        pass 
+                    case "6": 
+                        pass
+                    case "7": 
+                        pass
+                    case "b": 
+                        return
+                self.logic_wrapper.modify_player(temp)
 
     
     #------------------Functions--------------------------

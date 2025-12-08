@@ -113,7 +113,7 @@ Try again!!
             match choice:
                 case "1": 
                     list_of_players=self.logic_wrapper.get_players() #view all players
-                    count = 0
+                    count = 1
                     for i in list_of_players:
                         print(f"{count}: {i.name}, ID: {i.id}")
                 case "2": 
