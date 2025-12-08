@@ -52,7 +52,7 @@ class LogicWrapper:
             return self.data_wrapper.write_player(new_player)
         return new_player  # Indicate failure due to validation
         
-    def create_team(self, name: str, tag: str, creator_id: int, team_size: int, team_list: list[str]) -> int:
+    def create_team(self, name: str, tag: str, creator_id: str, team_size: int, team_list: list[str]) -> int:
         """Create a new team with validation.
         
         Args:

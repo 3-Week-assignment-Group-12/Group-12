@@ -59,7 +59,7 @@ Try again!!
                 case "3": 
                     name = self.check_for_team_name()
                     team_tag = self.check_for_team_tag()
-                    creator_id = int(input("Enter team creator id: "))
+                    creator_id = input("Enter team creator id: ")
                     team_size = int(input("Enter team size: "))
                     team_list = [] #laga team list 
                     ret = self.logic_wrapper.create_team(name, team_tag, creator_id, team_size, team_list) 

@@ -10,7 +10,7 @@ class Team:
         id: int
         name: str
         tag: str
-        creator_id: int
+        creator_id: str
         team_size: int
         member_list: list[str]    
     """
@@ -18,7 +18,7 @@ class Team:
     id: int 
     name: str
     tag: str 
-    creator_id: int 
+    creator_id: str 
     team_size: int 
     member_list: list[str]
     
