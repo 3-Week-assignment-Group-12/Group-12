@@ -351,3 +351,78 @@ class LogicWrapper:
     
     
 
+    def inputplayersID(self):
+        playersID=int(input("Enter National ID: "))
+        check= self.get_player_by_ID(playersID)
+        while check is False:
+            print("Player does not exist, Try different ID")
+            playersID=int(input("Enter National ID: "))
+            check= self.get_player_by_ID(playersID)
+        return playersID
+    
+    def inputTeamID(self):
+        teamID=int(input("Enter Team ID: "))
+        check= self.get_team_by_ID(teamID)
+        while check is False:
+            print("Team does not exist, Try different ID")
+            teamID=int(input("Enter Team ID: "))
+            check= self.get_team_by_ID(teamID)
+        return teamID
+    
+    
+
+
+    def inputTournamentID(self):
+        tournamentID=int(input("Enter Tournament ID: "))
+        check= self.get_tournament_by_ID(tournamentID)
+        while check is False:
+            print("Tournament does not exist, Try different ID")
+            tournamentID=int(input("Enter Tournament ID: "))
+            check= self.get_tournament_by_ID(tournamentID)
+        return tournamentID
+    
+
+    
+    #--------------team checks --------------------
+    def check_for_team_name(self,name):
+        list_of_teams=self.get_teams()
+        for teamID in list_of_teams:
+            teaminfo=self.get_team_by_ID(teamID.id)
+            if isinstance(teaminfo,Team):
+                if name == teaminfo.name:
+                    return False
+                else:
+                    return True
+            
+    def check_for_team_tag(self,tag):
+        list_of_teams=self.get_teams()
+        for teamID in list_of_teams:
+            teaminfo=self.get_team_by_ID(teamID.id)
+            if isinstance(teaminfo,Team):
+                if tag == teaminfo.tag: 
+                    return False
+                else:
+                    return True
+    #--------------Player checks --------------------
+    def check_for_player_kt(self,kt):
+        list_of_players=self.get_players()
+        for player in list_of_players:
+            playerinfo=self.get_team_by_ID(player.id)
+            if isinstance(playerinfo,Player):
+                if kt == playerinfo.id: 
+                    return False
+                else:
+                    return True
+    
+    #--------------Tournament checks --------------------
+                
+    def check_for_tournament_ID(self,ID):
+        list_of_tournaments=self.get_tournaments()
+        for tournamentID in list_of_tournaments:
+            tournament_info=self.get_team_by_ID(tournamentID.id)
+            if isinstance(tournament_info,Tournament):
+                if ID == tournament_info.id: 
+                    return False
+                else:
+                    return True
+    
