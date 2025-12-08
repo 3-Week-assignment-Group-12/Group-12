@@ -15,7 +15,9 @@ class TeamLeader():
 
 
     def teamleader_menu(self):
-        print(
+
+        while True:
+            print(
 """ 
 Team Leader Menu
 
@@ -28,7 +30,6 @@ Team Leader Menu
 7. Reward menu
 b. Back 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","5","6","7","b","B"]:
 
@@ -83,7 +84,9 @@ Try again!!
     
 
     def view_team_teamleader_menu(self):
-        print(
+
+        while True:
+            print(
 """ 
 View Team
 
@@ -91,7 +94,6 @@ View Team
 2. View My Tournaments (view menu shortcut)
 b. Back 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","b","B"]:
 
@@ -112,15 +114,16 @@ Try again!!
                 case "1": 
                     teamID = self.inputTeamID()
                     team = self.logic_wrapper.get_team_by_ID(teamID)
-                    print(team.id)  # call funtion for specific team to check out
-                    print(team.name)
-                    print(team.tag)
-                    print(team.creator_id)
-                    print(team.team_size)
-                    print(team.member_list)
+                    if isinstance(team, Team):
+                        print(team.id)  # call funtion for specific team to check out
+                        print(team.name)
+                        print(team.tag)
+                        print(team.creator_id)
+                        print(team.team_size)
+                        print(team.member_list)
                 case "2": 
-                    teamID = self.inputTeamID()
-                    list_of_tournaments= self.logic_wrapper.get_turnaments()
+                    teamID = self.logic_wrapper.inputTeamID()
+                    list_of_tournaments= self.logic_wrapper.get_tournaments()
                     for tournament in list_of_tournaments:
                         listOfTeamID=tournament.team_list
                         if teamID in listOfTeamID:
@@ -130,7 +133,9 @@ Try again!!
            
     
     def rewards_menu_teamleader(self):
-        print(
+
+        while True:
+            print(
 """ 
 Rewards Menu
 
@@ -138,7 +143,6 @@ Rewards Menu
 2. Rewards Log
 b. Back 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","b","B"]:
 
@@ -165,7 +169,9 @@ Try again!!
             
 
     def register_for_tournament_menu(self):
-        print(
+
+        while True:
+            print(
 """ 
 Register For Tournament Menu
 
@@ -175,7 +181,6 @@ b. Back
 
 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","b","B"]:
 
@@ -202,7 +207,9 @@ Try again!!
           
 
     def edit_team_menu(self,team_to_edit):
-        print(
+
+        while True:
+            print(
 """ 
 Edit Team Menu
 
@@ -216,7 +223,6 @@ b. Back
 
 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","5","6","b","B"]:
                 
@@ -255,7 +261,9 @@ Try again!!
            
     
     def club_menu(self):
-        print(
+
+        while True:
+            print(
 """ 
 Club Menu
 
@@ -267,7 +275,6 @@ b. Back
 
 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","b","B"]:
                 
@@ -300,7 +307,9 @@ Try again!!
             
     
     def edit_club_menu(self):
-        print(
+
+        while True:
+            print(
 """ 
 Edit Club Menu
 
@@ -312,7 +321,6 @@ b. Back
 
 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","b","B"]:
                 

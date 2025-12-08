@@ -1,16 +1,18 @@
 # logic_layer/logic_wrapper.py
+
 from data.data_wrapper import DataWrapper
 from logic.player_handler import player_handler
 from logic.team_handler import team_handler
 from logic.tournament_handler import tournament_handler
 from logic.match_handler import match_handler
 from logic.bracket_handler import bracket_handler
+from logic.club_handler import club_handler
 from models.tournament import Tournament
 from models.player import Player
 from models.team import Team
 from models.match import Match
 from models.bracket import Bracket
-from models.bracket import Club
+from models.club import Club
 
 
 
@@ -24,7 +26,7 @@ class LogicWrapper:
         self.tournament_handler = tournament_handler()
         self.match_handler = match_handler()
         self.bracket_handler = bracket_handler()
-        
+        self.club_handler = club_handler()
         
         
     # ------------------- Create Methods ------------------ #
@@ -109,6 +111,23 @@ class LogicWrapper:
             return self.data_wrapper.write_tournament(new_tournament)
         return False 
 
+    def create_club(self, name: str, colour:str ,location:str, team_list: list[int]) -> bool:
+        """Create a new club with validation.
+        
+        Args:
+            name (str): Tournament name
+            colour: str
+            location: str
+            team_list: list
+            
+        Returns:
+            bool: Success status
+        """
+        new_club: Club|bool = self.club_handler.create_club(name,colour,location,team_list,self.get_clubs())
+        if isinstance(new_club, Club):
+            return self.data_wrapper.write_club(new_club)
+        return False 
+
         
     
     # ------------------- Read Methods ------------------ #
@@ -124,6 +143,14 @@ class LogicWrapper:
         """
         return self.data_wrapper.get_teams()
 
+    def get_match(self):
+        """Retrieve all match.
+        
+        Returns:
+            list: List of matches
+        """
+        return self.data_wrapper.get_tournaments()
+    
     def get_tournaments(self):
         """Retrieve all tournaments.
         
@@ -132,41 +159,22 @@ class LogicWrapper:
         """
         return self.data_wrapper.get_tournaments()
     
-    def modify_player(self, new_data: Player) -> bool:
-        """Modify an existing player's data.
+    def get_clubs(self) -> list[Club]:
+        """Retrieve all clubs.
         
-        Args:
-            new_data (Player): Updated player instance
-            
         Returns:
-            bool: Success status
+            list: List of clubs
         """
-        return self.data_wrapper.modify_player(new_data)
+        return self.data_wrapper.get_clubs()
+
     
-    def modify_match(self, new_data: Match) -> bool:
-        """Modify an existing Match's data.
+    def get_brackets(self):
+        """Retrieve all brackets.
         
-        Args:
-            new_data (PlMatchayer): Updated Match instance
-            
         Returns:
-            bool: Success status
+            list: List of bracets
         """
-        return self.data_wrapper.modify_match(new_data)
-    
-    def modify_tournament(self, new_data: Tournament) -> bool:
-        """Modify an existing tournament's data.
-        
-        Args:
-            new_data (Tournament): Updated tournament instance
-            
-        Returns:
-            bool: Success status
-        """
-        return self.data_wrapper.modify_tournament(new_data)
-    
-    
-    
+        return self.data_wrapper.get_brackets()
     
     # ------------------- Get by ID Methods ------------------ #
     
@@ -215,14 +223,27 @@ class LogicWrapper:
         """
         return self.data_wrapper.get_team_by_ID(ID)
     
-    def get_club_by_ID(self, ID: int) -> Club|bool:
-        """Retrieve a team by its ID.
+    
+    def get_bracket_by_ID(self, ID: int) -> Bracket|bool:
+        """Retrieve a bracket by its ID.
         
         Args:
-            ID (int): Club ID
+            ID (int): Bracket ID
             
         Returns:
-            Team|bool: Club instance if found, False otherwise
+            Bracket|bool: Bracket instance if found, False otherwise
+        """
+        return self.data_wrapper.get_bracket_by_ID(ID)
+
+    
+    def get_club_by_ID(self, ID: int) -> Club|bool:
+        """Retrieve a club by its ID.
+        
+        Args:
+            ID (int): club ID
+            
+        Returns:
+            TClubeam|bool: club instance if found, False otherwise
         """
         return self.data_wrapper.get_club_by_ID(ID)
     
@@ -249,17 +270,106 @@ class LogicWrapper:
         """
         return self.data_wrapper.get_players_by_team_ID(ID)
     
-    def get_bracket_by_ID(self, ID: int) -> Bracket|bool:
-        """Retrieve a bracket by its ID.
+    def get_team_by_club_id(self, ID:int) -> list[Team] | bool:
+        """Retrieve Team by club ID.
         
         Args:
-            ID (int): Bracket ID
+            ID (int): club ID
             
         Returns:
-            Bracket|bool: Bracket instance if found, False otherwise
+            list[ClTeamub]: List of team instances in the club
+            or False if error occurs
         """
-        return self.data_wrapper.get_bracket_by_ID(ID)
+        return self.data_wrapper.get_teams_by_club_ID(ID)
+    
+    
+    def get_team_by_tournament_id(self, ID:int) -> list[Team] | bool:
+        """Retrieve team by tournament ID.
+        
+        Args:
+            ID (int): tournamnet ID
+            
+        Returns:
+            list[Team]: List of team instances in the team
+            or False if error occurs
+        """
+        return self.data_wrapper.get_team_by_tournament_ID(ID)
+    
+    
+    
 
+
+    
+    # ------------------- Modify Methods ------------------ #
+    
+        
+    def modify_player(self, new_data: Player) -> bool:
+        """Modify an existing player's data.
+        
+        Args:
+            new_data (Player): Updated player instance
+            
+        Returns:
+            bool: Success status
+        """
+        return self.data_wrapper.modify_player(new_data)
+    
+    def modify_match(self, new_data: Match) -> bool:
+        """Modify an existing Match's data.
+        
+        Args:
+            new_data (PlMatchayer): Updated Match instance
+            
+        Returns:
+            bool: Success status
+        """
+        return self.data_wrapper.modify_match(new_data)
+    
+    def modify_tournament(self, new_data: Tournament) -> bool:
+        """Modify an existing tournament's data.
+        
+        Args:
+            new_data (Tournament): Updated tournament instance
+            
+        Returns:
+            bool: Success status
+        """
+        return self.data_wrapper.modify_tournament(new_data)
+    
+    def modify_club(self, new_data: Club) -> bool:
+        """Modify an existing club's data.
+        
+        Args:
+            new_data (club): Updated club instance
+            
+        Returns:
+            bool: Success status
+        """
+        return self.data_wrapper.modify_club(new_data)
+    
+    def modify_team(self, new_data: Tournament) -> bool:
+        """Modify an existing tournament's data.
+        
+        Args:
+            new_data (Tournament): Updated tournament instance
+            
+        Returns:
+            bool: Success status
+        """
+        return self.data_wrapper.modify_tournament(new_data)
+    
+    def modify_bracket(self, new_data: Bracket) -> bool:
+        """Modify an existing bracket's data.
+        
+        Args:
+            new_data (Bracket): Updated bracket instance
+            
+        Returns:
+            bool: Success status
+        """
+        return self.data_wrapper.modify_bracket(new_data)
+    
+    
     
     
     # ------------------- Delete Methods ------------------ #
@@ -316,7 +426,16 @@ class LogicWrapper:
     
     
     
-
+    def delete_club(self, ID: int) -> bool:
+        """Delete a club by their ID.
+        
+        Args:
+            ID (int): club ID to delete
+            
+        Returns:
+            bool: Success status
+        """
+        return self.data_wrapper.delete_club(ID)
     
     
         
@@ -339,15 +458,6 @@ class LogicWrapper:
         
         return self.tournament_handler.generate_bracket(tournament, self.data_wrapper.get_matches_by_tournament_ID(tournament.id))
     
-
-    def get_clubs(self):
-        """Retrieve all clubs.
-        
-        Returns:
-            list[Clubs]: List of all clubs
-        """
-        #return self.data_wrapper.get_clubs()
-        return
     
     
 

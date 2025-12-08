@@ -14,7 +14,9 @@ class OrganizerMenu():
         pass
 
     def show_organizer_menu(self):
-        print(
+
+        while True:
+            print(
 """ 
 Organizer Menu
 
@@ -24,7 +26,6 @@ b. Back
 
 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","b","B"]:
 
@@ -51,7 +52,10 @@ Try again!!
     
 
     def player_management_menu(self):
-        print(
+
+        
+        while True:
+            print(
 """ 
 Player Management 
 
@@ -63,8 +67,6 @@ b. Back
 
 
 """)
-        input_pick=True
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","b","B"]:
 
@@ -89,10 +91,10 @@ Try again!!
                     name:str=input("Name: ")
                     phone:int=int(input("Phone number:"))
                     address:str=input("Address: ")
-                    email:str=self.check_for_player_email() 
-                    self.logic_wrapper.create_player(nID,name,phone,address,email)==True # type: ignore
-                    print("Player added!!")
-                    #input_pick = True
+                    email:str=input("Email: ")
+                    val = self.logic_wrapper.create_player(nID,name,phone,address,email)
+                    if val:
+                        print("Player added!!")
                     self.player_management_menu()
                 case "2": 
                     ID=self.inputplayersID()
@@ -110,7 +112,10 @@ Try again!!
 
     def edit_player_menu(self,Player_ID:int):
 
-        print(
+
+        temp : Player|bool = self.logic_wrapper.get_player_by_ID(Player_ID)  
+        while True:
+            print(
 """ 
 Edit Players info 
 
@@ -125,8 +130,6 @@ b. Back
 
 
 """)
-        temp : Player = self.logic_wrapper.get_player_by_ID(Player_ID)  
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","5","6","7","b","B"]:
                 
@@ -147,6 +150,9 @@ b. Back
 
 Try again!!
 """)   
+            if isinstance(temp, bool):
+                print("Player not found")
+                return
             
             match choice:
                 case "1": 

@@ -26,7 +26,10 @@ class MainMenu:
 
 
     def run(self):
-        print( """
+
+        while True:
+            
+            print( """
 +---------------------------------------------------+
 |                                                   |
 |  ____  _   _        ____                   _      |
@@ -38,7 +41,7 @@ class MainMenu:
 |                                                   |
 +---------------------------------------------------+
 """)
-        print(
+            print(
             
 """ 
 Welcome To the menu. 
@@ -51,7 +54,6 @@ q. Quit
 
 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","q","Q"]:
 
@@ -83,6 +85,7 @@ Try again!!
                     return
                 case _: 
                     pass
+            self.run()
             
     def enable_high_quality_menu(self):
         print(
@@ -125,7 +128,7 @@ Try again!!
                     break
                 
                 for x in existing_players:
-                    if val == str(x.kt) and x.kt not in team_list:
+                    if val == str(x.id) and x.id not in team_list:
                         team_list.append(int(val))
                         continue
                     
@@ -138,7 +141,7 @@ Try again!!
             
         
         
-        self.logic_wrapper.create_team(name,tag,id_of_user,team_size,team_list)
+        self.logic_wrapper.create_team(name,tag,int(id_of_user),team_size,team_list)
         
         
     def create_player(self): # Requirement nr 1

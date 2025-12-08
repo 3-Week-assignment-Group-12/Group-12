@@ -105,7 +105,7 @@ b. Back
 
 """)
             
-        temp : Tournament = self.get_tournament_by_ID(tournamentID)   
+        temp : Tournament|bool = self.logic_wrapper.get_tournament_by_ID(tournamentID)   
         while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","5","6","7","b","B"]:
@@ -127,7 +127,9 @@ b. Back
 
 Try again!!
 """)
-
+            if isinstance(temp, bool):
+                print("Tournament not found")
+                return
             match choice:
                 case "1": 
                     temp.name = input("Enter New Name: ")
@@ -165,7 +167,9 @@ Try again!!
 
 
     def select_tournament_menu(self, ID):
-        print(
+
+        while True:
+            print(
 """ 
 Select "nafn liðs"   ATH !!!!
 
@@ -178,7 +182,6 @@ b. Back
 
 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","5","b","B"]:
 
