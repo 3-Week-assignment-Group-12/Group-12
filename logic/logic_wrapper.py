@@ -384,16 +384,7 @@ class LogicWrapper:
         """
         return self.data_wrapper.delete_player(ID)
     
-    def delete_team(self, ID: int) -> bool:
-        """Delete a team by their ID.
-        
-        Args:
-            ID (int): Team ID to delete
-            
-        Returns:
-            bool: Success status
-        """
-        return self.data_wrapper.delete_team(ID)
+    
     
     def delete_bracket(self, ID: int) -> bool:
         """Delete a bracket by their ID.
@@ -406,27 +397,34 @@ class LogicWrapper:
         """
         return self.data_wrapper.delete_bracket(ID)
     
-    def delete_tournament(self, ID: int) -> bool:
-        """Delete a tournament by its ID.
+
+
+    def delete_team(self, ID: int) -> bool:
+        """Delete a team by their ID.
         
         Args:
-            ID (int): Tournament ID to delete
+            ID (int): Team ID to delete
+            
+        Returns:
+            bool: Success status
+        """
+        return self.data_wrapper.delete_team(ID)
+    
+
+
+
+    def delete_tournament(self, ID: int) -> bool:
+        """Delete a team by their ID.
+        
+        Args:
+            ID (int): Team ID to delete
             
         Returns:
             bool: Success status
         """
         return self.data_wrapper.delete_tournament(ID)
     
-    def delete_match(self, ID: int) -> bool:
-        """Delete a match by their ID.
-        
-        Args:
-            ID (int): match ID to delete
-            
-        Returns:
-            bool: Success status
-        """
-        return self.data_wrapper.delete_match(ID)
+    
     
     def delete_club(self, ID: int) -> bool:
         """Delete a club by their ID.
@@ -461,6 +459,8 @@ class LogicWrapper:
         return self.tournament_handler.generate_bracket(tournament, self.data_wrapper.get_matches_by_tournament_ID(tournament.id))
     
     
+    
+
     def inputplayersID(self):
         playersID=int(input("Enter National ID: "))
         check= self.get_player_by_ID(playersID)

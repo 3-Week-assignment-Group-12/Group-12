@@ -4,7 +4,6 @@ from models.club import Club
 from logic.logic_wrapper import LogicWrapper
 from models.team import Team
 from models.tournament import Tournament
-
 from models.player import Player
 from ui.Organizer_menu import OrganizerMenu
 from ui.tournament_management import TournamentManagement
@@ -275,9 +274,9 @@ Try again!!
                         if isinstance(tournament, Tournament):
                             print(tournament.name)
                 case "2": 
-                    pass
+                    pass # c Requirement
                 case "3": 
-                    pass
+                    pass 
                 case "4": 
                     pass
                 case "b": 
@@ -412,10 +411,31 @@ Try again!!
 
             match choice:
                 case "1": 
-                    #self.logic_wrapper.get_turnaments()
-                    pass
+                    tournaments=self.logic_wrapper.get_turnaments()
+                    for tournamentID in tournaments:
+                        tournamentinfo= self.logic_wrapper.get_tournament_by_ID(tournamentID)
+                        if isinstance(tournamentinfo,Tournament):
+                            print(tournamentinfo.name)
+                    
                 case "b": 
                     return
             
-        
+    #--------------Functions-------------------
+    #     
+    def inputTeamID(self):
+        teamID=int(input("Enter Team ID: "))
+        check= self.logic_wrapper.get_team_by_ID(teamID)
+        while check is False:
+            print("Team does not exist, Try different ID")
+            teamID=int(input("Enter Team ID: "))
+            check= self.get_team_by_ID(teamID)
+        return teamID
     
+    def inputplayersID(self):
+        playersID=int(input("Enter National ID: "))
+        check= self.logic_wrapper.get_player_by_ID(playersID)
+        while check is False:
+            print("Player does not exist, Try different ID")
+            playersID=int(input("Enter National ID: "))
+            check= self.logic_wrapper.get_player_by_ID(playersID)
+        return playersID

@@ -14,17 +14,6 @@ class TournamentManagement():
         self.logic_wrapper = low
         pass
 
-    
-
-    #--------------Functions---------------
-
-
-
-
-
-
-
-
     #--------------Menus--------------------
 
 
@@ -66,23 +55,23 @@ b. Back
                     startDate = input("Start date: ")
                     endDate = input("End date: ")
                     venue=input("Location of Tournament: ")
-                    contactID = int(input("Contact ID"))
+                    contactID = self.check_for_tournament_ID()
                     contactEmail = input("Contact Email: ")
                     contactPhone = int(input("Contact Phone: "))
                     team_list=[]  # SKoða þetta
                     matches=[]    # sKoða þetta
                     self.logic_wrapper.create_tournament(name,startDate,endDate,venue,contactID,contactEmail,contactPhone,team_list,matches)
                 case "2": 
-                    ID = self.logic_wrapper.inputTournamentID()
+                    ID = self.inputTournamentID()
                     self.edit_tournament_menu(ID)
                 case "3": 
-                    ID = self.logic_wrapper.inputTournamentID()
+                    ID = self.inputTournamentID()
                     x = input("Are you sure? (Y/N): ")
                     if x == "y" or x == "Y":
                         self.logic_wrapper.delete_tournament(ID)
                     return
                 case "4": 
-                    ID = self.logic_wrapper.inputTournamentID()
+                    ID = self.inputTournamentID()
                     self.select_tournament_menu(ID)
                 case "b": 
                     return
@@ -228,3 +217,33 @@ Try again!!
             
 
 
+
+# ------------------Functions----------------------
+
+
+    def check_for_tournament_ID(self):
+        ID = int(input("Contact ID"))
+        list_of_tournaments=self.logic_wrapper.get_tournaments()
+        while True:
+            
+            if list_of_tournaments is None or list_of_tournaments == []:
+                return ID
+            for tournamentID in list_of_tournaments:
+                tournament_info=self.logic_wrapper.get_team_by_ID(tournamentID.id)
+                if isinstance(tournament_info,Tournament):
+                    if ID == tournament_info.id: 
+                        print("This tournament ID already exists!")
+                        ID = int(input("Enter different Contact ID"))
+                    else:
+                        return ID
+    
+
+
+    def inputTournamentID(self):
+        tournamentID=int(input("Enter Tournament ID: "))
+        check= self.logic_wrapper.get_tournament_by_ID(tournamentID)
+        while check is False:
+            print("Tournament does not exist, Try different ID")
+            tournamentID=int(input("Enter Tournament ID: "))
+            check= self.logic_wrapper.get_tournament_by_ID(tournamentID)
+        return tournamentID
