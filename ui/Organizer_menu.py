@@ -92,13 +92,25 @@ Try again!!
                     phone:int=int(input("Phone number:"))
                     address:str=input("Address: ")
                     email:str=input("Email: ")
-                    val = self.logic_wrapper.create_player(nID,name,phone,address,email)
-                    if val:
+                    print("Adding Player...")
+                    ret = self.logic_wrapper.create_player(nID,name,phone,address,email)
+                    print(ret)
+                    if ret is 1:
                         print("Player added!!")
-                    self.player_management_menu()
+                    elif ret is -1:
+                        print("Error adding player")
+                    elif ret is -2:
+                        print("Validation failed, player not added")
+                    elif ret is -3:
+                        print("Invalid ID length, player not added")
+                    elif ret is -4:
+                        print("Duplicate player found, player not added")
+                    else:
+                        print("Player added!!")
+                    
                 case "2": 
-                    ID=self.inputplayersID()
-                    self.edit_player_menu(ID)  #Asks the user for Players National Id before going to the edit page
+                    id=self.inputplayersID()
+                    self.edit_player_menu(id)  #Asks the user for Players National Id before going to the edit page
                 case "3":
                     ID=self.inputplayersID()
                     x=input("Are you sure? (Y/N)")
@@ -110,7 +122,7 @@ Try again!!
                 case "b": 
                     return
 
-    def edit_player_menu(self,Player_ID:int):
+    def edit_player_menu(self,Player_ID:str):
 
 
         temp : Player|bool = self.logic_wrapper.get_player_by_ID(Player_ID)  
@@ -175,7 +187,7 @@ Try again!!
 
     
     #------------------Functions--------------------------
-    def check_for_player_kt(self):
+    def check_for_player_kt(self) -> int:
             nID:int=int(input("National ID: "))
             list_of_players= self.logic_wrapper.get_players()
             while True:
@@ -209,10 +221,10 @@ Try again!!
                     
 
     def inputplayersID(self):
-        playersID=int(input("Enter National ID: "))
+        playersID=input("Enter National ID: ")
         check= self.logic_wrapper.get_player_by_ID(playersID)
         while check is False:
             print("Player does not exist, Try different ID")
-            playersID=int(input("Enter National ID: "))
+            playersID=input("Enter National ID: ")
             check= self.logic_wrapper.get_player_by_ID(playersID)
         return playersID

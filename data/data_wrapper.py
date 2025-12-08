@@ -99,60 +99,60 @@ class DataWrapper:
         return self.team_repo.create(new_team)
     
 
-    def write_player(self, new_player:Player) -> bool:
+    def write_player(self, new_player:Player) -> int:
         """Write a new player instance to file.
         
         Args:
             new_player (Player): Player instance to write
             
         Returns:
-            bool: Success status
+            int: Success status
         """
         return self.player_repo.create(new_player)
     
     
-    def write_tournament(self, new_tournament:Tournament) -> bool:
+    def write_tournament(self, new_tournament:Tournament) -> int:
         """Write a new tournament instance to file.
         
         Args:
             new_tournament (Tournament): Tournament instance to write
             
         Returns:
-            bool: Success status
+            int: Success status
         """
         return self.tournament_repo.create(new_tournament)
     
-    def write_match(self, new_match:Match) -> bool:
+    def write_match(self, new_match:Match) -> int:
         """Write a new match instance to file.
         
         Args:
             new_match (Match): match instance to write
             
         Returns:
-            bool: Success status
+            int: Success status
         """
         return self.match_repo.create(new_match)
     
     
-    def write_bracket(self, new_bracket:Bracket) -> bool:
+    def write_bracket(self, new_bracket:Bracket) -> int:
         """Write a new bracket instance to file.
         
         Args:
             new_bracket (Bracket): Bracket instance to write
             
         Returns:
-            bool: Success status
+            int: Success status
         """
         return self.bracket_repo.create(new_bracket)
     
-    def write_club(self, new_club:Club) -> bool:
+    def write_club(self, new_club:Club) -> int:
         """Write a new club instance to file.
         
         Args:
             new_club (Club): Club instance to write
             
         Returns:
-            bool: Success status
+            int: Success status
         """
         return self.club_repo.create(new_club)
     

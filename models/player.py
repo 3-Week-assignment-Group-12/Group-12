@@ -8,7 +8,7 @@ class Player:
     Represents a Player in the system.
     
     attributes:
-        id: int
+        id: str
         name: str
         dob: str
         phone: int
@@ -16,7 +16,7 @@ class Player:
         email: str
     """
     
-    id: int
+    id: str
     name: str
     dob: str
     phone: int

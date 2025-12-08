@@ -34,7 +34,7 @@ class JsonRepository:
             return []
 
 
-    def _write_file(self, data: list) -> bool:
+    def _write_file(self, data: list) -> int:
         """ 
         hidden method to write data to the JSON file.
         
@@ -42,17 +42,17 @@ class JsonRepository:
             data (list): data to write to json file
             
         Returns:
-            bool: success status
+            int: success status
         """
         try:
             with open(self.filepath, "w") as f:
                 json.dump(data, f, indent=4)
-            return True
+            return 1
         except:
-            return False
+            return -1
 
 
-    def create(self, obj) -> bool:
+    def create(self, obj) -> int:
         """ 
         Create a new object in the JSON file.
 
@@ -61,13 +61,14 @@ class JsonRepository:
             
 
         Returns:
-            bool: success status
+            int: success status
         """
         
         
         items = self._read_file()
         items.append(obj.to_dict())
         return self._write_file(items)
+
 
 
     def read(self, filter_func=None) -> list:
