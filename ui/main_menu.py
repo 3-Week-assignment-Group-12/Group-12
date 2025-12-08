@@ -141,7 +141,7 @@ Try again!!
             
         
         
-        self.logic_wrapper.create_team(name,tag,int(id_of_user),team_size,team_list)
+        self.logic_wrapper.create_team(name,tag,id_of_user,team_size,team_list)
         
         
     def create_player(self): # Requirement nr 1

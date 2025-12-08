@@ -12,6 +12,7 @@ class DataWrapper:
     def __init__(self):
         """Initialize DataWrapper with a Main_data instance."""
         #self.main_data:Main_data = Main_data()
+        
         self.player_repo = JsonRepository(Player)
         self.team_repo = JsonRepository(Team)
         self.tournament_repo = JsonRepository(Tournament)
@@ -27,7 +28,13 @@ class DataWrapper:
         #self.main_data.get_tournaments("./dummy_data/dummy_tournaments.csv") no data available
         #self.main_data.get_matches("./dummy_data/dummy_matches.csv") no data available
         
-        self.player_repo.read()
+        self.player_repo.read_dummy_data()
+        self.team_repo.read_dummy_data()
+        self.tournament_repo.read_dummy_data()
+        self.match_repo.read_dummy_data()
+        self.club_repo.read_dummy_data()
+        self.bracket_repo.read_dummy_data()
+        
         
     
     # ------------------- Read Methods ------------------ #

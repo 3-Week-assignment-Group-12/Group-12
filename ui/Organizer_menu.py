@@ -95,15 +95,15 @@ Try again!!
                     print("Adding Player...")
                     ret = self.logic_wrapper.create_player(nID,name,phone,address,email)
                     print(ret)
-                    if ret is 1:
+                    if ret == 1:
                         print("Player added!!")
-                    elif ret is -1:
+                    elif ret == -1:
                         print("Error adding player")
-                    elif ret is -2:
+                    elif ret == -2:
                         print("Validation failed, player not added")
-                    elif ret is -3:
+                    elif ret == -3:
                         print("Invalid ID length, player not added")
-                    elif ret is -4:
+                    elif ret == -4:
                         print("Duplicate player found, player not added")
                     else:
                         print("Player added!!")
