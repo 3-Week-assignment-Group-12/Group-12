@@ -62,8 +62,14 @@ Try again!!
                     creator_id = int(input("Enter team creator id: "))
                     team_size = int(input("Enter team size: "))
                     team_list = [] #laga team list 
-                    self.logic_wrapper.create_team(name, team_tag, creator_id, team_size, team_list) 
-                    print("Team has been created!") 
+                    ret = self.logic_wrapper.create_team(name, team_tag, creator_id, team_size, team_list) 
+                    if ret == 1:
+                        print("Team has been created!") 
+                    elif ret == -1:
+                        print("Error creating team!")
+                    elif ret == -2:
+                        print("Validation failed, team not created!")
+                    
                 case "4": 
                     ID=self.inputTeamID()
                     self.edit_team_menu(ID) 

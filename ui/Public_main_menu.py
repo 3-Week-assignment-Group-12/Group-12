@@ -140,7 +140,7 @@ Try again!!
                     #self.logic_wrapper.get_team_by_ID(input("Enter Team : "))
                 case "4":
                     while True:
-                        player_ID = int(input("Enter player ID: "))
+                        player_ID = input("Enter player ID: ")
                         if self.logic_wrapper.get_player_by_ID(player_ID) is False:
                             print("Incorrect ID")
                         else:
@@ -432,10 +432,10 @@ Try again!!
         return teamID
     
     def inputplayersID(self):
-        playersID=int(input("Enter National ID: "))
+        playersID=input("Enter National ID: ")
         check= self.logic_wrapper.get_player_by_ID(playersID)
         while check is False:
             print("Player does not exist, Try different ID")
-            playersID=int(input("Enter National ID: "))
+            playersID=input("Enter National ID: ")
             check= self.logic_wrapper.get_player_by_ID(playersID)
         return playersID

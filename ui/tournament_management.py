@@ -60,7 +60,14 @@ b. Back
                     contactPhone = int(input("Contact Phone: "))
                     team_list=[]  # SKoða þetta
                     matches=[]    # sKoða þetta
-                    self.logic_wrapper.create_tournament(name,startDate,endDate,venue,contactID,contactEmail,contactPhone,team_list,matches)
+                    ret =self.logic_wrapper.create_tournament(name,startDate,endDate,venue,contactID,contactEmail,contactPhone,team_list,matches)
+                    if ret == 1:
+                        print("Tournament created successfully!")
+                    elif ret == -1:
+                        print("Error creating tournament!")
+                    elif ret == -2:
+                        print("Validation failed, tournament not created!")
+                    
                 case "2": 
                     ID = self.inputTournamentID()
                     self.edit_tournament_menu(ID)
