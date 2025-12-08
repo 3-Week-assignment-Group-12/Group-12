@@ -82,8 +82,10 @@ class JsonRepository:
         Returns:
             list: List of objects read from the file
         """
-        
-        items = [self.model_cls.from_dict(x) for x in self._read_file()]
+        try:
+            items = [self.model_cls.from_dict(x) for x in self._read_file()]
+        except:
+            items = []
         if filter_func is None:
             return items
         return [obj for obj in items if filter_func(obj)]

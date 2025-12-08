@@ -238,7 +238,10 @@ class DataWrapper:
         Returns:
             Player|bool: Player instance if found, False otherwise
         """
-        return self.player_repo.read(lambda x: x.id == ID)[0] or False
+        try:
+            return self.player_repo.read(lambda x: x.id == ID)[0]
+        except IndexError:
+            return False
     
     def get_team_by_ID(self, ID:int) -> Team|bool:
         """Retrieve a team by its ID.
@@ -249,7 +252,10 @@ class DataWrapper:
         Returns:
             Team|bool: Team instance if found, False otherwise
         """
-        return self.team_repo.read(lambda x: x.id == ID)[0] or False
+        try:
+            return self.team_repo.read(lambda x: x.id == ID)[0]
+        except IndexError:
+            return False
     
     def get_tournament_by_ID(self, ID:int) -> Tournament|bool:
         """Retrieve a tournament by its ID.
@@ -260,8 +266,10 @@ class DataWrapper:
         Returns:
             Tournament|bool: Tournament instance if found, False otherwise
         """
-        return self.tournament_repo.read(lambda x: x.id == ID)[0] or False
-    
+        try:
+            return self.tournament_repo.read(lambda x: x.id == ID)[0]
+        except IndexError:
+            return False
     
     
     def get_match_by_ID(self, ID:int) -> Match|bool:
@@ -273,7 +281,10 @@ class DataWrapper:
         Returns:
             Match|bool: Match instance if found, False otherwise
         """
-        return self.match_repo.read(lambda x: x.id == ID)[0] or False
+        try:
+            return self.match_repo.read(lambda x: x.id == ID)[0]
+        except IndexError:
+            return False
     
     def get_bracket_by_ID(self, ID:int) -> Bracket|bool:
         """Retrieve a bracket by its ID.
@@ -284,7 +295,10 @@ class DataWrapper:
         Returns:
             Bracket|bool: Bracket instance if found, False otherwise
         """
-        return self.bracket_repo.read(lambda x: x.id == ID)[0] or False
+        try:
+            return self.bracket_repo.read(lambda x: x.id == ID)[0]
+        except IndexError:
+            return False
     
     def get_club_by_ID(self, ID:int) -> Club|bool:
         """Retrieve a club by its ID.
@@ -295,7 +309,10 @@ class DataWrapper:
         Returns:
             club|bool: club instance if found, False otherwise
         """
-        return self.club_repo.read(lambda x: x.id == ID)[0] or False
+        try:
+            return self.club_repo.read(lambda x: x.id == ID)[0]
+        except IndexError:
+            return False
     
     
     
