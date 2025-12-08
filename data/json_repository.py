@@ -148,6 +148,6 @@ class JsonRepository:
         Returns:
             list: List of objects read from the file
         """
-        
+        pass
         list_of_files = 
         return self.read()
