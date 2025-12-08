@@ -357,17 +357,6 @@ class LogicWrapper:
             check= self.get_team_by_ID(teamID)
         return teamID
     
-
-    def delete_team(self, ID: int) -> bool:
-        """Delete a team by their ID.
-        
-        Args:
-            ID (int): Team ID to delete
-            
-        Returns:
-            bool: Success status
-        """
-        return self.data_wrapper.delete_team(ID)
     
 
 
@@ -381,16 +370,6 @@ class LogicWrapper:
         return tournamentID
     
 
-    def delete_tournament(self, ID: int) -> bool:
-        """Delete a team by their ID.
-        
-        Args:
-            ID (int): Team ID to delete
-            
-        Returns:
-            bool: Success status
-        """
-        return self.data_wrapper.delete_tournament(ID)
     
     #--------------team checks --------------------
     def check_for_team_name(self,name):
@@ -416,9 +395,9 @@ class LogicWrapper:
     def check_for_player_kt(self,kt):
         list_of_players=self.get_players()
         for player in list_of_players:
-            playerinfo=self.get_team_by_ID(player.kt)
+            playerinfo=self.get_team_by_ID(player.id)
             if isinstance(playerinfo,Player):
-                if kt == playerinfo.kt: 
+                if kt == playerinfo.id: 
                     return False
                 else:
                     return True
