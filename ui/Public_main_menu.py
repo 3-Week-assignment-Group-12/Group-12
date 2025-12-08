@@ -374,9 +374,9 @@ Try again!!
 
             match choice:
                 case "1": 
-                    list_of_organizer=self.logic_wrapper.get_Organizer()
+                    list_of_organizer=self.logic_wrapper.get_Organizer() # type: ignore
                     for organizerID in list_of_organizer:
-                        organizer=self.logic_wrapper.get_organizer_by_ID(organizerID)
+                        organizer=self.logic_wrapper.get_organizer_by_ID(organizerID) # type: ignore
                         #if type(organizer) == Organizer:
                         #   #print(organizer.name)
                     pass
@@ -411,9 +411,9 @@ Try again!!
 
             match choice:
                 case "1": 
-                    tournaments=self.logic_wrapper.get_turnaments()
-                    for tournamentID in tournaments:
-                        tournamentinfo= self.logic_wrapper.get_tournament_by_ID(tournamentID)
+                    tournaments=self.logic_wrapper.get_tournaments()
+                    for tour in tournaments:
+                        tournamentinfo= self.logic_wrapper.get_tournament_by_ID(tour.id)
                         if isinstance(tournamentinfo,Tournament):
                             print(tournamentinfo.name)
                     
@@ -428,7 +428,7 @@ Try again!!
         while check is False:
             print("Team does not exist, Try different ID")
             teamID=int(input("Enter Team ID: "))
-            check= self.get_team_by_ID(teamID)
+            check= self.logic_wrapper.get_team_by_ID(teamID)
         return teamID
     
     def inputplayersID(self):
