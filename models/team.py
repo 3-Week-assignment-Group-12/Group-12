@@ -10,17 +10,17 @@ class Team:
         id: int
         name: str
         tag: str
-        creator_id: int
+        creator_id: str
         team_size: int
-        member_list: list[int]    
+        member_list: list[str]    
     """
     
     id: int 
     name: str
     tag: str 
-    creator_id: int 
+    creator_id: str 
     team_size: int 
-    member_list: list[int]
+    member_list: list[str]
     
     filename = "./data/files/team_data.json"
         

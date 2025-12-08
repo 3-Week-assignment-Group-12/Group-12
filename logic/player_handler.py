@@ -4,10 +4,10 @@ import datetime
 
 class player_handler:
     
-    def create_player(self, ID:int ,name:str ,phone: int,address: str,email:str, existing_playerList:list[Player]) ->Player| int:
-        # 1. Validate Input (Business Logic)        
-        if len(str(ID)) != 10: ##validate length of ID
-            return -1
+    def create_player(self, ID:str ,name:str ,phone: int,address: str,email:str, existing_playerList:list[Player]) ->Player| int:
+        # 1. Validate Input (Business Logic)     
+        if len(str(ID)) != 10:
+            return -3  # Invalid ID length
         
         nr_of_at=0
         for i in email:
@@ -15,11 +15,11 @@ class player_handler:
                 nr_of_at+=1
             
         if nr_of_at!=1:
-            return -2
+            return -5
         
         
         if not isinstance(phone,int) or len(str(phone))!=7:
-            return -3
+            return -5 # breita phone í str til að laga cutoff
         
         for p in existing_playerList:
             if p.id == ID or p.phone == phone or p.email == email:
@@ -27,7 +27,7 @@ class player_handler:
         
 
         if isinstance(name,int):
-            return -5
+            return -6
         
         dob = datetime.date(day=int(str(ID)[0:1]), month=int(str(ID)[2:3]), year=int(str(ID)[4:5])).__str__()
         # 2. Create Model Object

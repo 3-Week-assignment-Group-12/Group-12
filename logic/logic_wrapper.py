@@ -1,6 +1,5 @@
 # logic_layer/logic_wrapper.py
-from logic import club_handler
-from models.club import Club
+
 from data.data_wrapper import DataWrapper
 from logic.player_handler import player_handler
 from logic.team_handler import team_handler
@@ -32,7 +31,7 @@ class LogicWrapper:
         
     # ------------------- Create Methods ------------------ #
     
-    def create_player(self, KT, name, phone, address, email) -> bool:
+    def create_player(self, KT, name, phone, address, email) -> int:
         
         """Create a new player with validation.
         
@@ -44,16 +43,16 @@ class LogicWrapper:
             email (str): Player's email
             
         Returns:
-            bool: Success status
+            int: Success status
         """
         
         new_player = self.player_handler.create_player(KT, name, phone, address, email, self.data_wrapper.get_players())
-        
+        print("New player created:", new_player)  # Debug statement
         if isinstance(new_player, Player):
             return self.data_wrapper.write_player(new_player)
-        return False
+        return new_player  # Indicate failure due to validation
         
-    def create_team(self, name: str, tag: str, creator_id: int, team_size: int, team_list: list[int]) -> bool:
+    def create_team(self, name: str, tag: str, creator_id: str, team_size: int, team_list: list[str]) -> int:
         """Create a new team with validation.
         
         Args:
@@ -69,10 +68,10 @@ class LogicWrapper:
         new_team: Team|bool = self.team_handler.create_team(name, tag, creator_id, team_size, self.data_wrapper.get_teams(), team_list)
         if isinstance(new_team, Team):
             return self.data_wrapper.write_team(new_team)
-        return False
+        return -2 # Indicate failure due to validation
         
         
-    def create_match(self, team1_id: int,team2_id: int,tournament_id:int,date: str, time: str,server_id: int,winner_id: int,Score:int) -> bool:
+    def create_match(self, team1_id: int,team2_id: int,tournament_id:int,date: str, time: str,server_id: int,winner_id: int,Score:int) -> int:
         """Create a new match with validation.
         
         Args:
@@ -86,15 +85,15 @@ class LogicWrapper:
             Score:int
             
         Returns:
-            bool: Success status
+            int: Success status
         """
         new_match: Match|bool = self.match_handler.create_match(team1_id,team2_id,tournament_id,date, time,server_id,winner_id,Score,self.data_wrapper.get_matches())
         
         if isinstance(new_match, Match):
             return self.data_wrapper.write_match(new_match)
-        return False
+        return -2 # Indicate failure due to validation
     
-    def create_tournament(self, name: str, start_date: str, end_date: str,  venue:str, contact_id:int, contact_email:str, contact_phone: int, team_list: list[int], matches:list[int]) -> bool:
+    def create_tournament(self, name: str, start_date: str, end_date: str,  venue:str, contact_id:int, contact_email:str, contact_phone: int, team_list: list[int], matches:list[int]) -> int:
         """Create a new tournament with validation.
         
         Args:
@@ -104,15 +103,15 @@ class LogicWrapper:
             description (str): Tournament description (optional)
             
         Returns:
-            bool: Success status
+            int: Success status
         """
         new_tournament: Tournament|bool = self.tournament_handler.create_tournament(name, start_date, end_date, venue, contact_id, contact_email, contact_phone, self.data_wrapper.get_tournaments(),team_list,matches)
         
         if isinstance(new_tournament, Tournament):
             return self.data_wrapper.write_tournament(new_tournament)
-        return False 
+        return -2 # Indicate failure due to validation
 
-    def create_club(self, name: str, colour:str ,location:str, team_list: list[int]) -> bool:
+    def create_club(self, name: str, colour:str ,location:str, team_list: list[int]) -> int:
         """Create a new club with validation.
         
         Args:
@@ -127,7 +126,7 @@ class LogicWrapper:
         new_club: Club|bool = self.club_handler.create_club(name,colour,location,team_list,self.get_clubs())
         if isinstance(new_club, Club):
             return self.data_wrapper.write_club(new_club)
-        return False 
+        return -2 # Indicate failure due to validation   
 
         
     
@@ -179,7 +178,7 @@ class LogicWrapper:
     
     # ------------------- Get by ID Methods ------------------ #
     
-    def get_player_by_ID(self, ID: int) -> Player|bool:
+    def get_player_by_ID(self, ID: str) -> Player|int:
         """Retrieve a player by their ID.
         
         Args:
@@ -385,16 +384,7 @@ class LogicWrapper:
         """
         return self.data_wrapper.delete_player(ID)
     
-    def delete_team(self, ID: int) -> bool:
-        """Delete a team by their ID.
-        
-        Args:
-            ID (int): Team ID to delete
-            
-        Returns:
-            bool: Success status
-        """
-        return self.data_wrapper.delete_team(ID)
+    
     
     def delete_bracket(self, ID: int) -> bool:
         """Delete a bracket by their ID.
@@ -407,27 +397,34 @@ class LogicWrapper:
         """
         return self.data_wrapper.delete_bracket(ID)
     
-    def delete_tournament(self, ID: int) -> bool:
-        """Delete a tournament by its ID.
+
+
+    def delete_team(self, ID: int) -> bool:
+        """Delete a team by their ID.
         
         Args:
-            ID (int): Tournament ID to delete
+            ID (int): Team ID to delete
+            
+        Returns:
+            bool: Success status
+        """
+        return self.data_wrapper.delete_team(ID)
+    
+
+
+
+    def delete_tournament(self, ID: int) -> bool:
+        """Delete a team by their ID.
+        
+        Args:
+            ID (int): Team ID to delete
             
         Returns:
             bool: Success status
         """
         return self.data_wrapper.delete_tournament(ID)
     
-    def delete_match(self, ID: int) -> bool:
-        """Delete a match by their ID.
-        
-        Args:
-            ID (int): match ID to delete
-            
-        Returns:
-            bool: Success status
-        """
-        return self.data_wrapper.delete_match(ID)
+    
     
     def delete_club(self, ID: int) -> bool:
         """Delete a club by their ID.
@@ -462,12 +459,14 @@ class LogicWrapper:
         return self.tournament_handler.generate_bracket(tournament, self.data_wrapper.get_matches_by_tournament_ID(tournament.id))
     
     
+    
+
     def inputplayersID(self):
-        playersID=int(input("Enter National ID: "))
+        playersID=input("Enter National ID: ")
         check= self.get_player_by_ID(playersID)
         while check is False:
             print("Player does not exist, Try different ID")
-            playersID=int(input("Enter National ID: "))
+            playersID=input("Enter National ID: ")
             check= self.get_player_by_ID(playersID)
         return playersID
     
@@ -518,7 +517,7 @@ class LogicWrapper:
     def check_for_player_kt(self,kt):
         list_of_players=self.get_players()
         for player in list_of_players:
-            playerinfo=self.get_team_by_ID(player.id)
+            playerinfo=self.get_player_by_ID(player.id)
             if isinstance(playerinfo,Player):
                 if kt == playerinfo.id: 
                     return False

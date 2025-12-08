@@ -12,6 +12,7 @@ class DataWrapper:
     def __init__(self):
         """Initialize DataWrapper with a Main_data instance."""
         #self.main_data:Main_data = Main_data()
+        
         self.player_repo = JsonRepository(Player)
         self.team_repo = JsonRepository(Team)
         self.tournament_repo = JsonRepository(Tournament)
@@ -27,7 +28,13 @@ class DataWrapper:
         #self.main_data.get_tournaments("./dummy_data/dummy_tournaments.csv") no data available
         #self.main_data.get_matches("./dummy_data/dummy_matches.csv") no data available
         
-        self.player_repo.read()
+        self.player_repo.read_dummy_data()
+        self.team_repo.read_dummy_data()
+        self.tournament_repo.read_dummy_data()
+        self.match_repo.read_dummy_data()
+        self.club_repo.read_dummy_data()
+        self.bracket_repo.read_dummy_data()
+        
         
     
     # ------------------- Read Methods ------------------ #
@@ -99,60 +106,60 @@ class DataWrapper:
         return self.team_repo.create(new_team)
     
 
-    def write_player(self, new_player:Player) -> bool:
+    def write_player(self, new_player:Player) -> int:
         """Write a new player instance to file.
         
         Args:
             new_player (Player): Player instance to write
             
         Returns:
-            bool: Success status
+            int: Success status
         """
         return self.player_repo.create(new_player)
     
     
-    def write_tournament(self, new_tournament:Tournament) -> bool:
+    def write_tournament(self, new_tournament:Tournament) -> int:
         """Write a new tournament instance to file.
         
         Args:
             new_tournament (Tournament): Tournament instance to write
             
         Returns:
-            bool: Success status
+            int: Success status
         """
         return self.tournament_repo.create(new_tournament)
     
-    def write_match(self, new_match:Match) -> bool:
+    def write_match(self, new_match:Match) -> int:
         """Write a new match instance to file.
         
         Args:
             new_match (Match): match instance to write
             
         Returns:
-            bool: Success status
+            int: Success status
         """
         return self.match_repo.create(new_match)
     
     
-    def write_bracket(self, new_bracket:Bracket) -> bool:
+    def write_bracket(self, new_bracket:Bracket) -> int:
         """Write a new bracket instance to file.
         
         Args:
             new_bracket (Bracket): Bracket instance to write
             
         Returns:
-            bool: Success status
+            int: Success status
         """
         return self.bracket_repo.create(new_bracket)
     
-    def write_club(self, new_club:Club) -> bool:
+    def write_club(self, new_club:Club) -> int:
         """Write a new club instance to file.
         
         Args:
             new_club (Club): Club instance to write
             
         Returns:
-            bool: Success status
+            int: Success status
         """
         return self.club_repo.create(new_club)
     
@@ -229,16 +236,19 @@ class DataWrapper:
     # ------------------- Get by id Methods ------------------ #
     
 
-    def get_player_by_ID(self, ID) -> Player|bool:
+    def get_player_by_ID(self, ID) -> Player|int:
         """Retrieve a player by their ID.
         
         Args:
             ID: Player ID
             
         Returns:
-            Player|bool: Player instance if found, False otherwise
+            Player|int: Player instance if found, False otherwise
         """
-        return self.player_repo.read(lambda x: x.id == ID)[0] or False
+        try:
+            return self.player_repo.read(lambda x: x.id == ID)[0]
+        except IndexError:
+            return -2 # error reading data
     
     def get_team_by_ID(self, ID:int) -> Team|bool:
         """Retrieve a team by its ID.
@@ -249,7 +259,10 @@ class DataWrapper:
         Returns:
             Team|bool: Team instance if found, False otherwise
         """
-        return self.team_repo.read(lambda x: x.id == ID)[0] or False
+        try:
+            return self.team_repo.read(lambda x: x.id == ID)[0]
+        except IndexError:
+            return False
     
     def get_tournament_by_ID(self, ID:int) -> Tournament|bool:
         """Retrieve a tournament by its ID.
@@ -260,8 +273,10 @@ class DataWrapper:
         Returns:
             Tournament|bool: Tournament instance if found, False otherwise
         """
-        return self.tournament_repo.read(lambda x: x.id == ID)[0] or False
-    
+        try:
+            return self.tournament_repo.read(lambda x: x.id == ID)[0]
+        except IndexError:
+            return False
     
     
     def get_match_by_ID(self, ID:int) -> Match|bool:
@@ -273,7 +288,10 @@ class DataWrapper:
         Returns:
             Match|bool: Match instance if found, False otherwise
         """
-        return self.match_repo.read(lambda x: x.id == ID)[0] or False
+        try:
+            return self.match_repo.read(lambda x: x.id == ID)[0]
+        except IndexError:
+            return False
     
     def get_bracket_by_ID(self, ID:int) -> Bracket|bool:
         """Retrieve a bracket by its ID.
@@ -284,7 +302,10 @@ class DataWrapper:
         Returns:
             Bracket|bool: Bracket instance if found, False otherwise
         """
-        return self.bracket_repo.read(lambda x: x.id == ID)[0] or False
+        try:
+            return self.bracket_repo.read(lambda x: x.id == ID)[0]
+        except IndexError:
+            return False
     
     def get_club_by_ID(self, ID:int) -> Club|bool:
         """Retrieve a club by its ID.
@@ -295,7 +316,10 @@ class DataWrapper:
         Returns:
             club|bool: club instance if found, False otherwise
         """
-        return self.club_repo.read(lambda x: x.id == ID)[0] or False
+        try:
+            return self.club_repo.read(lambda x: x.id == ID)[0]
+        except IndexError:
+            return False
     
     
     
