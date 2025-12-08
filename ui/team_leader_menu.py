@@ -112,15 +112,16 @@ Try again!!
                 case "1": 
                     teamID = self.logic_wrapper.inputTeamID()
                     team = self.logic_wrapper.get_team_by_ID(teamID)
-                    print(team.id)  # call funtion for specific team to check out
-                    print(team.name)
-                    print(team.tag)
-                    print(team.creator_id)
-                    print(team.team_size)
-                    print(team.member_list)
+                    if isinstance(team, Team):
+                        print(team.id)  # call funtion for specific team to check out
+                        print(team.name)
+                        print(team.tag)
+                        print(team.creator_id)
+                        print(team.team_size)
+                        print(team.member_list)
                 case "2": 
                     teamID = self.logic_wrapper.inputTeamID()
-                    list_of_tournaments= self.logic_wrapper.get_turnaments()
+                    list_of_tournaments= self.logic_wrapper.get_tournaments()
                     for tournament in list_of_tournaments:
                         listOfTeamID=tournament.team_list
                         if teamID in listOfTeamID:

@@ -90,8 +90,9 @@ Try again!!
                     phone:int=int(input("Phone number:"))
                     address:str=input("Address: ")
                     email:str=input("Email: ")
-                    self.logic_wrapper.create_player(nID,name,phone,address,email)==True
-                    print("Player added!!")
+                    val = self.logic_wrapper.create_player(nID,name,phone,address,email)
+                    if val:
+                        print("Player added!!")
                     self.player_management_menu()
                 case "2": 
                     ID=self.logic_wrapper.inputplayersID()
@@ -125,7 +126,7 @@ b. Back
 
 
 """)
-        temp : Player = self.logic_wrapper.get_player_by_ID(Player_ID)  
+        temp : Player|bool = self.logic_wrapper.get_player_by_ID(Player_ID)  
         while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","5","6","7","b","B"]:
@@ -147,6 +148,9 @@ b. Back
 
 Try again!!
 """)   
+            if isinstance(temp, bool):
+                print("Player not found")
+                return
             
             match choice:
                 case "1": 

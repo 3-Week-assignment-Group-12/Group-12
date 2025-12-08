@@ -1,5 +1,6 @@
 from __future__ import annotations
 # ui_layer/main_menu.py
+from ..models.club import Club
 from logic.logic_wrapper import LogicWrapper
 from models.team import Team
 from models.tournament import Tournament
@@ -123,7 +124,7 @@ Try again!!
                                 print(pl)
                     # View players in team
                 case "3": 
-                    tournaments=self.logic_wrapper.get_turnaments()
+                    tournaments=self.logic_wrapper.get_tournaments()
                     for i in tournaments:
                         tournament=self.logic_wrapper.get_tournament_by_ID(i.id) # type: ignore
                         if type(tournament) == Tournament:
@@ -143,12 +144,13 @@ Try again!!
                             print("Incorrect ID")
                         else:
                             playerinfo = self.logic_wrapper.get_player_by_ID(player_ID)
-                            print(f"name: {playerinfo.name}") 
-                            print(f"KT: {playerinfo.kt}")
-                            print(f"dob: {playerinfo.dob}")
-                            print(f"phone: {playerinfo.phone}")
-                            print(f"address: {playerinfo.address}")
-                            print(f"email: {playerinfo.email}")
+                            if isinstance(playerinfo, Player):
+                                print(f"name: {playerinfo.name}") 
+                                print(f"KT: {playerinfo.id}")
+                                print(f"dob: {playerinfo.dob}")
+                                print(f"phone: {playerinfo.phone}")
+                                print(f"address: {playerinfo.address}")
+                                print(f"email: {playerinfo.email}")
                 case "5": 
                     pass # view statistics team
                 case "b": 
@@ -188,7 +190,7 @@ b. Back
                     print(team.name)
 
             case "2": 
-                tournaments = self.logic_wrapper.get_turnaments()
+                tournaments = self.logic_wrapper.get_tournaments()
                 for i in tournaments:
                     tournament=self.logic_wrapper.get_tournament_by_ID(i.id) # type: ignore
                     if type(tournament) == Tournament:
@@ -263,10 +265,10 @@ Try again!!
 
             match choice:
                 case "1": 
-                    list_of_tournaments=self.logic_wrapper.get_turnaments()
+                    list_of_tournaments=self.logic_wrapper.get_tournaments()
                     for id in list_of_tournaments:
-                        tournament=self.logic_wrapper.get_tournament_by_ID(id)
-                        if type(tournament) == Tournament:
+                        tournament=self.logic_wrapper.get_tournament_by_ID(id.id)
+                        if isinstance(tournament, Tournament):
                             print(tournament.name)
                 case "2": 
                     pass
@@ -320,9 +322,9 @@ Try again!!
                 case "1": 
                     list_of_clubs=self.logic_wrapper.get_clubs()
                     for clubID in list_of_clubs:
-                        club= self.logic_wrapper.get_clubs_by_ID(clubID)
-                        #if type(club) == Club:
-                            #print(club.name)
+                        club= self.logic_wrapper.get_club_by_ID(clubID.id)
+                        if isinstance(club, Club):
+                            print(club.name)
                 case "2": 
                     while True:
                         int(input("Enter club ID: "))
