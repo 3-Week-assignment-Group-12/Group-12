@@ -3,7 +3,7 @@ from models.club import Club
 
 class club_handler:
     
-    def create_club(self, name: str, colour: str, location: str, team_list: list[int],existing_clubs:list[Club]) -> Club:
+    def create_club(self, name: str, colour: str, location: str, team_list: list[int],existing_clubs:list[Club]) -> Club|int:
         # 1. Validate Input (Business Logic)        
         
         
@@ -12,6 +12,9 @@ class club_handler:
             if x.id > highest:
                 highest = x.id
         highest+=1 # find new id
+
+        if isinstance(name,int) or isinstance(colour,int):
+            return -2
         
         # 2. Create Model Object
         new_match = Club(highest, name, colour, location, team_list)
