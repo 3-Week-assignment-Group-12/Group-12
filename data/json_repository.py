@@ -139,3 +139,15 @@ class JsonRepository:
             return True
         except:
             return False
+        
+        
+    def read_dummy_data(self) -> list:
+        """
+        Read dummy data from the JSON file for testing purposes.
+        
+        Returns:
+            list: List of objects read from the file
+        """
+        
+        list_of_files = 
+        return self.read()

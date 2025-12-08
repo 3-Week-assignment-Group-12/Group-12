@@ -48,7 +48,7 @@ Try again!!
                 case "2": 
                     self.tournament_management.tournament_management_menu()
                 case "b": 
-                    pass
+                    return
     
 
     def player_management_menu(self):
@@ -87,7 +87,7 @@ Try again!!
                  
             match choice:
                 case "1": 
-                    nID:int = self.check_for_player_kt()
+                    nID:str = self.check_for_player_kt()
                     name:str=input("Name: ")
                     phone:int=int(input("Phone number:"))
                     address:str=input("Address: ")
@@ -187,8 +187,8 @@ Try again!!
 
     
     #------------------Functions--------------------------
-    def check_for_player_kt(self) -> int:
-            nID:int=int(input("National ID: "))
+    def check_for_player_kt(self) -> str:
+            nID:str=input("National ID: ")
             list_of_players= self.logic_wrapper.get_players()
             while True:
                 if list_of_players is None or list_of_players == []:
@@ -198,7 +198,7 @@ Try again!!
                     if isinstance(playerinfo,Player):
                         if nID == playerinfo.id: 
                             print("This national ID already exists!")
-                            nID:int=int(input("Enter different National ID: "))
+                            nID=input("Enter different National ID: ")
                         else:
                             return nID
                         
