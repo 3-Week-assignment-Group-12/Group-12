@@ -4,7 +4,7 @@ from models.tournament import Tournament
 
 class tournament_handler:
     
-    def create_tournament(self, name:str, start_date:str, end_date:str, venue:str, contact_id:int, contact_email:str, contact_phone:int,existing_tournaments: list[Tournament] , team_list:list[int],matches:list[int]) -> Tournament| int:
+    def create_tournament(self, name:str, start_date:str, end_date:str, venue:str, contact_id:str, contact_email:str, contact_phone:str,existing_tournaments: list[Tournament] , team_list:list[int],matches:list[int]) -> Tournament| int:
         """ this function creates a tournament object after validating the inputs
 
 
@@ -12,7 +12,7 @@ class tournament_handler:
             Tournament| bool: returns the created tournament object or False if validation fails
         """
         # 1. Validate Input (Business Logic)        
-        if len(str(contact_id)) != 10:
+        if len(contact_id) != 10:
             return -2
         
         highest:int = 0
@@ -22,8 +22,7 @@ class tournament_handler:
         highest+=1 # find new id
         
 
-        if isinstance(name,int):
-            return -3
+        
         
         nr_of_at=0
         for i in contact_email:
@@ -33,15 +32,15 @@ class tournament_handler:
         if nr_of_at!=1:
             return -4
         
-        if not isinstance(contact_phone,int) or len(str(contact_phone))!=7:
+        if not isinstance(contact_phone,str) or len(contact_phone)!=7:
             return -5
         
-        string_splitted_at_dots=start_date.split(".")
+        string_splitted_at_dots= [int(x) for x in start_date.split(".")]
         for i in string_splitted_at_dots:
             if not isinstance(i,int):
                 return -6
             
-        string_splitted_at_dot=end_date.split(".")
+        string_splitted_at_dot= [int(x) for x in start_date.split(".")]
         for j in string_splitted_at_dot:
             if not isinstance(j,int):
                 return -6
