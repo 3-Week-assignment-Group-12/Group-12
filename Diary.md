@@ -152,3 +152,23 @@ Writer: Aron Bjarki Ingvason
 
 ---
 
+date: 9.12.2025
+
+Writer: Breki Hlynsson
+
+forgot to add things i had done here
+
+general list:
+
+    rewwamped the entire data layer to have dynamic CRUD and to use JSON
+    added clubs
+    added brackets
+    added match
+    added tournaments
+    added dummy data handeleing for every model but only have data for players and teams
+    added bunch of logic layer stuff
+    did some ui layer fixes
+    probobly some more bur i forgot, sorry for forgetting to log here
+
+
+---
