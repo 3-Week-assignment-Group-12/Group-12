@@ -5,9 +5,10 @@ def main():
     ui = MainMenu()
     # Start the application loop
     ui.logic_wrapper.data_wrapper.get_dummy_data()
-    #ui.run()
+    ui.run()
     
     
 
 if __name__ == "__main__":
     main()
+    

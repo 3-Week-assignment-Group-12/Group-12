@@ -3,7 +3,7 @@ from models.match import Match
 
 class match_handler:
     
-    def create_match(self, team1_id: int,team2_id: int,tournament_id:int ,date: str, time: str,server_id: int,winner_id: int,Score:int,existing_matches:list[Match]) -> Match | int
+    def create_match(self, team1_id: int,team2_id: int,tournament_id:int ,date: str, time: str,server_id: int,winner_id: int,Score:int,existing_matches:list[Match]) -> Match | int:
         # 1. Validate Input (Business Logic)        
         
         
