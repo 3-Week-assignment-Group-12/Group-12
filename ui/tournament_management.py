@@ -5,12 +5,15 @@ from logic.logic_wrapper import LogicWrapper
 
 from models.tournament import Tournament
 
-from ui.main_menu import MainMenu
+from ui.function_file import functionFile
 
-class TournamentManagement(MainMenu):
-    def __init__(self,low : LogicWrapper) -> None:
+
+
+class TournamentManagement():
+    def __init__(self,low : LogicWrapper,functionFile:functionFile) -> None:
         self.logic_wrapper = low
-        pass
+        self.functionFile = functionFile
+        
 
     #--------------Menus--------------------
 
@@ -53,7 +56,7 @@ b. Back
                     startDate = input("Start date: ")
                     endDate = input("End date: ")
                     venue=input("Location of Tournament: ")
-                    contactID = self.check_for_tournament_ID()
+                    contactID = self.functionFile.check_for_tournament_ID()
                     contactEmail = input("Contact Email: ")
                     contactPhone = int(input("Contact Phone: "))
                     team_list=[]  # SKoða þetta
@@ -67,16 +70,16 @@ b. Back
                         print("Validation failed, tournament not created!")
                     
                 case "2": 
-                    ID = self.inputTournamentID()
+                    ID = self.logic_wrapper.inputTournamentID()
                     self.edit_tournament_menu(ID)
                 case "3": 
-                    ID = self.inputTournamentID()
+                    ID = self.logic_wrapper.inputTournamentID()
                     x = input("Are you sure? (Y/N): ")
                     if x == "y" or x == "Y":
                         self.logic_wrapper.delete_tournament(ID)
                     return
                 case "4": 
-                    ID = self.inputTournamentID()
+                    ID = self.logic_wrapper.inputTournamentID()
                     self.select_tournament_menu(ID)
                 case "b": 
                     return
@@ -210,13 +213,13 @@ Try again!!
                 case "1": 
                     self.logic_wrapper.generate_bracket(ID)
                 case "2": 
-                    team1_id = self.inputTeamID()
-                    team2_id = self.inputTeamID()
+                    team1_id = self.logic_wrapper.inputTeamID()
+                    team2_id = self.logic_wrapper.inputTeamID()
                     if team1_id == team2_id:
                         print("Teams cannot be the same")
                         continue
                     
-                    tournament_id = self.inputTournamentID()
+                    tournament_id = self.logic_wrapper.inputTournamentID()
                     
                     date = input("Enter date of match: ")
                     time = input("enter match time: ")

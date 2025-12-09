@@ -78,7 +78,7 @@ class Tournament:
         
         
         if len(previus_matches) != 0:
-            awailable_teams: list[int] = [team.winner_id for team in previus_matches]
+            awailable_teams: list[int] = [int(team.winner_id) for team in previus_matches]
         else:
             awailable_teams: list[int] = self.team_list.copy()
             

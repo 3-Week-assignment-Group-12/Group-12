@@ -5,16 +5,17 @@ from logic.logic_wrapper import LogicWrapper
 from models.team import Team
 from models.tournament import Tournament
 from models.player import Player
-from ui.main_menu import MainMenu
+from ui.function_file import functionFile
 
 
 
 
-class PublicMainMenu(MainMenu):
 
-    def __init__(self,low : LogicWrapper) -> None:
+class PublicMainMenu():
+
+    def __init__(self,low : LogicWrapper,functionFile:functionFile) -> None:
         self.logic_wrapper = low
-        pass
+        self.functionFile = functionFile
 
     #-----------------------Public Main menu----------------------------
     def public_menu(self):

@@ -4,16 +4,17 @@ from logic.logic_wrapper import LogicWrapper
 from models.team import Team
 from models.tournament import Tournament
 from models.player import Player
-from ui.main_menu import MainMenu
+from ui.function_file import functionFile
+
 from ui.tournament_management import TournamentManagement
 
 
-class OrganizerMenu(MainMenu):
-    def __init__(self, low : LogicWrapper) -> None:
-        self.tournament_management = TournamentManagement(low)
+class OrganizerMenu():
+    def __init__(self,low : LogicWrapper,functionFile:functionFile) -> None:
         self.logic_wrapper = low
-        pass
-
+        self.functionFile = functionFile
+        self.tournament_menu = TournamentManagement(low,self.functionFile)
+        
     def show_organizer_menu(self):
 
         while True:
@@ -47,7 +48,7 @@ Try again!!
                 case "1": 
                     self.player_management_menu()
                 case "2": 
-                    self.tournament_management.tournament_management_menu()
+                    self.tournament_menu.tournament_management_menu()
                 case "b": 
                     return
     
@@ -88,9 +89,9 @@ Try again!!
                  
             match choice:
                 case "1": 
-                    self.inputplayersID()
+                    self.functionFile.inputplayersID()
                     name:str=input("Name: ")
-                    self.input_phone_nr()
+                    self.functionFile.input_phone_nr()
                     address:str=input("Address: ")
                     self.input_email()
                     print("Adding Player...")
@@ -112,10 +113,10 @@ Try again!!
                         print("Player added!!")
                     
                 case "2": 
-                    id=self.inputplayersID()
+                    id=self.functionFile.inputplayersID()
                     self.edit_player_menu(id)  #Asks the user for Players National Id before going to the edit page
                 case "3":
-                    ID=self.inputplayersID()
+                    ID=self.functionFile.inputplayersID()
                     x=input("Are you sure? (Y/N)")
                     if x=="y" or x=="Y":
                         self.logic_wrapper.delete_player(ID) # type: ignore
@@ -177,7 +178,7 @@ Try again!!
                     case "3": 
                         temp.address = input("Enter New address: ")     
                     case "4": 
-                        newmail = self.check_for_player_email(input("Enter New address: "))
+                        newmail = self.functionFile.check_for_player_email(input("Enter New address: "))
                         if isinstance(newmail,str):
                             temp.email = newmail
                     case "5": 
