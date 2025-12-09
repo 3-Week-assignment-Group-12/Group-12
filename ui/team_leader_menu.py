@@ -2,6 +2,7 @@ from __future__ import annotations
 # ui_layer/main_menu.py
 from logic.logic_wrapper import LogicWrapper
 from models.team import Team
+from models.player import Player
 from ui.function_file import functionFile
 
 
@@ -234,7 +235,12 @@ Try again!!
                     pass
           
 
-    def edit_team_menu(self,team_to_edit):
+    def edit_team_menu(self,team_to_edit: int):
+
+        team = self.logic_wrapper.get_team_by_ID(team_to_edit)
+        if not isinstance(team, Team):
+            print("Team not found.")
+            return
 
         while True:
             print(
@@ -270,21 +276,79 @@ b. Back
 
 Try again!!
 """)
+                continue
 
             match choice:
-                case "1": 
-                    pass
-                case "2": 
-                    pass
-                case "3": 
-                    pass
-                case "4": 
-                    pass
-                case "5": 
-                    pass
-                case "6": 
-                    pass
-                case "b": 
+                case "1":   # Add Member
+                    player_id = input("Enter National ID of player to add: ")
+                    player = self.logic_wrapper.get_player_by_ID(player_id)
+                    if not isinstance(player, Player):
+                        print("Player does not exist.")
+                    elif player_id in team.member_list:
+                        print("Player is already in this team.")
+                    else:
+                        team.member_list.append(player_id)
+                        if self.logic_wrapper.modify_team(team):
+                            print("Member added successfully.")
+                        else:
+                            print("Error saving team.")
+
+                case "2":   # Remove Member
+                    if not team.member_list:
+                        print("This team has no members.")
+                    else:
+                        print("Current members:")
+                        for mid in team.member_list:
+                            p = self.logic_wrapper.get_player_by_ID(mid)
+                            if isinstance(p, Player):
+                                print(f"- {p.name} ({p.id})")
+                            else:
+                                print(f"- {mid}")
+                        remove_id = input("Enter National ID of player to remove: ")
+                        if remove_id in team.member_list:
+                            team.member_list.remove(remove_id)
+                            if self.logic_wrapper.modify_team(team):
+                                print("Member removed successfully.")
+                            else:
+                                print("Error saving team.")
+                        else:
+                            print("That player is not in this team.")
+
+                case "3":   # Change Team Name
+                    new_name = input("Enter new team name: ")
+                    team.name = new_name
+                    if self.logic_wrapper.modify_team(team):
+                        print("Team name updated.")
+                    else:
+                        print("Error saving team.")
+                
+                case "4":   # Change Team Tag
+                    new_tag = input("Enter new team tag (max 5 char): ")
+                    if len(new_tag) > 5:
+                        print("Tag is too long (max 5 characters).")
+                    else:
+                        team.tag = new_tag
+                        if self.logic_wrapper.modify_team(team):
+                            print("Team tag updated.")
+                        else:
+                            print("Error saving team.")
+                    
+                case "5":   # Change Team Captain
+                    new_captain_id = input("Enter National ID of new captain: ")
+                    player = self.logic_wrapper.get_player_by_ID(new_captain_id)
+                    if not isinstance(player, Player):
+                        print("Player does not exist.")
+                    else:
+                        team.creator_id = new_captain_id
+                        if self.logic_wrapper.modify_team(team):
+                            print("Team captain updated.")
+                        else:
+                            print("Error saving team.")
+
+                case "6":   # Change ASCII art
+                    print("ASCII art feature not implemented yet.")
+                
+                case "b" | "B":
                     return
            
     
