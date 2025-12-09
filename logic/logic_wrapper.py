@@ -461,14 +461,7 @@ class LogicWrapper:
     
     
 
-    def inputplayersID(self):
-        playersID=input("Enter National ID: ")
-        check= self.get_player_by_ID(playersID)
-        while check is False:
-            print("Player does not exist, Try different ID")
-            playersID=input("Enter National ID: ")
-            check= self.get_player_by_ID(playersID)
-        return playersID
+    
     
     def inputTeamID(self):
         teamID=int(input("Enter Team ID: "))
@@ -536,3 +529,22 @@ class LogicWrapper:
                 else:
                     return True
     
+    def check_email(self,email):
+        nr_of_at=0
+        for i in email:
+            if i =="@":
+                nr_of_at+=1
+            
+        if nr_of_at!=1:
+            return False
+        else:
+            return True
+        
+    def check_nID(self,NID):
+        if len(str(NID)) != 10:
+            return "1"
+        elif NID.isalpha() ==True:
+            return "2"
+        else:
+            return True
+             
