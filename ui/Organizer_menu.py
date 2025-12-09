@@ -176,7 +176,9 @@ Try again!!
                     case "3": 
                         temp.address = input("Enter New address: ")     
                     case "4": 
-                        temp.email = self.check_for_player_email() 
+                        newmail = self.check_for_player_email(input("Enter New address: "))
+                        if isinstance(newmail,str):
+                            temp.email = newmail
                     case "5": 
                         pass 
                     case "6": 
@@ -257,17 +259,6 @@ Try again!!
             
         
 
-    def inputplayerID(self):
 
-
-        nID:str = self.check_for_player_kt()
-    def inputplayersID(self):
-        playersID=input("Enter National ID: ")
-        check= self.logic_wrapper.get_player_by_ID(playersID)
-        while check is False:
-            print("Player does not exist, Try different ID")
-            playersID=input("Enter National ID: ")
-            check= self.logic_wrapper.get_player_by_ID(playersID)
-        return playersID
 
     

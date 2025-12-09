@@ -78,6 +78,41 @@ Writer: Diana Al Barouki
     2. Continued working on the report
     3. Writing the introduction and the final word
 
+
+Date 27.11.2025 18:57
+
+Writer: Breki Hlynsson
+
+Note: Nökkvi was absent due to sicknes
+
+    1. Created the Task tracker project
+    2. Tried and failed to create a workflow to automaticly set start date when issue is assigned
+    3. Added to the menu map
+    4. continued to fix use cases
+    5. continued to work on report
+    
+---
+
+Date: 27.11.2025 19:00
+
+Writer: Jingjing Wang
+
+    1. Done Happy Paths of requirements B and C
+    2. Done the writing of Github handbook
+    3. Fixing the wireframe of requirement A
+    4. Done the introduction of the report
+
+---
+
+Date: 28.11.2025
+
+Writer: Nökkvi Fannar Halldórsson
+
+    1. Went over all of the usecases in list of A requirements and double checked and cleaned up the base flow, made sure preconditions were correct, added or modified alternative flow where needed and fixed the post condition.
+    2. Wrote a small section for the final words of the report
+    3. Moved all of the happy path pictures from the design document to our discord group so they could be put into the report while also flagging the duplicate paths.
+
+
 Date 28.11.2025
 
     1. Finished putting the report together then just submit
@@ -114,4 +149,6 @@ Date  04.12.2025
     2. Helping others with programing, pearprograming hours did: 8
 
 Writer: Aron Bjarki Ingvason
+
+---
 
