@@ -263,7 +263,7 @@ Try again!!
                 case "6": 
                     pass
                 case "b": 
-                    pass
+                    return
            
     
     def club_menu(self):
@@ -309,7 +309,7 @@ Try again!!
                 case "4": 
                     self.edit_club_menu()
                 case "b": 
-                    pass
+                    return
             
     
     def edit_club_menu(self):
@@ -355,7 +355,7 @@ Try again!!
                 case "4": 
                     pass
                 case "b": 
-                    pass
+                    return
     
     #-------------Functions-----------------
 

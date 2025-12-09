@@ -87,13 +87,15 @@ Try again!!
                  
             match choice:
                 case "1": 
-                    nID:str = self.check_for_player_kt()
+                    self.inputplayersID()
                     name:str=input("Name: ")
                     self.input_phone_nr()
                     address:str=input("Address: ")
-                    email:str=input("Email: ")
+                    self.input_email()
                     print("Adding Player...")
                     ret = self.logic_wrapper.create_player(nID,name,phone,address,email)
+                    
+
                     print(ret)
                     if ret == 1:
                         print("Player added!!")
@@ -203,22 +205,19 @@ Try again!!
                             return nID
                         
 
-    def check_for_player_email(self):
-        email:str=input("Email:")
+    def check_for_player_email(self,email):
         list_of_players=self.logic_wrapper.get_players()
-        while True:
-            
-            if list_of_players is None or list_of_players == []:
-                return email
-            for player in list_of_players:
-                playerinfo=self.logic_wrapper.get_player_by_ID(player.id)
-                if isinstance(playerinfo,Player):
-                    if email == playerinfo.email: 
-                        print("This email already exists!")
-                        email:str=input("Enter different email: ")
-                    else:
-                        return email
-                    
+        if list_of_players is None or list_of_players == []:
+            return True
+        for player in list_of_players:
+            playerinfo=self.logic_wrapper.get_player_by_ID(player.id)
+            if isinstance(playerinfo,Player):
+                if email == playerinfo.email: 
+                    print("This email already exists!")
+                    return False
+                else:
+                    return True
+                
 
     def inputplayersID(self):
         playersID=input("Enter National ID: ")
@@ -246,3 +245,29 @@ Try again!!
             if check == "1":
                 print("Numbers are not allowed in name!")
                 
+    def input_email(self):
+        check2= False
+        email=""
+        while check2 == False :
+            email:str=input("Email: ")
+            check1=self.logic_wrapper.check_email(email)
+            if check1 ==True:
+                check2=self.check_for_player_email(email)
+        return email
+            
+        
+
+    def inputplayerID(self):
+
+
+        nID:str = self.check_for_player_kt()
+        def inputplayersID(self):
+        playersID=input("Enter National ID: ")
+        check= self.get_player_by_ID(playersID)
+        while check is False:
+            print("Player does not exist, Try different ID")
+            playersID=input("Enter National ID: ")
+            check= self.get_player_by_ID(playersID)
+        return playersID
+
+    
