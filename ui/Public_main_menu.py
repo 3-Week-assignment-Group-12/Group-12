@@ -5,12 +5,12 @@ from logic.logic_wrapper import LogicWrapper
 from models.team import Team
 from models.tournament import Tournament
 from models.player import Player
-from ui.Organizer_menu import OrganizerMenu
-from ui.tournament_management import TournamentManagement
+from ui.main_menu import MainMenu
 
 
 
-class PublicMainMenu():
+
+class PublicMainMenu(MainMenu):
 
     def __init__(self,low : LogicWrapper) -> None:
         self.logic_wrapper = low
@@ -435,20 +435,3 @@ Try again!!
             
     #--------------Functions-------------------
     #     
-    def inputTeamID(self):
-        teamID=int(input("Enter Team ID: "))
-        check= self.logic_wrapper.get_team_by_ID(teamID)
-        while check is False:
-            print("Team does not exist, Try different ID")
-            teamID=int(input("Enter Team ID: "))
-            check= self.logic_wrapper.get_team_by_ID(teamID)
-        return teamID
-    
-    def inputplayersID(self):
-        playersID=input("Enter National ID: ")
-        check= self.logic_wrapper.get_player_by_ID(playersID)
-        while check is False:
-            print("Player does not exist, Try different ID")
-            playersID=input("Enter National ID: ")
-            check= self.logic_wrapper.get_player_by_ID(playersID)
-        return playersID

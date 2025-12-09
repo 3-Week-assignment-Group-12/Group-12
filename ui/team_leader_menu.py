@@ -2,12 +2,9 @@ from __future__ import annotations
 # ui_layer/main_menu.py
 from logic.logic_wrapper import LogicWrapper
 from models.team import Team
-from models.tournament import Tournament
-from models.player import Player
-from ui.Organizer_menu import OrganizerMenu
-from ui.tournament_management import TournamentManagement
+from ui.main_menu import MainMenu
 
-class TeamLeader():
+class TeamLeader(MainMenu):
     def __init__(self,low : LogicWrapper) -> None:
         self.logic_wrapper = low
         pass
@@ -382,60 +379,3 @@ Try again!!
                     return
     
     #-------------Functions-----------------
-
-    def check_for_team_name(self):
-
-        name = input("Enter team name: ")
-        list_of_teams=self.logic_wrapper.get_teams()
-        if list_of_teams.__len__() == 0:
-            return name
-        else:
-            while True:
-                for team in list_of_teams:
-                    teaminfo=self.logic_wrapper.get_team_by_ID(team.id)
-                    if isinstance(teaminfo,Team):
-                        if name == teaminfo.name:
-                            print("Name already exists!")
-                            name = input("Enter different team name: ")
-                        else:
-                            return name
-                    else:
-                        print("invalid name")
-                        name = input("Enter different team name: ")
-            
-    def check_for_team_tag(self):
-    
-        tag = input("Enter team tag: ")
-        list_of_teams=self.logic_wrapper.get_teams()
-        while True: 
-            
-            if list_of_teams is None or list_of_teams == []:
-                    return tag
-            for teamID in list_of_teams:
-                teaminfo=self.logic_wrapper.get_team_by_ID(teamID.id)
-                if isinstance(teaminfo,Team):
-                    if tag == teaminfo.tag: 
-                        print("Tag already exists!")
-                        tag = input("Enter different team tag: ")
-                    else:
-                        return tag
-                    
-
-
-    def inputTeamID(self):
-        teamID=int(input("Enter Team ID: "))
-        check= self.logic_wrapper.get_team_by_ID(teamID)
-        while check is False:
-            print("Team does not exist, Try different ID")
-            teamID=int(input("Enter Team ID: "))
-            check= self.logic_wrapper.get_team_by_ID(teamID)
-        return teamID
-    
-    def inputplayersID(self):
-        playersID=input("Enter National ID: ")
-        check= self.logic_wrapper.get_player_by_ID(playersID)
-        while check is not isinstance(check, Player):
-            print("Player does not exist, Try different ID")
-            playersID=input("Enter National ID: ")
-            check= self.logic_wrapper.get_player_by_ID(playersID)
-        return playersID

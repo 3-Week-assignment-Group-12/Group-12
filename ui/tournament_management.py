@@ -3,13 +3,11 @@ from __future__ import annotations
 from logic.logic_wrapper import LogicWrapper
 
 
-from models.player import Player
-
 from models.tournament import Tournament
 
-from models.team import Team
+from ui.main_menu import MainMenu
 
-class TournamentManagement():
+class TournamentManagement(MainMenu):
     def __init__(self,low : LogicWrapper) -> None:
         self.logic_wrapper = low
         pass
@@ -177,8 +175,8 @@ Try again!!
 
         while True:
             print(
-""" 
-Select "nafn liðs"   ATH !!!!
+f""" 
+Selected: "{self.logic_wrapper.get_tournament_by_ID(ID) := result; result.name if isinstance(result, Tournament)}"
 
 1. Generate Schedule
 2. Record Game Results
@@ -193,10 +191,10 @@ b. Back
             if choice not in ["1","2","3","4","5","b","B"]:
 
                 print(
-""" 
+f""" 
 Invalid Input!!
 
-Select "nafn liðs"   ATH !!!!
+Select {self.logic_wrapper.get_tournament_by_ID(ID) := result; result.name if isinstance(result, Tournament)}
 
 1. Generate Schedule
 2. Record Game Results
@@ -212,13 +210,37 @@ Try again!!
                 case "1": 
                     self.logic_wrapper.generate_bracket(ID)
                 case "2": 
-                    pass
+                    team1_id = self.inputTeamID()
+                    team2_id = self.inputTeamID()
+                    if team1_id == team2_id:
+                        print("Teams cannot be the same")
+                        continue
+                    
+                    tournament_id = self.inputTournamentID()
+                    
+                    date = input("Enter date of match: ")
+                    time = input("enter match time: ")
+                    server_id = int(input("enter server id: "))
+                    winner_id = input("Enter winner id: ")
+                    while winner_id != team1_id and winner_id != team2_id:
+                        print("Winner must be one of the teams")
+                        winner_id = input("Enter winner id: ")
+                        
+                    score = int(input("Enter score:"))
+                    
+                    
+                    ret =self.logic_wrapper.create_match(team1_id, team2_id, tournament_id, date, time, server_id, winner_id, score)
+                    if ret ==-2:
+                        print("failure in creating match")
+                    
                 case "3": 
                     pass
                 case "4": 
                     pass
                 case "5": 
-                    pass
+                    
+                    for x in self.logic_wrapper.get_matches_by_tournament_ID(ID):
+                        print(x)
                 case "b": 
                     pass
             
@@ -228,29 +250,3 @@ Try again!!
 # ------------------Functions----------------------
 
 
-    def check_for_tournament_ID(self):
-        ID = int(input("Contact ID"))
-        list_of_tournaments=self.logic_wrapper.get_tournaments()
-        while True:
-            
-            if list_of_tournaments is None or list_of_tournaments == []:
-                return ID
-            for tournamentID in list_of_tournaments:
-                tournament_info=self.logic_wrapper.get_team_by_ID(tournamentID.id)
-                if isinstance(tournament_info,Tournament):
-                    if ID == tournament_info.id: 
-                        print("This tournament ID already exists!")
-                        ID = int(input("Enter different Contact ID"))
-                    else:
-                        return ID
-    
-
-
-    def inputTournamentID(self):
-        tournamentID=int(input("Enter Tournament ID: "))
-        check= self.logic_wrapper.get_tournament_by_ID(tournamentID)
-        while check is False:
-            print("Tournament does not exist, Try different ID")
-            tournamentID=int(input("Enter Tournament ID: "))
-            check= self.logic_wrapper.get_tournament_by_ID(tournamentID)
-        return tournamentID
