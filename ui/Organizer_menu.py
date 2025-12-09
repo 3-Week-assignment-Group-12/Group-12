@@ -89,22 +89,19 @@ Try again!!
                  
             match choice:
                 case "1": 
-                    nid=self.inputplayersID()
+                    nid=self.functionFile.inputplayersID()
                     if nid == False:
                         return
-                    name=self.input_name()
+                    name=self.functionFile.input_name()
                     if name == False:
                         return
-                    phone=self.input_phone_nr()
+                    phone=self.functionFile.input_phone_nr()
                     if phone == False:
                         return
-                    self.functionFile.inputplayersID()
-                    name:str=input("Name: ")
-                    self.functionFile.input_phone_nr()
                     address:str=input("Address: ")
                     if address == "q":
                         return
-                    email=self.input_email()
+                    email=self.functionFile.input_email()
                     if email == False:
                         return 
                     print("Adding Player...")
@@ -126,10 +123,10 @@ Try again!!
                         print("Player added!!")
                     
                 case "2": 
-                    id=self.functionFile.inputplayersID()
+                    id=self.functionFile.check_excistingID()
                     self.edit_player_menu(id)  #Asks the user for Players National Id before going to the edit page
                 case "3":
-                    ID=self.functionFile.inputplayersID()
+                    ID=self.functionFile.check_excistingID()
                     x=input("Are you sure? (Y/N)")
                     if x=="y" or x=="Y":
                         self.logic_wrapper.delete_player(ID) # type: ignore
@@ -185,11 +182,11 @@ Try again!!
                 
                 match choice:
                     case "1": 
-                        temp.name = self.input_name() # type: ignore
+                        temp.name = self.functionFile.input_name() # type: ignore
                         if temp.name== False:
                             return
                     case "2": 
-                        temp.phone = self.input_phone_nr()
+                        temp.phone = self.functionFile.input_phone_nr()
                         if temp.phone== False:
                             return
                     case "3": 
@@ -197,9 +194,9 @@ Try again!!
                         if temp.address== "q":
                             return    
                     case "4": 
-                        newmail = self.functionFile.check_for_player_email(input("Enter New address: "))
-                        if isinstance(newmail,str):
-                            temp.email = newmail
+                        temp.email = self.functionFile.input_email()
+                        if temp.email ==False:
+                            return
                     case "5": 
                         pass 
                     case "6": 

@@ -131,7 +131,7 @@ class functionFile:
             check= self.logic_wrapper.get_team_by_ID(teamID)
         return teamID
     
-    def inputplayersID(self):
+    def check_excistingID(self):
         playersID=input("Enter National ID: ")
         check= self.logic_wrapper.get_player_by_ID(playersID)
         while not isinstance(check, Player):
@@ -142,20 +142,19 @@ class functionFile:
     
 
 
-    def check_for_player_kt(self) -> str:
-            nID:str=input("National ID: ")
+    def check_for_player_kt(self,nID):
+          
             list_of_players= self.logic_wrapper.get_players()
-            while True:
-                if list_of_players is None or list_of_players == []:
-                    return nID
-                for player in list_of_players:
-                    playerinfo=self.logic_wrapper.get_player_by_ID(player.id)
-                    if isinstance(playerinfo,Player):
-                        if nID == playerinfo.id: 
-                            print("This national ID already exists!")
-                            nID=input("Enter different National ID: ")
-                        else:
-                            return nID
+            if list_of_players is None or list_of_players == []:
+                return True
+            for player in list_of_players:
+                playerinfo=self.logic_wrapper.get_player_by_ID(player.id)
+                if isinstance(playerinfo,Player):
+                    if nID == playerinfo.id: 
+                        print("This national ID already exists!")
+                        return False
+                    else:
+                        return True
                         
 
     def check_for_player_email(self,email):
@@ -198,6 +197,32 @@ class functionFile:
             if check1 ==True:
                 check2=self.check_for_player_email(email)
         return email
+    
+
+
+
+    def inputplayersID(self):
+        playersID=input("Enter National ID: ")
+        check1=self.logic_wrapper.valid_kt(playersID)
+        if check1 =="1":
+            print("National ID needs to be exactly 10 numbers")
+        elif check1=="2":
+            print("National ID cant have letters")
+        elif check1=="3" or check1=="4":
+            print("This ID does not exist")
+        else:
+            check2=self.check_for_player_kt(playersID)
+            #check= self.logic_wrapper.get_player_by_ID(playersID)
+            #while isinstance(check,int):
+                #print("Player does not exist, Try different ID")
+                #playersID=input("Enter National ID: ")
+                #check= self.logic_wrapper.get_player_by_ID(playersID)
+                #if playersID=="q":
+                    #return False
+            if check2==True:
+                return playersID
+            else: 
+                return False
             
         
 
