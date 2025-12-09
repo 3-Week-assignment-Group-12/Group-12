@@ -261,13 +261,13 @@ Try again!!
 
 
         nID:str = self.check_for_player_kt()
-        def inputplayersID(self):
+    def inputplayersID(self):
         playersID=input("Enter National ID: ")
-        check= self.get_player_by_ID(playersID)
+        check= self.logic_wrapper.get_player_by_ID(playersID)
         while check is False:
             print("Player does not exist, Try different ID")
             playersID=input("Enter National ID: ")
-            check= self.get_player_by_ID(playersID)
+            check= self.logic_wrapper.get_player_by_ID(playersID)
         return playersID
 
     
