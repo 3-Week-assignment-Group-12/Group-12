@@ -2,15 +2,13 @@ from __future__ import annotations
 # ui_layer/main_menu.py
 from logic.logic_wrapper import LogicWrapper
 from models.team import Team
-from models.tournament import Tournament
-from models.player import Player
-from ui.Organizer_menu import OrganizerMenu
-from ui.tournament_management import TournamentManagement
+from ui.function_file import functionFile
+
 
 class TeamLeader():
-    def __init__(self,low : LogicWrapper) -> None:
+    def __init__(self,low : LogicWrapper,functionFile:functionFile) -> None:
         self.logic_wrapper = low
-        pass
+        self.functionFile = functionFile
 
 
 
@@ -57,8 +55,8 @@ Try again!!
                 case "2": 
                     self.register_for_tournament_menu() 
                 case "3": 
-                    name = self.check_for_team_name()
-                    team_tag = self.check_for_team_tag()
+                    name = self.functionFile.check_for_team_name()
+                    team_tag = self.functionFile.check_for_team_tag()
                     creator_id = input("Enter team creator id: ")
                     
                     team_list = [] #laga team list 
@@ -74,7 +72,7 @@ Try again!!
                             else:
                                 break
                         while team_list.__len__() != team_size:
-                            team_list.append(self.inputplayersID())
+                            team_list.append(self.functionFile.inputplayersID())
                     else:
                         team_size = int(input("Enter team size: "))
                             
@@ -95,10 +93,10 @@ Try again!!
                         print("team size to big")
                     
                 case "4": 
-                    ID=self.inputTeamID()
+                    ID=self.functionFile.inputTeamID()
                     self.edit_team_menu(ID) 
                 case "5": 
-                    ID=self.inputTeamID()
+                    ID=self.functionFile.inputTeamID()
                     x=input("Are you sure? (Y/N)")
                     if x=="y" or x=="Y":
                         self.logic_wrapper.delete_team(ID) # type: ignore
@@ -142,7 +140,7 @@ Try again!!
 
             match choice:
                 case "1": 
-                    teamID = self.inputTeamID()
+                    teamID = self.functionFile.inputTeamID()
                     team = self.logic_wrapper.get_team_by_ID(teamID)
                     if isinstance(team, Team):
                         print(team.id)  # call funtion for specific team to check out
@@ -382,60 +380,3 @@ Try again!!
                     return
     
     #-------------Functions-----------------
-
-    def check_for_team_name(self):
-
-        name = input("Enter team name: ")
-        list_of_teams=self.logic_wrapper.get_teams()
-        if list_of_teams.__len__() == 0:
-            return name
-        else:
-            while True:
-                for team in list_of_teams:
-                    teaminfo=self.logic_wrapper.get_team_by_ID(team.id)
-                    if isinstance(teaminfo,Team):
-                        if name == teaminfo.name:
-                            print("Name already exists!")
-                            name = input("Enter different team name: ")
-                        else:
-                            return name
-                    else:
-                        print("invalid name")
-                        name = input("Enter different team name: ")
-            
-    def check_for_team_tag(self):
-    
-        tag = input("Enter team tag: ")
-        list_of_teams=self.logic_wrapper.get_teams()
-        while True: 
-            
-            if list_of_teams is None or list_of_teams == []:
-                    return tag
-            for teamID in list_of_teams:
-                teaminfo=self.logic_wrapper.get_team_by_ID(teamID.id)
-                if isinstance(teaminfo,Team):
-                    if tag == teaminfo.tag: 
-                        print("Tag already exists!")
-                        tag = input("Enter different team tag: ")
-                    else:
-                        return tag
-                    
-
-
-    def inputTeamID(self):
-        teamID=int(input("Enter Team ID: "))
-        check= self.logic_wrapper.get_team_by_ID(teamID)
-        while check is False:
-            print("Team does not exist, Try different ID")
-            teamID=int(input("Enter Team ID: "))
-            check= self.logic_wrapper.get_team_by_ID(teamID)
-        return teamID
-    
-    def inputplayersID(self):
-        playersID=input("Enter National ID: ")
-        check= self.logic_wrapper.get_player_by_ID(playersID)
-        while check is not isinstance(check, Player):
-            print("Player does not exist, Try different ID")
-            playersID=input("Enter National ID: ")
-            check= self.logic_wrapper.get_player_by_ID(playersID)
-        return playersID

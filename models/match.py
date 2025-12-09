@@ -18,7 +18,7 @@ class Match:
         date: str
         match time: str
         server_id: int
-        winner_id: int | None
+        winner_id: int
         Score:int
     """
     
@@ -30,7 +30,7 @@ class Match:
     date: str 
     match_time: str 
     server_id: int 
-    winner_id: int 
+    winner_id: str
     Score:int 
     
     filename = "match_data.json"

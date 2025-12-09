@@ -71,7 +71,7 @@ class LogicWrapper:
         return -2 # Indicate failure due to validation
         
         
-    def create_match(self, team1_id: int,team2_id: int,tournament_id:int,date: str, time: str,server_id: int,winner_id: int,Score:int) -> int:
+    def create_match(self, team1_id: int,team2_id: int,tournament_id:int,date: str, time: str,server_id: int,winner_id: str,Score:int) -> int:
         """Create a new match with validation.
         
         Args:
