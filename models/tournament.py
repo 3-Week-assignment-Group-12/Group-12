@@ -44,7 +44,7 @@ class Tournament:
     team_list: list[int] 
     matches: list[int] 
     
-    filename = "./data/files/tournament_data.json"
+    filename = "tournament_data.json"
     
     @staticmethod
     def from_dict(data: dict) -> Tournament:

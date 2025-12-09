@@ -33,7 +33,7 @@ class Match:
     winner_id: int 
     Score:int 
     
-    filename = "./data/files/match_data.json"
+    filename = "match_data.json"
         
     @staticmethod
     def from_dict(data: dict) -> Match:

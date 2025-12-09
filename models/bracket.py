@@ -18,7 +18,7 @@ class Bracket:
     matchups: list[tuple[int,int]] 
     tournament_id: int 
     
-    filename = "./data/files/bracket_data.json"
+    filename = "bracket_data.json"
 
     @staticmethod
     def from_dict(data: dict) -> Bracket:

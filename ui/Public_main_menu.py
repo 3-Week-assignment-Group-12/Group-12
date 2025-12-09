@@ -116,6 +116,8 @@ Try again!!
                     count = 1
                     for i in list_of_players:
                         print(f"{count}: {i.name}, ID: {i.id}")
+                        count +=1
+                        
                 case "2": 
                     teams=self.logic_wrapper.get_teams()
                     for x in teams:
@@ -129,6 +131,7 @@ Try again!!
                                     
                                     print(f"{count}: {player.name}, ID: {player.id}")
                                     count +=1
+                                    
                     # View players in team
                 case "3": 
                     tournaments=self.logic_wrapper.get_tournaments()
@@ -147,8 +150,7 @@ Try again!!
                                     
                                             print(f"{count}: {player.name}, ID: {player.id}")
                                             count +=1
-                    pass#self.logic_wrapper.
-                    #self.logic_wrapper.get_team_by_ID(input("Enter Team : "))
+                                            
                 case "4":
                     while True:
                         player_ID = input("Enter player ID: ")

@@ -1,7 +1,11 @@
+from encodings import utf_16
 import json
 import os
 from pathlib import Path
 from typing import Type
+
+# made this after getting tired from macing repeted CRUD methods and wanted a general solution
+# found this in a example online, and modified it to my needs
 
 class JsonRepository:
     """
@@ -11,32 +15,39 @@ class JsonRepository:
     
     def __init__(self, model_cls: Type):
         self.model_cls = model_cls
-        self.filepath = Path(model_cls.filename)
+        self.check_file(model_cls.filename)
+            
+        self.filepath = Path("./data/files/" + model_cls.filename)
+
         
         # Ensure the data/files directory exists
         os.makedirs("./data/files", exist_ok=True)
 
 
 
-    def _read_file(self) -> list:
+    def read_file(self, alt_path :str= "") -> list:
         """ 
-        hidden method to read data from the JSON file.
+        method to read data from the JSON file.
 
         Returns:
             list: output data from json file
         """
-        if not self.filepath.exists():
+        if not self.filepath.exists() and alt_path == "":
             return []
         try:
-            with open(self.filepath, "r+") as f:
-                return json.load(f)
+            if alt_path == "":
+                with open(self.filepath, "r+",encoding="utf_8") as f:
+                    return json.load(f)
+            else:
+                with open(alt_path, "r+", encoding="utf_8") as f:
+                    return json.load(f)
         except:
             return []
 
 
-    def _write_file(self, data: list) -> int:
+    def write_file(self, data: list) -> int:
         """ 
-        hidden method to write data to the JSON file.
+        method to write data to the JSON file.
         
         Args:
             data (list): data to write to json file
@@ -45,9 +56,11 @@ class JsonRepository:
             int: success status
         """
         try:
-            with open(self.filepath, "w") as f:
+
+            with open(self.filepath, "w",encoding="utf_8") as f:
                 json.dump(data, f, indent=4)
             return 1
+
         except:
             return -1
 
@@ -65,13 +78,15 @@ class JsonRepository:
         """
         
         
-        items = self._read_file()
+        items = self.read_file()
         items.append(obj.to_dict())
-        return self._write_file(items)
+
+        return self.write_file(items)
 
 
 
-    def read(self, filter_func=None) -> list:
+
+    def read(self, filter_func=None, alt_path:str ="") -> list:
         """
         Read objects from the JSON file, optionally filtered.
         
@@ -84,7 +99,10 @@ class JsonRepository:
             list: List of objects read from the file
         """
         try:
-            items = [self.model_cls.from_dict(x) for x in self._read_file()]
+            if alt_path == "":
+                items = [self.model_cls.from_dict(x) for x in self.read_file()]
+            else:
+                items = [self.model_cls.from_dict(x) for x in self.read_file(alt_path)] # dummy path
         except:
             items = []
         if filter_func is None:
@@ -107,12 +125,12 @@ class JsonRepository:
             bool: Success status
         """
         
-        items = [self.model_cls.from_dict(x) for x in self._read_file()]
+        items = [self.model_cls.from_dict(x) for x in self.read_file()]
         for idx, item in enumerate(items):
             if filter_func(item):
                 items[idx] = update_func(item)
         try:
-            self._write_file([x.to_dict() for x in items])
+            self.write_file([x.to_dict() for x in items])
             return True
         except:
             return False
@@ -131,21 +149,32 @@ class JsonRepository:
             bool: Success status
         """
         
-        items = [self.model_cls.from_dict(x) for x in self._read_file()]
+        items = [self.model_cls.from_dict(x) for x in self.read_file()]
         items = [x for x in items if not filter_func(x)]
         
         try:
-            self._write_file([x.to_dict() for x in items])
+            self.write_file([x.to_dict() for x in items])
             return True
         except:
             return False
         
         
-    def read_dummy_data(self):
+    def read_dummy_data(self,alt_path:str) -> list:
         """
         Read dummy data from the JSON file for testing purposes.
         
         Returns:
             list: List of objects read from the file
         """
-        pass #do more here
+        os.remove(self.filepath) #wipe old data
+        self.check_file(self.model_cls.filename)# create file that was removed
+        return self.read(alt_path=alt_path) # data wrapper handles adding values
+
+    def check_file(self,filename):
+        os.makedirs("./data/files/",exist_ok=True) # ensure directory exists
+        
+        if filename not in os.listdir("./data/files"): #create file if it does not exist
+            file = open("./data/files/"+filename, "x")
+            file.close()
+
+        

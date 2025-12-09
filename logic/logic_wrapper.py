@@ -65,7 +65,7 @@ class LogicWrapper:
         Returns:
             bool: Success status
         """
-        new_team: Team|bool = self.team_handler.create_team(name, tag, creator_id, team_size, self.data_wrapper.get_teams(), team_list)
+        new_team: Team|int = self.team_handler.create_team(name, tag, creator_id, team_size, self.data_wrapper.get_teams(), team_list)
         if isinstance(new_team, Team):
             return self.data_wrapper.write_team(new_team)
         return -2 # Indicate failure due to validation
@@ -87,7 +87,7 @@ class LogicWrapper:
         Returns:
             int: Success status
         """
-        new_match: Match|bool = self.match_handler.create_match(team1_id,team2_id,tournament_id,date, time,server_id,winner_id,Score,self.data_wrapper.get_matches())
+        new_match: Match|int = self.match_handler.create_match(team1_id,team2_id,tournament_id,date, time,server_id,winner_id,Score,self.data_wrapper.get_matches())
         
         if isinstance(new_match, Match):
             return self.data_wrapper.write_match(new_match)
@@ -105,7 +105,7 @@ class LogicWrapper:
         Returns:
             int: Success status
         """
-        new_tournament: Tournament|bool = self.tournament_handler.create_tournament(name, start_date, end_date, venue, contact_id, contact_email, contact_phone, self.data_wrapper.get_tournaments(),team_list,matches)
+        new_tournament: Tournament|int = self.tournament_handler.create_tournament(name, start_date, end_date, venue, contact_id, contact_email, contact_phone, self.data_wrapper.get_tournaments(),team_list,matches)
         
         if isinstance(new_tournament, Tournament):
             return self.data_wrapper.write_tournament(new_tournament)
@@ -123,7 +123,7 @@ class LogicWrapper:
         Returns:
             bool: Success status
         """
-        new_club: Club|bool = self.club_handler.create_club(name,colour,location,team_list,self.get_clubs())
+        new_club: Club|int = self.club_handler.create_club(name,colour,location,team_list,self.get_clubs())
         if isinstance(new_club, Club):
             return self.data_wrapper.write_club(new_club)
         return -2 # Indicate failure due to validation   
@@ -536,3 +536,7 @@ class LogicWrapper:
                 else:
                     return True
     
+
+
+    def get_dummy_data(self):
+        self.data_wrapper.get_dummy_data()
