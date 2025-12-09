@@ -60,8 +60,26 @@ Try again!!
                     name = self.check_for_team_name()
                     team_tag = self.check_for_team_tag()
                     creator_id = input("Enter team creator id: ")
-                    team_size = int(input("Enter team size: "))
+                    
                     team_list = [] #laga team list 
+                    val = input("add members? (y/n)")
+                    if val.lower() == "y":
+                        while True:
+                            team_size = int(input("Enter team size: "))
+                            if team_size > 21:
+                                print("team too big")
+                                continue
+                            if team_size > self.logic_wrapper.get_players().__len__():
+                                print("not enough players in system for team size")
+                            else:
+                                break
+                        while team_list.__len__() != team_size:
+                            team_list.append(self.inputplayersID())
+                    else:
+                        team_size = int(input("Enter team size: "))
+                            
+
+                    
                     ret = self.logic_wrapper.create_team(name, team_tag, creator_id, team_size, team_list) 
                     if ret == 1:
                         print("Team has been created!") 
@@ -69,6 +87,12 @@ Try again!!
                         print("Error creating team!")
                     elif ret == -2:
                         print("Validation failed, team not created!")
+                    elif ret == -3:
+                        print("tag alredy exists")
+                    elif ret == -4:
+                        print("invalid format")
+                    elif ret == -5:
+                        print("team size to big")
                     
                 case "4": 
                     ID=self.inputTeamID()
@@ -84,7 +108,7 @@ Try again!!
                 case "7": 
                     self.rewards_menu_teamleader()  
                 case "b": 
-                    pass
+                    return
            
     
     
@@ -363,15 +387,21 @@ Try again!!
 
         name = input("Enter team name: ")
         list_of_teams=self.logic_wrapper.get_teams()
-        while True:
-            for teamID in list_of_teams:
-                teaminfo=self.logic_wrapper.get_team_by_ID(teamID.id)
-                if isinstance(teaminfo,Team):
-                    if name == teaminfo.name:
-                        print("Name already exists!")
-                        name = input("Enter different team name: ")
+        if list_of_teams.__len__() == 0:
+            return name
+        else:
+            while True:
+                for team in list_of_teams:
+                    teaminfo=self.logic_wrapper.get_team_by_ID(team.id)
+                    if isinstance(teaminfo,Team):
+                        if name == teaminfo.name:
+                            print("Name already exists!")
+                            name = input("Enter different team name: ")
+                        else:
+                            return name
                     else:
-                        return name
+                        print("invalid name")
+                        name = input("Enter different team name: ")
             
     def check_for_team_tag(self):
     
@@ -400,3 +430,12 @@ Try again!!
             teamID=int(input("Enter Team ID: "))
             check= self.logic_wrapper.get_team_by_ID(teamID)
         return teamID
+    
+    def inputplayersID(self):
+        playersID=input("Enter National ID: ")
+        check= self.logic_wrapper.get_player_by_ID(playersID)
+        while check is not isinstance(check, Player):
+            print("Player does not exist, Try different ID")
+            playersID=input("Enter National ID: ")
+            check= self.logic_wrapper.get_player_by_ID(playersID)
+        return playersID

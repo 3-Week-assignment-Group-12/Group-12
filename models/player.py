@@ -23,7 +23,7 @@ class Player:
     address: str
     email: str
 
-    filename = "./data/files/players_data.json"
+    filename = "players_data.json"
     
     @staticmethod
     def from_dict(data: dict) -> Player:

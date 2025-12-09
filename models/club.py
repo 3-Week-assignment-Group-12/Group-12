@@ -25,7 +25,7 @@ class Club:
 
 
 
-    filename = "./data/files/club_data.json"
+    filename = "club_data.json"
     
     @staticmethod
     def from_dict(data: dict) -> Club:

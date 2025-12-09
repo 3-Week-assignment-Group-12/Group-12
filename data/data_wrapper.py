@@ -5,6 +5,7 @@ from models.team import Team
 from models.bracket import Bracket
 from models.tournament import Tournament
 from models.club import Club
+import os
 
 class DataWrapper:
 
@@ -21,20 +22,29 @@ class DataWrapper:
         self.club_repo = JsonRepository(Club)
         
         
+        
     def get_dummy_data(self):
         """Load dummy data from CSV files for testing purposes."""  # csv crud is deprecated
-        #self.main_data.get_players("./dummy_data/dummy_player.csv")  
-        #self.main_data.get_teams("./dummy_data/dummy_teams.csv")
-        #self.main_data.get_tournaments("./dummy_data/dummy_tournaments.csv") no data available
-        #self.main_data.get_matches("./dummy_data/dummy_matches.csv") no data available
         
-        self.player_repo.read_dummy_data()
-        self.team_repo.read_dummy_data()
-        self.tournament_repo.read_dummy_data()
-        self.match_repo.read_dummy_data()
-        self.club_repo.read_dummy_data()
-        self.bracket_repo.read_dummy_data()
         
+        
+        
+        self.list_load(self.player_repo.read_dummy_data("./dummy_data/dummy_player.json"),self.player_repo)
+        self.list_load(self.tournament_repo.read_dummy_data("./dummy_data/dummy_tournaments.json"),self.tournament_repo)
+        self.list_load(self.match_repo.read_dummy_data("./dummy_data/dummy_match.json"),self.match_repo)
+        self.list_load(self.club_repo.read_dummy_data("./dummy_data/dummy_club.json"),self.club_repo)
+        self.list_load(self.bracket_repo.read_dummy_data("./dummy_data/dummy_bracket.json"),self.bracket_repo)
+        self.list_load(self.team_repo.read_dummy_data("./dummy_data/dummy_team.json"),self.team_repo)
+        
+        
+        
+        
+        
+        
+        
+    def list_load(self, list: list, repo:JsonRepository):
+        for x in list:
+            repo.create(x)
         
     
     # ------------------- Read Methods ------------------ #

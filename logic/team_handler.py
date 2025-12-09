@@ -3,9 +3,9 @@ from models.team import Team
 
 class team_handler:
     
-    def create_team(self, name:str, tag:str, creator_id:int, team_size:int, teams:list[Team], member_list:list[int]) -> Team| int:
+    def create_team(self, name:str, tag:str, creator_id:str, team_size:int, teams:list[Team], member_list:list[str]) -> Team| int:
         # 1. Validate Input (Business Logic)        
-        if len(str(creator_id)) != 10 or len(tag) > 20: ##validate length of KT and tag length
+        if len(creator_id) != 10 or len(tag) > 20: ##validate length of KT and tag length
             return -2
         
         highest:int = 0
@@ -17,9 +17,9 @@ class team_handler:
         for t in teams:
             if t.tag == tag or t.name == name:
                 return -3
-        if isinstance(tag,int) or isinstance(name,int) or not isinstance(creator_id,int) or not isinstance(team_size,int):
+        if isinstance(tag,int) or isinstance(name,int) or not isinstance(creator_id,str) or not isinstance(team_size,int):
             return -4
-        if team_size>11:
+        if team_size>21:
             return -5
         
         
