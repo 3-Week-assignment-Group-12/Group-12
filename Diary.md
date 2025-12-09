@@ -156,7 +156,7 @@ date: 9.12.2025
 
 Writer: Breki Hlynsson
 
-forgot to add things i had done here
+forgot to add things i had done
 
 general list:
 
@@ -169,6 +169,8 @@ general list:
     added bunch of logic layer stuff
     did some ui layer fixes
     probobly some more bur i forgot, sorry for forgetting to log here
+
+i have been assisting others and doing peer teaching as a more experienced programer, unknown houres
 
 
 ---
