@@ -93,7 +93,7 @@ class LogicWrapper:
             return self.data_wrapper.write_match(new_match)
         return -2 # Indicate failure due to validation
     
-    def create_tournament(self, name: str, start_date: str, end_date: str,  venue:str, contact_id:int, contact_email:str, contact_phone: int, team_list: list[int], matches:list[int]) -> int:
+    def create_tournament(self, name: str, start_date: str, end_date: str,  venue:str, contact_id:str, contact_email:str, contact_phone: str, team_list: list[int], matches:list[int]) -> int:
         """Create a new tournament with validation.
         
         Args:
@@ -109,7 +109,7 @@ class LogicWrapper:
         
         if isinstance(new_tournament, Tournament):
             return self.data_wrapper.write_tournament(new_tournament)
-        return -2 # Indicate failure due to validation
+        return new_tournament # Indicate failure due to validation
 
     def create_club(self, name: str, colour:str ,location:str, team_list: list[int]) -> int:
         """Create a new club with validation.
@@ -474,12 +474,14 @@ class LogicWrapper:
 
 
     def inputTournamentID(self):
-        tournamentID=int(input("Enter Tournament ID: "))
-        check= self.get_tournament_by_ID(tournamentID)
+        tournamentID=input("Enter Tournament ID(q for cancel): ")
+        check= self.get_tournament_by_ID(int(tournamentID))
         while check is False:
             print("Tournament does not exist, Try different ID")
-            tournamentID=int(input("Enter Tournament ID: "))
-            check= self.get_tournament_by_ID(tournamentID)
+            tournamentID=input("Enter Tournament ID(q for cancel): ")
+            if tournamentID.lower() == "q":
+                return 
+            check= self.get_tournament_by_ID(int(tournamentID))
         return tournamentID
     
 

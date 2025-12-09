@@ -15,9 +15,9 @@ class Tournament:
         start_date: str
         end_date: str
         venue_name: str
-        contact_id: int
+        contact_id: str
         contact_email: str
-        contact_phone: int
+        contact_phone: str
         team_list: list[int]
         matches: list[int]
     """
@@ -36,9 +36,9 @@ class Tournament:
     venue_name: str 
     
     # Contact information
-    contact_id: int 
+    contact_id: str
     contact_email: str 
-    contact_phone: int 
+    contact_phone: str
     
     # Participants and events
     team_list: list[int] 

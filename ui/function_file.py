@@ -56,7 +56,7 @@ class functionFile:
         self.logic_wrapper.get_players()
 
     def check_for_tournament_ID(self):
-        ID = int(input("Contact ID"))
+        ID = input("Contact ID")
         list_of_tournaments=self.logic_wrapper.get_tournaments()
         while True:
             
@@ -67,7 +67,7 @@ class functionFile:
                 if isinstance(tournament_info,Tournament):
                     if ID == tournament_info.id: 
                         print("This tournament ID already exists!")
-                        ID = int(input("Enter different Contact ID"))
+                        ID = input("Enter different Contact ID")
                     else:
                         return ID
     
