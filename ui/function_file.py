@@ -133,8 +133,8 @@ class functionFile:
     
     def check_excistingID(self):
         playersID=input("Enter National ID: ")
-        check = self.logic_wrapper.get_player_by_ID(playersID)
-        while check is not isinstance(check, Player):
+        check= self.logic_wrapper.get_player_by_ID(playersID)
+        while not isinstance(check, Player):
             print("Player does not exist, Try different ID")
             playersID=input("Enter National ID: ")
             check= self.logic_wrapper.get_player_by_ID(playersID)
