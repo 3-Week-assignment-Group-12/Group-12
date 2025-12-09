@@ -89,7 +89,7 @@ Try again!!
                 case "1": 
                     self.inputplayersID()
                     name:str=input("Name: ")
-                    phone:int=int(input("Phone number:"))
+                    self.input_phone_nr()
                     address:str=input("Address: ")
                     self.input_email()
                     print("Adding Player...")
@@ -228,6 +228,23 @@ Try again!!
             check= self.logic_wrapper.get_player_by_ID(playersID)
         return playersID
     
+
+    def input_phone_nr(self):
+        while True:
+            number:str=input("Phone number:")
+            check = self.logic_wrapper.check_phone_nr(number)
+            if check == "1":
+                print("Phone number is not the correct length!")
+            elif check == "2":
+                print("Only digits in phone number allowed!")
+
+    def input_name(self):
+        while True:
+            name:str=input("Name: ")
+            check = self.logic_wrapper.check_name(name)
+            if check == "1":
+                print("Numbers are not allowed in name!")
+                
     def input_email(self):
         check2= False
         email=""
