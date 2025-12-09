@@ -78,7 +78,6 @@ Writer: Diana Al Barouki
     2. Continued working on the report
     3. Writing the introduction and the final word
 
----
 
 Date 27.11.2025 18:57
 
@@ -112,3 +111,44 @@ Writer: Nökkvi Fannar Halldórsson
     1. Went over all of the usecases in list of A requirements and double checked and cleaned up the base flow, made sure preconditions were correct, added or modified alternative flow where needed and fixed the post condition.
     2. Wrote a small section for the final words of the report
     3. Moved all of the happy path pictures from the design document to our discord group so they could be put into the report while also flagging the duplicate paths.
+
+
+Date 28.11.2025
+
+    1. Finished putting the report together then just submit
+
+Writer: Aron Bjarki Ingvason
+
+
+
+Date  01.12.2025
+
+    1. Planing what to code, then just setting up everything so its ready to code
+
+Writer: Aron Bjarki Ingvason
+
+
+Date  02.12.2025
+
+    1. We just started from the top of the requirement list and started coding in the logic, data and main datalayers.
+    2. We made the whole skeleton for each mainscreen(UI). only need to fill in the lines needed code for each selection.
+    3. started with some of the selection from the requirement list.
+
+Writer: Aron Bjarki Ingvason
+
+Date  03.12.2025
+
+    1. Keep going with going down the requirement list in UI.
+    2. Helping others with programing, pearprograming hours did: 4-5
+
+Writer: Aron Bjarki Ingvason
+
+Date  04.12.2025
+
+    1. Keep going with going down the requirement list in UI.
+    2. Helping others with programing, pearprograming hours did: 8
+
+Writer: Aron Bjarki Ingvason
+
+---
+

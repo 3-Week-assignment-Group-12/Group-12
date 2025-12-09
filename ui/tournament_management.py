@@ -1,34 +1,31 @@
 from __future__ import annotations
 # ui_layer/main_menu.py
 from logic.logic_wrapper import LogicWrapper
-from models.team import Team
-from models.tournament import Tournament
+
 
 from models.player import Player
-from ui.Organizer_menu import OrganizerMenu
-from ui.tournament_management import TournamentManagement
+
+from models.tournament import Tournament
+
+from models.team import Team
 
 class TournamentManagement():
     def __init__(self,low : LogicWrapper) -> None:
         self.logic_wrapper = low
         pass
 
-    
-
-    #--------------Functions---------------
-
-
-
-
-
-
-
-
-
-
-
-
     #--------------Menus--------------------
+
+
+
+
+
+    #--------------Tournament Management Menu--------------------
+
+
+
+
+
 
     def tournament_management_menu(self):
         
@@ -45,7 +42,7 @@ Tournament Management
 4. Select Tournament
 b. Back 
 
-Try again!!
+
 """)
             choice=input("Enter input: ")
             
@@ -58,23 +55,44 @@ Try again!!
                     startDate = input("Start date: ")
                     endDate = input("End date: ")
                     venue=input("Location of Tournament: ")
-                    contactID = int(input("Contact ID"))
+                    contactID = self.check_for_tournament_ID()
                     contactEmail = input("Contact Email: ")
                     contactPhone = int(input("Contact Phone: "))
                     team_list=[]  # SKoða þetta
                     matches=[]    # sKoða þetta
-                    self.logic_wrapper.create_tournament(name,startDate,endDate,venue,contactID,contactEmail,contactPhone,team_list,matches)
+                    ret =self.logic_wrapper.create_tournament(name,startDate,endDate,venue,contactID,contactEmail,contactPhone,team_list,matches)
+                    if ret == 1:
+                        print("Tournament created successfully!")
+                    elif ret == -1:
+                        print("Error creating tournament!")
+                    elif ret == -2:
+                        print("Validation failed, tournament not created!")
+                    
                 case "2": 
-                    self.edit_tournament_menu(int(input("Enter Tournament ID: ")))
+                    ID = self.inputTournamentID()
+                    self.edit_tournament_menu(ID)
                 case "3": 
-                    TID=int(input("Tournament ID"))
-                    self.logic_wrapper.delete_tournament(TID)
+                    ID = self.inputTournamentID()
+                    x = input("Are you sure? (Y/N): ")
+                    if x == "y" or x == "Y":
+                        self.logic_wrapper.delete_tournament(ID)
+                    return
                 case "4": 
-                    self.select_tournament_menu()
+                    ID = self.inputTournamentID()
+                    self.select_tournament_menu(ID)
                 case "b": 
                     return
                 case _:
                     print("Invalid input")
+
+
+
+
+
+    #--------------Edit Tournament Menu--------------------
+
+
+
 
 
     def edit_tournament_menu(self,tournamentID):
@@ -94,7 +112,7 @@ b. Back
 
 """)
             
-        temp : Tournament = self.logic_wrapper.get_tournament_by_ID(tournamentID)   
+        temp : Tournament|bool = self.logic_wrapper.get_tournament_by_ID(tournamentID)   
         while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","5","6","7","b","B"]:
@@ -116,7 +134,9 @@ b. Back
 
 Try again!!
 """)
-
+            if isinstance(temp, bool):
+                print("Tournament not found")
+                return
             match choice:
                 case "1": 
                     temp.name = input("Enter New Name: ")
@@ -140,9 +160,23 @@ Try again!!
                     #temp.matches 
                 case "b": 
                     pass
+            
+            self.logic_wrapper.modify_tournament(temp)
           
-    def select_tournament_menu(self):
-        print(
+
+          
+
+
+    #--------------Select Tournement Menu--------------------
+
+
+
+
+
+    def select_tournament_menu(self, ID):
+
+        while True:
+            print(
 """ 
 Select "nafn liðs"   ATH !!!!
 
@@ -155,7 +189,6 @@ b. Back
 
 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","5","b","B"]:
 
@@ -177,7 +210,7 @@ Try again!!
 
             match choice:
                 case "1": 
-                    pass
+                    self.logic_wrapper.generate_bracket(ID)
                 case "2": 
                     pass
                 case "3": 
@@ -191,3 +224,33 @@ Try again!!
             
 
 
+
+# ------------------Functions----------------------
+
+
+    def check_for_tournament_ID(self):
+        ID = int(input("Contact ID"))
+        list_of_tournaments=self.logic_wrapper.get_tournaments()
+        while True:
+            
+            if list_of_tournaments is None or list_of_tournaments == []:
+                return ID
+            for tournamentID in list_of_tournaments:
+                tournament_info=self.logic_wrapper.get_team_by_ID(tournamentID.id)
+                if isinstance(tournament_info,Tournament):
+                    if ID == tournament_info.id: 
+                        print("This tournament ID already exists!")
+                        ID = int(input("Enter different Contact ID"))
+                    else:
+                        return ID
+    
+
+
+    def inputTournamentID(self):
+        tournamentID=int(input("Enter Tournament ID: "))
+        check= self.logic_wrapper.get_tournament_by_ID(tournamentID)
+        while check is False:
+            print("Tournament does not exist, Try different ID")
+            tournamentID=int(input("Enter Tournament ID: "))
+            check= self.logic_wrapper.get_tournament_by_ID(tournamentID)
+        return tournamentID

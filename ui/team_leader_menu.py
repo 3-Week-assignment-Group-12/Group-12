@@ -3,12 +3,11 @@ from __future__ import annotations
 from logic.logic_wrapper import LogicWrapper
 from models.team import Team
 from models.tournament import Tournament
-
 from models.player import Player
 from ui.Organizer_menu import OrganizerMenu
 from ui.tournament_management import TournamentManagement
 
-class TeamLeader()
+class TeamLeader():
     def __init__(self,low : LogicWrapper) -> None:
         self.logic_wrapper = low
         pass
@@ -16,26 +15,37 @@ class TeamLeader()
 
 
     def teamleader_menu(self):
-        print(
+
+        while True:
+            print(
 """ 
-View Team
+Team Leader Menu
 
 1. View My Team Info (view menu shortcut)
-2. View My Tournaments (view menu shortcut)
+2. Register for Tournaments
+3. Create Team
+4. Edit Team
+5. Delete Team
+6. Manage Club
+7. Reward menu
 b. Back 
 """)
-        while True:
             choice=input("Enter input: ")
-            if choice not in ["1","2","b","B"]:
+            if choice not in ["1","2","3","4","5","6","7","b","B"]:
 
                 print(
 """ 
 Invalid Input!!
 
-View Team
+Team Leader Menu
 
 1. View My Team Info (view menu shortcut)
-2. View My Tournaments (view menu shortcut)
+2. Register for Tournaments
+3. Create Team
+4. Edit Team
+5. Delete Team
+6. Manage Club
+7. Reward menu
 b. Back 
 
 Try again!!
@@ -43,17 +53,70 @@ Try again!!
 
             match choice:
                 case "1": 
-                    pass  # call funtion for specific team to check out
+                    self.view_team_teamleader_menu() 
                 case "2": 
-                    pass # call funtion for specific team to check ou
+                    self.register_for_tournament_menu() 
+                case "3": 
+                    name = self.check_for_team_name()
+                    team_tag = self.check_for_team_tag()
+                    creator_id = input("Enter team creator id: ")
+                    
+                    team_list = [] #laga team list 
+                    val = input("add members? (y/n)")
+                    if val.lower() == "y":
+                        while True:
+                            team_size = int(input("Enter team size: "))
+                            if team_size > 21:
+                                print("team too big")
+                                continue
+                            if team_size > self.logic_wrapper.get_players().__len__():
+                                print("not enough players in system for team size")
+                            else:
+                                break
+                        while team_list.__len__() != team_size:
+                            team_list.append(self.inputplayersID())
+                    else:
+                        team_size = int(input("Enter team size: "))
+                            
+
+                    
+                    ret = self.logic_wrapper.create_team(name, team_tag, creator_id, team_size, team_list) 
+                    if ret == 1:
+                        print("Team has been created!") 
+                    elif ret == -1:
+                        print("Error creating team!")
+                    elif ret == -2:
+                        print("Validation failed, team not created!")
+                    elif ret == -3:
+                        print("tag alredy exists")
+                    elif ret == -4:
+                        print("invalid format")
+                    elif ret == -5:
+                        print("team size to big")
+                    
+                case "4": 
+                    ID=self.inputTeamID()
+                    self.edit_team_menu(ID) 
+                case "5": 
+                    ID=self.inputTeamID()
+                    x=input("Are you sure? (Y/N)")
+                    if x=="y" or x=="Y":
+                        self.logic_wrapper.delete_team(ID) # type: ignore
+                    return     
+                case "6": 
+                    self.club_menu() 
+                case "7": 
+                    self.rewards_menu_teamleader()  
                 case "b": 
-                    pass
+                    return
            
     
     
 
     def view_team_teamleader_menu(self):
-        print(
+
+        while True:
+            print(
 """ 
 View Team
 
@@ -61,7 +124,6 @@ View Team
 2. View My Tournaments (view menu shortcut)
 b. Back 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","b","B"]:
 
@@ -80,15 +142,30 @@ Try again!!
 
             match choice:
                 case "1": 
-                    pass  # call funtion for specific team to check out
+                    teamID = self.inputTeamID()
+                    team = self.logic_wrapper.get_team_by_ID(teamID)
+                    if isinstance(team, Team):
+                        print(team.id)  # call funtion for specific team to check out
+                        print(team.name)
+                        print(team.tag)
+                        print(team.creator_id)
+                        print(team.team_size)
+                        print(team.member_list)
                 case "2": 
-                    pass # call funtion for specific team to check ou
+                    teamID = self.logic_wrapper.inputTeamID()
+                    list_of_tournaments= self.logic_wrapper.get_tournaments()
+                    for tournament in list_of_tournaments:
+                        listOfTeamID=tournament.team_list
+                        if teamID in listOfTeamID:
+                            print(tournament.name)
                 case "b": 
-                    pass
+                    return
            
     
     def rewards_menu_teamleader(self):
-        print(
+
+        while True:
+            print(
 """ 
 Rewards Menu
 
@@ -96,7 +173,6 @@ Rewards Menu
 2. Rewards Log
 b. Back 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","b","B"]:
 
@@ -123,7 +199,9 @@ Try again!!
             
 
     def register_for_tournament_menu(self):
-        print(
+
+        while True:
+            print(
 """ 
 Register For Tournament Menu
 
@@ -133,7 +211,6 @@ b. Back
 
 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","b","B"]:
 
@@ -160,7 +237,9 @@ Try again!!
           
 
     def edit_team_menu(self,team_to_edit):
-        print(
+
+        while True:
+            print(
 """ 
 Edit Team Menu
 
@@ -174,7 +253,6 @@ b. Back
 
 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","5","6","b","B"]:
                 
@@ -209,11 +287,13 @@ Try again!!
                 case "6": 
                     pass
                 case "b": 
-                    pass
+                    return
            
     
     def club_menu(self):
-        print(
+
+        while True:
+            print(
 """ 
 Club Menu
 
@@ -225,7 +305,6 @@ b. Back
 
 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","b","B"]:
                 
@@ -254,11 +333,13 @@ Try again!!
                 case "4": 
                     self.edit_club_menu()
                 case "b": 
-                    pass
+                    return
             
     
     def edit_club_menu(self):
-        print(
+
+        while True:
+            print(
 """ 
 Edit Club Menu
 
@@ -270,7 +351,6 @@ b. Back
 
 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","b","B"]:
                 
@@ -299,5 +379,63 @@ Try again!!
                 case "4": 
                     pass
                 case "b": 
-                    pass
-       
+                    return
+    
+    #-------------Functions-----------------
+
+    def check_for_team_name(self):
+
+        name = input("Enter team name: ")
+        list_of_teams=self.logic_wrapper.get_teams()
+        if list_of_teams.__len__() == 0:
+            return name
+        else:
+            while True:
+                for team in list_of_teams:
+                    teaminfo=self.logic_wrapper.get_team_by_ID(team.id)
+                    if isinstance(teaminfo,Team):
+                        if name == teaminfo.name:
+                            print("Name already exists!")
+                            name = input("Enter different team name: ")
+                        else:
+                            return name
+                    else:
+                        print("invalid name")
+                        name = input("Enter different team name: ")
+            
+    def check_for_team_tag(self):
+    
+        tag = input("Enter team tag: ")
+        list_of_teams=self.logic_wrapper.get_teams()
+        while True: 
+            
+            if list_of_teams is None or list_of_teams == []:
+                    return tag
+            for teamID in list_of_teams:
+                teaminfo=self.logic_wrapper.get_team_by_ID(teamID.id)
+                if isinstance(teaminfo,Team):
+                    if tag == teaminfo.tag: 
+                        print("Tag already exists!")
+                        tag = input("Enter different team tag: ")
+                    else:
+                        return tag
+                    
+
+
+    def inputTeamID(self):
+        teamID=int(input("Enter Team ID: "))
+        check= self.logic_wrapper.get_team_by_ID(teamID)
+        while check is False:
+            print("Team does not exist, Try different ID")
+            teamID=int(input("Enter Team ID: "))
+            check= self.logic_wrapper.get_team_by_ID(teamID)
+        return teamID
+    
+    def inputplayersID(self):
+        playersID=input("Enter National ID: ")
+        check= self.logic_wrapper.get_player_by_ID(playersID)
+        while check is not isinstance(check, Player):
+            print("Player does not exist, Try different ID")
+            playersID=input("Enter National ID: ")
+            check= self.logic_wrapper.get_player_by_ID(playersID)
+        return playersID

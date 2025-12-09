@@ -26,8 +26,23 @@ class MainMenu:
 
 
     def run(self):
-        
-        print(
+
+        while True:
+            
+            print( """
++---------------------------------------------------+
+|                                                   |
+|  ____  _   _        ____                   _      |
+| |  _ \| | | |   ___/ ___| _ __   ___  _ __| |_    |
+| | |_) | | | |  / _ \___ \| '_ \ / _ \| '__| __|   |
+| |  _ <| |_| | |  __/___) | |_) | (_) | |  | |_    |
+| |_| \_\\____/   \___|____/| .__/ \___/|_|   \__|   |
+|                          |_|                      |
+|                                                   |
++---------------------------------------------------+
+""")
+            print(
+            
 """ 
 Welcome To the menu. 
 
@@ -39,7 +54,6 @@ q. Quit
 
 
 """)
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","q","Q"]:
 
@@ -71,6 +85,7 @@ Try again!!
                     return
                 case _: 
                     pass
+            self.run()
             
     def enable_high_quality_menu(self):
         print(
@@ -113,7 +128,7 @@ Try again!!
                     break
                 
                 for x in existing_players:
-                    if val == str(x.kt) and x.kt not in team_list:
+                    if val == str(x.id) and x.id not in team_list:
                         team_list.append(int(val))
                         continue
                     
