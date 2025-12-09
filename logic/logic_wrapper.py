@@ -536,3 +536,22 @@ class LogicWrapper:
                 else:
                     return True
     
+
+    def check_phone_nr(self,number):
+        if len(number) != 7:
+            return "1"
+        elif number.isalpha() == True:
+            return "2"
+        else:
+            return True
+        
+    def check_name(self,name):
+        if name.isalpha() == False:
+            return "1"
+        else:
+            return True
+    
+
+            
+            
+        
