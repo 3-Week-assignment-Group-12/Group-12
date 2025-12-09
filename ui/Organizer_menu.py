@@ -89,13 +89,26 @@ Try again!!
                  
             match choice:
                 case "1": 
+                    nid=self.inputplayersID()
+                    if nid == False:
+                        return
+                    name=self.input_name()
+                    if name == False:
+                        return
+                    phone=self.input_phone_nr()
+                    if phone == False:
+                        return
                     self.functionFile.inputplayersID()
                     name:str=input("Name: ")
                     self.functionFile.input_phone_nr()
                     address:str=input("Address: ")
-                    self.input_email()
+                    if address == "q":
+                        return
+                    email=self.input_email()
+                    if email == False:
+                        return 
                     print("Adding Player...")
-                    ret = self.logic_wrapper.create_player(nID,name,phone,address,email)
+                    ret = self.logic_wrapper.create_player(nid,name,phone,address,email)
                     
 
                     print(ret)
@@ -122,7 +135,7 @@ Try again!!
                         self.logic_wrapper.delete_player(ID) # type: ignore
                     return   
                 case "4":
-                    pass
+                    pass  ## L8r
                 case "b": 
                     return
 
@@ -172,11 +185,17 @@ Try again!!
                 
                 match choice:
                     case "1": 
-                        temp.name = input("Enter New name: ")
+                        temp.name = self.input_name() # type: ignore
+                        if temp.name== False:
+                            return
                     case "2": 
-                        temp.phone = int(input("Enter New number: "))
+                        temp.phone = self.input_phone_nr()
+                        if temp.phone== False:
+                            return
                     case "3": 
-                        temp.address = input("Enter New address: ")     
+                        temp.address = input("Enter New address: ") 
+                        if temp.address== "q":
+                            return    
                     case "4": 
                         newmail = self.functionFile.check_for_player_email(input("Enter New address: "))
                         if isinstance(newmail,str):

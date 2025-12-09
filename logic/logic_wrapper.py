@@ -461,8 +461,6 @@ class LogicWrapper:
     
     
 
-    
-    
     def inputTeamID(self):
         teamID=int(input("Enter Team ID: "))
         check= self.get_team_by_ID(teamID)
@@ -507,28 +505,27 @@ class LogicWrapper:
                 else:
                     return True
     #--------------Player checks --------------------
-    def check_for_player_kt(self,kt):
-        list_of_players=self.get_players()
-        for player in list_of_players:
-            playerinfo=self.get_player_by_ID(player.id)
-            if isinstance(playerinfo,Player):
-                if kt == playerinfo.id: 
-                    return False
-                else:
-                    return True
-    
-    #--------------Tournament checks --------------------
+    # def check_for_player_kt(self,kt):
+    #     list_of_players=self.get_players()
+    #     for player in list_of_players:
+    #         playerinfo=self.get_player_by_ID(player.id)
+    #         if isinstance(playerinfo,Player):
+    #             if kt == playerinfo.id: 
+    #                 return False
+    #             else:
+    #                 return True
                 
-    def check_for_tournament_ID(self,ID):
-        list_of_tournaments=self.get_tournaments()
-        for tournamentID in list_of_tournaments:
-            tournament_info=self.get_team_by_ID(tournamentID.id)
-            if isinstance(tournament_info,Tournament):
-                if ID == tournament_info.id: 
-                    return False
-                else:
-                    return True
-    
+    def valid_kt(self,NID):
+        if len(str(NID)) != 10:
+            return "1"
+        elif NID.isalpha():
+            return "2"
+        elif 0 >= int(NID[0:2]) or int(NID[0:2]) > 31:
+            return "3"
+        elif 0 >= int(NID[2:4]) or int(NID[2:4]) > 12:
+            return "4"
+        else:
+            return True
 
 
     def get_dummy_data(self):
@@ -547,16 +544,24 @@ class LogicWrapper:
         else:
             return True
     
-
-            
-            
-        
+    #--------------Tournament checks --------------------
+                
+    def check_for_tournament_ID(self,ID):
+        list_of_tournaments=self.get_tournaments()
+        for tournamentID in list_of_tournaments:
+            tournament_info=self.get_team_by_ID(tournamentID.id)
+            if isinstance(tournament_info,Tournament):
+                if ID == tournament_info.id: 
+                    return False
+                else:
+                    return True
+    
     def check_email(self,email):
         nr_of_at=0
         for i in email:
             if i =="@":
                 nr_of_at+=1
-            
+    
         if nr_of_at!=1:
             return False
         else:
