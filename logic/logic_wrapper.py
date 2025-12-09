@@ -575,3 +575,8 @@ class LogicWrapper:
         else:
             return True
              
+    def check_tag(self,tag):
+        if len(tag) >5:
+            return "-1"
+        else: 
+            return True

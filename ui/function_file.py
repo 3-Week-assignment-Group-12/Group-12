@@ -224,5 +224,26 @@ class functionFile:
             else: 
                 return False
             
+    
+    #-----------------TeamLeader------------------
+
+    def inputTeamName(self):
+        name:str=input("Name: ")
+        ## check if team name is already in use, create a function in logiclayer for that and call it here
+            
+    def inputTeamTag(self):
+        while True:
+            tag:str=input("Enter Tag ( max 5 letters/numbers ): ")
+            if tag=="q":
+                return False
+            check=self.logic_wrapper.check_for_team_tag(tag)
+            if check=="-1":
+                print("Too many letters/numbers")
+            else:
+                return tag
+            
+    def input_creatorID():
+        
+        return 
         
 

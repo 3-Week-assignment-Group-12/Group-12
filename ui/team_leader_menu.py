@@ -55,11 +55,12 @@ Try again!!
                 case "2": 
                     self.register_for_tournament_menu() 
                 case "3": 
-                    name = self.functionFile.check_for_team_name()
-                    team_tag = self.functionFile.check_for_team_tag()
-                    creator_id = input("Enter team creator id: ")
+                    #new
+                    name = self.functionFile.inputTeamName()
+                    team_tag = self.functionFile.inputTeamTag()
+                    creator_id = self.functionFile.input_creatorID() # type: ignore
                     
-                    team_list = [] #laga team list 
+                    team_list=[] #laga team list 
                     val = input("add members? (y/n)")
                     if val.lower() == "y":
                         while True:
@@ -75,6 +76,14 @@ Try again!!
                             team_list.append(self.functionFile.inputplayersID())
                     else:
                         team_size = int(input("Enter team size: "))
+
+                    #old
+
+                    name = self.functionFile.check_for_team_name()
+                    team_tag = self.functionFile.check_for_team_tag()
+                    creator_id = input("Enter team creator id: ")
+                    
+                    
                             
 
                     
