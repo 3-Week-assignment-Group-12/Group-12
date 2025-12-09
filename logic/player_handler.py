@@ -29,7 +29,7 @@ class player_handler:
         if isinstance(name,int):
             return -6
         
-        dob = datetime.date(day=int(str(ID)[0:1]), month=int(str(ID)[2:3]), year=int(str(ID)[4:5])).__str__()
+        dob = datetime.date(day=int(str(ID)[0:2]), month=int(str(ID)[2:4]), year=int(str(ID)[4:6])).__str__()  ##Gerir ekki rétt ártal
         # 2. Create Model Object
         new_player = Player(ID,name,dob,phone,address,email)
 
