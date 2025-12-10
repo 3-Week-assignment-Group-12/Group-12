@@ -269,7 +269,7 @@ b. Back
 """ 
 Invalid Input!!
 
-View Team menu
+View Tournament menu
 
 1. View All tournaments
 2. View Visual Tournament Tree
@@ -279,14 +279,18 @@ b. Back
 
 Try again!!
 """)
+                continue
 
             match choice:
                 case "1": 
                     list_of_tournaments=self.logic_wrapper.get_tournaments()
-                    for id in list_of_tournaments:
-                        tournament=self.logic_wrapper.get_tournament_by_ID(id.id)
-                        if isinstance(tournament, Tournament):
-                            print(tournament.name)
+                    if not list_of_tournaments:
+                        print("No tournaments found.")
+                    else:
+                        print("\nAll tournaments:")
+                        for t in list_of_tournaments:
+                            print(f"  ID {t.id}: {t.name}")
+                    input("\nPress Enter to return to this menu...")
                 case "2": 
                     pass # c Requirement
                 case "3": 
