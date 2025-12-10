@@ -592,3 +592,9 @@ class LogicWrapper:
             return "-1"
         else: 
             return True
+
+    def is_contact_id_used(self, contact_id: str) -> bool:
+        for t in self.get_tournaments():
+            if isinstance(t, Tournament) and t.contact_id == contact_id:
+                return True
+        return False
