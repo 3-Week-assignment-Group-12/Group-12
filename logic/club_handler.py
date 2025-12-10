@@ -17,7 +17,7 @@ class club_handler:
             return -2
         
         # 2. Create Model Object
-        new_match = Club(highest, name, colour, location, team_list)
+        new_match = Club(highest, name, colour, team_list)
 
         # 3. Pass to Data Layer
         return new_match

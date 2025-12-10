@@ -214,7 +214,7 @@ Try again!!
                             print("A tournament with this name already exists.")
                             cancel_flag = True
                             break
-                    if not cancel_flag:
+                    if not cancel_flag and isinstance(new_name,str):
                         temp.name = new_name
 
                 case "2": 
