@@ -322,7 +322,7 @@ Try again!!
             
             if not cancel_flag:
                 self.logic_wrapper.modify_tournament(temp)
-                print("Tournament updated.")
+                print("Tournament has been modified!")
           
 
           
