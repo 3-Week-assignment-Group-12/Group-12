@@ -274,11 +274,15 @@ Try again!!
 
 
     def select_tournament_menu(self, ID):
+        name = self.logic_wrapper.get_tournament_by_ID(ID)
+        if isinstance(name, bool):
+            print("error fetching team")
+            return
 
         while True:
             print(
 f""" 
-Selected: "{self.logic_wrapper.get_tournament_by_ID(ID) := result; result.name if isinstance(result, Tournament)}"
+Selected: "{name.name}"
 
 1. Generate Schedule
 2. Record Game Results
@@ -296,7 +300,7 @@ b. Back
 f""" 
 Invalid Input!!
 
-Select {self.logic_wrapper.get_tournament_by_ID(ID) := result; result.name if isinstance(result, Tournament)}
+Select {name.name}
 
 1. Generate Schedule
 2. Record Game Results
