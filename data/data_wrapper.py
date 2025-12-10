@@ -400,7 +400,7 @@ class DataWrapper:
     # ------------------- Delete Methods ------------------ #
     
     
-    def delete_player(self, player_id:int) -> bool:
+    def delete_player(self, player_id:str) -> bool:
         """Delete a player by their ID.
         
         Args:

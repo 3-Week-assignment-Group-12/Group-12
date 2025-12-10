@@ -130,12 +130,18 @@ Try again!!
                         print("error: player not found")
                 case "3":
                     ID=self.functionFile.check_excistingID()
-                    x=input("Are you sure? (Y/N)")
-                    if x=="y" or x=="Y":
-                        self.logic_wrapper.delete_player(ID) # type: ignore
-                    return   
+                    if isinstance(ID,str):
+                        x=input("Are you sure? (Y/N)")
+                        if x=="y" or x=="Y":
+                            self.logic_wrapper.delete_player(ID) 
+                            print("Player has been deleted!")
+                        return   
                 case "4":
-                    pass  ## L8r
+                    list_of_players=self.logic_wrapper.get_players() #view all players
+                    count = 1
+                    for i in list_of_players:
+                        print(f"{count}: {i.name}, ID: {i.id}")
+                        count +=1  
                 case "b": 
                     return
 
