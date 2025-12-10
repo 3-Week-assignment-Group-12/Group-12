@@ -122,7 +122,8 @@ class functionFile:
                     
 
 
-    def inputTeamID(self):
+    def checkTeamID(self):
+        """ takes a team id and checks if the id exists in the system"""
         teamID=int(input("Enter Team ID: "))
         if teamID=="q":
             return False

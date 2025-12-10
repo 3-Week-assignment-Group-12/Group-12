@@ -101,10 +101,10 @@ Try again!!
                         print("team size to big")
                     
                 case "4": 
-                    ID=self.functionFile.inputTeamID()
+                    ID=self.functionFile.checkTeamID()
                     self.edit_team_menu(ID) 
                 case "5": 
-                    ID=self.functionFile.inputTeamID()
+                    ID=self.functionFile.checkTeamID()
                     x=input("Are you sure? (Y/N)")
                     if x=="y" or x=="Y":
                         self.logic_wrapper.delete_team(ID) # type: ignore
@@ -148,7 +148,7 @@ Try again!!
 
             match choice:
                 case "1": 
-                    teamID = self.functionFile.inputTeamID()
+                    teamID = self.functionFile.checkTeamID()
                     team = self.logic_wrapper.get_team_by_ID(teamID)
                     if isinstance(team, Team):
                         print(f"Team ID: {team.id}")  # call funtion for specific team to check out
@@ -407,8 +407,6 @@ Try again!!
 
                 case "4": 
                     clubID = self.logic_wrapper.inputTeamID()
-                    if clubID == False:
-                        return
                     self.edit_club_menu(clubID)
                 case "b": 
                     return
@@ -477,7 +475,7 @@ Try again!!
                             if counter == 0:
                                 print("Clubs are empty")
                                 return
-                            team = self.functionFile.inputTeamID()
+                            team = self.functionFile.checkTeamID()
                             if team==False:
                                 return
                             else:
