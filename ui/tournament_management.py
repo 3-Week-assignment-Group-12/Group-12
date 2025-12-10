@@ -47,6 +47,7 @@ b. Back
 
 
 """)
+            choice = None
             choice=input("Enter input: ")
             
                 
@@ -122,9 +123,16 @@ b. Back
                     ID = self.logic_wrapper.inputTournamentID()
                     if ID is None:
                         continue
-                    x = input("Are you sure? (Y/N): ").upper()
-                    if x == "y" or x == "Y":
-                        self.logic_wrapper.delete_tournament(int(ID))
+
+                    confirm = input("Are you sure? (Y/N): ").strip().upper()
+                    if confirm == "Y":
+                        success = self.logic_wrapper.delete_tournament(ID)
+                        if success:
+                            print(f"Tournament with ID {ID} cancelled (deleted) successfully.")
+                        else:
+                            print(f"Failed to cancel tournament with ID {ID}.")
+                    else:
+                        print("Cancel operation aborted.")
                     continue
 
                 case "4": 
