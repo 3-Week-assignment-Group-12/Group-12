@@ -124,10 +124,14 @@ class functionFile:
 
     def inputTeamID(self):
         teamID=int(input("Enter Team ID: "))
+        if teamID=="q":
+            return False
         check= self.logic_wrapper.get_team_by_ID(teamID)
         while check is False:
             print("Team does not exist, Try different ID")
             teamID=int(input("Enter Team ID: "))
+            if teamID=="q":
+                return False
             check= self.logic_wrapper.get_team_by_ID(teamID)
         return teamID
     
@@ -289,10 +293,53 @@ class functionFile:
             if len(name)>20:
                 print("club name too long!")
                 print("can not be longer then 20")
-            
-            check= self.logic_wrapper.check_for_club_name(name)
-            if check ==False:
+            check1 = self.logic_wrapper.check_name(name)
+            if check1 == "1":
+                print("Club name can only contain letters!")
+            check2= self.logic_wrapper.check_for_club_name(name)
+            if check2 ==False:
                 print("club name already exists!")
             else:
                 return name
+            
+    def inputClubColor(self):
+        while True:
+            color:str=input("Color: ")
+            if color=="q":
+                return False
+            check1 = self.logic_wrapper.check_name(color)
+            if check1 == "1":
+                print("Club color can only contain letters!")
+            else:
+                return color
 
+
+    def input_tournament_name(self):
+        while True:
+            tournament_name:str=input("Tournament name: ")
+            if tournament_name=="q":
+                return False
+            check = self.logic_wrapper.check_for_tournament_name(tournament_name)
+            if check == False:
+                print("Tournament name already exists!")
+            else:
+                return tournament_name
+            
+
+    def input_contact_ID(self):
+        while True:
+            contactID=input("Enter Contact ID: ")
+            if contactID == "q":
+                return False
+            check = self.logic_wrapper.valid_kt(contactID)
+            if check == "1":
+                print("Contact ID must be 10 numbers long!")
+            elif check == "2":
+                print("ID must only contain numbers!")
+            elif check == "3":
+                print("Day date in ID is invalid!")
+            elif check == "4":
+                print("Month date in ID is invalid!")
+            else:
+                return contactID
+            

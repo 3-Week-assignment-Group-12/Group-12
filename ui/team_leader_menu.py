@@ -327,7 +327,7 @@ Try again!!
                 
                 self.logic_wrapper.modify_team(temp)
            
-    
+               
     def club_menu(self):
 
         while True:
@@ -397,22 +397,23 @@ Try again!!
 
 
                 case "4": 
-                    self.edit_club_menu()
+                    clubID = self.logic_wrapper.inputTeamID
+                    self.edit_club_menu(clubID)
                 case "b": 
                     return
             
     
-    def edit_club_menu(self):
-
+    def edit_club_menu(self, clubID:int):
+        temp : Club | int = self.logic_wrapper.get_club_by_ID(clubID)
         while True:
             print(
 """ 
 Edit Club Menu
 
-1. Change colour
-2. Quit club
-3. Change club name
-4. Change club location
+1. Change club name
+2. Change club colour
+3. Add Team to club
+4. Remove team from club
 b. Back
 
 
@@ -426,25 +427,52 @@ Invalid Input!!
 
 Edit Club Menu
 
-1. Change colour
-2. Quit club
-3. Change club name
-4. Change club location
+1. Change club name
+2. Change club colour
+3. Add Team to club
+4. Remove team from club
 b. Back
 
 Try again!!
 """)
-
-            match choice:
-                case "1": 
-                    pass
-                case "2": 
-                    pass
-                case "3": 
-                    pass
-                case "4": 
-                    pass
-                case "b": 
-                    return
+            if isinstance(temp,int):
+                print("Club not found")
+            else:
+                match choice.lower():
+                    case "1": 
+                        inp = self.functionFile.inputClubName()
+                        if isinstance(inp,str):
+                            temp.name=inp
+                        if inp == False:
+                            return
+                    case "2": 
+                        inp = self.functionFile.inputClubColor()
+                        if isinstance(inp,str):
+                            temp.colours=inp
+                        if inp == False:
+                            return
+                    case "3": 
+                        team=self.logic_wrapper.inputTeamID()
+                        if team==False:
+                            return
+                        else:
+                            temp.teams.append(team)
+                    case "4": 
+                        club = self.logic_wrapper.get_club_by_ID(clubID)
+                        counter = 0
+                        if isinstance(club,Club):
+                            for _ in club.teams:
+                                counter += 1
+                            if counter == 0:
+                                print("Clubs are empty")
+                                return
+                            team = self.functionFile.inputTeamID()
+                            if team==False:
+                                return
+                            else:
+                                temp.teams.remove(team)
+                    case "b": 
+                        return
+                self.logic_wrapper.modify_club(temp)
     
     #-------------Functions-----------------

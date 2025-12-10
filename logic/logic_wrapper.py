@@ -612,6 +612,18 @@ class LogicWrapper:
             return "-1"
         else: 
             return True
+        
+    def check_for_tournament_name(self,name):
+        
+        list_of_tournaments=self.get_tournaments()
+        
+        for tournamentID in list_of_tournaments:
+            tournamentinfo=self.get_tournament_by_ID(tournamentID.id)
+            if isinstance(tournamentinfo,Tournament):
+                if name == tournamentinfo.name:
+                    return False
+                else:
+                    return True
 
 
 #----------clubs-----------
@@ -626,3 +638,19 @@ class LogicWrapper:
                     return False
                 else:
                     return True
+                
+
+    def inputClubID(self):
+        clubID=int(input("Enter Club ID: "))
+        if clubID=="q":
+            return False
+        check= self.get_club_by_ID(clubID)
+        while check is False:
+            print("Club does not exist, Try different ID")
+            clubID=int(input("Enter Club ID: "))
+            if clubID=="q":
+                return False
+            check= self.get_club_by_ID(clubID)
+        return clubID
+    
+
