@@ -36,10 +36,10 @@ class JsonRepository:
             return []
         try:
             if alt_path == "":
-                with open(self.filepath, "r+",encoding="utf_8") as f:
+                with open(self.filepath, "r",encoding="utf_8") as f:
                     return json.load(f)
             else:
-                with open(alt_path, "r+", encoding="utf_8") as f:
+                with open(alt_path, "r", encoding="utf_8") as f:
                     return json.load(f)
         except:
             return []

@@ -394,9 +394,11 @@ class DataWrapper:
         if isinstance(tournmaent, bool):
             return False
         else:
-            return self.club_repo.read(lambda x: x.id in [p for p in tournmaent.team_list])
+            return self.team_repo.read(lambda x: x.id in [p for p in tournmaent.team_list])
+            
     
     # ------------------- Delete Methods ------------------ #
+    
     
     def delete_player(self, player_id:int) -> bool:
         """Delete a player by their ID.

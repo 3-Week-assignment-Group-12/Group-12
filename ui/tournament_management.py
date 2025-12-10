@@ -58,7 +58,7 @@ b. Back
                     startDate = input("Start date: ")
                     endDate = input("End date: ")
                     venue=input("Location of Tournament: ")
-                    contactID = self.functionFile.check_for_tournament_ID()
+                    contactID = input("Enter contact id: ")
                     contactEmail = input("Contact Email: ")
                     contactPhone = input("Contact Phone: ")
 
@@ -325,16 +325,16 @@ Try again!!
 
 
 
-    def select_tournament_menu(self, ID):
-        name = self.logic_wrapper.get_tournament_by_ID(ID)
-        if isinstance(name, bool):
+    def select_tournament_menu(self, ID:int):
+        tourn = self.logic_wrapper.get_tournament_by_ID(ID)
+        if isinstance(tourn, bool):
             print("error fetching team")
             return
 
         while True:
             print(
 f""" 
-Selected: "{name.name}"
+Selected: "{tourn.name}"
 
 1. Generate Schedule
 2. Record Game Results
@@ -352,7 +352,7 @@ b. Back
 f""" 
 Invalid Input!!
 
-Select {name.name}
+Select {tourn.name}
 
 1. Generate Schedule
 2. Record Game Results
@@ -366,12 +366,20 @@ Try again!!
 
             match choice:
                 case "1": 
-                    bracket = self.logic_wrapper.generate_bracket(ID)
+                    bracket = self.logic_wrapper.generate_bracket(tourn)
                     if isinstance(bracket, Bracket):
                         print(bracket)
 
                     else:
                         print("Error generating bracket")
+                        print(bracket)
+                        match bracket:
+                            case -1:
+                                print("not enough teams")
+                            case -2:
+                                print("odd number of teams")
+                                
+                        
                                 
                         
                     
