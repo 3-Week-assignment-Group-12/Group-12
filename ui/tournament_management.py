@@ -54,13 +54,22 @@ b. Back
             
             match choice:
                 case "1": 
-                    name = input("Name of Tournament: ")
+                    name = self.functionFile.input_tournament_name()
+                    if name == False:
+                        return
                     startDate = input("Start date: ")
                     endDate = input("End date: ")
                     venue=input("Location of Tournament: ")
-                    contactID = input("Enter contact id: ")
-                    contactEmail = input("Contact Email: ")
-                    contactPhone = input("Contact Phone: ")
+                    contactID = self.functionFile.input_contact_ID()
+                    if contactID == False:
+                        return
+                    contactEmail = self.functionFile.input_email()
+                    if contactEmail == False:
+                        return
+                    contactPhone = self.functionFile.input_phone_nr()
+                    if contactPhone == False:
+                        return
+                    
 
                                        
                     team_list:list[int] = []

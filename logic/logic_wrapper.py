@@ -613,6 +613,18 @@ class LogicWrapper:
             return "-1"
         else: 
             return True
+        
+    def check_for_tournament_name(self,name):
+        
+        list_of_tournaments=self.get_tournaments()
+        
+        for tournamentID in list_of_tournaments:
+            tournamentinfo=self.get_tournament_by_ID(tournamentID.id)
+            if isinstance(tournamentinfo,Tournament):
+                if name == tournamentinfo.name:
+                    return False
+                else:
+                    return True
 
 
 #----------clubs-----------
@@ -641,3 +653,5 @@ class LogicWrapper:
                 return False
             check= self.get_club_by_ID(clubID)
         return clubID
+    
+
