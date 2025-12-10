@@ -347,16 +347,16 @@ class LogicWrapper:
         """
         return self.data_wrapper.modify_club(new_data)
     
-    def modify_team(self, new_data: Tournament) -> bool:
-        """Modify an existing tournament's data.
+    def modify_team(self, new_data: Team) -> bool:
+        """Modify an existing team's data.
         
         Args:
-            new_data (Tournament): Updated tournament instance
+            new_data (Team): Updated team instance
             
         Returns:
             bool: Success status
         """
-        return self.data_wrapper.modify_tournament(new_data)
+        return self.data_wrapper.modify_team(new_data)
     
     def modify_bracket(self, new_data: Bracket) -> bool:
         """Modify an existing bracket's data.
