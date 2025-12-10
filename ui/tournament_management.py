@@ -190,7 +190,7 @@ b. Back
 
 """)
             choice=input("Enter input: ")
-            if choice not in ["1","2","3","4","5","6","7","b","B"]:
+            if choice not in ["1","2","3","4","5","6","7","8","9","b","B"]:
 
                  print(
 """ 
@@ -380,13 +380,14 @@ Try again!!
                         print(bracket)
 
                     else:
-                        print("Error generating bracket")
                         print(bracket)
                         match bracket:
                             case -1:
                                 print("not enough teams")
                             case -2:
                                 print("odd number of teams")
+                            case -3:
+                                print("error in generating bracket")
                                 
                         
                                 
@@ -400,16 +401,16 @@ Try again!!
                     
                     
                 case "2": 
+                    print("team 1 ")
                     team1_id = self.logic_wrapper.inputTeamID()
+                    print("team 2 ")
                     team2_id = self.logic_wrapper.inputTeamID()
                     if team1_id == team2_id:
                         print("Teams cannot be the same")
                         continue
                     
-                    tournament_id = self.logic_wrapper.inputTournamentID()
-                    if not isinstance(tournament_id,str):
-                        continue
-                    tournament_id = int(tournament_id)
+                    
+                
                     
                     date = input("Enter date of match: ")
                     time = input("enter match time: ")
@@ -422,9 +423,14 @@ Try again!!
                     score = int(input("Enter score:"))
                     
                     
-                    ret =self.logic_wrapper.create_match(team1_id, team2_id, tournament_id, date, time, server_id, winner_id, score)
+                    ret =self.logic_wrapper.create_match(team1_id, team2_id, tourn.id, date, time, server_id, winner_id, score)
                     if ret ==-2:
                         print("failure in creating match")
+                    if ret >= 0:
+                        print("creating match sucsessful")
+                        
+                        tourn.matches.append(ret)
+                        self.logic_wrapper.modify_tournament(tourn)
                     
                 case "3": 
                     pass

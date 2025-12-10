@@ -22,7 +22,7 @@ class Team:
     team_size: int 
     member_list: list[str]
     
-    filename = "dummy_team.json"
+    filename = "team_data.json"
         
       
     

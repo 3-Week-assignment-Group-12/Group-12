@@ -15,6 +15,5 @@ class bracket_handler:
         
         # 2. Create Model Object
         new_bracket = Bracket(highest, matchups ,tournament_id)
-
         # 3. Pass to Data Layer
         return new_bracket
