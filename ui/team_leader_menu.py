@@ -57,8 +57,14 @@ Try again!!
                 case "3": 
                     #new
                     name = self.functionFile.inputTeamName()
+                    if name ==False:
+                        return
                     team_tag = self.functionFile.inputTeamTag()
+                    if team_tag ==False:
+                        return
                     creator_id = self.functionFile.input_creatorID() # type: ignore
+                    if creator_id ==False:
+                        return
                     
                     team_list=[] #laga team list 
                     val = input("add members? (y/n)")
@@ -76,15 +82,6 @@ Try again!!
                             team_list.append(self.functionFile.inputplayersID())
                     else:
                         team_size = int(input("Enter team size: "))
-
-                    #old
-
-                    name = self.functionFile.check_for_team_name()
-                    team_tag = self.functionFile.check_for_team_tag()
-                    creator_id = input("Enter team creator id: ")
-                    
-                    
-                            
 
                     
                     ret = self.logic_wrapper.create_team(name, team_tag, creator_id, team_size, team_list) 

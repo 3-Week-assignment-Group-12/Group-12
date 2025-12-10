@@ -228,7 +228,19 @@ class functionFile:
     #-----------------TeamLeader------------------
 
     def inputTeamName(self):
-        name:str=input("Name: ")
+        while True:
+            name:str=input("Name: ")
+            if name=="q":
+                return False
+            if len(name)>20:
+                print("Team name too long!")
+                print("can not be longer then 20")
+            
+            check= self.logic_wrapper.check_for_team_name(name)
+            if check ==False:
+                print("Team name already exists!")
+            else:
+                return name
         ## check if team name is already in use, create a function in logiclayer for that and call it here
             
     def inputTeamTag(self):
@@ -242,8 +254,15 @@ class functionFile:
             else:
                 return tag
             
-    def input_creatorID():
-        
-        return 
+    def input_creatorID(self):
+        creatorID=input("Enter Creator National ID: ")
+        check1 = self.logic_wrapper.valid_kt(creatorID)
+        if check1 =="1":
+            print("National ID needs to be exactly 10 numbers")
+        elif check1=="2":
+            print("National ID cant have letters")
+        elif check1=="3" or check1=="4":
+            print("This ID does not exist")  
+        return creatorID
         
 
