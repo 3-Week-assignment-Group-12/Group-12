@@ -74,14 +74,21 @@ b. Back
                             val = input("Enter team id (q to stop): ")
                             if val.lower() == "q":
                                 break
-                            
+
+                            found = False
                             for x in existing_teams:
-                                if val == str(x.id) and x.id not in team_list:
-                                    team_list.append(int(val))
-                                    continue
-                                
-                            print("team id not registered")
-                            print()
+        
+                                if val == str(x.id):
+                                    if x.id not in team_list:
+                                        team_list.append(x.id)
+                                found = True
+                                break
+
+                            if not found:   
+                                print("team id not registered")
+                                print()
+                            else:
+                                print(f"team id {val} added.")
                     
                     matches:list[int] = []
                     choice = input("add matches? (y/n): ").lower()
@@ -94,13 +101,19 @@ b. Back
                             if val.lower() == "q":
                                 break
                             
+                            found = False
                             for x in existing_matches:
-                                if val == str(x.id) and x.id not in matches:
-                                    matches.append(int(val))
-                                    continue
-                                
-                            print("match id not registered")
-                            print()
+                                if val == str(x.id):
+                                    if x.id not in matches:
+                                        matches.append(x.id)
+                                    found = True
+                                    break
+
+                            if not found:
+                                print("match id not registered")
+                                print()
+                            else:
+                                print(f"match id {val} added.")
                     
                     
                     

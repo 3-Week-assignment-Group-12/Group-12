@@ -56,20 +56,33 @@ class functionFile:
         self.logic_wrapper.get_players()
 
     def check_for_tournament_ID(self):
-        ID = input("Contact ID")
-        list_of_tournaments=self.logic_wrapper.get_tournaments()
+        
         while True:
-            
-            if list_of_tournaments is None or list_of_tournaments == []:
+            ID = input("Contact ID")
+
+            if len(ID) != 10 or not ID.isdigit():
+                print("Contact ID must be exactly 10 digits.")
+                continue
+
+            tournaments = self.logic_wrapper.get_tournaments()
+            if not tournaments:
+              
                 return ID
-            for tournamentID in list_of_tournaments:
-                tournament_info=self.logic_wrapper.get_team_by_ID(tournamentID.id)
-                if isinstance(tournament_info,Tournament):
-                    if ID == tournament_info.id: 
-                        print("This tournament ID already exists!")
-                        ID = input("Enter different Contact ID")
-                    else:
-                        return ID
+
+       
+            used = False
+            for t in tournaments:
+              
+                if isinstance(t, Tournament) and t.contact_id == ID:
+                    used = True
+                    break
+
+            if used:
+                print("This Contact ID is already used in another tournament! Please enter a different Contact ID.")
+                continue
+
+        
+            return ID
     
 
 
