@@ -221,5 +221,6 @@ Try again!!
                     case "b": 
                         return
                 self.logic_wrapper.modify_player(temp)
+                print("Player has been modified!")
 
     

@@ -595,7 +595,7 @@ class LogicWrapper:
                 nr_of_at+=1
     
         if nr_of_at!=1:
-            return False
+            return "1"
         else:
             return True
         
