@@ -487,7 +487,7 @@ class LogicWrapper:
             print("Tournament does not exist, Try different ID")
             tournamentID=input("Enter Tournament ID(q for cancel): ")
             if tournamentID.lower() == "q":
-                return 
+                return False
             check= self.get_tournament_by_ID(int(tournamentID))
         return tournamentID
     

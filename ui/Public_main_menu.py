@@ -5,6 +5,7 @@ from logic.logic_wrapper import LogicWrapper
 from models.team import Team
 from models.tournament import Tournament
 from models.player import Player
+from models.tournament import Tournament
 from ui.function_file import functionFile
 
 
@@ -258,12 +259,13 @@ View Tournament menu
 2. View Visual Tournament Tree
 3. View Visual match results
 4. View Statistics
+5. View teams in tournament
 b. Back
 
 
 """)
             choice=input("Enter input: ")
-            if choice not in ["1","2","3","4","b","B"]:
+            if choice not in ["1","2","3","4","5","b","B"]:
                 
                 print(
 """ 
@@ -275,6 +277,7 @@ View Tournament menu
 2. View Visual Tournament Tree
 3. View Visual match results
 4. View Statistics
+5. View teams in tournaemnt
 b. Back
 
 Try again!!
@@ -297,6 +300,33 @@ Try again!!
                     pass 
                 case "4": 
                     pass
+                case "5":
+                    team_list:list[Team]| bool = self.logic_wrapper.get_team_by_tournament_id(self.functionFile.inputTournamentID())
+                    if isinstance(team_list,bool):
+                        print("data not found")
+                    else:
+
+                        count =1
+                        for x in team_list:
+                            print()
+                            print(f"Team: {count}: {x.name}, tag: {x.tag}")
+                            print("Players:")
+                            count1 = 1
+                            if x.member_list == []:
+                                print("player list is empty")
+                            else:
+                                for j in x.member_list:
+                                    
+                                    play = self.logic_wrapper.get_player_by_ID(j)
+                                    if isinstance(play,Player):
+                                        
+                                        print(f"{count1}: {play.name}, {play.id}")
+                                        count1 +=1
+                                    else:
+                                        print("player not found")
+                            
+                                count +=1
+
                 case "b": 
                     return
                 
