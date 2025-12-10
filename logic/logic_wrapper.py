@@ -480,16 +480,23 @@ class LogicWrapper:
     
 
 
-    def inputTournamentID(self):
-        tournamentID=input("Enter Tournament ID(q for cancel): ")
-        check= self.get_tournament_by_ID(int(tournamentID))
-        while check is False:
-            print("Tournament does not exist, Try different ID")
+    def inputTournamentID(self) -> int | None:
+        while True:
             tournamentID=input("Enter Tournament ID(q for cancel): ")
             if tournamentID.lower() == "q":
-                return 
-            check= self.get_tournament_by_ID(int(tournamentID))
-        return tournamentID
+                return None
+
+            if not tournamentID.isdigit():
+                print("Please enter a numeric tournament ID")
+                continue
+
+            tid = int(tournamentID)
+            check = self.get_tournament_by_ID(tid)
+            if check is False:
+                print("Tournament does not exist, Try different ID")
+                continue
+
+            return tid
     
 
     
