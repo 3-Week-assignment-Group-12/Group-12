@@ -123,7 +123,7 @@ class LogicWrapper:
         Returns:
             bool: Success status
         """
-        new_club: Club|int = self.club_handler.create_club(name,colour,location,team_list,self.get_clubs())
+        new_club: Club|int = self.club_handler.create_club(name,colour,team_list,self.get_clubs())
         if isinstance(new_club, Club):
             return self.data_wrapper.write_club(new_club)
         return -2 # Indicate failure due to validation   

@@ -11,7 +11,6 @@ class Club:
         id: int
         name: str
         colours: str
-        location: str
         teams: list[int]
 
     """
@@ -19,7 +18,6 @@ class Club:
     id: int
     name: str
     colours: str
-    location: str
     teams: list[int]
 
 

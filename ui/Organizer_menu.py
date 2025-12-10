@@ -124,7 +124,10 @@ Try again!!
                     
                 case "2": 
                     id=self.functionFile.check_excistingID()
-                    self.edit_player_menu(id)  #Asks the user for Players National Id before going to the edit page
+                    if isinstance(id,str):
+                        self.edit_player_menu(id)  #Asks the user for Players National Id before going to the edit page
+                    else:
+                        print("error: player not found")
                 case "3":
                     ID=self.functionFile.check_excistingID()
                     x=input("Are you sure? (Y/N)")
