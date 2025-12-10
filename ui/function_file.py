@@ -313,3 +313,33 @@ class functionFile:
             else:
                 return color
 
+
+    def input_tournament_name(self):
+        while True:
+            tournament_name:str=input("Tournament name: ")
+            if tournament_name=="q":
+                return False
+            check = self.logic_wrapper.check_for_tournament_name(tournament_name)
+            if check == False:
+                print("Tournament name already exists!")
+            else:
+                return tournament_name
+            
+
+    def input_contact_ID(self):
+        while True:
+            contactID=input("Enter Contact ID: ")
+            if contactID == "q":
+                return False
+            check = self.logic_wrapper.valid_kt(contactID)
+            if check == "1":
+                print("Contact ID must be 10 numbers long!")
+            elif check == "2":
+                print("ID must only contain numbers!")
+            elif check == "3":
+                print("Day date in ID is invalid!")
+            elif check == "4":
+                print("Month date in ID is invalid!")
+            else:
+                return contactID
+            
