@@ -113,17 +113,26 @@ b. Back
                     
                 case "2": 
                     ID = self.logic_wrapper.inputTournamentID()
+                    if ID is None:
+                  
+                        continue
                     self.edit_tournament_menu(ID)
+
                 case "3": 
                     ID = self.logic_wrapper.inputTournamentID()
-                    if isinstance(ID,str):
-                        x = input("Are you sure? (Y/N): ").upper()
-                        if x == "y" or x == "Y":
-                            self.logic_wrapper.delete_tournament(int(ID))
-                        return
+                    if ID is None:
+                        continue
+                    x = input("Are you sure? (Y/N): ").upper()
+                    if x == "y" or x == "Y":
+                        self.logic_wrapper.delete_tournament(int(ID))
+                    continue
+
                 case "4": 
                     ID = self.logic_wrapper.inputTournamentID()
+                    if ID is None:
+                        continue
                     self.select_tournament_menu(ID)
+
                 case "b": 
                     return
                 case _:
@@ -139,8 +148,22 @@ b. Back
 
 
 
-    def edit_tournament_menu(self,tournamentID):
-        print(
+    def edit_tournament_menu(self,tournamentID: int):
+        if isinstance(tournamentID, str):
+            try:
+                tournamentID = int(tournamentID)
+            except ValueError:
+                print("Invalid tournament ID")
+                return
+
+  
+        temp: Tournament | bool = self.logic_wrapper.get_tournament_by_ID(tournamentID)
+        if not isinstance(temp, Tournament):
+            print("Tournament not found")
+            return
+
+        while True:
+            print(
 """ 
 Edit Tournament Information
 
@@ -157,9 +180,6 @@ b. Back
 
 
 """)
-            
-        temp : Tournament|bool = self.logic_wrapper.get_tournament_by_ID(tournamentID)   
-        while True:
             choice=input("Enter input: ")
             if choice not in ["1","2","3","4","5","6","7","b","B"]:
 
@@ -182,41 +202,63 @@ b. Back
 
 Try again!!
 """)
-            if isinstance(temp, bool):
-                print("Tournament not found")
-                return
+                 continue
+            
             cancel_flag = False
+
             match choice:
                 case "1": 
-                    temp_name = self.functionFile.input_name()
-                    for x in self.logic_wrapper.get_tournaments():
-                        if temp_name == x.name:
-                            print("name is the same as existing tournament")
+                    new_name = self.functionFile.input_name()
+                    for t in self.logic_wrapper.get_tournaments():
+                        if t.id != temp.id and t.name == new_name:
+                            print("A tournament with this name already exists.")
                             cancel_flag = True
+                            break
+                    if not cancel_flag:
+                        temp.name = new_name
+
                 case "2": 
-                    temp.start_date = input("Enter New Start Date(q to cancel): ")
-                    if temp.start_date.lower() == "q":
+                    new_start = input("Enter New Start Date (q to cancel): ")
+                    if new_start.lower() == "q":
                         cancel_flag = True
+                    else:
+                        temp.start_date = new_start
+
                 case "3": 
-                    temp.end_date = input("Enter New End date(q to cancel): ")
-                    if temp.end_date.lower() == "q":
+                    new_end = input("Enter New End Date (q to cancel): ")
+                    if new_end.lower() == "q":
                         cancel_flag = True
+                    else:
+                        temp.end_date = new_end
+
                 case "4": 
-                    temp.venue_name = input("Enter New venue(q to cancel): ")
-                    if temp.venue_name.lower() == "q":
+                    new_venue = input("Enter New venue name (q to cancel): ")
+                    if new_venue.lower() == "q":
                         cancel_flag = True
+                    else:
+                        temp.venue_name = new_venue
+
                 case "5": 
-                    temp.contact_id = input("Enter New Contact ID(q to cancel): ")
-                    if temp.contact_id.lower() == "q":
+                    new_contact_id = input("Enter New Contact ID (q to cancel): ")
+                    if new_contact_id.lower() == "q":
                         cancel_flag = True
+                    else:
+                        temp.contact_id = new_contact_id
+
                 case "6": 
-                    temp.contact_email = input("Enter New Contact Email(q to cancel): ")
-                    if temp.contact_email.lower() == "q":
+                    new_email = input("Enter New Contact Email (q to cancel): ")
+                    if new_email.lower() == "q":
                         cancel_flag = True
+                    else:
+                        temp.contact_email = new_email
+
                 case "7": 
-                    temp.contact_phone = input("Enter New Contact Phone Number(q to cancel): ")
-                    if temp.contact_phone.lower() == "q":
+                    new_phone = input("Enter New Contact Phone (q to cancel): ")
+                    if new_phone.lower() == "q":
                         cancel_flag = True
+                    else:
+                        temp.contact_phone = new_phone
+
                 case "8": 
                     print("Alert! existing teams will be cleared")
                     new_teams: list[int] = []
@@ -225,17 +267,22 @@ Try again!!
                         
                         val = input("Enter team id (q to stop): ")
                         if val.lower() == "q":
-                            cancel_flag =True
                             break
                         
+                        found = False
                         for x in existing_teams:
-                            if val == str(x.id) and x.id not in new_teams:
-                                new_teams.append(int(val))
-                                continue
-                            
-                        print("team id not registered")
-                        print()
+                            if val == str(x.id):
+                                if x.id not in new_teams:
+                                    new_teams.append(x.id)
+                                found = True
+                                break
+
+                        if not found:
+                            print("team id not registered")
+                        else:
+                            print(f"team id {val} added.")
                     temp.team_list = new_teams
+
                 case "9": 
                     print("Alert! existing matches will be cleared")
                     new_matches: list[int] = []
@@ -245,23 +292,28 @@ Try again!!
                         
                         val = input("Enter match id (q to stop): ")
                         if val.lower() == "q":
-                            cancel_flag = True
                             break
                         
+                        found = False
                         for x in existing_matches:
-                            if val == str(x.id) and x.id not in new_matches:
-                                new_matches.append(int(val))
-                                continue
-                            
-                        print("match id not registered")
-                        print()
+                            if val == str(x.id):
+                                if x.id not in new_matches:
+                                    new_matches.append(x.id)
+                                found = True
+                                break
+
+                        if not found:
+                            print("match id not registered")
+                        else:
+                            print(f"match id {val} added.")
                     temp.matches = new_matches
                     
                 case "b": 
-                    pass
+                    return
             
-            if cancel_flag == False:
+            if not cancel_flag:
                 self.logic_wrapper.modify_tournament(temp)
+                print("Tournament updated.")
           
 
           
