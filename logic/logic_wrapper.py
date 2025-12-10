@@ -441,7 +441,7 @@ class LogicWrapper:
         
     
     # ------------------- Specialized Methods ------------------ #
-    def generate_bracket(self, tournament: Tournament,) -> list[tuple[int, int]] | int:
+    def generate_bracket(self, tournament: Tournament,) -> Bracket | int | None:
         """Generate a knockout bracket for a tournament.
         
         Args:
@@ -456,7 +456,14 @@ class LogicWrapper:
             -2: Odd number of teams cannot form pairs
         """
         
-        return self.tournament_handler.generate_bracket(tournament, self.data_wrapper.get_matches_by_tournament_ID(tournament.id))
+        bracket_data = self.tournament_handler.generate_bracket(tournament, self.data_wrapper.get_matches_by_tournament_ID(tournament.id))
+        if type(bracket_data) == list[tuple[int, int]]:
+            return self.bracket_handler.create_bracket(bracket_data,tournament.id,self.get_brackets())
+        elif type(bracket_data) == int:
+            return bracket_data
+        else:
+            pass
+    
     
     
     

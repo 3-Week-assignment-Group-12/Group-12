@@ -1,6 +1,7 @@
 from __future__ import annotations
 from re import Match
 # ui_layer/main_menu.py
+from models.bracket import Bracket
 from logic.logic_wrapper import LogicWrapper
 
 
@@ -273,11 +274,15 @@ Try again!!
 
 
     def select_tournament_menu(self, ID):
+        name = self.logic_wrapper.get_tournament_by_ID(ID)
+        if isinstance(name, bool):
+            print("error fetching team")
+            return
 
         while True:
             print(
 f""" 
-Selected: "{self.logic_wrapper.get_tournament_by_ID(ID) := result; result.name if isinstance(result, Tournament)}"
+Selected: "{name.name}"
 
 1. Generate Schedule
 2. Record Game Results
@@ -295,7 +300,7 @@ b. Back
 f""" 
 Invalid Input!!
 
-Select {self.logic_wrapper.get_tournament_by_ID(ID) := result; result.name if isinstance(result, Tournament)}
+Select {name.name}
 
 1. Generate Schedule
 2. Record Game Results
@@ -309,7 +314,22 @@ Try again!!
 
             match choice:
                 case "1": 
-                    self.logic_wrapper.generate_bracket(ID)
+                    bracket = self.logic_wrapper.generate_bracket(ID)
+                    if isinstance(bracket, Bracket):
+                        print(bracket)
+
+                    else:
+                        print("Error generating bracket")
+                                
+                        
+                    
+                    
+                        
+                    
+                    
+                    
+                    
+                    
                 case "2": 
                     team1_id = self.logic_wrapper.inputTeamID()
                     team2_id = self.logic_wrapper.inputTeamID()
