@@ -347,7 +347,7 @@ class LogicWrapper:
         """
         return self.data_wrapper.modify_club(new_data)
     
-    def modify_team(self, new_data: Tournament) -> bool:
+    def modify_team(self, new_data: Team) -> bool:
         """Modify an existing tournament's data.
         
         Args:
@@ -356,7 +356,7 @@ class LogicWrapper:
         Returns:
             bool: Success status
         """
-        return self.data_wrapper.modify_tournament(new_data)
+        return self.data_wrapper.modify_team(new_data)
     
     def modify_bracket(self, new_data: Bracket) -> bool:
         """Modify an existing bracket's data.
@@ -627,3 +627,17 @@ class LogicWrapper:
                     return False
                 else:
                     return True
+                
+
+    def inputClubID(self):
+        clubID=int(input("Enter Club ID: "))
+        if clubID=="q":
+            return False
+        check= self.get_club_by_ID(clubID)
+        while check is False:
+            print("Club does not exist, Try different ID")
+            clubID=int(input("Enter Club ID: "))
+            if clubID=="q":
+                return False
+            check= self.get_club_by_ID(clubID)
+        return clubID
