@@ -69,12 +69,11 @@ class Tournament:
             -2: Odd number of teams cannot form pairs
         """
         
-        if len(self.team_list) > 2:
+        if len(self.team_list) <= 7:
             return -1  # Not enough teams to generate a schedule
         
         elif len(self.team_list) % 2 != 0:
             return -2  # Odd number of teams cannot form pairs
-        
         
         
         if len(previus_matches) != 0:

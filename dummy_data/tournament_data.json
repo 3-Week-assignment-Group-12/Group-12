@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "name": "Autumn Open",
+        "start_date": "01.10.26",
+        "end_date": "25.10.26",
+        "venue_name": "Reykjavik Arena",
+        "contact_id": "0809062930",
+        "contact_email": "autumn@example.com",
+        "contact_phone": "1234567",
+        "team_list": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+        "matches": []
+    },
+    {
+        "id": 2,
+        "name": "Northern Cup",
+        "start_date": "03.11.26",
+        "end_date": "15.11.26",
+        "venue_name": "Hafnarfjordur Hall",
+        "contact_id": "0402082150",
+        "contact_email": "north@example.com",
+        "contact_phone": "7654321",
+        "team_list": [16, 3, 1, 8, 5, 12, 6, 10, 2, 4, 7, 11, 13, 14, 9, 15],
+        "matches": []
+    },
+    {
+        "id": 3,
+        "name": "Winter Clash",
+        "start_date": "20.12.26",
+        "end_date": "30.12.26",
+        "venue_name": "Akureyri Sports Hall",
+        "contact_id": "1103054879",
+        "contact_email": "winter@example.com",
+        "contact_phone": "5667788",
+        "team_list": [5, 6, 1, 7, 3, 12, 2, 16, 9, 10, 4, 8, 11, 13, 14, 15],
+        "matches": []
+    },
+    {
+        "id": 4,
+        "name": "Spring Finals",
+        "start_date": "12.03.27",
+        "end_date": "26.03.27",
+        "venue_name": "Kopavogur Arena",
+        "contact_id": "2306992245",
+        "contact_email": "spring@example.com",
+        "contact_phone": "7520202",
+        "team_list": [2, 4, 8, 1, 6, 15, 12, 7, 3, 11, 5, 16, 10, 9, 13, 14],
+        "matches": []
+    }
+]

@@ -1,0 +1,250 @@
+[
+    {
+        "id": "0809062930",
+        "name": "Jón",
+        "dob": "2000-01-01",
+        "phone": 1234567,
+        "address": "asd",
+        "email": "asd@asd"
+    },
+    {
+        "id": "0402082150",
+        "name": "ari",
+        "dob": "2000-01-01",
+        "phone": 1231231,
+        "address": "135",
+        "email": "13@example"
+    },
+    {
+        "id": "1103054879",
+        "name": "Sara",
+        "dob": "2005-03-11",
+        "phone": 7712345,
+        "address": "Street 1",
+        "email": "sara@example.com"
+    },
+    {
+        "id": "2306992245",
+        "name": "Einar",
+        "dob": "1999-06-23",
+        "phone": 7809988,
+        "address": "Street 2",
+        "email": "einar@example.com"
+    },
+    {
+        "id": "1504126533",
+        "name": "Hekla",
+        "dob": "2012-04-15",
+        "phone": 5522988,
+        "address": "Street 3",
+        "email": "hekla@example.com"
+    },
+    {
+        "id": "0707871102",
+        "name": "Jonas",
+        "dob": "1987-07-07",
+        "phone": 6969696,
+        "address": "Street 5",
+        "email": "jonas@example.com"
+    },
+    {
+        "id": "3108997766",
+        "name": "Lilja",
+        "dob": "1999-08-31",
+        "phone": 7865432,
+        "address": "Street 6",
+        "email": "lilja@example.com"
+    },
+    {
+        "id": "1202019354",
+        "name": "Kristjan",
+        "dob": "2001-02-12",
+        "phone": 5521122,
+        "address": "Street 7",
+        "email": "kristjan@example.com"
+    },
+    {
+        "id": "0911945107",
+        "name": "Anna",
+        "dob": "1994-11-09",
+        "phone": 7771234,
+        "address": "Street 8",
+        "email": "anna@example.com"
+    },
+    {
+        "id": "0503008820",
+        "name": "Sigurdur",
+        "dob": "2000-03-05",
+        "phone": 6612345,
+        "address": "Street 9",
+        "email": "siggi@example.com"
+    },
+    {
+        "id": "1203054891",
+        "name": "Bjorn",
+        "dob": "2003-05-12",
+        "phone": 7890123,
+        "address": "Street 10",
+        "email": "bjorn@example.com"
+    },
+    {
+        "id": "0812067721",
+        "name": "Freya",
+        "dob": "2006-12-08",
+        "phone": 7898765,
+        "address": "Street 11",
+        "email": "freya@example.com"
+    },
+    {
+        "id": "1505073344",
+        "name": "Magnus",
+        "dob": "2007-05-15",
+        "phone": 7788990,
+        "address": "Street 12",
+        "email": "magnus@example.com"
+    },
+    {
+        "id": "2304095566",
+        "name": "Lara",
+        "dob": "2009-04-23",
+        "phone": 6677889,
+        "address": "Street 13",
+        "email": "lara@example.com"
+    },
+    {
+        "id": "0412012233",
+        "name": "Tomas",
+        "dob": "2001-12-04",
+        "phone": 6655443,
+        "address": "Street 14",
+        "email": "tomas@example.com"
+    },
+    {
+        "id": "1911067788",
+        "name": "Helga",
+        "dob": "2006-11-19",
+        "phone": 6789012,
+        "address": "Street 15",
+        "email": "helga@example.com"
+    },
+    {
+        "id": "0203081122",
+        "name": "Oskar",
+        "dob": "2008-03-02",
+        "phone": 6890123,
+        "address": "Street 16",
+        "email": "oskar@example.com"
+    },
+    {
+        "id": "1705059900",
+        "name": "Sigrid",
+        "dob": "2005-05-17",
+        "phone": 6123456,
+        "address": "Street 17",
+        "email": "sigrid@example.com"
+    },
+    {
+        "id": "3002078811",
+        "name": "Ragnar",
+        "dob": "2002-07-30",
+        "phone": 6234567,
+        "address": "Street 18",
+        "email": "ragnar@example.com"
+    },
+    {
+        "id": "0509012244",
+        "name": "Ingrid",
+        "dob": "2001-09-05",
+        "phone": 6345678,
+        "address": "Street 19",
+        "email": "ingrid@example.com"
+    },
+    {
+        "id": "2103035566",
+        "name": "Leif",
+        "dob": "2003-03-21",
+        "phone": 6456789,
+        "address": "Street 20",
+        "email": "leif@example.com"
+    },
+    {
+        "id": "1408078899",
+        "name": "Kara",
+        "dob": "2007-08-14",
+        "phone": 6567890,
+        "address": "Street 21",
+        "email": "kara@example.com"
+    },
+    {
+        "id": "0912053344",
+        "name": "Edda",
+        "dob": "2005-12-09",
+        "phone": 6678901,
+        "address": "Street 22",
+        "email": "edda@example.com"
+    },
+    {
+        "id": "3012047788",
+        "name": "Aron",
+        "dob": "2004-12-30",
+        "phone": 6789013,
+        "address": "Street 23",
+        "email": "aron@example.com"
+    },
+    {
+        "id": "1210031122",
+        "name": "Frida",
+        "dob": "2003-10-12",
+        "phone": 6890124,
+        "address": "Street 24",
+        "email": "frida@example.com"
+    },
+    {
+        "id": "0106085566",
+        "name": "Viggo",
+        "dob": "2008-06-01",
+        "phone": 6123457,
+        "address": "Street 25",
+        "email": "viggo@example.com"
+    },
+    {
+        "id": "2303098899",
+        "name": "Elin",
+        "dob": "2009-03-23",
+        "phone": 6234568,
+        "address": "Street 26",
+        "email": "elin@example.com"
+    },
+    {
+        "id": "0707043344",
+        "name": "Magnhild",
+        "dob": "2004-07-07",
+        "phone": 6345679,
+        "address": "Street 27",
+        "email": "magnhild@example.com"
+    },
+    {
+        "id": "1509017788",
+        "name": "Tryggvi",
+        "dob": "2001-09-15",
+        "phone": 6456790,
+        "address": "Street 28",
+        "email": "tryggvi@example.com"
+    },
+    {
+        "id": "3108101122",
+        "name": "Runa",
+        "dob": "2010-08-31",
+        "phone": 6567901,
+        "address": "Street 29",
+        "email": "runa@example.com"
+    },
+    {
+        "id": "0505035566",
+        "name": "Thor",
+        "dob": "2003-05-05",
+        "phone": 6679012,
+        "address": "Street 30",
+        "email": "thor@example.com"
+    }
+]

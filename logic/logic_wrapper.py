@@ -85,12 +85,14 @@ class LogicWrapper:
             Score:int
             
         Returns:
-            int: Success status
+            int: failure status or match id
         """
         new_match: Match|int = self.match_handler.create_match(team1_id,team2_id,tournament_id,date, time,server_id,winner_id,Score,self.data_wrapper.get_matches())
         
         if isinstance(new_match, Match):
-            return self.data_wrapper.write_match(new_match)
+            if self.data_wrapper.write_match(new_match) == 1:
+                return new_match.id
+
         return -2 # Indicate failure due to validation
     
     def create_tournament(self, name: str, start_date: str, end_date: str,  venue:str, contact_id:str, contact_email:str, contact_phone: str, team_list: list[int], matches:list[int]) -> int:
@@ -347,16 +349,16 @@ class LogicWrapper:
         """
         return self.data_wrapper.modify_club(new_data)
     
-    def modify_team(self, new_data: Tournament) -> bool:
-        """Modify an existing tournament's data.
+    def modify_team(self, new_data: Team) -> bool:
+        """Modify an existing Team's data.
         
         Args:
-            new_data (Tournament): Updated tournament instance
+            new_data (Tournament): Updated Team instance
             
         Returns:
             bool: Success status
         """
-        return self.data_wrapper.modify_tournament(new_data)
+        return self.data_wrapper.modify_team(new_data)
     
     def modify_bracket(self, new_data: Bracket) -> bool:
         """Modify an existing bracket's data.
@@ -441,7 +443,7 @@ class LogicWrapper:
         
     
     # ------------------- Specialized Methods ------------------ #
-    def generate_bracket(self, tournament: Tournament,) -> Bracket | int | None:
+    def generate_bracket(self, tournament: Tournament,) -> Bracket | int:
         """Generate a knockout bracket for a tournament.
         
         Args:
@@ -459,10 +461,7 @@ class LogicWrapper:
         bracket_data = self.tournament_handler.generate_bracket(tournament, self.data_wrapper.get_matches_by_tournament_ID(tournament.id))
         if type(bracket_data) == list[tuple[int, int]]:
             return self.bracket_handler.create_bracket(bracket_data,tournament.id,self.get_brackets())
-        elif type(bracket_data) == int:
-            return bracket_data
-        else:
-            pass
+        return -3 # error in cenerating bracket
     
     
     

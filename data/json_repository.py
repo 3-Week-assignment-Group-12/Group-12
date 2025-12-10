@@ -58,7 +58,7 @@ class JsonRepository:
         try:
 
             with open(self.filepath, "w",encoding="utf_8") as f:
-                json.dump(data, f, indent=4)
+                json.dump(data, f, indent=4, ensure_ascii=False)
             return 1
 
         except:

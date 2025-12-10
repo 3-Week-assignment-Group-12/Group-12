@@ -28,6 +28,8 @@ class match_handler:
 
         # 2. Create Model Object
         new_match = Match(highest, team1_id,team2_id,tournament_id,date, time,server_id,winner_id,Score)
+        
+        
 
         # 3. Pass to Data Layer
         return new_match

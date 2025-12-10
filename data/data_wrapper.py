@@ -29,12 +29,12 @@ class DataWrapper:
         
         
         
-        self.list_load(self.player_repo.read_dummy_data("./dummy_data/dummy_player.json"),self.player_repo)
-        self.list_load(self.tournament_repo.read_dummy_data("./dummy_data/dummy_tournaments.json"),self.tournament_repo)
-        self.list_load(self.match_repo.read_dummy_data("./dummy_data/dummy_match.json"),self.match_repo)
-        self.list_load(self.club_repo.read_dummy_data("./dummy_data/dummy_club.json"),self.club_repo)
-        self.list_load(self.bracket_repo.read_dummy_data("./dummy_data/dummy_bracket.json"),self.bracket_repo)
-        self.list_load(self.team_repo.read_dummy_data("./dummy_data/dummy_team.json"),self.team_repo)
+        self.list_load(self.player_repo.read_dummy_data("./dummy_data/player_data.json"),self.player_repo)
+        self.list_load(self.tournament_repo.read_dummy_data("./dummy_data/tournament_data.json"),self.tournament_repo)
+        self.list_load(self.match_repo.read_dummy_data("./dummy_data/match_data.json"),self.match_repo)
+        self.list_load(self.club_repo.read_dummy_data("./dummy_data/club_data.json"),self.club_repo)
+        self.list_load(self.bracket_repo.read_dummy_data("./dummy_data/bracket_data.json"),self.bracket_repo)
+        self.list_load(self.team_repo.read_dummy_data("./dummy_data/team_data.json"),self.team_repo)
         
         
         

@@ -287,7 +287,7 @@ Try again!!
                             counter+=1
                         if counter==temp.team_size:
                             print("Team is full")
-                            return
+                            continue
                         else:
                             member=self.functionFile.check_excistingID()
                             if member==False:
@@ -302,7 +302,7 @@ Try again!!
                                 counter+=1
                             if counter==0:
                                 print("Team is empty")
-                                return 
+                                continue
                             member=self.functionFile.check_excistingID()
                             if member==False:
                                 return
@@ -324,6 +324,8 @@ Try again!!
                         pass
                     case "b": 
                         return
+                
+                self.logic_wrapper.modify_team(temp)
            
     
     def club_menu(self):
