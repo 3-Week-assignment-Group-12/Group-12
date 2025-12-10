@@ -71,7 +71,7 @@ class LogicWrapper:
         return -2 # Indicate failure due to validation
         
         
-    def create_match(self, team1_id: int,team2_id: int,tournament_id:int,date: str, time: str,server_id: int,winner_id: str,Score:int) -> int:
+    def create_match(self, team1_id: int,team2_id: int,tournament_id:int,date: str, time: str,server_id: int,winner_id: int,Score:int) -> int:
         """Create a new match with validation.
         
         Args:
@@ -298,6 +298,19 @@ class LogicWrapper:
         return self.data_wrapper.get_team_by_tournament_ID(ID)
     
     
+    def get_bracket_by_tournament_id(self, ID:int) -> list[Bracket] | bool:
+        """Retrieve bracket by tournament ID.
+        
+        Args:
+            ID (int): tournamnet ID
+            
+        Returns:
+            list[Team]: List of team instances in the team
+            or False if error occurs
+        """
+        return self.data_wrapper.get_bracket_by_tournament_ID(ID)
+    
+    
     
 
 
@@ -458,10 +471,16 @@ class LogicWrapper:
             -2: Odd number of teams cannot form pairs
         """
         
-        bracket_data = self.tournament_handler.generate_bracket(tournament, self.data_wrapper.get_matches_by_tournament_ID(tournament.id))
-        if type(bracket_data) == list[tuple[int, int]]:
-            return self.bracket_handler.create_bracket(bracket_data,tournament.id,self.get_brackets())
-        return -3 # error in cenerating bracket
+        bracket_data: list[tuple[int, int]] | int = self.tournament_handler.generate_bracket(tournament, self.data_wrapper.get_matches_by_tournament_ID(tournament.id))
+        if isinstance(bracket_data,int):
+            return bracket_data
+        else:
+            
+            # long fucking check to do bracket_data == list[tuple[int,int]]
+            if isinstance(bracket_data, list) and all( isinstance(t, tuple) and len(t) == 2 and isinstance(t[0], int) and isinstance(t[1], int) for t in bracket_data):
+                
+                return self.bracket_handler.create_bracket(bracket_data,tournament.id,self.get_brackets())
+            return -3 # error in cenerating bracket
     
     
     

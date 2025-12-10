@@ -397,7 +397,7 @@ Try again!!
 
 
                 case "4": 
-                    clubID = self.logic_wrapper.inputTeamID
+                    clubID = self.logic_wrapper.inputTeamID()
                     self.edit_club_menu(clubID)
                 case "b": 
                     return
