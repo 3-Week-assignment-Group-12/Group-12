@@ -100,7 +100,14 @@ Try again!!
                     ID=self.functionFile.inputTeamID()
                     x=input("Are you sure? (Y/N)")
                     if x=="y" or x=="Y":
-                        self.logic_wrapper.delete_team(ID) # type: ignore
+                       success = self.logic_wrapper.delete_team(ID)
+                       if success:
+                           print("\nTeam deleted successfully!\n")
+                       else:
+                            print("\nError: Failed to delete team.\n")
+                    else:
+                        print("\nDeletion cancelled.\n")
+  
                     return     
                 case "6": 
                     self.club_menu() 
