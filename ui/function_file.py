@@ -174,10 +174,8 @@ class functionFile:
             playerinfo=self.logic_wrapper.get_player_by_ID(player.id)
             if isinstance(playerinfo,Player):
                 if email == playerinfo.email: 
-                    print("This email already exists!")
                     return False
-                else:
-                    return True
+        return True
                 
     
 
@@ -214,9 +212,14 @@ class functionFile:
             if email=="q":
                 return False
             check1=self.logic_wrapper.check_email(email)
-            if check1 ==True:
+            if check1 == "1":
+                print("Email must contain @ symbol!")
+            else:
                 check2=self.check_for_player_email(email)
-        return email
+                if check2 == False:
+                    print("Email already exists in system!")
+                else:
+                    return email
     
 
 
@@ -295,11 +298,12 @@ class functionFile:
             check1 = self.logic_wrapper.check_name(name)
             if check1 == "1":
                 print("Club name can only contain letters!")
-            check2= self.logic_wrapper.check_for_club_name(name)
-            if check2 ==False:
-                print("club name already exists!")
             else:
-                return name
+                check2= self.logic_wrapper.check_for_club_name(name)
+                if check2 ==False:
+                    print("club name already exists!")
+                else:
+                    return name
             
     def inputClubColor(self):
         while True:
