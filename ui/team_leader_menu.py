@@ -3,6 +3,7 @@ from __future__ import annotations
 from logic.logic_wrapper import LogicWrapper
 from models.team import Team
 from ui.function_file import functionFile
+from models.club import Club
 
 
 class TeamLeader():
@@ -240,8 +241,8 @@ Try again!!
                     pass
           
 
-    def edit_team_menu(self,team_to_edit):
-
+    def edit_team_menu(self,teamID:int):
+        temp: Team | int = self.logic_wrapper.get_team_by_ID(teamID)
         while True:
             print(
 """ 
@@ -270,28 +271,59 @@ Edit Team Menu
 2. Remove Member
 3. Change Team Name
 4. Change Team Tag
-5. Change Team Captain
-6. Change ASCII art
+5. Change ASCII art
 b. Back 
 
 Try again!!
 """)
+            if isinstance(temp, int):
+                print("Player not found")
+            else:
+                match choice:
+                    case "1": 
+                    
+                        counter=0
+                        for _ in temp.member_list:
+                            counter+=1
+                        if counter==temp.team_size:
+                            print("Team is full")
+                            return
+                        else:
+                            member=self.functionFile.check_excistingID()
+                            if member==False:
+                                return
+                            else:
+                                temp.member_list.append(member)
 
-            match choice:
-                case "1": 
-                    pass
-                case "2": 
-                    pass
-                case "3": 
-                    pass
-                case "4": 
-                    pass
-                case "5": 
-                    pass
-                case "6": 
-                    pass
-                case "b": 
-                    return
+                            
+                    case "2": 
+                            counter=0
+                            for _ in temp.member_list:
+                                counter+=1
+                            if counter==0:
+                                print("Team is empty")
+                                return 
+                            member=self.functionFile.check_excistingID()
+                            if member==False:
+                                return
+                            else:
+                                temp.member_list.remove(member)
+                    case "3": 
+                        imp =self.functionFile.inputTeamName()
+                        if isinstance(imp,str):
+                            temp.name=imp
+                        if imp == False:
+                            return
+                    case "4": 
+                        imp=self.functionFile.inputTeamTag()
+                        if isinstance(imp,str):
+                            temp.tag=imp
+                        if imp == False:
+                            return
+                    case "5": 
+                        pass
+                    case "b": 
+                        return
            
     
     def club_menu(self):
@@ -328,12 +360,40 @@ Try again!!
 """)
 
             match choice:
-                case "1": 
-                    pass #create club function
+                case "1":
+                    name = self.functionFile.inputClubName()
+                    if name == False:
+                        return
+                    club_colour = input("Enter colour: ")
+                    if club_colour =="q":
+                        return
+                    team_list=[] 
+                    team=self.logic_wrapper.inputTeamID()
+                    if team==False:
+                        return
+                    else:
+                        team_list.append(team)
+
+                    self.logic_wrapper.create_club(name,club_colour,team_list) #create club function
                 case "2": 
                     pass # join club function
                 case "3": 
-                    pass # view club by id
+                    club_id=self.logic_wrapper.check_for_club_ID()
+                    if club_id==False:
+                        return
+                    else:
+                        club_info=self.logic_wrapper.get_club_by_ID(club_id) # view club by id
+                        if isinstance(club_info,Club):
+                            print(f"Club name: {club_info.name}")
+                            print(f"Club colour: {club_info.colours}")
+                            for team_ID in club_info.teams:
+                                team=self.logic_wrapper.get_team_by_ID(team_ID)
+                                if isinstance(team, Team):
+                                    print(team.name)
+                                
+
+
+
                 case "4": 
                     self.edit_club_menu()
                 case "b": 

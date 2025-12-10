@@ -111,7 +111,7 @@ class LogicWrapper:
             return self.data_wrapper.write_tournament(new_tournament)
         return new_tournament # Indicate failure due to validation
 
-    def create_club(self, name: str, colour:str ,location:str, team_list: list[int]) -> int:
+    def create_club(self, name: str, colour:str , team_list: list[int]) -> int:
         """Create a new club with validation.
         
         Args:
@@ -470,13 +470,30 @@ class LogicWrapper:
 
     def inputTeamID(self):
         teamID=int(input("Enter Team ID: "))
+        if teamID=="q":
+            return False
         check= self.get_team_by_ID(teamID)
         while check is False:
             print("Team does not exist, Try different ID")
             teamID=int(input("Enter Team ID: "))
+            if teamID=="q":
+                return False
             check= self.get_team_by_ID(teamID)
         return teamID
     
+
+    def check_for_club_ID(self):
+        clubID=int(input("Enter Team ID: "))
+        if clubID=="q":
+            return False
+        check= self.get_club_by_ID(clubID)
+        while check is False:
+            print("Club does not exist, Try different ID")
+            clubID=int(input("Enter Club ID: "))
+            if clubID=="q":
+                return False
+            check= self.get_club_by_ID(clubID)
+        return clubID
     
 
 
@@ -596,3 +613,17 @@ class LogicWrapper:
             return "-1"
         else: 
             return True
+
+
+#----------clubs-----------
+    def check_for_club_name(self,name):
+        
+        list_of_clubs=self.get_clubs()
+        
+        for clubID in list_of_clubs:
+            clubinfo=self.get_team_by_ID(clubID.id)
+            if isinstance(clubinfo,Club):
+                if name == clubinfo.name:
+                    return False
+                else:
+                    return True

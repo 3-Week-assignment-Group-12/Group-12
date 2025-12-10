@@ -132,7 +132,10 @@ class functionFile:
         return teamID
     
     def check_excistingID(self):
+        """Gets ID for existing player"""
         playersID=input("Enter National ID: ")
+        if playersID=="q":
+            return False
         check= self.logic_wrapper.get_player_by_ID(playersID)
         while not isinstance(check, Player):
             print("Player does not exist, Try different ID")
@@ -143,6 +146,7 @@ class functionFile:
 
 
     def check_for_player_kt(self,nID):
+            """checks if id is in use"""
           
             list_of_players= self.logic_wrapper.get_players()
             if list_of_players is None or list_of_players == []:
@@ -158,6 +162,7 @@ class functionFile:
                         
 
     def check_for_player_email(self,email):
+        """Gets email for existing player"""
         list_of_players=self.logic_wrapper.get_players()
         if list_of_players is None or list_of_players == []:
             return True
@@ -175,6 +180,8 @@ class functionFile:
     def input_phone_nr(self):
         while True:
             number:str=input("Phone number:")
+            if number=="q":
+                return False
             check = self.logic_wrapper.check_phone_nr(number)
             if check == "1":
                 print("Phone number is not the correct length!")
@@ -184,15 +191,21 @@ class functionFile:
     def input_name(self):
         while True:
             name:str=input("Name: ")
+            if name=="q":
+                return False
             check = self.logic_wrapper.check_name(name)
             if check == "1":
                 print("Numbers are not allowed in name!")
+            else:
+                return name
                 
     def input_email(self):
         check2= False
         email=""
         while check2 == False :
             email:str=input("Email: ")
+            if email=="q":
+                return False
             check1=self.logic_wrapper.check_email(email)
             if check1 ==True:
                 check2=self.check_for_player_email(email)
@@ -265,4 +278,21 @@ class functionFile:
             print("This ID does not exist")  
         return creatorID
         
+
+    
+    #-----------Clubs----------
+    def inputClubName(self):
+        while True:
+            name:str=input("Name: ")
+            if name=="q":
+                return False
+            if len(name)>20:
+                print("club name too long!")
+                print("can not be longer then 20")
+            
+            check= self.logic_wrapper.check_for_club_name(name)
+            if check ==False:
+                print("club name already exists!")
+            else:
+                return name
 

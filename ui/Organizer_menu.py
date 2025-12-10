@@ -182,20 +182,26 @@ Try again!!
                 
                 match choice:
                     case "1": 
-                        temp.name = self.functionFile.input_name() # type: ignore
-                        if temp.name== False:
+                        inp=self.functionFile.input_name() 
+                        if isinstance(inp,str):
+                            temp.name=inp
+                        if inp== False:
                             return
                     case "2": 
-                        temp.phone = self.functionFile.input_phone_nr()
-                        if temp.phone== False:
+                        inp=self.functionFile.input_phone_nr()
+                        if isinstance(inp,int):
+                            temp.phone=inp
+                        if inp == False:
                             return
                     case "3": 
                         temp.address = input("Enter New address: ") 
                         if temp.address== "q":
                             return    
                     case "4": 
-                        temp.email = self.functionFile.input_email()
-                        if temp.email ==False:
+                        inp = self.functionFile.input_email()
+                        if isinstance(inp,str):
+                            temp.email=inp
+                        if inp == False:
                             return
                     case "5": 
                         pass 

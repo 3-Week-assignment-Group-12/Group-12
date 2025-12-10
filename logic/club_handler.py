@@ -3,7 +3,7 @@ from models.club import Club
 
 class club_handler:
     
-    def create_club(self, name: str, colour: str, location: str, team_list: list[int],existing_clubs:list[Club]) -> Club|int:
+    def create_club(self, name: str, colour: str, team_list: list[int],existing_clubs:list[Club]) -> Club|int:
         # 1. Validate Input (Business Logic)        
         
         
