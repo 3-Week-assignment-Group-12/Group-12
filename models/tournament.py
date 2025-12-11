@@ -19,7 +19,7 @@ class Tournament:
         contact_email: str
         contact_phone: str
         team_list: list[int]
-        matches: list[int]
+        matches: list[list[int]]
     """
 
     
@@ -42,7 +42,8 @@ class Tournament:
     
     # Participants and events
     team_list: list[int] 
-    matches: list[int] 
+    matches: list[list[int]] 
+    
     
     filename = "tournament_data.json"
     
@@ -65,11 +66,15 @@ class Tournament:
             int for errors.
             
         Errors:
+            2: bracket is complete
             -1: Not enough teams to generate a schedule
             -2: Odd number of teams cannot form pairs
         """
+        if len(self.matches[-1]) == 1:
+            self.matches.append([])
+            return 2
         
-        if len(self.team_list) <= 1:
+        if len(self.matches[-1]) <= 0:
             return -1  # Not enough teams to generate a schedule
         
         elif len(self.team_list) % 2 != 0:

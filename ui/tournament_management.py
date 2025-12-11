@@ -111,10 +111,11 @@ b. Back
                                 
                             print("match id not registered")
                             print()
+                    barches:list[list[int]] = []
+                    barches.append(matches)
                     
                     
-                    
-                    ret =self.logic_wrapper.create_tournament(name,startDate,endDate,venue,contactID,contactEmail,contactPhone,team_list,matches)
+                    ret =self.logic_wrapper.create_tournament(name,startDate,endDate,venue,contactID,contactEmail,contactPhone,team_list,barches)
                     if ret == 1:
                         print("Tournament created successfully!")
                     elif ret == -1:
@@ -320,7 +321,7 @@ Try again!!
                             print("match id not registered")
                         else:
                             print(f"match id {val} added.")
-                    temp.matches = new_matches
+                    temp.matches.append(new_matches)
                     
                 case "b": 
                     return
@@ -381,29 +382,27 @@ Try again!!
             match choice:
                 case "1": 
                     
-                    incomplete_flag = False
-                    if tourn.matches.__len__() != 0 and tourn.matches != tourn.team_list.__len__()/2:
-                        print("Current bracket is not compleated.")
-                        incomplete_flag = True
-                        
-                    
-                    
+
                     
                     
                     bracket = self.logic_wrapper.generate_bracket(tourn)
+                    
+                    if bracket == 2:
+                        print("Bracket is compleate")
+                    
                     if isinstance(bracket, Bracket):
                         print(bracket.matchups)
                         
-                        if incomplete_flag == False:
-                            inp = input("bracket generated, use? (y/n): ")
-                        else:
-                            inp="y"
+
+                        inp = input("bracket generated, use? (y/n): ")
+
                             
                         if inp.lower() == "y":
                             self.logic_wrapper.data_wrapper.write_bracket(bracket)
                             
                             inp2 = input("enter Results now? (y/n): ")
                             if inp2.lower() == "y":
+                                match_bundle = []
                                 for matchup in bracket.matchups:
                                     while True:
                                         
@@ -431,21 +430,30 @@ Try again!!
                                         ret =self.logic_wrapper.create_match(matchup[0], matchup[1], tourn.id, date, time, server_id, winner_id, score)
                                         if ret ==-2:
                                             print("failure in creating match")
-                                            break
+                                            print("try againe")
+                                            continue
                                         if ret >= 0:
                                             print("sucsess in creating match")
                                             
                                             print()
                                             
-                                            tourn.matches.append(ret)
-                                            self.logic_wrapper.modify_tournament(tourn)
+                                            match_bundle.append(ret)
                                             break
+                                tourn.matches.append(match_bundle)
+                                
+                                if tourn.matches[-1].__len__() == 1:
+                                    print("Schedule completed")
+                                    
+                                    tourn.matches.append([])
+                                    
+                                self.logic_wrapper.modify_tournament(tourn)
+                                break
                                         
                                     
                             
                                 
                         
-                        print(bracket)
+                        
 
                     else:
                         match bracket:
@@ -459,13 +467,6 @@ Try again!!
                         
                                 
                         
-                    
-                    
-                        
-                    
-                    
-                    
-                    
                     
                 case "2": 
                     print("team 1 ")
@@ -496,7 +497,7 @@ Try again!!
                     if ret >= 0:
                         print("creating match sucsessful")
                         
-                        tourn.matches.append(ret)
+                        tourn.matches[-1].append(ret)
                         self.logic_wrapper.modify_tournament(tourn)
                     
                 case "3": 

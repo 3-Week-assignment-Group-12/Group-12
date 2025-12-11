@@ -4,7 +4,7 @@ from models.tournament import Tournament
 
 class tournament_handler:
     
-    def create_tournament(self, name:str, start_date:str, end_date:str, venue:str, contact_id:str, contact_email:str, contact_phone:str,existing_tournaments: list[Tournament] , team_list:list[int],matches:list[int]) -> Tournament| int:
+    def create_tournament(self, name:str, start_date:str, end_date:str, venue:str, contact_id:str, contact_email:str, contact_phone:str,existing_tournaments: list[Tournament] , team_list:list[int],matches:list[list[int]]) -> Tournament| int:
         """ this function creates a tournament object after validating the inputs
 
 

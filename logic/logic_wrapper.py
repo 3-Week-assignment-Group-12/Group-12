@@ -95,7 +95,7 @@ class LogicWrapper:
 
         return -2 # Indicate failure due to validation
     
-    def create_tournament(self, name: str, start_date: str, end_date: str,  venue:str, contact_id:str, contact_email:str, contact_phone: str, team_list: list[int], matches:list[int]) -> int:
+    def create_tournament(self, name: str, start_date: str, end_date: str,  venue:str, contact_id:str, contact_email:str, contact_phone: str, team_list: list[int], matches:list[list[int]]) -> int:
         """Create a new tournament with validation.
         
         Args:
@@ -471,7 +471,14 @@ class LogicWrapper:
             -2: Odd number of teams cannot form pairs
         """
         
-        bracket_data: list[tuple[int, int]] | int = self.tournament_handler.generate_bracket(tournament, self.data_wrapper.get_matches_by_tournament_ID(tournament.id))
+        prev_matches:list[Match] = []
+        for x in tournament.matches[-1]:
+            mat= self.get_match_by_ID(x)
+            if isinstance(mat,Match):
+                prev_matches.append(mat)
+            
+        
+        bracket_data: list[tuple[int, int]] | int = self.tournament_handler.generate_bracket(tournament, prev_matches)
         if isinstance(bracket_data,int):
             return bracket_data
         else:
