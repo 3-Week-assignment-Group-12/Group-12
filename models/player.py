@@ -16,6 +16,8 @@ class Player:
         phone: int
         address: str
         email: str
+        
+        dynamic_data: dict
     """
     
     id: str
@@ -26,6 +28,8 @@ class Player:
     phone: int
     address: str
     email: str
+    
+    dynamic_data: dict
     
 
     filename = "player_data.json"

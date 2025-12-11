@@ -369,10 +369,72 @@ class functionFile:
                 return contactID
             
 
-    def string_to_int(self,string):
-        converted = int(string)
-        return converted
             
+    def add_data_to_team_int(self,team_id:int,key:str, value:int):
+        """assigns data to all players in team
+
+        Args:
+            team_id (int): team id
+            key (str): what key to the value under
+            value (int): the value, is additive
+        """
+        
+        team = self.logic_wrapper.get_team_by_ID(team_id)
+        if isinstance(team,Team):
+            for p in team.member_list:
+                play = self.logic_wrapper.get_player_by_ID(p)
+                if isinstance(play,Player):
+                    play.dynamic_data[key] += value
+                    self.logic_wrapper.modify_player(play)
+        
+    def add_data_to_player_int(self,player_id:str, key:str, value:int):
+        """assign data to single player
+
+        Args:
+            player_id (str): player id
+            key (str): what key to the value under
+            value (int): the value, is additive
+        """
+        play = self.logic_wrapper.get_player_by_ID(player_id)
+        if isinstance(play,Player):
+            play.dynamic_data[key] += value
+            self.logic_wrapper.modify_player(play)
+            
+        
+    def get_data_from_team(self,team_id:int, key:str="") -> dict[str,int]|int|bool:
+        """Gets totaled dynamic data
+
+        Args:
+            team_id (int): team id
+            key (str, optional): key from where to get data. Defaults to "".
+
+        Returns:
+            dict|int|bool: 
+                dict of all data if key is not provided
+                int of total data if key is provided
+                bool for failure
+        """
+        
+        
+        players = self.logic_wrapper.get_players_by_team_ID(team_id)
+        if isinstance(players,bool):
+            return False
+            
+        if key == "": #case: no key provided
+            
+            grouped_data = {}
+            for p in players:
+            
+                for k in p.dynamic_data.keys():
+                    grouped_data[k] += p.dynamic_data[k]
+            return grouped_data
+        
+        else:
+            value = 0
+            for p in players:
+
+                value += p.dynamic_data[key]
+            return value            
     
     def inputClubID(self):
         while True:
