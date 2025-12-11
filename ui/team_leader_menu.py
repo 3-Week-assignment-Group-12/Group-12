@@ -105,11 +105,13 @@ Try again!!
                     self.edit_team_menu(ID) 
                 case "5": 
                     ID=self.functionFile.checkTeamID()
-                    x=input("Are you sure? (Y/N)").lower()
-                    if x=="y" or x=="Y":
+                    x=input("Are you sure? (Y/N)")
+                    if x.lower() == "y":
                         self.logic_wrapper.delete_team(ID) 
                         print("Team has been removed!")
-                         
+                    else:
+                        print("Deletion, canceled")
+                    
                 case "6": 
                     self.club_menu() 
                 case "7": 

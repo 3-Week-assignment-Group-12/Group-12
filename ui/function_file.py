@@ -221,6 +221,7 @@ class functionFile:
                     print("Email already exists in system!")
                 else:
                     return email
+        return False
     
 
 
