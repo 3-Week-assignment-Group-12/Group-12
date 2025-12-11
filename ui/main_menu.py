@@ -50,13 +50,12 @@ Welcome To the menu.
 1. Organizer Menu
 2. Team Leader Menu
 3. Public Menu
-4. High quality Toggle
 q. Quit 
 
 
 """)
             choice=input("Enter input: ")
-            if choice not in ["1","2","3","4","q","Q"]:
+            if choice not in ["1","2","3","q","q"]:
 
                  print(
 """ 
@@ -67,7 +66,6 @@ Welcome To the menu.
 1. Organizer Menu
 2. Team Leader Menu
 3. Public Menu
-4. High quality Toggle
 q. Quit 
 
 Try again!!
@@ -80,36 +78,14 @@ Try again!!
                     self.teamleader_menu.teamleader_menu()
                 case "3": 
                     self.public_menu.public_menu()
-                case "4": 
-                    self.enable_high_quality_menu() # Mögulega laga því fer bara á mainscreen, mögulega myndum senda bara beint í function
+                #case "4": 
+                    #self.enable_high_quality_menu() # Mögulega laga því fer bara á mainscreen, mögulega myndum senda bara beint í function
                 case "q": 
                     return
                 case _: 
                     pass
             self.run()
             
-    def enable_high_quality_menu(self):
-        print(
-""" 
-Enable high quality (Y/N)
-
-""")
-        while True:
-            choice=input("Enter input: ")
-            if choice not in ["y","Y"]:
-                
-                print(
-""" 
-Invalid Input!!
-
-Enable high quality (Y/N)
-
-Try again!!
-""")
-
-            match choice:
-                case "1": 
-                    pass
             
     
 
