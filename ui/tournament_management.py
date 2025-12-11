@@ -419,7 +419,7 @@ Try again!!
                                             print(f"Team numbers: team1: {matchup[0]} vs team2: {matchup[1]}")
                                         
                                         date = tourn.start_date
-                                        time = input("enter match time: ")
+                                        time = input("enter match time(MM:SS): ")
                                         server_id = randint(1,10)
                                         winner_id = int(input("Enter winner id: "))
                                         while winner_id != matchup[0] and winner_id != matchup[1]:
@@ -481,7 +481,7 @@ Try again!!
                 
                     
                     date = input("Enter date of match: ")
-                    time = input("enter match time: ")
+                    time = input("enter match time (MM:SS): ")
                     server_id = randint(1,10)
                     winner_id = int(input("Enter winner id: "))
                     while winner_id != team1_id and winner_id != team2_id:
