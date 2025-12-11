@@ -83,7 +83,8 @@ Try again!!
                 case "4": 
                     self.enable_high_quality_menu() # Mögulega laga því fer bara á mainscreen, mögulega myndum senda bara beint í function
                 case "q": 
-                    return
+                    print("Goodbye!")
+                    quit()
                 case _: 
                     pass
             self.run()

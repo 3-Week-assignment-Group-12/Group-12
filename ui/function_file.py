@@ -253,6 +253,29 @@ class functionFile:
                 else: 
                     return False
                 
+    def inputPlayerHandle(self):
+        while True:
+            player_handle:str = input("Enter player handle: ")
+            if player_handle == "q":
+                return False
+            check = self.logic_wrapper.check_player_handle(player_handle)
+            if check == False:
+                print("Player handle is taken!")
+            else:
+                return player_handle
+            
+    def inputPlayerLink(self):
+        while True:
+            player_link:str = input("Enter player link: ")
+            if player_link == "q":
+                return False
+            check = self.logic_wrapper.check_player_link(player_link)
+            if check == False:
+                print("Player link is taken!")
+            else:
+                return player_link
+            
+                
     
     #-----------------TeamLeader------------------
 

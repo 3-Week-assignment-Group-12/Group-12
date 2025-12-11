@@ -31,13 +31,15 @@ class LogicWrapper:
         
     # ------------------- Create Methods ------------------ #
     
-    def create_player(self, KT, name, phone, address, email) -> int:
+    def create_player(self, KT, name,handle,link, phone, address, email) -> int:
         
         """Create a new player with validation.
         
         Args:
             KT (int): Player's KT number
             name (str): Player's name
+            handle (str) Player's handle
+            link (str) Player's link
             phone (int): Player's phone number
             address (str): Player's address
             email (str): Player's email
@@ -46,7 +48,7 @@ class LogicWrapper:
             int: Success status
         """
         
-        new_player = self.player_handler.create_player(KT, name, phone, address, email, self.data_wrapper.get_players())
+        new_player = self.player_handler.create_player(KT, name,handle,link, phone, address, email, self.data_wrapper.get_players())
         print("New player created:", new_player)  # Debug statement
         if isinstance(new_player, Player):
             return self.data_wrapper.write_player(new_player)
@@ -589,6 +591,27 @@ class LogicWrapper:
             return "1"
         else:
             return True
+        
+    def check_player_handle(self,player_handle):
+        list_of_players = self.get_players()
+        for player in list_of_players:
+            player_info = self.get_player_by_ID(player.id)
+            if isinstance(player_info,Player):
+                if player_handle == player_info.handle:
+                    return False
+                else:
+                    return True
+                
+    def check_player_link(self,player_link):
+        list_of_players = self.get_players()
+        for player in list_of_players:
+            player_info = self.get_player_by_ID(player.id)
+            if isinstance(player_info,Player):
+                if player_link == player_info.link:
+                    return False
+                else:
+                    return True
+
     
     #--------------Tournament checks --------------------
                 

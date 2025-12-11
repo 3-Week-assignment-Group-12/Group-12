@@ -10,6 +10,8 @@ class Player:
     attributes:
         id: str
         name: str
+        handle: str
+        link:str
         dob: str
         phone: int
         address: str
@@ -18,10 +20,13 @@ class Player:
     
     id: str
     name: str
+    handle: str
+    link:str
     dob: str
     phone: int
     address: str
     email: str
+    
 
     filename = "player_data.json"
     

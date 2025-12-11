@@ -4,7 +4,7 @@ import datetime
 
 class player_handler:
     
-    def create_player(self, ID:str ,name:str ,phone: int,address: str,email:str, existing_playerList:list[Player]) ->Player| int:
+    def create_player(self, ID:str ,name:str ,handle:str ,link:str ,phone: int,address: str,email:str, existing_playerList:list[Player]) ->Player| int:
         # 1. Validate Input (Business Logic)     
         day=int(ID[0:2])
         print(day)
@@ -20,7 +20,7 @@ class player_handler:
 
         dob = datetime.date(year,month,day).__str__()  ##Gerir ekki rétt ártal
         # 2. Create Model Object
-        new_player = Player(ID,name,dob,phone,address,email)
+        new_player = Player(ID,name,handle,link,dob,phone,address,email)
 
         # 3. Pass to Data Layer
         return new_player
