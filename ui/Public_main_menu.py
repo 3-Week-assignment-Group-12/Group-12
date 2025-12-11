@@ -407,13 +407,14 @@ Try again!!
 View All Organizers Menu
 
 1. View All Organizers
+2. View specific Organizer
 b. Back
 
 
 """)
         while True:
             choice=input("Enter input: ")
-            if choice not in ["1","b","B"]:
+            if choice not in ["1","2","b","B"]:
                 
                 print(
 """ 
@@ -422,19 +423,28 @@ Invalid Input!!
 View All Organizers Menu
 
 1. View All Organizers
+2. View specific Organizer
 b. Back
 
 Try again!!
 """)
 
-            match choice:
+            match choice.lower():
                 case "1": 
-                    list_of_organizer=self.logic_wrapper.get_Organizer() # type: ignore
-                    for organizerID in list_of_organizer:
-                        organizer=self.logic_wrapper.get_organizer_by_ID(organizerID) # type: ignore
-                        #if type(organizer) == Organizer:
-                        #   #print(organizer.name)
-                    pass
+                    tournaments=self.logic_wrapper.get_tournaments() 
+                    counter=1
+                    if tournaments==[]:
+                        continue
+                    else:
+                        for tournament in tournaments:
+                            print(f"Organizer:{counter}, Email:{tournament.contact_email}, Phone:{tournament.contact_phone}, National ID:{tournament.contact_id}")
+                            counter+=1
+                case "2":
+                    contactID=self.functionFile.input_contact_ID()
+                    tournaments=self.logic_wrapper.get_tournaments()
+                    for tournament in tournaments:
+                        if tournament.contact_id==contactID:
+                            print(f"Email:{tournament.contact_email}, Phone:{tournament.contact_phone}, National ID:{tournament.contact_id}")
                 case "b": 
                     return
     #----------------------- Veiw Scoreboard ----------------------------     
