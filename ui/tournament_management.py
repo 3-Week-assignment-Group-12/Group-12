@@ -124,14 +124,14 @@ b. Back
                         print("Validation failed, tournament not created!")
                     
                 case "2": 
-                    ID = self.logic_wrapper.inputTournamentID()
+                    ID = self.functionFile.inputTournamentID()
                     if ID is None:
                   
                         continue
                     self.edit_tournament_menu(ID)
 
                 case "3": 
-                    ID = self.logic_wrapper.inputTournamentID()
+                    ID = self.functionFile.inputTournamentID()
                     if ID is None:
                         continue
                     x = input("Are you sure? (Y/N): ").lower()
@@ -144,7 +144,7 @@ b. Back
                     continue
 
                 case "4": 
-                    ID = self.logic_wrapper.inputTournamentID()
+                    ID = self.functionFile.inputTournamentID()
                     if ID is None:
                         continue
                     self.select_tournament_menu(ID)

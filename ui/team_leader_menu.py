@@ -393,7 +393,7 @@ Try again!!
                 case "2": 
                     pass # join club function
                 case "3": 
-                    club_id=self.logic_wrapper.check_for_club_ID()
+                    club_id=self.functionFile.inputClubID()
                     if club_id==False:
                         return
                     else:
