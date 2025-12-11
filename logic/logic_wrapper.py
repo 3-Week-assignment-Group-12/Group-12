@@ -505,7 +505,17 @@ class LogicWrapper:
 
     
     #--------------team checks --------------------
-    def check_for_team_name(self,name):
+    def check_for_team_name(self,name:str) -> bool:
+        """Check whether a team name is already in use.
+        
+        Args:
+            name (str): Team name to validate.
+        
+        Returns:
+            bool: 
+                False if the name already exists,
+                True otherwise.
+        """
         list_of_teams=self.get_teams()
         for teamID in list_of_teams:
             teaminfo=self.get_team_by_ID(teamID.id)
@@ -515,7 +525,18 @@ class LogicWrapper:
                 else:
                     return True
             
-    def check_for_team_tag(self,tag):
+    def check_for_team_tag(self,tag: str) -> str | bool:
+        """Check whether a team tag is valid and unique.
+        
+        Args:
+            tag (str): Team tag to validate.
+        
+        Returns:
+            str | bool:
+                * "1": Tag is longer than 5 characters.
+                * "2": Tag already exists.
+                * True: Tag is valid and available.
+        """
         if len(tag) > 5:
             return "1"
         list_of_teams=self.get_teams()
@@ -537,7 +558,20 @@ class LogicWrapper:
     #             else:
     #                 return True
                 
-    def valid_kt(self,NID):
+    def valid_kt(self,NID: str) -> str | bool:
+        """Validate a national ID (Kennitala).
+        
+        Args:
+            NID (str): National ID to validate.
+        
+        Returns:
+            str | bool:
+                * "1": ID length is not 10 characters.
+                * "2": ID contains non-digit characters.
+                * "3": Day part (first two digits) is invalid.
+                * "4": Month part (digits 3–4) is invalid.
+                * True: ID format is valid.
+        """
         if len(str(NID)) != 10:
             return "1"
         elif NID.isalpha():
@@ -550,9 +584,23 @@ class LogicWrapper:
             return True
 
 
-    def get_dummy_data(self):
+    def get_dummy_data(self) -> None:
+        """Load dummy data into the underlying data layer."""
         self.data_wrapper.get_dummy_data()
-    def check_phone_nr(self,number):
+
+    def check_phone_nr(self,number: str) -> str | bool:
+        """Validate a phone number and check for duplicates.
+        
+        Args:
+            number (str): Phone number to validate.
+        
+        Returns:
+            str | bool:
+                * "1": Phone number has invalid length.
+                * "2": Phone number contains non-digit characters.
+                * "3": Phone number already exists for another player.
+                * True: Phone number is valid and unique.
+        """
         players=self.get_players()
         
         if len(number) != 7:
@@ -564,13 +612,33 @@ class LogicWrapper:
                 return "3"
         return True
         
-    def check_name(self,name):
+    def check_name(self,name: str) -> str | bool:
+        """Validate that a name only contains alphabetic characters.
+        
+        Args:
+            name (str): Name to validate.
+        
+        Returns:
+            str | bool:
+                * "1": Name contains non-letter characters.
+                * True: Name is valid.
+        """
         if name.isalpha() == False:
             return "1"
         else:
             return True
         
-    def check_player_handle(self,player_handle):
+    def check_player_handle(self,player_handle: str) -> bool:
+        """Check whether a player handle is already in use.
+        
+        Args:
+            player_handle (str): Player handle to validate.
+        
+        Returns:
+            bool:
+                False if the handle already exists,
+                True otherwise.
+        """
         list_of_players = self.get_players()
         for player in list_of_players:
             player_info = self.get_player_by_ID(player.id)
@@ -580,7 +648,17 @@ class LogicWrapper:
                 else:
                     return True
                 
-    def check_player_link(self,player_link):
+    def check_player_link(self,player_link: str) -> bool:
+        """Check whether a player link is already in use.
+        
+        Args:
+            player_link (str): Player link to validate.
+        
+        Returns:
+            bool:
+                False if the link already exists,
+                True otherwise.
+        """
         list_of_players = self.get_players()
         for player in list_of_players:
             player_info = self.get_player_by_ID(player.id)
@@ -593,7 +671,17 @@ class LogicWrapper:
     
     #--------------Tournament checks --------------------
                 
-    def check_for_tournament_ID(self,ID):
+    def check_for_tournament_ID(self,ID: int) -> bool:
+        """Check whether a tournament ID is already in use.
+        
+        Args:
+            ID (int): Tournament ID to validate.
+        
+        Returns:
+            bool:
+                False if the ID already exists,
+                True otherwise.
+        """
         list_of_tournaments=self.get_tournaments()
         for tournamentID in list_of_tournaments:
             tournament_info=self.get_team_by_ID(tournamentID.id)
@@ -603,7 +691,17 @@ class LogicWrapper:
                 else:
                     return True
     
-    def check_email(self,email):
+    def check_email(self,email: str) -> str | bool:
+        """Validate an email address by checking the '@' symbol count.
+        
+        Args:
+            email (str): Email address to validate.
+        
+        Returns:
+            str | bool:
+                * "1": Email does not contain exactly one '@' symbol.
+                * True: Email passes this basic validation.
+        """
         nr_of_at=0
         for i in email:
             if i =="@":
@@ -614,7 +712,18 @@ class LogicWrapper:
         else:
             return True
         
-    def check_nID(self,NID):
+    def check_nID(self,NID: str) -> str | bool:
+        """Validate a national ID for length and digit-only content.
+        
+        Args:
+            NID (str): National ID to validate.
+        
+        Returns:
+            str | bool:
+                * "1": ID length is not 10 characters.
+                * "2": ID contains non-digit characters.
+                * True: ID passes this basic validation.
+        """
         if len(str(NID)) != 10:
             return "1"
         elif NID.isalpha() ==True:
@@ -622,14 +731,33 @@ class LogicWrapper:
         else:
             return True
              
-    def check_tag(self,tag):
+    def check_tag(self,tag: str) -> str | bool:
+        """Validate a generic tag length.
+        
+        Args:
+            tag (str): Tag string to validate.
+        
+        Returns:
+            str | bool:
+                * "-1": Tag is longer than 5 characters.
+                * True: Tag length is valid.
+        """
         if len(tag) >5:
             return "-1"
         else: 
             return True
         
-    def check_for_tournament_name(self,name):
+    def check_for_tournament_name(self,name: str) -> bool:
+        """Check whether a tournament name is already in use.
         
+        Args:
+            name (str): Tournament name to validate.
+        
+        Returns:
+            bool:
+                False if the name already exists,
+                True otherwise.
+        """
         list_of_tournaments=self.get_tournaments()
         
         for tournamentID in list_of_tournaments:
@@ -642,8 +770,17 @@ class LogicWrapper:
 
 
 #----------clubs-----------
-    def check_for_club_name(self,name):
+    def check_for_club_name(self,name: str) -> bool:
+        """Check whether a club name is already in use.
         
+        Args:
+            name (str): Club name to validate.
+        
+        Returns:
+            bool:
+                False if the name already exists,
+                True otherwise.
+        """
         list_of_clubs=self.get_clubs()
         
         for clubID in list_of_clubs:
