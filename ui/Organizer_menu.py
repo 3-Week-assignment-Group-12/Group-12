@@ -95,6 +95,12 @@ Try again!!
                     name=self.functionFile.input_name()
                     if name == False:
                         return
+                    handle=self.functionFile.inputPlayerHandle()
+                    if handle == False:
+                        return
+                    link=self.functionFile.inputPlayerLink()
+                    if link == False:
+                        return
                     phone=self.functionFile.input_phone_nr()
                     if phone == False:
                         return
@@ -105,7 +111,7 @@ Try again!!
                     if email == False:
                         return 
                     print("Adding Player...")
-                    ret = self.logic_wrapper.create_player(nid,name,phone,address,email)
+                    ret = self.logic_wrapper.create_player(nid,name,handle,link,phone,address,email)
                     
 
                     print(ret)
