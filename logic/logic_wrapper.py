@@ -582,12 +582,16 @@ class LogicWrapper:
     def get_dummy_data(self):
         self.data_wrapper.get_dummy_data()
     def check_phone_nr(self,number):
+        players=self.get_players()
+        
         if len(number) != 7:
             return "1"
         elif number.isalpha() == True:
             return "2"
-        else:
-            return True
+        for i in players:
+            if i.phone==number:
+                return "3"
+        return True
         
     def check_name(self,name):
         if name.isalpha() == False:
