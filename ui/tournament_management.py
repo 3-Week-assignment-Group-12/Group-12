@@ -425,7 +425,16 @@ Try again!!
                                             print(f"Winner must be one ether: {matchup[0]} or {matchup[1]}")
                                             winner_id = int(input("Enter winner id: "))
                                             
+                                            self.functionFile.add_data_to_team_int(winner_id,"win",1)
+                                            looser = [matchup[0],matchup[1]]
+                                            looser.remove(winner_id)
+                                            self.functionFile.add_data_to_team_int(looser[0],"losses",1)
+                                        
+                                        
+                                        
                                         score = int(input("Enter score: "))
+                                        
+                                        self.functionFile.add_data_to_team_int(winner_id,"total score",score)
                                         
                                         
                                         ret =self.logic_wrapper.create_match(matchup[0], matchup[1], tourn.id, date, time, server_id, winner_id, score)

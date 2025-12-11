@@ -14,8 +14,15 @@ class player_handler:
             year = int("19"+ID[4:6])  
 
         dob = datetime.date(year,month,day).__str__()  ##Gerir ekki rétt ártal
+        
+        data = { #starting data
+            "total score": 0,
+            "wins": 0,
+            "losses": 0
+        }
+        
         # 2. Create Model Object
-        new_player = Player(ID,name,handle,link,dob,phone,address,email)
+        new_player = Player(ID,name,handle,link,dob,phone,address,email,data)
 
         # 3. Pass to Data Layer
         return new_player

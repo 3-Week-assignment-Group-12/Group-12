@@ -91,13 +91,14 @@ View Players menu
 2. View Player In Teams
 3. View PLayers In Tournaments
 4. View Specific Players
-5. View Statistics
+5. View Statistics for all players
+6. view Statistics for one player
 b. Back
 
 
 """)
             choice=input("Enter input: ")
-            if choice not in ["1","2","3","4","5","b","B"]:
+            if choice not in ["1","2","3","4","5","6","b","B"]:
                 
                 print(
 """ 
@@ -109,7 +110,8 @@ View Players menu
 2. View Player In Teams
 3. View PLayers In Tournaments
 4. View Specific Players
-5. View Statistics
+5. View Statistics for all players
+6. view Statistics for one player
 b. Back
 
 Try again!!
@@ -135,6 +137,8 @@ Try again!!
                                 if type(player) == Player:
                                     
                                     print(f"{count}: {player.name}, ID: {player.id}")
+                                    for key in player.dynamic_data.keys():
+                                        print(f"{key}: {player.dynamic_data[key]}")
                                     count +=1
                             print("")
                             print("")
@@ -177,7 +181,25 @@ Try again!!
                                 print(f"address: {playerinfo.address}")
                                 print(f"email: {playerinfo.email}")
                 case "5": 
-                    pass # view statistics team
+                    list_of_players=self.logic_wrapper.get_players() #view all players
+                    count = 1
+                    for i in list_of_players:
+                        print()
+                        print(f"{count}: {i.name}, Handle: {i.handle}, ID: {i.id}")
+                        count +=1
+                        for key in i.dynamic_data.keys():
+                            print(f"\t{key}: {i.dynamic_data[key]}")
+                
+                case "6":
+                    ide = self.functionFile.check_excistingID()
+                    if isinstance(ide,str):
+                        play = self.logic_wrapper.get_player_by_ID(ide)
+                        if isinstance(play,Player):
+                            print(f"Name: {play.name}, Handle: {play.handle}")
+                            for key in play.dynamic_data.keys():
+                                    print(f"\t{key}: {play.dynamic_data[key]}")
+                    
+                            
                 case "b": 
                     return
         
@@ -200,7 +222,7 @@ View Team menu
 1. View All Teams
 2. View Teams In Tournament
 3. View Visual Team Tournaments [not implamanted]
-4. View Statistics [not implamanted]
+4. View Statistics of team
 5. View specific team
 b. Back
 
@@ -231,7 +253,15 @@ b. Back
                 case "3": 
                     pass
                 case "4": 
-                    pass
+                    ID = self.functionFile.checkTeamID()
+                    data = self.functionFile.get_data_from_team(ID)
+                    print(f"Displaying total data for team {ID}")
+                    if isinstance(data,dict):
+                        for key in data.keys():
+                            print(f"{key}: {data[key]}")
+                
+                
+                
                 case "5":
                     while True:
                         team_ID = input("Enter team ID: ")
@@ -275,9 +305,9 @@ View Tournament menu
 1. View All tournaments
 2. View Visual Tournament Tree [not implamanted]
 3. View Visual match results [not implamanted]
-4. View Statistics
-5. View teams in tournament
-6. View tournaemnt schedule
+4. View Statistics for tournament
+5. View teams in tournaemnt
+6. View schedule in tournaemnt
 b. Back
 
 
@@ -294,7 +324,7 @@ View Tournament menu
 1. View All tournaments
 2. View Visual Tournament Tree [not implamanted]
 3. View Visual match results [not implamanted]
-4. View Statistics
+4. View Statistics for tournaemnt
 5. View teams in tournaemnt
 6. View schedule in tournaemnt
 b. Back
@@ -318,7 +348,35 @@ Try again!!
                 case "3": 
                     pass 
                 case "4": 
-                    pass
+                    
+                    tour_id = self.functionFile.inputTournamentID()
+                    if isinstance(tour_id,int):
+                        tour = self.logic_wrapper.get_tournament_by_ID(tour_id)
+                        if isinstance(tour,Tournament):
+                            big_total: dict[str,int] = {}
+                            
+                            teams = self.logic_wrapper.get_team_by_tournament_id(tour.id)
+                            if isinstance(teams,bool):
+                                print("data not found")
+                                continue
+                            
+                            for team in teams:
+                                data = self.functionFile.get_data_from_team(team.id)
+                                print()
+                                print(f"Displaying total data for team {team.name}")
+                                if isinstance(data,dict):
+                                    
+                                    for key in data.keys():
+                                        print(f"{key}: {data[key]}")
+                                        big_total[key] += data[key]
+                            
+                            print()
+                            print("Total data in tournament:")
+                            for key in big_total.keys():
+                                print(f"{key}: {big_total[key]}")
+                    
+                    
+                    
                     
                 case "5":
                     team_list:list[Team]| bool = self.logic_wrapper.get_team_by_tournament_id(self.functionFile.inputTournamentID())
