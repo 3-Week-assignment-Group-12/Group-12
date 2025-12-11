@@ -160,13 +160,12 @@ Edit Players info
 4. Edit Email
 5. Edit Player Handle
 6. Edit Player Link
-7. Edit Portrait
 b. Back
 
 
 """)
             choice=input("Enter input: ")
-            if choice not in ["1","2","3","4","5","6","7","b","B"]:
+            if choice not in ["1","2","3","4","5","6","b","B"]:
                 
                 print(
 """ 
@@ -180,7 +179,6 @@ Edit Players info
 4. Edit Email
 5. Edit Player Handle
 6. Edit Player Link
-7. Edit Portrait
 b. Back
 
 Try again!!
