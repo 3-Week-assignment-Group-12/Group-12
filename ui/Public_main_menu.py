@@ -1,4 +1,6 @@
 from __future__ import annotations
+from re import Match
+from xmlrpc.client import Boolean
 # ui_layer/main_menu.py
 from models.bracket import Bracket
 from models.club import Club
@@ -30,8 +32,8 @@ Public main menu
 2. View Teams
 3. View Tournaments
 4. View Clubs
-5. View Scoreboard
-6. View Organizers
+5. View Scoreboard [not fully implamanted]
+6. View Organizers [not implamanted]
 b. Back
 
 
@@ -191,8 +193,8 @@ View Team menu
 
 1. View All Teams
 2. View Teams In Tournament
-3. View Visual Team Tournaments
-4. View Statistics
+3. View Visual Team Tournaments [not implamanted]
+4. View Statistics [not implamanted]
 5. View specific team
 b. Back
 
@@ -257,11 +259,11 @@ b. Back
 View Tournament menu
 
 1. View All tournaments
-2. View Visual Tournament Tree
-3. View Visual match results
+2. View Visual Tournament Tree [not implamanted]
+3. View Visual match results [not implamanted]
 4. View Statistics
 5. View teams in tournament
-6. View brackets in tournaemnt
+6. View tournaemnt schedule
 b. Back
 
 
@@ -276,11 +278,11 @@ Invalid Input!!
 View Tournament menu
 
 1. View All tournaments
-2. View Visual Tournament Tree
-3. View Visual match results
+2. View Visual Tournament Tree [not implamanted]
+3. View Visual match results [not implamanted]
 4. View Statistics
 5. View teams in tournaemnt
-6. View brackets in tournaemnt
+6. View schedule in tournaemnt
 b. Back
 
 Try again!!
@@ -303,6 +305,7 @@ Try again!!
                     pass 
                 case "4": 
                     pass
+                    
                 case "5":
                     team_list:list[Team]| bool = self.logic_wrapper.get_team_by_tournament_id(self.functionFile.inputTournamentID())
                     if isinstance(team_list,bool):
@@ -313,6 +316,7 @@ Try again!!
                         for x in team_list:
                             print()
                             print(f"Team: {count}: {x.name}, tag: {x.tag}")
+                            print(f"Size: {x.team_size}, ID: {x.id}")
                             print("Players:")
                             count1 = 1
                             if x.member_list == []:
@@ -323,7 +327,7 @@ Try again!!
                                     play = self.logic_wrapper.get_player_by_ID(j)
                                     if isinstance(play,Player):
                                         
-                                        print(f"{count1}: {play.name}, {play.id}")
+                                        print(f"{count1}: {play.name} \"{play.handle}\", {play.id}") # type: ignore handle comes later
                                         count1 +=1
                                     else:
                                         print("player not found")
@@ -331,8 +335,42 @@ Try again!!
                                 count +=1
                                 
                 case "6":
-                    bracket = self.logic_wrapper.get_bracket_by_ID(self.functionFile.inputTournamentID())
-                    print(bracket)
+                    tour = self.logic_wrapper.get_tournament_by_ID(self.functionFile.inputTournamentID())
+                    if isinstance(tour,Tournament):
+                        round_count =0
+                        for match_bundle in tour.matches:
+                            
+                            if match_bundle == [] and tour.matches.__len__() >1:
+
+                                winning_match = self.logic_wrapper.get_match_by_ID(tour.matches[tour.matches.__len__()-2][0])
+                                if isinstance(winning_match,Boolean):
+                                    pass
+                                else:
+                                    winning_team = self.logic_wrapper.get_team_by_ID(winning_match.winner_id)
+                                    if isinstance(winning_team,Team):
+                                        print()
+                                        print(f"Winner is {winning_team.name}")
+                                        continue
+                            
+                            else:
+                                
+                                print(f"    Round {round_count+1}:")
+                                round_count +=1
+                                for match in match_bundle:
+                                    mat = self.logic_wrapper.get_match_by_ID(match)
+                                    if isinstance(mat,bool):
+                                        
+                                        print("match not found")
+                                        
+                                    else:
+                                        print()
+                                        print(f"Match id: {mat.id}, Team {mat.team1_id} VS Team {mat.team2_id}")
+                                        print(f"Winner: {mat.winner_id}, Score: {mat.Score}")
+                                        print(f"Date: {mat.date}, Time: {mat.match_time}, ")
+                            
+                            
+                                    
+                    
 
                 case "b": 
                     return
@@ -355,7 +393,7 @@ View Clubs Menu
 
 1. View All Clubs
 2. View Club by ID
-3. View Statistics
+3. View Statistics [not implamanted]
 b. Back
 
 
@@ -370,8 +408,8 @@ Invalid Input!!
 View Clubs Menu
 
 1. View All Clubs
-2. View Club by ID
-3. View Statistics
+2. View Club by ID [not fully implamanted]
+3. View Statistics [not implamanted]
 b. Back
 
 Try again!!
@@ -453,7 +491,7 @@ Try again!!
 """ 
 View Clubs Menu
 
-1. View All Tournaments
+1. View All Tournaments [not fully implamanted]
 b. Back
 
 
@@ -468,7 +506,7 @@ Invalid Input!!
 
 View Clubs Menu
 
-1. View All Tournaments
+1. View All Tournaments [not fully implamanted]
 b. Back
 
 Try again!!

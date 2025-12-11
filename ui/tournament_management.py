@@ -356,9 +356,8 @@ Selected: "{tourn.name}"
 
 1. Generate Schedule
 2. Record Game Results
-3. Accept Teams
-4. Manage Rewards
-5. Retrieve Records
+3. Manage Rewards [not implamanted]
+4. Retrieve Records [not implamanted]
 b. Back 
 
 
@@ -374,9 +373,8 @@ Select {tourn.name}
 
 1. Generate Schedule
 2. Record Game Results
-3. Accept Teams
-4. Manage Rewards
-5. Retrieve Records
+3. Manage Rewards [not implamanted]
+4. Retrieve Records
 b. Back 
 
 Try again!!
@@ -450,7 +448,7 @@ Try again!!
                                     tourn.matches.append([])
                                     
                                 self.logic_wrapper.modify_tournament(tourn)
-                                break
+                                continue
                                         
                                     
                             
@@ -506,8 +504,6 @@ Try again!!
                 case "3": 
                     pass
                 case "4": 
-                    pass
-                case "5": 
                     
                     for x in self.logic_wrapper.get_matches_by_tournament_ID(ID):
                         print(f"Match: {x.id}")
@@ -516,7 +512,7 @@ Try again!!
                         print(f"Date: {x.date}, match time: {x.match_time}, server id: {x.server_id}")
                         print()
                 case "b": 
-                    pass
+                    return
             
 
 

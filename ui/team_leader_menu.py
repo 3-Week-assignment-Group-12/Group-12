@@ -22,12 +22,12 @@ class TeamLeader():
 Team Leader Menu
 
 1. View My Team Info (view menu shortcut)
-2. Register for Tournaments
+2. Register for Tournaments // remove
 3. Create Team
 4. Edit Team
 5. Delete Team
 6. Manage Club
-7. Reward menu
+7. Reward menu [Not implamented]
 b. Back 
 """)
             choice=input("Enter input: ")
@@ -40,12 +40,12 @@ Invalid Input!!
 Team Leader Menu
 
 1. View My Team Info (view menu shortcut)
-2. Register for Tournaments
+2. Register for Tournaments // remove
 3. Create Team
 4. Edit Team
 5. Delete Team
 6. Manage Club
-7. Reward menu
+7. Reward menu [Not implamented]
 b. Back 
 
 Try again!!
@@ -264,14 +264,13 @@ Edit Team Menu
 2. Remove Member
 3. Change Team Name
 4. Change Team Tag
-5. Change Team Captain
-6. Change ASCII art
+5. Change ASCII art [Not implamented]
 b. Back 
 
 
 """)
             choice=input("Enter input: ")
-            if choice not in ["1","2","3","4","5","6","b","B"]:
+            if choice not in ["1","2","3","4","5","b","B"]:
                 
                 print(
 """ 
@@ -283,7 +282,7 @@ Edit Team Menu
 2. Remove Member
 3. Change Team Name
 4. Change Team Tag
-5. Change ASCII art
+5. Change ASCII art [Not implamented]
 b. Back 
 
 Try again!!

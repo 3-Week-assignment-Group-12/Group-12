@@ -70,11 +70,11 @@ class Tournament:
             -1: Not enough teams to generate a schedule
             -2: Odd number of teams cannot form pairs
         """
-        if len(self.matches[-1]) == 1:
+        if len(self.matches[-1]) == 0:
             self.matches.append([])
             return 2
         
-        if len(self.matches[-1]) <= 0:
+        if len(self.matches[-1]) < 0:
             return -1  # Not enough teams to generate a schedule
         
         elif len(self.team_list) % 2 != 0:
