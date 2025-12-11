@@ -40,15 +40,7 @@ class functionFile:
         self.logic_wrapper.create_team(name,tag,id_of_user,team_size,team_list)
         
         
-    def create_player(self): # Requirement nr 1
-        # UI gathers input
-        name = input("Enter player Name: ")
-        kt = int(input("Enter player kennitala:"))
-        phone = int(input("Enter player phone: "))
-        address = input("Enter player address: ")
-        email = input("Enter player email: ")
-        # UI talks ONLY to Logic
-        self.logic_wrapper.create_player(kt,name,phone,address,email)
+    
         
 
     def get_players(self): #Requirement 4
