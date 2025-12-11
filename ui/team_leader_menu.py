@@ -107,6 +107,8 @@ Try again!!
                     self.edit_team_menu(ID) 
                 case "5": 
                     ID=self.functionFile.checkTeamID()
+                    if ID == False:
+                        return
                     x=input("Are you sure? (Y/N)")
                     if x.lower() == "y":
                         self.logic_wrapper.delete_team(ID) 
