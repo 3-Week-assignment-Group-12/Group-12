@@ -61,7 +61,7 @@ class DataWrapper:
         """Retrieve all matches from file.
         
         Returns:
-            list[PlMatchayer]: List of all Matches
+            list[Match]: List of all Matches
         """
         return self.match_repo.read()
     
@@ -397,7 +397,7 @@ class DataWrapper:
             tournament (int): tournament ID to filter teams
         
         Returns:
-            list[Team]: List of teams for the specified tournamnet
+            list[Team]: List of teams for the specified tournament
         """
         
         tournmaent = self.get_tournament_by_ID(tournament_id)

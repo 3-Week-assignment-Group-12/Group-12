@@ -3,5 +3,24 @@
         "tests"
     ],
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true,
+    "cSpell.words": [
+        "awailable",
+        "clubinfo",
+        "colours",
+        "inputplayers",
+        "Kennitala",
+        "laga",
+        "logiclayer",
+        "matchups",
+        "Mögulega",
+        "playerinfo",
+        "previus",
+        "rewardslog",
+        "rewardspoints",
+        "teaminfo",
+        "teamleader",
+        "tournamentinfo",
+        "tournmaent"
+    ]
 }

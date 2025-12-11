@@ -14,7 +14,23 @@ from ui.function_file import functionFile
 
 
 class TournamentManagement():
+    """Menu and operations for managing tournaments.
+
+    This class provides organizer-facing functionality for:
+
+    - Creating, editing, and cancelling tournaments.
+    - Selecting a tournament to manage schedules and results.
+    - Generating brackets and recording match outcomes.
+    """
     def __init__(self,low : LogicWrapper,functionFile:functionFile) -> None:
+        """Initialize the TournamentManagement menu.
+
+        Args:
+            low (LogicWrapper):
+                Logic wrapper responsible for business logic and data access.
+            functionFile (functionFile):
+                Helper object for reusable input and utility functions.
+        """
         self.logic_wrapper = low
         self.functionFile = functionFile
         
@@ -32,9 +48,18 @@ class TournamentManagement():
 
 
 
-    def tournament_management_menu(self):
-        
-        
+    def tournament_management_menu(self) -> None:
+        """Display and handle the top-level Tournament Management menu.
+
+        Options:
+            1 -> Create Tournament
+            2 -> Edit Tournament information
+            3 -> Cancel Tournament
+            4 -> Select Tournament
+            b -> Back
+
+        The loop continues until the user chooses 'b' / 'B'.
+        """
         while True:
             print(
 """ 
@@ -170,7 +195,22 @@ b. Back
 
 
 
-    def edit_tournament_menu(self,tournamentID: int):
+    def edit_tournament_menu(self,tournamentID: int | str) -> None:
+        """Display and handle the Edit Tournament menu for a specific tournament.
+
+        Provides editing of:
+            - Name
+            - Start / end date
+            - Venue
+            - Contact information
+            - Team list (rebuild)
+            - Match list (append new match bundle)
+
+        Args:
+            tournamentID (int | str):
+                Tournament ID to edit. If a string is provided, it is
+                converted to int where possible.
+        """
         if isinstance(tournamentID, str):
             try:
                 tournamentID = int(tournamentID)
@@ -261,22 +301,22 @@ Try again!!
                         temp.venue_name = new_venue
 
                 case "5": 
-                    new_contact_id = input("Enter New Contact ID (q to cancel): ")
+                    new_contact_id = self.functionFile.input_creatorID()
                     if new_contact_id.lower() == "q":
                         cancel_flag = True
                     else:
                         temp.contact_id = new_contact_id
 
                 case "6": 
-                    new_email = input("Enter New Contact Email (q to cancel): ")
-                    if new_email.lower() == "q":
+                    new_email = self.functionFile.input_email()
+                    if new_email == False:
                         cancel_flag = True
                     else:
                         temp.contact_email = new_email
 
                 case "7": 
-                    new_phone = input("Enter New Contact Phone (q to cancel): ")
-                    if new_phone.lower() == "q":
+                    new_phone = self.functionFile.input_phone_nr()
+                    if new_phone == False:
                         cancel_flag = True
                     else:
                         temp.contact_phone = new_phone
@@ -349,7 +389,17 @@ Try again!!
 
 
 
-    def select_tournament_menu(self, ID:int):
+    def select_tournament_menu(self, ID:int) -> None:
+        """Display and handle the menu for a selected tournament.
+
+        Allows:
+            - Generating and recording bracket-based schedules.
+            - Recording custom game results.
+            - Viewing existing match records.
+
+        Args:
+            ID (int): Tournament ID to select.
+        """
         tourn = self.logic_wrapper.get_tournament_by_ID(ID)
         if isinstance(tourn, bool):
             print("error fetching team")
@@ -426,19 +476,18 @@ Try again!!
                                         date = tourn.start_date
                                         time = input("enter match time(MM:SS): ")
                                         server_id = randint(1,10)
-                                        winner_id = int(input("Enter winner id: "))
+                                        winner_id = self.functionFile.winner()
                                         while winner_id != matchup[0] and winner_id != matchup[1]:
                                             print(f"Winner must be one ether: {matchup[0]} or {matchup[1]}")
-                                            winner_id = int(input("Enter winner id: "))
+                                            winner_id = self.functionFile.winner()
                                             
                                             self.functionFile.add_data_to_team_int(winner_id,"win",1)
                                             looser = [matchup[0],matchup[1]]
                                             looser.remove(winner_id)
                                             self.functionFile.add_data_to_team_int(looser[0],"losses",1)
                                         
-                                        
-                                        
-                                        score = int(input("Enter score: "))
+                                   
+                                        score = self.functionFile.score()
                                         
                                         self.functionFile.add_data_to_team_int(winner_id,"total score",score)
                                         
@@ -487,8 +536,12 @@ Try again!!
                 case "2": 
                     print("team 1 ")
                     team1_id = self.functionFile.checkTeamID()
+                    if team1_id==False:
+                        continue
                     print("team 2 ")
                     team2_id = self.functionFile.checkTeamID()
+                    if team2_id==False:
+                        continue
                     if team1_id == team2_id:
                         print("Teams cannot be the same")
                         continue
@@ -499,12 +552,12 @@ Try again!!
                     date = input("Enter date of match: ")
                     time = input("enter match time (MM:SS): ")
                     server_id = randint(1,10)
-                    winner_id = int(input("Enter winner id: "))
+                    winner_id = self.functionFile.winner()
                     while winner_id != team1_id and winner_id != team2_id:
                         print("Winner must be one of the teams")
-                        winner_id = int(input("Enter winner id: "))
+                        winner_id = self.functionFile.winner()
                         
-                    score = int(input("Enter score:"))
+                    score = self.functionFile.score()
                     
                     
                     ret =self.logic_wrapper.create_match(team1_id, team2_id, tourn.id, date, time, server_id, winner_id, score)
