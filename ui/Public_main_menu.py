@@ -474,7 +474,7 @@ View Clubs Menu
 
 1. View All Clubs
 2. View Club by ID
-3. View Statistics [not implamanted]
+3. View Statistics
 b. Back
 
 
@@ -489,8 +489,8 @@ Invalid Input!!
 View Clubs Menu
 
 1. View All Clubs
-2. View Club by ID [not fully implamanted]
-3. View Statistics [not implamanted]
+2. View Club by ID
+3. View Statistics
 b. Back
 
 Try again!!
@@ -521,7 +521,39 @@ Try again!!
                         except:
                             print("Club ID must contain only digits!")
                 case "3": 
-                    pass
+                    
+                    club_id = self.functionFile.inputClubID()
+                    if isinstance(club_id,int):
+                        tour = self.logic_wrapper.get_club_by_ID(club_id)
+                        if isinstance(tour,Club):
+                            big_total: dict[str,int] = {}
+                            
+                            teams = self.logic_wrapper.get_team_by_club_id(tour.id)
+                            if isinstance(teams,bool):
+                                print("data not found")
+                                continue
+                            
+                            for team in teams:
+                                data = self.functionFile.get_data_from_team(team.id)
+                                print()
+                                print(f"Displaying total data for team {team.name}")
+                                if isinstance(data,dict):
+                                    
+                                    for key in data.keys():
+                                        print(f"{key}: {data[key]}")
+                                        try:
+                                            big_total[key] += data[key]
+                                        except:
+                                            big_total[key] = 0
+                                            big_total[key] += data[key]
+                            
+                            print()
+                            print("Total data in club:")
+                            for key in big_total.keys():
+                                print(f"{key}: {big_total[key]}")
+                    
+                    
+                    
                 case "b": 
                     return
                 
