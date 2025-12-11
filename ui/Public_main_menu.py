@@ -379,7 +379,10 @@ Try again!!
                     
                     
                 case "5":
-                    team_list:list[Team]| bool = self.logic_wrapper.get_team_by_tournament_id(self.functionFile.inputTournamentID())
+                    tournamentID=self.functionFile.inputTournamentID()
+                    if tournamentID==None:
+                        continue
+                    team_list:list[Team]| bool = self.logic_wrapper.get_team_by_tournament_id(tournamentID)
                     if isinstance(team_list,bool):
                         print("data not found")
                     else:
@@ -406,7 +409,10 @@ Try again!!
                                 count +=1
                                 
                 case "6":
-                    tour = self.logic_wrapper.get_tournament_by_ID(self.functionFile.inputTournamentID())
+                    tournamentID=self.functionFile.inputTournamentID()
+                    if tournamentID==None:
+                        continue
+                    tour = self.logic_wrapper.get_tournament_by_ID(tournamentID)
                     if isinstance(tour,Tournament):
                         round_count =0
                         for match_bundle in tour.matches:
@@ -563,6 +569,8 @@ Try again!!
                             counter+=1
                 case "2":
                     contactID=self.functionFile.input_contact_ID()
+                    if contactID == False:
+                        return
                     tournaments=self.logic_wrapper.get_tournaments()
                     for tournament in tournaments:
                         if tournament.contact_id==contactID:
