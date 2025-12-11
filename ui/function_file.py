@@ -351,6 +351,43 @@ class functionFile:
                 return tournament_name
             
 
+    def input_start_date(self):
+        while True:
+            startDate = input("Enter Start Date: ")
+            if startDate == "q":
+                return False
+            check = self.logic_wrapper.validateDate(startDate)       
+            if check == "1":
+                print("Date format is wrong! (example of correct format: 11.12.2025)") 
+            elif check == "2":
+                print("Date format is wrong! (example of correct format: 11.12.2025)") 
+            elif check == "3":
+                print("Date format is wrong! (example of correct format: 11.12.2025)") 
+            elif check == "4":
+                print("Date format is wrong! (example of correct format: 11.12.2025)") 
+            elif check == "5":
+                print("Date format is wrong! (example of correct format: 11.12.2025)") 
+            elif check == "6":
+                print("Date format is wrong! (example of correct format: 11.12.2025)") 
+            elif check == "7":
+                print("Date format is wrong! (example of correct format: 11.12.2025)") 
+            else:
+                return startDate
+
+    def input_end_date(self, startDate):
+        while True:
+            endDate = input("Enter End Date: ")
+            if endDate == "q":
+                return False
+            check = self.logic_wrapper.validateDate(endDate)       
+            if check == None:
+                print("Date format is wrong! (example of correct format: 12.12.2025)") 
+            check2 = self.logic_wrapper.validEndDate(startDate,endDate)
+            if check2 == False:
+                print("EndDate cannot occur before StartDate!")
+            else:
+                return endDate
+
     def input_contact_ID(self):
         while True:
             contactID=input("Enter Contact ID: ")
@@ -367,6 +404,32 @@ class functionFile:
                 print("Month date in ID is invalid!")
             else:
                 return contactID
+            
+    def input_contact_email(self):
+        while True:
+            contactEmail = input("Enter Contact Email: ")
+            if contactEmail == "q":
+                return False
+            check = self.logic_wrapper.check_email(contactEmail)
+            if check == "1":
+                print("Email must have 1 @ symbol!")
+            else:
+                return contactEmail
+            
+    def input_contact_phone_nr(self):
+        while True:
+            contactPhone = input("Enter Contact Phone Number: ")
+            if contactPhone == "q":
+                return False
+            check = self.logic_wrapper.check_contact_phone_nr(contactPhone)
+            if check == "1":
+                print("Phone number must be exactly 7 digits long!")
+            elif check == "2":
+                print("Phone number cannot contain any letters!")
+            else:
+                return contactPhone
+
+
             
 
             
@@ -480,4 +543,6 @@ class functionFile:
                 
         
     
+        
+        
   
