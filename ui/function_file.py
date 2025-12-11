@@ -14,6 +14,7 @@ class functionFile:
 
         #------------------Functions--------------------------#
     def create_team(self):
+        """Creates new team"""
         id_of_user= input("Enter Captains National ID: ")
         name = input("Enter team name: ")
         tag = input("Enter team tag (max 20 char): ")
@@ -44,10 +45,12 @@ class functionFile:
         
 
     def get_players(self): #Requirement 4
+        """Gets players in system"""
         # UI talks ONLY to Logic
         self.logic_wrapper.get_players()
 
     def check_for_tournament_ID(self):
+        """Checks if ID exists"""
         ID = input("Contact ID")
         list_of_tournaments=self.logic_wrapper.get_tournaments()
         while True:
@@ -64,22 +67,6 @@ class functionFile:
                         return ID
     
 
-
-    def inputTournamentID(self):
-        while True:
-            tournamentID=input("Enter Tournament ID: ")
-            if tournamentID == "q":
-                return False
-            try:
-                tournamentID = int(tournamentID)
-                check= self.logic_wrapper.get_tournament_by_ID(tournamentID)
-                while check is False:
-                    print("Tournament does not exist, Try different ID")
-                    tournamentID=int(input("Enter Tournament ID: "))
-                    check= self.logic_wrapper.get_tournament_by_ID(tournamentID)
-                return tournamentID
-            except:
-                print("Tournament ID can only contain digits!")
     
 
     def check_for_team_name(self):
@@ -386,3 +373,41 @@ class functionFile:
         converted = int(string)
         return converted
             
+    
+    def inputClubID(self):
+        while True:
+            clubID=input("Enter Club ID: ")
+            if clubID=="q":
+                return False
+            try:
+                clubID=int(clubID)
+                check= self.logic_wrapper.get_club_by_ID(clubID)
+                if check == False:
+                    print("Club does not exist, Try different ID")
+                else:
+                    return clubID
+            except:
+                print("ClubID must be digits only!")
+
+    
+    def inputTournamentID(self) -> int | None:
+        while True:
+            tournamentID=input("Enter Tournament ID(q for cancel): ")
+            if tournamentID.lower() == "q":
+                return None
+
+            if not tournamentID.isdigit():
+                print("Please enter a numeric tournament ID")
+                continue
+
+            tid = int(tournamentID)
+            check = self.logic_wrapper.get_tournament_by_ID(tid)
+            if check is False:
+                print("Tournament does not exist, Try different ID")
+                continue
+
+            return tid
+                
+        
+    
+  

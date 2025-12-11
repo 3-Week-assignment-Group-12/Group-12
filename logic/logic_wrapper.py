@@ -136,6 +136,11 @@ class LogicWrapper:
     
     # ------------------- Read Methods ------------------ #
     def get_players(self) -> list[Player]:
+        """Gets players in system
+
+        Returns:
+            List[Player]: List of all players
+        """
         return self.data_wrapper.get_players()  # returns a list of Player    
     
     
@@ -186,10 +191,10 @@ class LogicWrapper:
         """Retrieve a player by their ID.
         
         Args:
-            ID (int): Player ID
+            ID (str): Player ID
             
         Returns:
-            Player|bool: Player instance if found, False otherwise
+            Player|int: Player instance if found, Error code otherwise
         """
         return self.data_wrapper.get_player_by_ID(ID)
 
@@ -491,40 +496,11 @@ class LogicWrapper:
                 return self.bracket_handler.create_bracket(bracket_data,tournament.id,self.get_brackets())
             return -3 # error in cenerating bracket
     
-    
 
-    def check_for_club_ID(self):
-        clubID=int(input("Enter Team ID: "))
-        if clubID=="q":
-            return False
-        check= self.get_club_by_ID(clubID)
-        while check is False:
-            print("Club does not exist, Try different ID")
-            clubID=int(input("Enter Club ID: "))
-            if clubID=="q":
-                return False
-            check= self.get_club_by_ID(clubID)
-        return clubID
     
 
 
-    def inputTournamentID(self) -> int | None:
-        while True:
-            tournamentID=input("Enter Tournament ID(q for cancel): ")
-            if tournamentID.lower() == "q":
-                return None
-
-            if not tournamentID.isdigit():
-                print("Please enter a numeric tournament ID")
-                continue
-
-            tid = int(tournamentID)
-            check = self.get_tournament_by_ID(tid)
-            if check is False:
-                print("Tournament does not exist, Try different ID")
-                continue
-
-            return tid
+   
     
 
     
@@ -679,17 +655,6 @@ class LogicWrapper:
                     return True
                 
 
-    def inputClubID(self):
-        clubID=int(input("Enter Club ID: "))
-        if clubID=="q":
-            return False
-        check= self.get_club_by_ID(clubID)
-        while check is False:
-            print("Club does not exist, Try different ID")
-            clubID=int(input("Enter Club ID: "))
-            if clubID=="q":
-                return False
-            check= self.get_club_by_ID(clubID)
-        return clubID
+    
     
 
