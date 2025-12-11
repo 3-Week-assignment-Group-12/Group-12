@@ -414,7 +414,7 @@ class DataWrapper:
         """Delete a player by their ID.
         
         Args:
-            player_id (int): ID of player to delete
+            player_id (str): ID of player to delete
             
         Returns:
             bool: Success status

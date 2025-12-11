@@ -384,7 +384,6 @@ Try again!!
                     incomplete_flag = False
                     if tourn.matches.__len__() != 0 and tourn.matches != tourn.team_list.__len__()/2:
                         print("Current bracket is not compleated.")
-                        print(f"matches left: {int(tourn.team_list.__len__()/2 - tourn.matches.__len__())}")
                         incomplete_flag = True
                         
                     
