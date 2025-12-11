@@ -368,7 +368,11 @@ Try again!!
                                     
                                     for key in data.keys():
                                         print(f"{key}: {data[key]}")
-                                        big_total[key] += data[key]
+                                        try:
+                                            big_total[key] += data[key]
+                                        except:
+                                            big_total[key] = 0
+                                            big_total[key] += data[key]
                             
                             print()
                             print("Total data in tournament:")
