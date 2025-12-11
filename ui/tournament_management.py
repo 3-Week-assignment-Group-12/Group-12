@@ -133,8 +133,8 @@ b. Back
                     ID = self.logic_wrapper.inputTournamentID()
                     if ID is None:
                         continue
-                    x = input("Are you sure? (Y/N): ")
-                    if x.lower == "y":
+                    x = input("Are you sure? (y/n): ")
+                    if x.lower() == "y":
                         self.logic_wrapper.delete_tournament(int(ID))
                         print("Tournament Canceled")
                     continue
@@ -381,10 +381,10 @@ Try again!!
             match choice:
                 case "1": 
                     
-                    
+                    incomplete_flag = False
                     if tourn.matches.__len__() != 0 and tourn.matches != tourn.team_list.__len__()/2:
                         print("Current bracket is not compleated.")
-                        print(f"matches left: {tourn.team_list.__len__()/2 - tourn.matches.__len__()}")
+                        incomplete_flag = True
                         
                     
                     
@@ -393,7 +393,12 @@ Try again!!
                     bracket = self.logic_wrapper.generate_bracket(tourn)
                     if isinstance(bracket, Bracket):
                         print(bracket.matchups)
-                        inp = input("bracket generated, use? (y/n): ")
+                        
+                        if incomplete_flag == False:
+                            inp = input("bracket generated, use? (y/n): ")
+                        else:
+                            inp="y"
+                            
                         if inp.lower() == "y":
                             self.logic_wrapper.data_wrapper.write_bracket(bracket)
                             
@@ -413,7 +418,7 @@ Try again!!
                                             print(f"Team numbers: team1: {matchup[0]} vs team2: {matchup[1]}")
                                         
                                         date = tourn.start_date
-                                        time = input("enter match time: ")
+                                        time = input("enter match time(MM:SS): ")
                                         server_id = randint(1,10)
                                         winner_id = int(input("Enter winner id: "))
                                         while winner_id != matchup[0] and winner_id != matchup[1]:
@@ -443,7 +448,6 @@ Try again!!
                         print(bracket)
 
                     else:
-                        print(bracket)
                         match bracket:
                             case -1:
                                 print("not enough teams")
@@ -476,7 +480,7 @@ Try again!!
                 
                     
                     date = input("Enter date of match: ")
-                    time = input("enter match time: ")
+                    time = input("enter match time (MM:SS): ")
                     server_id = randint(1,10)
                     winner_id = int(input("Enter winner id: "))
                     while winner_id != team1_id and winner_id != team2_id:
@@ -486,7 +490,7 @@ Try again!!
                     score = int(input("Enter score:"))
                     
                     
-                    ret =self.logic_wrapper.create_match(team1_id, team2_id, tourn.id, date, time, server_id, str(winner_id), score)
+                    ret =self.logic_wrapper.create_match(team1_id, team2_id, tourn.id, date, time, server_id, winner_id, score)
                     if ret ==-2:
                         print("failure in creating match")
                     if ret >= 0:
@@ -502,7 +506,11 @@ Try again!!
                 case "5": 
                     
                     for x in self.logic_wrapper.get_matches_by_tournament_ID(ID):
-                        print(x)
+                        print(f"Match: {x.id}")
+                        print(f"Team{x.team1_id} VS Team{x.team2_id}")
+                        print(f"Winner Team: {x.winner_id}, Score: {x.Score}")
+                        print(f"Date: {x.date}, match time: {x.match_time}, server id: {x.server_id}")
+                        print()
                 case "b": 
                     pass
             
