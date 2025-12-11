@@ -121,8 +121,6 @@ Try again!!
                     self.teamleader_menu.teamleader_menu()
                 case "3": 
                     self.public_menu.public_menu()
-                #case "4": 
-                    #self.enable_high_quality_menu() # Mögulega laga því fer bara á mainscreen, mögulega myndum senda bara beint í function
                 case "q": 
                     print("Goodbye!")
                     quit()

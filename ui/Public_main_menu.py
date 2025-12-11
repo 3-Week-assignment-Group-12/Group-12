@@ -61,10 +61,9 @@ Public main menu
 2. View Teams
 3. View Tournaments
 4. View Clubs
-5. View Scoreboard [not fully implamanted]
-6. View Organizers [not implamanted]
+5. View Scoreboard
+6. View Organizers
 b. Back
-
 
 """)
             choice=input("Enter input: ")
@@ -104,7 +103,7 @@ Try again!!
                     return
            
     
-#-----------------------Veiw player ----------------------------
+#-----------------------View player ----------------------------
 
 
 
@@ -207,21 +206,17 @@ Try again!!
                                     print("")
                                             
                 case "4":
-                    while True:
-                        player_ID = input("Enter player ID: ")
-                        if player_ID == "q":
-                            return
-                        if isinstance(self.logic_wrapper.get_player_by_ID(player_ID),int) :
-                            print("Incorrect ID")
-                        else:
-                            playerinfo = self.logic_wrapper.get_player_by_ID(player_ID)
-                            if isinstance(playerinfo, Player):
-                                print(f"name: {playerinfo.name}") 
-                                print(f"KT: {playerinfo.id}")
-                                print(f"dob: {playerinfo.dob}")
-                                print(f"phone: {playerinfo.phone}")
-                                print(f"address: {playerinfo.address}")
-                                print(f"email: {playerinfo.email}")
+                    player_ID = self.functionFile.check_excistingID()
+                    if player_ID == False:
+                        continue
+                    playerinfo = self.logic_wrapper.get_player_by_ID(player_ID)
+                    if isinstance(playerinfo, Player):
+                        print(f"name: {playerinfo.name}") 
+                        print(f"KT: {playerinfo.id}")
+                        print(f"dob: {playerinfo.dob}")
+                        print(f"phone: {playerinfo.phone}")
+                        print(f"address: {playerinfo.address}")
+                        print(f"email: {playerinfo.email}")
                 case "5": 
                     list_of_players=self.logic_wrapper.get_players() #view all players
                     count = 1
@@ -233,7 +228,7 @@ Try again!!
                             print(f"\t{key}: {i.dynamic_data[key]}")
                 
                 case "6":
-                    ide = self.functionFile.check_excistingID()
+                    ide = self.functionFile.check_existingID()
                     if isinstance(ide,str):
                         play = self.logic_wrapper.get_player_by_ID(ide)
                         if isinstance(play,Player):
@@ -250,7 +245,7 @@ Try again!!
 
 
 
-#----------------------- Veiw Team ----------------------------
+#----------------------- View Team ----------------------------
 
 
 
@@ -273,9 +268,8 @@ View Team menu
 
 1. View All Teams
 2. View Teams In Tournament
-3. View Visual Team Tournaments [not implamanted]
-4. View Statistics of team
-5. View specific team
+3. View Statistics of team
+4. View specific team
 b. Back
 
 
@@ -302,9 +296,8 @@ b. Back
                                     print(f"Team {counter}: {team.name}\n")
                                     counter += 1
 
+
                 case "3": 
-                    pass
-                case "4": 
                     ID = self.functionFile.checkTeamID()
                     data = self.functionFile.get_data_from_team(ID)
                     print(f"Displaying total data for team {ID}")
@@ -314,35 +307,29 @@ b. Back
                 
                 
                 
-                case "5":
-                    while True:
-                        team_ID = input("Enter team ID: ")
-                        if team_ID == "q":
-                            return False
-                        try:
-                            team_ID = int(team_ID)
-                            if self.logic_wrapper.get_team_by_ID(team_ID) is False:
-                                print("Incorrect ID, try again!")
-                            else:
-                                team = self.logic_wrapper.get_team_by_ID(team_ID)
-                                if type(team) == Team:
-                                    print(f"name: {team.name}")
-                                    print(f"tag: {team.tag}")
-                                    print(f"creator_id: {team.creator_id}")
-                                    print(f"team_size: {team.team_size}")
-                                    print(f"member_list: {team.member_list}")
-                        except:
-                            print("Team ID can only contain digits!")
-
+                case "4":
+                    
+                    team_ID = self.functionFile.checkTeamID()
+                    if team_ID == False:
+                        continue
+                    team = self.logic_wrapper.get_team_by_ID(team_ID)
+                    if type(team) == Team:
+                        print(f"name: {team.name}")
+                        print(f"tag: {team.tag}")
+                        print(f"creator_id: {team.creator_id}")
+                        print(f"team_size: {team.team_size}")
+                        print(f"member_list: {team.member_list}")
+             
+               
                 case "b": 
                     return
-            return
+            
     
 
 
 
 
-#-----------------------Veiw Tournament ----------------------------
+#-----------------------View Tournament ----------------------------
 
 
 
@@ -365,17 +352,15 @@ b. Back
 View Tournament menu
 
 1. View All tournaments
-2. View Visual Tournament Tree [not implamanted]
-3. View Visual match results [not implamanted]
-4. View Statistics for tournament
-5. View teams in tournaemnt
-6. View schedule in tournaemnt
+2. View Statistics for tournament
+3. View teams in tournament
+4. View schedule in tournament
 b. Back
 
 
 """)
             choice=input("Enter input: ")
-            if choice not in ["1","2","3","4","5","6","b","B"]:
+            if choice not in ["1","2","3","4","b","B"]:
                 
                 print(
 """ 
@@ -384,11 +369,9 @@ Invalid Input!!
 View Tournament menu
 
 1. View All tournaments
-2. View Visual Tournament Tree [not implamanted]
-3. View Visual match results [not implamanted]
-4. View Statistics for tournaemnt
-5. View teams in tournaemnt
-6. View schedule in tournaemnt
+2. View Statistics for tournament
+3. View teams in tournament
+4. View schedule in tournament
 b. Back
 
 Try again!!
@@ -405,11 +388,8 @@ Try again!!
                         for t in list_of_tournaments:
                             print(f"  ID {t.id}: {t.name}")
                     input("\nPress Enter to return to this menu...")
+
                 case "2": 
-                    pass # c Requirement
-                case "3": 
-                    pass 
-                case "4": 
                     
                     tour_id = self.functionFile.inputTournamentID()
                     if isinstance(tour_id,int):
@@ -444,7 +424,7 @@ Try again!!
                     
                     
                     
-                case "5":
+                case "3":
                     tournamentID=self.functionFile.inputTournamentID()
                     if tournamentID==None:
                         continue
@@ -474,7 +454,7 @@ Try again!!
                             
                                 count +=1
                                 
-                case "6":
+                case "4":
                     tournamentID=self.functionFile.inputTournamentID()
                     if tournamentID==None:
                         continue
@@ -522,7 +502,7 @@ Try again!!
 
 
 
-    #-----------------------Veiw Clubs ----------------------------     
+    #-----------------------View Clubs ----------------------------     
 
 
 
@@ -578,22 +558,13 @@ Try again!!
                         if isinstance(club, Club):
                             print(club.name)
                 case "2": 
-                    while True:
-                        clubID = input("Enter club ID: ")
-                        if clubID == "q":
-                            return False
-                        try:
-                            clubID = int(clubID)
-                            if self.logic_wrapper.get_club_by_ID(clubID) is False:
-                                print("Incorrect ID, try again!")
-                            else:
-                                club = self.logic_wrapper.get_club_by_ID(clubID)
-                                if type(club) == Club:
-                                    print(f"Club ID: {club.id}")
-                                    print(f"Club name: {club.name}")
-                                    print(f"Club colour: {club.colours}")
-                        except:
-                            print("Club ID must contain only digits!")
+                    clubID = self.functionFile.inputClubID()
+                    club = self.logic_wrapper.get_club_by_ID(clubID)
+                    if type(club) == Club:
+                        print(f"Club ID: {club.id}")
+                        print(f"Club name: {club.name}")
+                        print(f"Club colour: {club.colours}")
+                        
                 case "3": 
                     
                     club_id = self.functionFile.inputClubID()
@@ -638,7 +609,7 @@ Try again!!
 
                 
         
-#-----------------------Veiw Organizer ----------------------------
+#-----------------------View Organizer ----------------------------
     def view_organizers(self):
         """Display organizer contact information.
 
@@ -689,14 +660,14 @@ Try again!!
                 case "2":
                     contactID=self.functionFile.input_contact_ID()
                     if contactID == False:
-                        return
+                        continue
                     tournaments=self.logic_wrapper.get_tournaments()
                     for tournament in tournaments:
                         if tournament.contact_id==contactID:
                             print(f"Email:{tournament.contact_email}, Phone:{tournament.contact_phone}, National ID:{tournament.contact_id}")
                 case "b": 
                     return
-    #----------------------- Veiw Scoreboard ----------------------------     
+    #----------------------- View Scoreboard ----------------------------     
     def view_scoreboard(self):
         """Display basic scoreboard-related menu.
 
@@ -711,7 +682,7 @@ Try again!!
 """ 
 View Clubs Menu
 
-1. View All Tournaments [not fully implamanted]
+1. View All Tournaments
 b. Back
 
 
@@ -726,13 +697,13 @@ Invalid Input!!
 
 View Clubs Menu
 
-1. View All Tournaments [not fully implamanted]
+1. View All Tournaments
 b. Back
 
 Try again!!
 """)
 
-            match choice:
+            match choice.lower():
                 case "1": 
                     tournaments=self.logic_wrapper.get_tournaments()
                     for tour in tournaments:

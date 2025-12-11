@@ -40,27 +40,43 @@ class functionFile:
         id_of_user= input("Enter Captains National ID: ")
         name = input("Enter team name: ")
         tag = input("Enter team tag (max 20 char): ")
-        team_size = int(input("Enter team size: "))
-        team_list = []
-        choice = input("add members? (y/n): ").lower()
-        
-        if choice == "y":
-            existing_players = self.logic_wrapper.get_players()
+        while True:
+
+            team_size=self.teamSize()
+            team_list = []
+            choice = input("add members? (y/n): ").lower()
+            
+            if choice == "y":
+                existing_players = self.logic_wrapper.get_players()
+                while True:
+                    
+                    val = input("Enter team member Kennitala (q to stop): ")
+                    if val.lower() == "q":
+                        break
+                    
+                    for x in existing_players:
+                        if val == str(x.id) and x.id not in team_list:
+                            team_list.append(int(val))
+                            continue
+                        
+                    print("player id not registered")
+                    print()
+                        
+            self.logic_wrapper.create_team(name,tag,id_of_user,team_size,team_list)
+            
+
+    def teamSize(self):
             while True:
+                team_size = input("Enter team size: ")
+                if team_size=="q":
+                    return False
+                try:
+                    team_size=int(team_size)
+                    return team_size
+                except:
+                    print("Team size must be digits only!")
                 
-                val = input("Enter team member Kennitala (q to stop): ")
-                if val.lower() == "q":
-                    break
-                
-                for x in existing_players:
-                    if val == str(x.id) and x.id not in team_list:
-                        team_list.append(int(val))
-                        continue
-                    
-                print("player id not registered")
-                print()
-                    
-        self.logic_wrapper.create_team(name,tag,id_of_user,team_size,team_list)
+        
         
         
     
@@ -183,7 +199,7 @@ class functionFile:
                 
 
     
-    def check_excistingID(self):
+    def check_existingID(self):
         """Request an existing player ID and validate it.
 
         Prompts until a valid player ID is entered or 'q' is used
@@ -712,6 +728,29 @@ class functionFile:
 
             return tid
                 
+    
+    def score(self):
+        while True:
+            score = input("Enter score: ")
+            if score=="q":
+                return False
+            try:
+                score=int(score)
+                return score
+            except:
+                print("score must be digits only!")
+
+    def winner(self):
+        while True:
+            winner = input("Enter winner id: ")
+            if winner=="q":
+                return False
+            try:
+                winner=int(winner)
+                return winner
+            except:
+                print("winner id must be digits only!")
+
         
     
   

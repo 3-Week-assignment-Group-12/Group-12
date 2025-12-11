@@ -181,7 +181,7 @@ class LogicWrapper:
         """Retrieve all brackets.
         
         Returns:
-            list: List of bracets
+            list: List of brackets
         """
         return self.data_wrapper.get_brackets()
     
@@ -252,7 +252,7 @@ class LogicWrapper:
             ID (int): club ID
             
         Returns:
-            TClubeam|bool: club instance if found, False otherwise
+            club|bool: club instance if found, False otherwise
         """
         return self.data_wrapper.get_club_by_ID(ID)
     
@@ -286,7 +286,7 @@ class LogicWrapper:
             ID (int): club ID
             
         Returns:
-            list[ClTeamub]: List of team instances in the club
+            list[Team]: List of team instances in the club
             or False if error occurs
         """
         return self.data_wrapper.get_teams_by_club_ID(ID)
@@ -296,7 +296,7 @@ class LogicWrapper:
         """Retrieve team by tournament ID.
         
         Args:
-            ID (int): tournamnet ID
+            ID (int): tournament ID
             
         Returns:
             list[Team]: List of team instances in the team
@@ -309,7 +309,7 @@ class LogicWrapper:
         """Retrieve bracket by tournament ID.
         
         Args:
-            ID (int): tournamnet ID
+            ID (int): tournament ID
             
         Returns:
             list[Team]: List of team instances in the team
@@ -340,7 +340,7 @@ class LogicWrapper:
         """Modify an existing Match's data.
         
         Args:
-            new_data (PlMatchayer): Updated Match instance
+            new_data (Match): Updated Match instance
             
         Returns:
             bool: Success status
