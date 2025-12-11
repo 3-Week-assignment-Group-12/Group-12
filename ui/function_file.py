@@ -442,6 +442,7 @@ class functionFile:
 
                 value += p.dynamic_data[key]
             return value            
+              
     
     def inputClubID(self):
         while True:
