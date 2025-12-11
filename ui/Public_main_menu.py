@@ -206,7 +206,7 @@ Try again!!
                                     print("")
                                             
                 case "4":
-                    player_ID = self.functionFile.check_excistingID()
+                    player_ID = self.functionFile.check_existingID()
                     if player_ID == False:
                         continue
                     playerinfo = self.logic_wrapper.get_player_by_ID(player_ID)
