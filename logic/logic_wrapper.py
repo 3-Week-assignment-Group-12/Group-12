@@ -505,7 +505,7 @@ class LogicWrapper:
 
     
     #--------------team checks --------------------
-    def check_for_team_name(self,name:str) -> bool:
+    def check_for_team_name(self,name:str) -> bool | None:
         """Check whether a team name is already in use.
         
         Args:
@@ -525,7 +525,7 @@ class LogicWrapper:
                 else:
                     return True
             
-    def check_for_team_tag(self,tag: str) -> str | bool:
+    def check_for_team_tag(self,tag: str) -> str | bool | None:
         """Check whether a team tag is valid and unique.
         
         Args:
@@ -628,7 +628,7 @@ class LogicWrapper:
         else:
             return True
         
-    def check_player_handle(self,player_handle: str) -> bool:
+    def check_player_handle(self,player_handle: str) -> bool | None:
         """Check whether a player handle is already in use.
         
         Args:
@@ -648,7 +648,7 @@ class LogicWrapper:
                 else:
                     return True
                 
-    def check_player_link(self,player_link: str) -> bool:
+    def check_player_link(self,player_link: str) -> bool| None:
         """Check whether a player link is already in use.
         
         Args:
@@ -671,7 +671,7 @@ class LogicWrapper:
     
     #--------------Tournament checks --------------------
                 
-    def check_for_tournament_ID(self,ID: int) -> bool:
+    def check_for_tournament_ID(self,ID: int) -> bool | None:
         """Check whether a tournament ID is already in use.
         
         Args:
@@ -747,7 +747,7 @@ class LogicWrapper:
         else: 
             return True
         
-    def check_for_tournament_name(self,name: str) -> bool:
+    def check_for_tournament_name(self,name: str) -> bool | None:
         """Check whether a tournament name is already in use.
         
         Args:
@@ -770,7 +770,7 @@ class LogicWrapper:
 
 
 #----------clubs-----------
-    def check_for_club_name(self,name: str) -> bool:
+    def check_for_club_name(self,name: str) -> bool | None:
         """Check whether a club name is already in use.
         
         Args:
