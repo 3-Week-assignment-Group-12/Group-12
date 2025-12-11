@@ -133,8 +133,8 @@ b. Back
                     ID = self.logic_wrapper.inputTournamentID()
                     if ID is None:
                         continue
-                    x = input("Are you sure? (Y/N): ").upper()
-                    if x == "y" or x == "Y":
+                    x = input("Are you sure? (y/n): ")
+                    if x.lower() == "y":
                         self.logic_wrapper.delete_tournament(int(ID))
                     continue
 
@@ -380,10 +380,11 @@ Try again!!
             match choice:
                 case "1": 
                     
-                    
+                    incomplete_flag = False
                     if tourn.matches.__len__() != 0 and tourn.matches != tourn.team_list.__len__()/2:
                         print("Current bracket is not compleated.")
-                        print(f"matches left: {tourn.team_list.__len__()/2 - tourn.matches.__len__()}")
+                        print(f"matches left: {int(tourn.team_list.__len__()/2 - tourn.matches.__len__())}")
+                        incomplete_flag = True
                         
                     
                     
@@ -392,7 +393,12 @@ Try again!!
                     bracket = self.logic_wrapper.generate_bracket(tourn)
                     if isinstance(bracket, Bracket):
                         print(bracket.matchups)
-                        inp = input("bracket generated, use? (y/n): ")
+                        
+                        if incomplete_flag == False:
+                            inp = input("bracket generated, use? (y/n): ")
+                        else:
+                            inp="y"
+                            
                         if inp.lower() == "y":
                             self.logic_wrapper.data_wrapper.write_bracket(bracket)
                             
@@ -442,7 +448,6 @@ Try again!!
                         print(bracket)
 
                     else:
-                        print(bracket)
                         match bracket:
                             case -1:
                                 print("not enough teams")
@@ -501,7 +506,11 @@ Try again!!
                 case "5": 
                     
                     for x in self.logic_wrapper.get_matches_by_tournament_ID(ID):
-                        print(x)
+                        print(f"Match: {x.id}")
+                        print(f"Team{x.team1_id} VS Team{x.team2_id}")
+                        print(f"Winner Team: {x.winner_id}, Score: {x.Score}")
+                        print(f"Date: {x.date}, match time: {x.match_time}, server id: {x.server_id}")
+                        print()
                 case "b": 
                     pass
             
