@@ -122,7 +122,8 @@ class functionFile:
                     
 
 
-    def inputTeamID(self):
+    def checkTeamID(self):
+        """ takes a team id and checks if the id exists in the system"""
         teamID=int(input("Enter Team ID: "))
         if teamID=="q":
             return False
@@ -174,10 +175,8 @@ class functionFile:
             playerinfo=self.logic_wrapper.get_player_by_ID(player.id)
             if isinstance(playerinfo,Player):
                 if email == playerinfo.email: 
-                    print("This email already exists!")
                     return False
-                else:
-                    return True
+        return True
                 
     
 
@@ -191,6 +190,9 @@ class functionFile:
                 print("Phone number is not the correct length!")
             elif check == "2":
                 print("Only digits in phone number allowed!")
+            else:
+                return number
+        
 
     def input_name(self):
         while True:
@@ -211,36 +213,38 @@ class functionFile:
             if email=="q":
                 return False
             check1=self.logic_wrapper.check_email(email)
-            if check1 ==True:
+            if check1 == "1":
+                print("Email must contain @ symbol!")
+            else:
                 check2=self.check_for_player_email(email)
-        return email
+                if check2 == False:
+                    print("Email already exists in system!")
+                else:
+                    return email
+        return False
     
 
 
 
     def inputplayersID(self):
-        playersID=input("Enter National ID: ")
-        check1=self.logic_wrapper.valid_kt(playersID)
-        if check1 =="1":
-            print("National ID needs to be exactly 10 numbers")
-        elif check1=="2":
-            print("National ID cant have letters")
-        elif check1=="3" or check1=="4":
-            print("This ID does not exist")
-        else:
-            check2=self.check_for_player_kt(playersID)
-            #check= self.logic_wrapper.get_player_by_ID(playersID)
-            #while isinstance(check,int):
-                #print("Player does not exist, Try different ID")
-                #playersID=input("Enter National ID: ")
-                #check= self.logic_wrapper.get_player_by_ID(playersID)
-                #if playersID=="q":
-                    #return False
-            if check2==True:
-                return playersID
-            else: 
+        while True:
+            playersID=input("Enter National ID: ")
+            if playersID=="q":
                 return False
-            
+            check1=self.logic_wrapper.valid_kt(playersID)
+            if check1 =="1":
+                print("National ID needs to be exactly 10 numbers")
+            elif check1=="2":
+                print("National ID cant have letters")
+            elif check1=="3" or check1=="4":
+                print("This ID does not exist")
+            else:
+                check2=self.check_for_player_kt(playersID)
+                if check2==True:
+                    return playersID
+                else: 
+                    return False
+                
     
     #-----------------TeamLeader------------------
 
@@ -296,11 +300,12 @@ class functionFile:
             check1 = self.logic_wrapper.check_name(name)
             if check1 == "1":
                 print("Club name can only contain letters!")
-            check2= self.logic_wrapper.check_for_club_name(name)
-            if check2 ==False:
-                print("club name already exists!")
             else:
-                return name
+                check2= self.logic_wrapper.check_for_club_name(name)
+                if check2 ==False:
+                    print("club name already exists!")
+                else:
+                    return name
             
     def inputClubColor(self):
         while True:

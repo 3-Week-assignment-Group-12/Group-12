@@ -388,7 +388,7 @@ class LogicWrapper:
     
     
     # ------------------- Delete Methods ------------------ #
-    def delete_player(self, ID: int) -> bool:
+    def delete_player(self, ID: str) -> bool:
         """Delete a player by their ID.
         
         Args:
@@ -614,7 +614,7 @@ class LogicWrapper:
                 nr_of_at+=1
     
         if nr_of_at!=1:
-            return False
+            return "1"
         else:
             return True
         
