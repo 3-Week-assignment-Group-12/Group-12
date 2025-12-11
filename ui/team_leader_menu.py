@@ -152,6 +152,8 @@ Try again!!
             match choice:
                 case "1": 
                     teamID = self.functionFile.checkTeamID()
+                    if teamID == False:
+                        return
                     team = self.logic_wrapper.get_team_by_ID(teamID)
                     if isinstance(team, Team):
                         print(f"Team ID: {team.id}")  # call funtion for specific team to check out
@@ -167,7 +169,7 @@ Try again!!
                                 print(f"Member {counter}: {member.name}")
                                 counter += 1
                 case "2": 
-                    teamID = self.logic_wrapper.inputTeamID()
+                    teamID = self.functionFile.checkTeamID()
                     list_of_tournaments= self.logic_wrapper.get_tournaments()
                     for tournament in list_of_tournaments:
                         listOfTeamID=tournament.team_list
@@ -381,7 +383,7 @@ Try again!!
                     if club_color == False:
                         return
                     team_list=[] 
-                    team=self.logic_wrapper.inputTeamID()
+                    team=self.functionFile.checkTeamID()
                     if team==False:
                         return
                     else:
@@ -409,7 +411,7 @@ Try again!!
 
 
                 case "4": 
-                    clubID = self.logic_wrapper.inputTeamID()
+                    clubID = self.functionFile.checkTeamID()
                     self.edit_club_menu(clubID)
                 case "b": 
                     return
@@ -464,7 +466,7 @@ Try again!!
                         if inp == False:
                             return
                     case "3": 
-                        team=self.logic_wrapper.inputTeamID()
+                        team=self.functionFile.checkTeamID()
                         if team==False:
                             return
                         else:

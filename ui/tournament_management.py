@@ -134,10 +134,13 @@ b. Back
                     ID = self.logic_wrapper.inputTournamentID()
                     if ID is None:
                         continue
-                    x = input("Are you sure? (y/n): ")
-                    if x.lower() == "y":
+                    x = input("Are you sure? (Y/N): ").lower()
+                    if x == "y":
                         self.logic_wrapper.delete_tournament(int(ID))
-                        print("Tournament Canceled")
+                        print("Tournament has been canceled!")
+                    elif x == "n":
+                        print("Tournament deletion aborted!")
+
                     continue
 
                 case "4": 
@@ -470,9 +473,9 @@ Try again!!
                     
                 case "2": 
                     print("team 1 ")
-                    team1_id = self.logic_wrapper.inputTeamID()
+                    team1_id = self.functionFile.checkTeamID()
                     print("team 2 ")
-                    team2_id = self.logic_wrapper.inputTeamID()
+                    team2_id = self.functionFile.checkTeamID()
                     if team1_id == team2_id:
                         print("Teams cannot be the same")
                         continue
