@@ -129,13 +129,15 @@ Try again!!
                         team=self.logic_wrapper.get_team_by_ID(x.id)
                         if type(team) == Team:
                             print(f"Team: {team.name}\n")
-                            count = 0
+                            count = 1
                             for pl in team.member_list:
                                 player = self.logic_wrapper.get_player_by_ID(pl)
                                 if type(player) == Player:
                                     
                                     print(f"{count}: {player.name}, ID: {player.id}")
                                     count +=1
+                            print("")
+                            print("")
                                     
                     # View players in team
                 case "3": 
@@ -155,10 +157,14 @@ Try again!!
                                     
                                             print(f"{count}: {player.name}, ID: {player.id}")
                                             count +=1
+                                    print("")
+                                    print("")
                                             
                 case "4":
                     while True:
                         player_ID = input("Enter player ID: ")
+                        if player_ID == "q":
+                            return
                         if isinstance(self.logic_wrapper.get_player_by_ID(player_ID),int) :
                             print("Incorrect ID")
                         else:
@@ -215,10 +221,12 @@ b. Back
                         tournament=self.logic_wrapper.get_tournament_by_ID(i.id) # type: ignore
                         if type(tournament) == Tournament:
                             print(f"Tournament: {tournament.name}\n")
+                            counter = 1
                             for teamID in tournament.team_list:
                                 team = self.logic_wrapper.get_team_by_ID(teamID)
                                 if type(team) == Team:
-                                    print(f"Team: {team.name}\n")
+                                    print(f"Team {counter}: {team.name}\n")
+                                    counter += 1
 
                 case "3": 
                     pass
@@ -226,17 +234,23 @@ b. Back
                     pass
                 case "5":
                     while True:
-                        team_ID = int(input("Enter team ID: "))
-                        if self.logic_wrapper.get_team_by_ID(team_ID) is False:
-                            print("Incorrect ID")
-                        else:
-                            team = self.logic_wrapper.get_team_by_ID(team_ID)
-                            if type(team) == Team:
-                                print(f"name: {team.name}")
-                                print(f"tag: {team.tag}")
-                                print(f"creator_id: {team.creator_id}")
-                                print(f"team_size: {team.team_size}")
-                                print(f"member_list: {team.member_list}")
+                        team_ID = input("Enter team ID: ")
+                        if team_ID == "q":
+                            return False
+                        try:
+                            team_ID = int(team_ID)
+                            if self.logic_wrapper.get_team_by_ID(team_ID) is False:
+                                print("Incorrect ID, try again!")
+                            else:
+                                team = self.logic_wrapper.get_team_by_ID(team_ID)
+                                if type(team) == Team:
+                                    print(f"name: {team.name}")
+                                    print(f"tag: {team.tag}")
+                                    print(f"creator_id: {team.creator_id}")
+                                    print(f"team_size: {team.team_size}")
+                                    print(f"member_list: {team.member_list}")
+                        except:
+                            print("Team ID can only contain digits!")
 
                 case "b": 
                     return
@@ -311,7 +325,6 @@ Try again!!
                     if isinstance(team_list,bool):
                         print("data not found")
                     else:
-
                         count =1
                         for x in team_list:
                             print()
@@ -424,8 +437,21 @@ Try again!!
                             print(club.name)
                 case "2": 
                     while True:
-                        int(input("Enter club ID: "))
-                    self.logic_wrapper.get_club_by_ID()
+                        clubID = input("Enter club ID: ")
+                        if clubID == "q":
+                            return False
+                        try:
+                            clubID = int(clubID)
+                            if self.logic_wrapper.get_club_by_ID(clubID) is False:
+                                print("Incorrect ID, try again!")
+                            else:
+                                club = self.logic_wrapper.get_club_by_ID(clubID)
+                                if type(club) == Club:
+                                    print(f"Club ID: {club.id}")
+                                    print(f"Club name: {club.name}")
+                                    print(f"Club colour: {club.colours}")
+                        except:
+                            print("Club ID must contain only digits!")
                 case "3": 
                     pass
                 case "b": 
