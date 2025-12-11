@@ -8,6 +8,7 @@ from logic.logic_wrapper import LogicWrapper
 
 from models.tournament import Tournament
 
+from models.team import Team
 from ui.function_file import functionFile
 
 
@@ -300,7 +301,9 @@ Try again!!
                     
                     existing_matches = self.logic_wrapper.get_match()
                     while True:
-                        
+                        if new_matches.__len__() == temp.team_list.__len__()/2:
+                            print("max amount of matches added, ending")
+                            break
                         val = input("Enter match id (q to stop): ")
                         if val.lower() == "q":
                             break
@@ -377,8 +380,66 @@ Try again!!
 
             match choice:
                 case "1": 
+                    
+                    
+                    if tourn.matches.__len__() != 0 and tourn.matches != tourn.team_list.__len__()/2:
+                        print("Current bracket is not compleated.")
+                        print(f"matches left: {tourn.team_list.__len__()/2 - tourn.matches.__len__()}")
+                        
+                    
+                    
+                    
+                    
                     bracket = self.logic_wrapper.generate_bracket(tourn)
                     if isinstance(bracket, Bracket):
+                        print(bracket.matchups)
+                        inp = input("bracket generated, use? (y/n): ")
+                        if inp.lower() == "y":
+                            self.logic_wrapper.data_wrapper.write_bracket(bracket)
+                            
+                            inp2 = input("enter Results now? (y/n): ")
+                            if inp2.lower() == "y":
+                                for matchup in bracket.matchups:
+                                    while True:
+                                        
+                                        team1 = self.logic_wrapper.get_team_by_ID(matchup[0])
+                                        team2 = self.logic_wrapper.get_team_by_ID(matchup[1])
+                                        if isinstance(team1,Team) and isinstance(team2,Team):
+                                            print(f"Team{team1.id} vs Team{team2.id}")
+                                            print(f"{team1.name} vs {team2.name}")
+                                            print()
+                                        else:
+                                            print("error getting team names")
+                                            print(f"Team numbers: team1: {matchup[0]} vs team2: {matchup[1]}")
+                                        
+                                        date = tourn.start_date
+                                        time = input("enter match time: ")
+                                        server_id = randint(1,10)
+                                        winner_id = int(input("Enter winner id: "))
+                                        while winner_id != matchup[0] and winner_id != matchup[1]:
+                                            print(f"Winner must be one ether: {matchup[0]} or {matchup[1]}")
+                                            winner_id = int(input("Enter winner id: "))
+                                            
+                                        score = int(input("Enter score: "))
+                                        
+                                        
+                                        ret =self.logic_wrapper.create_match(matchup[0], matchup[1], tourn.id, date, time, server_id, winner_id, score)
+                                        if ret ==-2:
+                                            print("failure in creating match")
+                                            break
+                                        if ret >= 0:
+                                            print("sucsess in creating match")
+                                            
+                                            print()
+                                            
+                                            tourn.matches.append(ret)
+                                            self.logic_wrapper.modify_tournament(tourn)
+                                            break
+                                        
+                                    
+                            
+                                
+                        
                         print(bracket)
 
                     else:
@@ -420,7 +481,7 @@ Try again!!
                     winner_id = int(input("Enter winner id: "))
                     while winner_id != team1_id and winner_id != team2_id:
                         print("Winner must be one of the teams")
-                        winner_id = input("Enter winner id: ")
+                        winner_id = int(input("Enter winner id: "))
                         
                     score = int(input("Enter score:"))
                     

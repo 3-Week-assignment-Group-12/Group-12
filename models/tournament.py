@@ -69,7 +69,7 @@ class Tournament:
             -2: Odd number of teams cannot form pairs
         """
         
-        if len(self.team_list) <= 7:
+        if len(self.team_list) <= 1:
             return -1  # Not enough teams to generate a schedule
         
         elif len(self.team_list) % 2 != 0:
@@ -77,7 +77,7 @@ class Tournament:
         
         
         if len(previus_matches) != 0:
-            awailable_teams: list[int] = [int(team.winner_id) for team in previus_matches]
+            awailable_teams: list[int] = [int(team.winner_id) for team in previus_matches if team.winner_id != None]
         else:
             awailable_teams: list[int] = self.team_list.copy()
             

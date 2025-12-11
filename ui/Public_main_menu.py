@@ -1,5 +1,6 @@
 from __future__ import annotations
 # ui_layer/main_menu.py
+from models.bracket import Bracket
 from models.club import Club
 from logic.logic_wrapper import LogicWrapper
 from models.team import Team
@@ -260,12 +261,13 @@ View Tournament menu
 3. View Visual match results
 4. View Statistics
 5. View teams in tournament
+6. View brackets in tournaemnt
 b. Back
 
 
 """)
             choice=input("Enter input: ")
-            if choice not in ["1","2","3","4","5","b","B"]:
+            if choice not in ["1","2","3","4","5","6","b","B"]:
                 
                 print(
 """ 
@@ -278,6 +280,7 @@ View Tournament menu
 3. View Visual match results
 4. View Statistics
 5. View teams in tournaemnt
+6. View brackets in tournaemnt
 b. Back
 
 Try again!!
@@ -326,6 +329,10 @@ Try again!!
                                         print("player not found")
                             
                                 count +=1
+                                
+                case "6":
+                    bracket = self.logic_wrapper.get_bracket_by_ID(self.functionFile.inputTournamentID())
+                    print(bracket)
 
                 case "b": 
                     return
