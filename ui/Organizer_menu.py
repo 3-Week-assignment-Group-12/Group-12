@@ -91,25 +91,25 @@ Try again!!
                 case "1": 
                     nid=self.functionFile.inputplayersID()
                     if nid == False:
-                        return
+                        continue
                     name=self.functionFile.input_name()
                     if name == False:
-                        return
+                        continue
                     handle=self.functionFile.inputPlayerHandle()
                     if handle == False:
-                        return
+                        continue
                     link=self.functionFile.inputPlayerLink()
                     if link == False:
-                        return
+                        continue
                     phone=self.functionFile.input_phone_nr()
                     if phone == False:
-                        return
+                        continue
                     address:str=input("Address: ")
                     if address == "q":
-                        return
+                        continue
                     email=self.functionFile.input_email()
                     if email == False:
-                        return 
+                        continue 
                     print("Adding Player...")
                     ret = self.logic_wrapper.create_player(nid,name,handle,link,phone,address,email)
                     

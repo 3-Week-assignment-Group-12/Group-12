@@ -257,8 +257,7 @@ class functionFile:
                 check2=self.check_for_player_kt(playersID)
                 if check2==True:
                     return playersID
-                else: 
-                    return False
+                
                 
     def inputPlayerHandle(self):
         while True:
