@@ -4,6 +4,7 @@ from logic.logic_wrapper import LogicWrapper
 from models.team import Team
 from ui.function_file import functionFile
 from models.club import Club
+from models.player import Player
 
 
 class TeamLeader():
@@ -100,14 +101,17 @@ Try again!!
                         print("team size to big")
                     
                 case "4": 
-                    ID=self.functionFile.inputTeamID()
+                    ID=self.functionFile.checkTeamID()
                     self.edit_team_menu(ID) 
                 case "5": 
-                    ID=self.functionFile.inputTeamID()
+                    ID=self.functionFile.checkTeamID()
                     x=input("Are you sure? (Y/N)")
-                    if x=="y" or x=="Y":
-                        self.logic_wrapper.delete_team(ID) # type: ignore
-                    return     
+                    if x.lower() == "y":
+                        self.logic_wrapper.delete_team(ID) 
+                        print("Team has been removed!")
+                    else:
+                        print("Deletion, canceled")
+                    
                 case "6": 
                     self.club_menu() 
                 case "7": 
@@ -147,15 +151,21 @@ Try again!!
 
             match choice:
                 case "1": 
-                    teamID = self.functionFile.inputTeamID()
+                    teamID = self.functionFile.checkTeamID()
                     team = self.logic_wrapper.get_team_by_ID(teamID)
                     if isinstance(team, Team):
-                        print(team.id)  # call funtion for specific team to check out
-                        print(team.name)
-                        print(team.tag)
-                        print(team.creator_id)
-                        print(team.team_size)
-                        print(team.member_list)
+                        print(f"Team ID: {team.id}")  # call funtion for specific team to check out
+                        print(f"Team name: {team.name}")
+                        print(f"Team tag: {team.tag}")
+                        print(f"Creator ID: {team.creator_id}")
+                        print(f"Team size: {team.team_size}")
+                        print("Team members ")
+                        counter = 1
+                        for id in team.member_list:
+                            member = self.logic_wrapper.get_player_by_ID(id)
+                            if isinstance(member,Player):
+                                print(f"Member {counter}: {member.name}")
+                                counter += 1
                 case "2": 
                     teamID = self.logic_wrapper.inputTeamID()
                     list_of_tournaments= self.logic_wrapper.get_tournaments()
@@ -326,6 +336,7 @@ Try again!!
                         return
                 
                 self.logic_wrapper.modify_team(temp)
+                print("Team has been modified!")
            
                
     def club_menu(self):
@@ -366,8 +377,8 @@ Try again!!
                     name = self.functionFile.inputClubName()
                     if name == False:
                         return
-                    club_colour = input("Enter colour: ")
-                    if club_colour =="q":
+                    club_color = self.functionFile.inputClubColor()
+                    if club_color == False:
                         return
                     team_list=[] 
                     team=self.logic_wrapper.inputTeamID()
@@ -376,7 +387,8 @@ Try again!!
                     else:
                         team_list.append(team)
 
-                    self.logic_wrapper.create_club(name,club_colour,team_list) #create club function
+                    self.logic_wrapper.create_club(name,club_color,team_list) #create club function
+                    print("Club has been created!")
                 case "2": 
                     pass # join club function
                 case "3": 
@@ -466,7 +478,7 @@ Try again!!
                             if counter == 0:
                                 print("Clubs are empty")
                                 return
-                            team = self.functionFile.inputTeamID()
+                            team = self.functionFile.checkTeamID()
                             if team==False:
                                 return
                             else:
@@ -474,5 +486,6 @@ Try again!!
                     case "b": 
                         return
                 self.logic_wrapper.modify_club(temp)
+                print("Club has been modified!")
     
     #-------------Functions-----------------

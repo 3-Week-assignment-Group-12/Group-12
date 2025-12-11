@@ -133,9 +133,10 @@ b. Back
                     ID = self.logic_wrapper.inputTournamentID()
                     if ID is None:
                         continue
-                    x = input("Are you sure? (Y/N): ").upper()
-                    if x == "y" or x == "Y":
+                    x = input("Are you sure? (Y/N): ")
+                    if x.lower == "y":
                         self.logic_wrapper.delete_tournament(int(ID))
+                        print("Tournament Canceled")
                     continue
 
                 case "4": 
@@ -326,7 +327,7 @@ Try again!!
             
             if not cancel_flag:
                 self.logic_wrapper.modify_tournament(temp)
-                print("Tournament updated.")
+                print("Tournament has been modified!")
           
 
           
@@ -476,7 +477,7 @@ Try again!!
                     
                     date = input("Enter date of match: ")
                     time = input("enter match time: ")
-                    server_id = int(input("enter server id: "))
+                    server_id = randint(1,10)
                     winner_id = int(input("Enter winner id: "))
                     while winner_id != team1_id and winner_id != team2_id:
                         print("Winner must be one of the teams")
@@ -485,7 +486,7 @@ Try again!!
                     score = int(input("Enter score:"))
                     
                     
-                    ret =self.logic_wrapper.create_match(team1_id, team2_id, tourn.id, date, time, server_id, winner_id, score)
+                    ret =self.logic_wrapper.create_match(team1_id, team2_id, tourn.id, date, time, server_id, str(winner_id), score)
                     if ret ==-2:
                         print("failure in creating match")
                     if ret >= 0:
