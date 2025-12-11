@@ -1,18 +1,23 @@
 from __future__ import annotations
+from random import randint
+from re import Match
 # ui_layer/main_menu.py
+from models.bracket import Bracket
 from logic.logic_wrapper import LogicWrapper
 
-
-from models.player import Player
 
 from models.tournament import Tournament
 
 from models.team import Team
+from ui.function_file import functionFile
+
+
 
 class TournamentManagement():
-    def __init__(self,low : LogicWrapper) -> None:
+    def __init__(self,low : LogicWrapper,functionFile:functionFile) -> None:
         self.logic_wrapper = low
-        pass
+        self.functionFile = functionFile
+        
 
     #--------------Menus--------------------
 
@@ -51,16 +56,66 @@ b. Back
             
             match choice:
                 case "1": 
-                    name = input("Name of Tournament: ")
+                    name = self.functionFile.input_tournament_name()
+                    if name == False:
+                        return
                     startDate = input("Start date: ")
                     endDate = input("End date: ")
                     venue=input("Location of Tournament: ")
-                    contactID = self.check_for_tournament_ID()
-                    contactEmail = input("Contact Email: ")
-                    contactPhone = int(input("Contact Phone: "))
-                    team_list=[]  # SKoða þetta
-                    matches=[]    # sKoða þetta
-                    ret =self.logic_wrapper.create_tournament(name,startDate,endDate,venue,contactID,contactEmail,contactPhone,team_list,matches)
+                    contactID = self.functionFile.input_contact_ID()
+                    if contactID == False:
+                        return
+                    contactEmail = self.functionFile.input_email()
+                    if contactEmail == False:
+                        return
+                    contactPhone = self.functionFile.input_phone_nr()
+                    if contactPhone == False:
+                        return
+                    
+
+                                       
+                    team_list:list[int] = []
+                    choice = input("add teams? (y/n): ").lower()
+                    
+                    if choice == "y":
+                        existing_teams = self.logic_wrapper.get_teams()
+                        while True:
+                            
+                            val = input("Enter team id (q to stop): ")
+                            if val.lower() == "q":
+                                break
+                            
+                            for x in existing_teams:
+                                if val == str(x.id) and x.id not in team_list:
+                                    team_list.append(int(val))
+                                    continue
+                                
+                            print("team id not registered")
+                            print()
+                    
+                    matches:list[int] = []
+                    choice = input("add matches? (y/n): ").lower()
+                    
+                    if choice == "y":
+                        existing_matches = self.logic_wrapper.get_match()
+                        while True:
+                            
+                            val = input("Enter match id (q to stop): ")
+                            if val.lower() == "q":
+                                break
+                            
+                            for x in existing_matches:
+                                if val == str(x.id) and x.id not in matches:
+                                    matches.append(int(val))
+                                    continue
+                                
+                            print("match id not registered")
+                            print()
+                    barches:list[list[int]] = []
+                    barches.append(matches)
+                    
+                    
+                    ret =self.logic_wrapper.create_tournament(name,startDate,endDate,venue,contactID,contactEmail,contactPhone,team_list,barches)
                     if ret == 1:
                         print("Tournament created successfully!")
                     elif ret == -1:
@@ -69,17 +124,31 @@ b. Back
                         print("Validation failed, tournament not created!")
                     
                 case "2": 
-                    ID = self.inputTournamentID()
+                    ID = self.functionFile.inputTournamentID()
+                    if ID is None:
+                  
+                        continue
                     self.edit_tournament_menu(ID)
+
                 case "3": 
-                    ID = self.inputTournamentID()
-                    x = input("Are you sure? (Y/N): ")
-                    if x == "y" or x == "Y":
-                        self.logic_wrapper.delete_tournament(ID)
-                    return
+                    ID = self.functionFile.inputTournamentID()
+                    if ID is None:
+                        continue
+                    x = input("Are you sure? (Y/N): ").lower()
+                    if x == "y":
+                        self.logic_wrapper.delete_tournament(int(ID))
+                        print("Tournament has been canceled!")
+                    elif x == "n":
+                        print("Tournament deletion aborted!")
+
+                    continue
+
                 case "4": 
-                    ID = self.inputTournamentID()
+                    ID = self.functionFile.inputTournamentID()
+                    if ID is None:
+                        continue
                     self.select_tournament_menu(ID)
+
                 case "b": 
                     return
                 case _:
@@ -95,8 +164,22 @@ b. Back
 
 
 
-    def edit_tournament_menu(self,tournamentID):
-        print(
+    def edit_tournament_menu(self,tournamentID: int):
+        if isinstance(tournamentID, str):
+            try:
+                tournamentID = int(tournamentID)
+            except ValueError:
+                print("Invalid tournament ID")
+                return
+
+  
+        temp: Tournament | bool = self.logic_wrapper.get_tournament_by_ID(tournamentID)
+        if not isinstance(temp, Tournament):
+            print("Tournament not found")
+            return
+
+        while True:
+            print(
 """ 
 Edit Tournament Information
 
@@ -107,15 +190,14 @@ Edit Tournament Information
 5. Contact ID
 6. Contact Email
 7. Contact Phone
+8. Team list
+9. Match list
 b. Back 
 
 
 """)
-            
-        temp : Tournament|bool = self.logic_wrapper.get_tournament_by_ID(tournamentID)   
-        while True:
             choice=input("Enter input: ")
-            if choice not in ["1","2","3","4","5","6","7","b","B"]:
+            if choice not in ["1","2","3","4","5","6","7","8","9","b","B"]:
 
                  print(
 """ 
@@ -130,38 +212,126 @@ Edit Tournament Information
 5. Contact ID
 6. Contact Email
 7. Contact Phone
+8. Team List
+9. Match list
 b. Back 
 
 Try again!!
 """)
-            if isinstance(temp, bool):
-                print("Tournament not found")
-                return
+                 continue
+            
+            cancel_flag = False
+
             match choice:
                 case "1": 
-                    temp.name = input("Enter New Name: ")
+                    new_name = self.functionFile.input_name()
+                    for t in self.logic_wrapper.get_tournaments():
+                        if t.id != temp.id and t.name == new_name:
+                            print("A tournament with this name already exists.")
+                            cancel_flag = True
+                            break
+                    if not cancel_flag and isinstance(new_name,str):
+                        temp.name = new_name
+
                 case "2": 
-                    temp.start_date = input("Enter New Start Date: ")
+                    new_start = input("Enter New Start Date (q to cancel): ")
+                    if new_start.lower() == "q":
+                        cancel_flag = True
+                    else:
+                        temp.start_date = new_start
+
                 case "3": 
-                    temp.end_date = input("Enter New End date: ")
+                    new_end = input("Enter New End Date (q to cancel): ")
+                    if new_end.lower() == "q":
+                        cancel_flag = True
+                    else:
+                        temp.end_date = new_end
+
                 case "4": 
-                    temp.venue_name = input("Enter New : ")
+                    new_venue = input("Enter New venue name (q to cancel): ")
+                    if new_venue.lower() == "q":
+                        cancel_flag = True
+                    else:
+                        temp.venue_name = new_venue
+
                 case "5": 
-                    temp.contact_id = int(input("Enter New Contact ID: "))
+                    new_contact_id = input("Enter New Contact ID (q to cancel): ")
+                    if new_contact_id.lower() == "q":
+                        cancel_flag = True
+                    else:
+                        temp.contact_id = new_contact_id
+
                 case "6": 
-                    temp.contact_email = input("Enter New Contact Email: ")
+                    new_email = input("Enter New Contact Email (q to cancel): ")
+                    if new_email.lower() == "q":
+                        cancel_flag = True
+                    else:
+                        temp.contact_email = new_email
+
                 case "7": 
-                    temp.contact_phone = int(input("Enter New Contact Phone Number: "))
+                    new_phone = input("Enter New Contact Phone (q to cancel): ")
+                    if new_phone.lower() == "q":
+                        cancel_flag = True
+                    else:
+                        temp.contact_phone = new_phone
+
                 case "8": 
-                    pass
-                    #temp.team_list 
+                    print("Alert! existing teams will be cleared")
+                    new_teams: list[int] = []
+                    existing_teams = self.logic_wrapper.get_teams()
+                    while True:
+                        
+                        val = input("Enter team id (q to stop): ")
+                        if val.lower() == "q":
+                            break
+                        
+                        found = False
+                        for x in existing_teams:
+                            if val == str(x.id):
+                                if x.id not in new_teams:
+                                    new_teams.append(x.id)
+                                found = True
+                                break
+
+                        if not found:
+                            print("team id not registered")
+                        else:
+                            print(f"team id {val} added.")
+                    temp.team_list = new_teams
+
                 case "9": 
-                    pass
-                    #temp.matches 
+                    print("Alert! existing matches will be cleared")
+                    new_matches: list[int] = []
+                    
+                    existing_matches = self.logic_wrapper.get_match()
+                    while True:
+                        if new_matches.__len__() == temp.team_list.__len__()/2:
+                            print("max amount of matches added, ending")
+                            break
+                        val = input("Enter match id (q to stop): ")
+                        if val.lower() == "q":
+                            break
+                        
+                        found = False
+                        for x in existing_matches:
+                            if val == str(x.id):
+                                if x.id not in new_matches:
+                                    new_matches.append(x.id)
+                                found = True
+                                break
+
+                        if not found:
+                            print("match id not registered")
+                        else:
+                            print(f"match id {val} added.")
+                    temp.matches.append(new_matches)
+                    
                 case "b": 
-                    pass
+                    return
             
-            self.logic_wrapper.modify_tournament(temp)
+            if not cancel_flag:
+                self.logic_wrapper.modify_tournament(temp)
+                print("Tournament has been modified!")
           
 
           
@@ -173,18 +343,21 @@ Try again!!
 
 
 
-    def select_tournament_menu(self, ID):
+    def select_tournament_menu(self, ID:int):
+        tourn = self.logic_wrapper.get_tournament_by_ID(ID)
+        if isinstance(tourn, bool):
+            print("error fetching team")
+            return
 
         while True:
             print(
-""" 
-Select "nafn liðs"   ATH !!!!
+f""" 
+Selected: "{tourn.name}"
 
 1. Generate Schedule
 2. Record Game Results
-3. Accept Teams
-4. Manage Rewards
-5. Retrieve Records
+3. Manage Rewards [not implamanted]
+4. Retrieve Records [not implamanted]
 b. Back 
 
 
@@ -193,16 +366,15 @@ b. Back
             if choice not in ["1","2","3","4","5","b","B"]:
 
                 print(
-""" 
+f""" 
 Invalid Input!!
 
-Select "nafn liðs"   ATH !!!!
+Select {tourn.name}
 
 1. Generate Schedule
 2. Record Game Results
-3. Accept Teams
-4. Manage Rewards
-5. Retrieve Records
+3. Manage Rewards [not implamanted]
+4. Retrieve Records
 b. Back 
 
 Try again!!
@@ -210,17 +382,146 @@ Try again!!
 
             match choice:
                 case "1": 
-                    self.logic_wrapper.generate_bracket(ID)
+                    
+
+                    
+                    
+                    bracket = self.logic_wrapper.generate_bracket(tourn)
+                    
+                    if bracket == 2:
+                        print("Bracket is compleate")
+                    
+                    if isinstance(bracket, Bracket):
+                        print(bracket.matchups)
+                        
+
+                        inp = input("bracket generated, use? (y/n): ")
+
+                            
+                        if inp.lower() == "y":
+                            self.logic_wrapper.data_wrapper.write_bracket(bracket)
+                            
+                            inp2 = input("enter Results now? (y/n): ")
+                            if inp2.lower() == "y":
+                                match_bundle = []
+                                for matchup in bracket.matchups:
+                                    while True:
+                                        
+                                        team1 = self.logic_wrapper.get_team_by_ID(matchup[0])
+                                        team2 = self.logic_wrapper.get_team_by_ID(matchup[1])
+                                        if isinstance(team1,Team) and isinstance(team2,Team):
+                                            print(f"Team{team1.id} vs Team{team2.id}")
+                                            print(f"{team1.name} vs {team2.name}")
+                                            print()
+                                        else:
+                                            print("error getting team names")
+                                            print(f"Team numbers: team1: {matchup[0]} vs team2: {matchup[1]}")
+                                        
+                                        date = tourn.start_date
+                                        time = input("enter match time(MM:SS): ")
+                                        server_id = randint(1,10)
+                                        winner_id = int(input("Enter winner id: "))
+                                        while winner_id != matchup[0] and winner_id != matchup[1]:
+                                            print(f"Winner must be one ether: {matchup[0]} or {matchup[1]}")
+                                            winner_id = int(input("Enter winner id: "))
+                                            
+                                            self.functionFile.add_data_to_team_int(winner_id,"win",1)
+                                            looser = [matchup[0],matchup[1]]
+                                            looser.remove(winner_id)
+                                            self.functionFile.add_data_to_team_int(looser[0],"losses",1)
+                                        
+                                        
+                                        
+                                        score = int(input("Enter score: "))
+                                        
+                                        self.functionFile.add_data_to_team_int(winner_id,"total score",score)
+                                        
+                                        
+                                        ret =self.logic_wrapper.create_match(matchup[0], matchup[1], tourn.id, date, time, server_id, winner_id, score)
+                                        if ret ==-2:
+                                            print("failure in creating match")
+                                            print("try againe")
+                                            continue
+                                        if ret >= 0:
+                                            print("sucsess in creating match")
+                                            
+                                            print()
+                                            
+                                            match_bundle.append(ret)
+                                            break
+                                tourn.matches.append(match_bundle)
+                                
+                                if tourn.matches[-1].__len__() == 1:
+                                    print("Schedule completed")
+                                    
+                                    tourn.matches.append([])
+                                    
+                                self.logic_wrapper.modify_tournament(tourn)
+                                continue
+                                        
+                                    
+                            
+                                
+                        
+                        
+
+                    else:
+                        match bracket:
+                            case -1:
+                                print("not enough teams")
+                            case -2:
+                                print("odd number of teams")
+                            case -3:
+                                print("error in generating bracket")
+                                
+                        
+                                
+                        
+                    
                 case "2": 
-                    pass
+                    print("team 1 ")
+                    team1_id = self.functionFile.checkTeamID()
+                    print("team 2 ")
+                    team2_id = self.functionFile.checkTeamID()
+                    if team1_id == team2_id:
+                        print("Teams cannot be the same")
+                        continue
+                    
+                    
+                
+                    
+                    date = input("Enter date of match: ")
+                    time = input("enter match time (MM:SS): ")
+                    server_id = randint(1,10)
+                    winner_id = int(input("Enter winner id: "))
+                    while winner_id != team1_id and winner_id != team2_id:
+                        print("Winner must be one of the teams")
+                        winner_id = int(input("Enter winner id: "))
+                        
+                    score = int(input("Enter score:"))
+                    
+                    
+                    ret =self.logic_wrapper.create_match(team1_id, team2_id, tourn.id, date, time, server_id, winner_id, score)
+                    if ret ==-2:
+                        print("failure in creating match")
+                    if ret >= 0:
+                        print("creating match sucsessful")
+                        
+                        tourn.matches[-1].append(ret)
+                        self.logic_wrapper.modify_tournament(tourn)
+                    
                 case "3": 
                     pass
                 case "4": 
-                    pass
-                case "5": 
-                    pass
+                    
+                    for x in self.logic_wrapper.get_matches_by_tournament_ID(ID):
+                        print(f"Match: {x.id}")
+                        print(f"Team{x.team1_id} VS Team{x.team2_id}")
+                        print(f"Winner Team: {x.winner_id}, Score: {x.Score}")
+                        print(f"Date: {x.date}, match time: {x.match_time}, server id: {x.server_id}")
+                        print()
                 case "b": 
-                    pass
+                    return
             
 
 
@@ -228,29 +529,3 @@ Try again!!
 # ------------------Functions----------------------
 
 
-    def check_for_tournament_ID(self):
-        ID = int(input("Contact ID"))
-        list_of_tournaments=self.logic_wrapper.get_tournaments()
-        while True:
-            
-            if list_of_tournaments is None or list_of_tournaments == []:
-                return ID
-            for tournamentID in list_of_tournaments:
-                tournament_info=self.logic_wrapper.get_team_by_ID(tournamentID.id)
-                if isinstance(tournament_info,Tournament):
-                    if ID == tournament_info.id: 
-                        print("This tournament ID already exists!")
-                        ID = int(input("Enter different Contact ID"))
-                    else:
-                        return ID
-    
-
-
-    def inputTournamentID(self):
-        tournamentID=int(input("Enter Tournament ID: "))
-        check= self.logic_wrapper.get_tournament_by_ID(tournamentID)
-        while check is False:
-            print("Tournament does not exist, Try different ID")
-            tournamentID=int(input("Enter Tournament ID: "))
-            check= self.logic_wrapper.get_tournament_by_ID(tournamentID)
-        return tournamentID

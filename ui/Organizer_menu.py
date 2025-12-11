@@ -4,15 +4,17 @@ from logic.logic_wrapper import LogicWrapper
 from models.team import Team
 from models.tournament import Tournament
 from models.player import Player
+from ui.function_file import functionFile
+
 from ui.tournament_management import TournamentManagement
 
 
 class OrganizerMenu():
-    def __init__(self, low : LogicWrapper) -> None:
-        self.tournament_management = TournamentManagement(low)
+    def __init__(self,low : LogicWrapper,functionFile:functionFile) -> None:
         self.logic_wrapper = low
-        pass
-
+        self.functionFile = functionFile
+        self.tournament_menu = TournamentManagement(low,self.functionFile)
+        
     def show_organizer_menu(self):
 
         while True:
@@ -46,7 +48,7 @@ Try again!!
                 case "1": 
                     self.player_management_menu()
                 case "2": 
-                    self.tournament_management.tournament_management_menu()
+                    self.tournament_menu.tournament_management_menu()
                 case "b": 
                     return
     
@@ -87,13 +89,29 @@ Try again!!
                  
             match choice:
                 case "1": 
-                    self.inputplayersID()
-                    name:str=input("Name: ")
-                    self.input_phone_nr()
+                    nid=self.functionFile.inputplayersID()
+                    if nid == False:
+                        continue
+                    name=self.functionFile.input_name()
+                    if name == False:
+                        continue
+                    handle=self.functionFile.inputPlayerHandle()
+                    if handle == False:
+                        continue
+                    link=self.functionFile.inputPlayerLink()
+                    if link == False:
+                        continue
+                    phone=self.functionFile.input_phone_nr()
+                    if phone == False:
+                        continue
                     address:str=input("Address: ")
-                    self.input_email()
+                    if address == "q":
+                        continue
+                    email=self.functionFile.input_email()
+                    if email == False:
+                        continue 
                     print("Adding Player...")
-                    ret = self.logic_wrapper.create_player(nID,name,phone,address,email)
+                    ret = self.logic_wrapper.create_player(nid,name,handle,link,phone,address,email)
                     
 
                     print(ret)
@@ -111,16 +129,25 @@ Try again!!
                         print("Player added!!")
                     
                 case "2": 
-                    id=self.inputplayersID()
-                    self.edit_player_menu(id)  #Asks the user for Players National Id before going to the edit page
+                    id=self.functionFile.check_excistingID()
+                    if isinstance(id,str):
+                        self.edit_player_menu(id)  #Asks the user for Players National Id before going to the edit page
+                    else:
+                        print("error: player not found")
                 case "3":
-                    ID=self.inputplayersID()
-                    x=input("Are you sure? (Y/N)")
-                    if x=="y" or x=="Y":
-                        self.logic_wrapper.delete_player(ID) # type: ignore
-                    return   
+                    ID=self.functionFile.check_excistingID()
+                    if isinstance(ID,str):
+                        x=input("Are you sure? (Y/N)")
+                        if x=="y" or x=="Y":
+                            self.logic_wrapper.delete_player(ID) 
+                            print("Player has been deleted!")
+                        return   
                 case "4":
-                    pass
+                    list_of_players=self.logic_wrapper.get_players() #view all players
+                    count = 1
+                    for i in list_of_players:
+                        print(f"{count}: {i.name}, ID: {i.id}")
+                        count +=1  
                 case "b": 
                     return
 
@@ -139,13 +166,12 @@ Edit Players info
 4. Edit Email
 5. Edit Player Handle
 6. Edit Player Link
-7. Edit Portrait
 b. Back
 
 
 """)
             choice=input("Enter input: ")
-            if choice not in ["1","2","3","4","5","6","7","b","B"]:
+            if choice not in ["1","2","3","4","5","6","b","B"]:
                 
                 print(
 """ 
@@ -159,7 +185,6 @@ Edit Players info
 4. Edit Email
 5. Edit Player Handle
 6. Edit Player Link
-7. Edit Portrait
 b. Back
 
 Try again!!
@@ -170,15 +195,27 @@ Try again!!
                 
                 match choice:
                     case "1": 
-                        temp.name = input("Enter New name: ")
+                        inp=self.functionFile.input_name() 
+                        if isinstance(inp,str):
+                            temp.name=inp
+                        if inp== False:
+                            return
                     case "2": 
-                        temp.phone = int(input("Enter New number: "))
+                        inp=self.functionFile.input_phone_nr()
+                        if isinstance(inp,int):
+                            temp.phone=inp
+                        if inp == False:
+                            return
                     case "3": 
-                        temp.address = input("Enter New address: ")     
+                        temp.address = input("Enter New address: ") 
+                        if temp.address== "q":
+                            return    
                     case "4": 
-                        newmail = self.check_for_player_email(input("Enter New address: "))
-                        if isinstance(newmail,str):
-                            temp.email = newmail
+                        inp = self.functionFile.input_email()
+                        if isinstance(inp,str):
+                            temp.email=inp
+                        if inp == False:
+                            return
                     case "5": 
                         pass 
                     case "6": 
@@ -188,77 +225,6 @@ Try again!!
                     case "b": 
                         return
                 self.logic_wrapper.modify_player(temp)
-
-    
-    #------------------Functions--------------------------
-    def check_for_player_kt(self) -> str:
-            nID:str=input("National ID: ")
-            list_of_players= self.logic_wrapper.get_players()
-            while True:
-                if list_of_players is None or list_of_players == []:
-                    return nID
-                for player in list_of_players:
-                    playerinfo=self.logic_wrapper.get_player_by_ID(player.id)
-                    if isinstance(playerinfo,Player):
-                        if nID == playerinfo.id: 
-                            print("This national ID already exists!")
-                            nID=input("Enter different National ID: ")
-                        else:
-                            return nID
-                        
-
-    def check_for_player_email(self,email):
-        list_of_players=self.logic_wrapper.get_players()
-        if list_of_players is None or list_of_players == []:
-            return True
-        for player in list_of_players:
-            playerinfo=self.logic_wrapper.get_player_by_ID(player.id)
-            if isinstance(playerinfo,Player):
-                if email == playerinfo.email: 
-                    print("This email already exists!")
-                    return False
-                else:
-                    return True
-                
-
-    def inputplayersID(self):
-        playersID=input("Enter National ID: ")
-        check= self.logic_wrapper.get_player_by_ID(playersID)
-        while isinstance(check,int):
-            print("Player does not exist, Try different ID")
-            playersID=input("Enter National ID: ")
-            check= self.logic_wrapper.get_player_by_ID(playersID)
-        return playersID
-    
-
-    def input_phone_nr(self):
-        while True:
-            number:str=input("Phone number:")
-            check = self.logic_wrapper.check_phone_nr(number)
-            if check == "1":
-                print("Phone number is not the correct length!")
-            elif check == "2":
-                print("Only digits in phone number allowed!")
-
-    def input_name(self):
-        while True:
-            name:str=input("Name: ")
-            check = self.logic_wrapper.check_name(name)
-            if check == "1":
-                print("Numbers are not allowed in name!")
-                
-    def input_email(self):
-        check2= False
-        email=""
-        while check2 == False :
-            email:str=input("Email: ")
-            check1=self.logic_wrapper.check_email(email)
-            if check1 ==True:
-                check2=self.check_for_player_email(email)
-        return email
-            
-        
-
-
+                print("Player has been modified!")
 
     

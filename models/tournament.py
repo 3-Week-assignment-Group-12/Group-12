@@ -15,11 +15,11 @@ class Tournament:
         start_date: str
         end_date: str
         venue_name: str
-        contact_id: int
+        contact_id: str
         contact_email: str
-        contact_phone: int
+        contact_phone: str
         team_list: list[int]
-        matches: list[int]
+        matches: list[list[int]]
     """
 
     
@@ -36,13 +36,14 @@ class Tournament:
     venue_name: str 
     
     # Contact information
-    contact_id: int 
+    contact_id: str
     contact_email: str 
-    contact_phone: int 
+    contact_phone: str
     
     # Participants and events
     team_list: list[int] 
-    matches: list[int] 
+    matches: list[list[int]] 
+    
     
     filename = "tournament_data.json"
     
@@ -65,20 +66,23 @@ class Tournament:
             int for errors.
             
         Errors:
+            2: bracket is complete
             -1: Not enough teams to generate a schedule
             -2: Odd number of teams cannot form pairs
         """
+        if len(self.matches[-1]) == 0:
+            self.matches.append([])
+            return 2
         
-        if len(self.team_list) > 2:
+        if len(self.matches[-1]) < 0:
             return -1  # Not enough teams to generate a schedule
         
         elif len(self.team_list) % 2 != 0:
             return -2  # Odd number of teams cannot form pairs
         
         
-        
         if len(previus_matches) != 0:
-            awailable_teams: list[int] = [team.winner_id for team in previus_matches]
+            awailable_teams: list[int] = [int(team.winner_id) for team in previus_matches if team.winner_id != None]
         else:
             awailable_teams: list[int] = self.team_list.copy()
             

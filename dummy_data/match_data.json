@@ -1,0 +1,90 @@
+[
+    {
+        "id": 1,
+        "team1_id": 1,
+        "team2_id": 2,
+        "tournament_id": 1,
+        "date": "1.1.1",
+        "match_time": "10:12",
+        "server_id": 1,
+        "winner_id": 1,
+        "Score": 0
+    },
+    {
+        "id": 2,
+        "team1_id": 3,
+        "team2_id": 4,
+        "tournament_id": 1,
+        "date": "1.1.1",
+        "match_time": "10:10",
+        "server_id": 2,
+        "winner_id": 3,
+        "Score": 0
+    },
+    {
+        "id": 3,
+        "team1_id": 5,
+        "team2_id": 6,
+        "tournament_id": 1,
+        "date": "1.1.1",
+        "match_time": "11:11",
+        "server_id": 1,
+        "winner_id": 5,
+        "Score": 0
+    },
+    {
+        "id": 4,
+        "team1_id": 7,
+        "team2_id": 8,
+        "tournament_id": 1,
+        "date": "1.1.1",
+        "match_time": "10:10",
+        "server_id": 1,
+        "winner_id": 7,
+        "Score": 0
+    },
+    {
+        "id": 5,
+        "team1_id": 9,
+        "team2_id": 10,
+        "tournament_id": 1,
+        "date": "1.1.1",
+        "match_time": "11:00",
+        "server_id": 1,
+        "winner_id": 9,
+        "Score": 0
+    },
+    {
+        "id": 6,
+        "team1_id": 11,
+        "team2_id": 12,
+        "tournament_id": 1,
+        "date": "1.1.1",
+        "match_time": "11:00",
+        "server_id": 1,
+        "winner_id": 11,
+        "Score": 0
+    },
+    {
+        "id": 7,
+        "team1_id": 13,
+        "team2_id": 14,
+        "tournament_id": 1,
+        "date": "1.1.1",
+        "match_time": "11:11",
+        "server_id": 1,
+        "winner_id": 13,
+        "Score": 0
+    },
+    {
+        "id": 8,
+        "team1_id": 15,
+        "team2_id": 16,
+        "tournament_id": 1,
+        "date": "1.1.1",
+        "match_time": "10:11",
+        "server_id": 1,
+        "winner_id": 15,
+        "Score": 1
+    }
+]

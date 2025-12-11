@@ -29,12 +29,12 @@ class DataWrapper:
         
         
         
-        self.list_load(self.player_repo.read_dummy_data("./dummy_data/dummy_player.json"),self.player_repo)
-        self.list_load(self.tournament_repo.read_dummy_data("./dummy_data/dummy_tournaments.json"),self.tournament_repo)
-        self.list_load(self.match_repo.read_dummy_data("./dummy_data/dummy_match.json"),self.match_repo)
-        self.list_load(self.club_repo.read_dummy_data("./dummy_data/dummy_club.json"),self.club_repo)
-        self.list_load(self.bracket_repo.read_dummy_data("./dummy_data/dummy_bracket.json"),self.bracket_repo)
-        self.list_load(self.team_repo.read_dummy_data("./dummy_data/dummy_team.json"),self.team_repo)
+        self.list_load(self.player_repo.read_dummy_data("./dummy_data/player_data.json"),self.player_repo)
+        self.list_load(self.tournament_repo.read_dummy_data("./dummy_data/tournament_data.json"),self.tournament_repo)
+        self.list_load(self.match_repo.read_dummy_data("./dummy_data/match_data.json"),self.match_repo)
+        self.list_load(self.club_repo.read_dummy_data("./dummy_data/club_data.json"),self.club_repo)
+        self.list_load(self.bracket_repo.read_dummy_data("./dummy_data/bracket_data.json"),self.bracket_repo)
+        self.list_load(self.team_repo.read_dummy_data("./dummy_data/team_data.json"),self.team_repo)
         
         
         
@@ -346,6 +346,16 @@ class DataWrapper:
         """
         return self.match_repo.read(lambda x: x.tournament_id == tournament_id)
     
+    def get_bracket_by_tournament_ID(self, tournament_id:int) -> list[Bracket]:
+        """Retrieve bracket by tournament ID.
+        
+        Args:
+            tournament_id (int): Tournament ID to filter brackets
+        Returns:
+            list[Match]: List of matches for the specified tournament
+        """
+        return self.bracket_repo.read(lambda x: x.tournament_id == tournament_id)
+    
     
     def get_players_by_team_ID(self, team_id:int) -> list[Player] | bool:
         """Retrieve all players for a specific team ID.
@@ -394,15 +404,17 @@ class DataWrapper:
         if isinstance(tournmaent, bool):
             return False
         else:
-            return self.club_repo.read(lambda x: x.id in [p for p in tournmaent.team_list])
+            return self.team_repo.read(lambda x: x.id in [p for p in tournmaent.team_list])
+            
     
     # ------------------- Delete Methods ------------------ #
     
-    def delete_player(self, player_id:int) -> bool:
+    
+    def delete_player(self, player_id:str) -> bool:
         """Delete a player by their ID.
         
         Args:
-            player_id (int): ID of player to delete
+            player_id (str): ID of player to delete
             
         Returns:
             bool: Success status

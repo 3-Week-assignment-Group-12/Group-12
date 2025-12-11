@@ -10,20 +10,29 @@ class Player:
     attributes:
         id: str
         name: str
+        handle: str
+        link:str
         dob: str
         phone: int
         address: str
         email: str
+        
+        dynamic_data: dict
     """
     
     id: str
     name: str
+    handle: str
+    link:str
     dob: str
     phone: int
     address: str
     email: str
+    
+    dynamic_data: dict
+    
 
-    filename = "players_data.json"
+    filename = "player_data.json"
     
     @staticmethod
     def from_dict(data: dict) -> Player:
