@@ -1,4 +1,5 @@
 from __future__ import annotations
+from random import randint
 from re import Match
 # ui_layer/main_menu.py
 from models.bracket import Bracket
@@ -7,6 +8,7 @@ from logic.logic_wrapper import LogicWrapper
 
 from models.tournament import Tournament
 
+from models.team import Team
 from ui.function_file import functionFile
 
 
@@ -109,10 +111,11 @@ b. Back
                                 
                             print("match id not registered")
                             print()
+                    barches:list[list[int]] = []
+                    barches.append(matches)
                     
                     
-                    
-                    ret =self.logic_wrapper.create_tournament(name,startDate,endDate,venue,contactID,contactEmail,contactPhone,team_list,matches)
+                    ret =self.logic_wrapper.create_tournament(name,startDate,endDate,venue,contactID,contactEmail,contactPhone,team_list,barches)
                     if ret == 1:
                         print("Tournament created successfully!")
                     elif ret == -1:
@@ -302,7 +305,9 @@ Try again!!
                     
                     existing_matches = self.logic_wrapper.get_match()
                     while True:
-                        
+                        if new_matches.__len__() == temp.team_list.__len__()/2:
+                            print("max amount of matches added, ending")
+                            break
                         val = input("Enter match id (q to stop): ")
                         if val.lower() == "q":
                             break
@@ -319,7 +324,7 @@ Try again!!
                             print("match id not registered")
                         else:
                             print(f"match id {val} added.")
-                    temp.matches = new_matches
+                    temp.matches.append(new_matches)
                     
                 case "b": 
                     return
@@ -379,12 +384,81 @@ Try again!!
 
             match choice:
                 case "1": 
+                    
+
+                    
+                    
                     bracket = self.logic_wrapper.generate_bracket(tourn)
+                    
+                    if bracket == 2:
+                        print("Bracket is compleate")
+                    
                     if isinstance(bracket, Bracket):
-                        print(bracket)
+                        print(bracket.matchups)
+                        
+
+                        inp = input("bracket generated, use? (y/n): ")
+
+                            
+                        if inp.lower() == "y":
+                            self.logic_wrapper.data_wrapper.write_bracket(bracket)
+                            
+                            inp2 = input("enter Results now? (y/n): ")
+                            if inp2.lower() == "y":
+                                match_bundle = []
+                                for matchup in bracket.matchups:
+                                    while True:
+                                        
+                                        team1 = self.logic_wrapper.get_team_by_ID(matchup[0])
+                                        team2 = self.logic_wrapper.get_team_by_ID(matchup[1])
+                                        if isinstance(team1,Team) and isinstance(team2,Team):
+                                            print(f"Team{team1.id} vs Team{team2.id}")
+                                            print(f"{team1.name} vs {team2.name}")
+                                            print()
+                                        else:
+                                            print("error getting team names")
+                                            print(f"Team numbers: team1: {matchup[0]} vs team2: {matchup[1]}")
+                                        
+                                        date = tourn.start_date
+                                        time = input("enter match time(MM:SS): ")
+                                        server_id = randint(1,10)
+                                        winner_id = int(input("Enter winner id: "))
+                                        while winner_id != matchup[0] and winner_id != matchup[1]:
+                                            print(f"Winner must be one ether: {matchup[0]} or {matchup[1]}")
+                                            winner_id = int(input("Enter winner id: "))
+                                            
+                                        score = int(input("Enter score: "))
+                                        
+                                        
+                                        ret =self.logic_wrapper.create_match(matchup[0], matchup[1], tourn.id, date, time, server_id, winner_id, score)
+                                        if ret ==-2:
+                                            print("failure in creating match")
+                                            print("try againe")
+                                            continue
+                                        if ret >= 0:
+                                            print("sucsess in creating match")
+                                            
+                                            print()
+                                            
+                                            match_bundle.append(ret)
+                                            break
+                                tourn.matches.append(match_bundle)
+                                
+                                if tourn.matches[-1].__len__() == 1:
+                                    print("Schedule completed")
+                                    
+                                    tourn.matches.append([])
+                                    
+                                self.logic_wrapper.modify_tournament(tourn)
+                                break
+                                        
+                                    
+                            
+                                
+                        
+                        
 
                     else:
-                        print(bracket)
                         match bracket:
                             case -1:
                                 print("not enough teams")
@@ -396,13 +470,6 @@ Try again!!
                         
                                 
                         
-                    
-                    
-                        
-                    
-                    
-                    
-                    
                     
                 case "2": 
                     print("team 1 ")
@@ -417,12 +484,12 @@ Try again!!
                 
                     
                     date = input("Enter date of match: ")
-                    time = input("enter match time: ")
-                    server_id = int(input("enter server id: "))
-                    winner_id = input("Enter winner id: ")
+                    time = input("enter match time (MM:SS): ")
+                    server_id = randint(1,10)
+                    winner_id = int(input("Enter winner id: "))
                     while winner_id != team1_id and winner_id != team2_id:
                         print("Winner must be one of the teams")
-                        winner_id = input("Enter winner id: ")
+                        winner_id = int(input("Enter winner id: "))
                         
                     score = int(input("Enter score:"))
                     
@@ -433,7 +500,7 @@ Try again!!
                     if ret >= 0:
                         print("creating match sucsessful")
                         
-                        tourn.matches.append(ret)
+                        tourn.matches[-1].append(ret)
                         self.logic_wrapper.modify_tournament(tourn)
                     
                 case "3": 
@@ -443,7 +510,11 @@ Try again!!
                 case "5": 
                     
                     for x in self.logic_wrapper.get_matches_by_tournament_ID(ID):
-                        print(x)
+                        print(f"Match: {x.id}")
+                        print(f"Team{x.team1_id} VS Team{x.team2_id}")
+                        print(f"Winner Team: {x.winner_id}, Score: {x.Score}")
+                        print(f"Date: {x.date}, match time: {x.match_time}, server id: {x.server_id}")
+                        print()
                 case "b": 
                     pass
             

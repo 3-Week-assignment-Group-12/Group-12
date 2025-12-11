@@ -196,6 +196,8 @@ class functionFile:
                 print("Phone number is not the correct length!")
             elif check == "2":
                 print("Only digits in phone number allowed!")
+            elif check=="3":
+                print("Number already exists!")
             else:
                 return number
         
@@ -227,6 +229,7 @@ class functionFile:
                     print("Email already exists in system!")
                 else:
                     return email
+        return False
     
 
 

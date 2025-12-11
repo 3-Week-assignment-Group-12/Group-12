@@ -346,6 +346,16 @@ class DataWrapper:
         """
         return self.match_repo.read(lambda x: x.tournament_id == tournament_id)
     
+    def get_bracket_by_tournament_ID(self, tournament_id:int) -> list[Bracket]:
+        """Retrieve bracket by tournament ID.
+        
+        Args:
+            tournament_id (int): Tournament ID to filter brackets
+        Returns:
+            list[Match]: List of matches for the specified tournament
+        """
+        return self.bracket_repo.read(lambda x: x.tournament_id == tournament_id)
+    
     
     def get_players_by_team_ID(self, team_id:int) -> list[Player] | bool:
         """Retrieve all players for a specific team ID.
@@ -404,7 +414,7 @@ class DataWrapper:
         """Delete a player by their ID.
         
         Args:
-            player_id (int): ID of player to delete
+            player_id (str): ID of player to delete
             
         Returns:
             bool: Success status
