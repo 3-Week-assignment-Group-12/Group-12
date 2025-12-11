@@ -165,21 +165,17 @@ Try again!!
                                     print("")
                                             
                 case "4":
-                    while True:
-                        player_ID = input("Enter player ID: ")
-                        if player_ID == "q":
-                            return
-                        if isinstance(self.logic_wrapper.get_player_by_ID(player_ID),int) :
-                            print("Incorrect ID")
-                        else:
-                            playerinfo = self.logic_wrapper.get_player_by_ID(player_ID)
-                            if isinstance(playerinfo, Player):
-                                print(f"name: {playerinfo.name}") 
-                                print(f"KT: {playerinfo.id}")
-                                print(f"dob: {playerinfo.dob}")
-                                print(f"phone: {playerinfo.phone}")
-                                print(f"address: {playerinfo.address}")
-                                print(f"email: {playerinfo.email}")
+                    player_ID = self.functionFile.inputplayersID()
+                    if player_ID == False:
+                        continue
+                    playerinfo = self.logic_wrapper.get_player_by_ID(player_ID)
+                    if isinstance(playerinfo, Player):
+                        print(f"name: {playerinfo.name}") 
+                        print(f"KT: {playerinfo.id}")
+                        print(f"dob: {playerinfo.dob}")
+                        print(f"phone: {playerinfo.phone}")
+                        print(f"address: {playerinfo.address}")
+                        print(f"email: {playerinfo.email}")
                 case "5": 
                     list_of_players=self.logic_wrapper.get_players() #view all players
                     count = 1
@@ -263,28 +259,22 @@ b. Back
                 
                 
                 case "5":
-                    while True:
-                        team_ID = input("Enter team ID: ")
-                        if team_ID == "q":
-                            return False
-                        try:
-                            team_ID = int(team_ID)
-                            if self.logic_wrapper.get_team_by_ID(team_ID) is False:
-                                print("Incorrect ID, try again!")
-                            else:
-                                team = self.logic_wrapper.get_team_by_ID(team_ID)
-                                if type(team) == Team:
-                                    print(f"name: {team.name}")
-                                    print(f"tag: {team.tag}")
-                                    print(f"creator_id: {team.creator_id}")
-                                    print(f"team_size: {team.team_size}")
-                                    print(f"member_list: {team.member_list}")
-                        except:
-                            print("Team ID can only contain digits!")
-
+                    
+                    team_ID = self.functionFile.checkTeamID()
+                    if team_ID == False:
+                        continue
+                    team = self.logic_wrapper.get_team_by_ID(team_ID)
+                    if type(team) == Team:
+                        print(f"name: {team.name}")
+                        print(f"tag: {team.tag}")
+                        print(f"creator_id: {team.creator_id}")
+                        print(f"team_size: {team.team_size}")
+                        print(f"member_list: {team.member_list}")
+             
+               
                 case "b": 
                     return
-            return
+            
     
 
 
@@ -504,22 +494,13 @@ Try again!!
                         if isinstance(club, Club):
                             print(club.name)
                 case "2": 
-                    while True:
-                        clubID = input("Enter club ID: ")
-                        if clubID == "q":
-                            return False
-                        try:
-                            clubID = int(clubID)
-                            if self.logic_wrapper.get_club_by_ID(clubID) is False:
-                                print("Incorrect ID, try again!")
-                            else:
-                                club = self.logic_wrapper.get_club_by_ID(clubID)
-                                if type(club) == Club:
-                                    print(f"Club ID: {club.id}")
-                                    print(f"Club name: {club.name}")
-                                    print(f"Club colour: {club.colours}")
-                        except:
-                            print("Club ID must contain only digits!")
+                    clubID = self.functionFile.inputClubID()
+                    club = self.logic_wrapper.get_club_by_ID(clubID)
+                    if type(club) == Club:
+                        print(f"Club ID: {club.id}")
+                        print(f"Club name: {club.name}")
+                        print(f"Club colour: {club.colours}")
+                        
                 case "3": 
                     
                     club_id = self.functionFile.inputClubID()
@@ -606,7 +587,7 @@ Try again!!
                 case "2":
                     contactID=self.functionFile.input_contact_ID()
                     if contactID == False:
-                        return
+                        continue
                     tournaments=self.logic_wrapper.get_tournaments()
                     for tournament in tournaments:
                         if tournament.contact_id==contactID:
@@ -640,7 +621,7 @@ b. Back
 Try again!!
 """)
 
-            match choice:
+            match choice.lower():
                 case "1": 
                     tournaments=self.logic_wrapper.get_tournaments()
                     for tour in tournaments:

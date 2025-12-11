@@ -60,19 +60,19 @@ Try again!!
                     #new
                     name = self.functionFile.inputTeamName()
                     if name ==False:
-                        return
+                        continue
                     team_tag = self.functionFile.inputTeamTag()
                     if team_tag ==False:
-                        return
+                        continue
                     creator_id = self.functionFile.input_creatorID() # type: ignore
                     if creator_id ==False:
-                        return
+                        continue
                     
                     team_list=[] #laga team list 
                     val = input("add members? (y/n)")
                     if val.lower() == "y":
                         while True:
-                            team_size = int(input("Enter team size: "))
+                            team_size = self.functionFile.teamSize()
                             if team_size > 21:
                                 print("team too big")
                                 continue
@@ -83,7 +83,7 @@ Try again!!
                         while team_list.__len__() != team_size:
                             team_list.append(self.functionFile.inputplayersID())
                     else:
-                        team_size = int(input("Enter team size: "))
+                        team_size = self.functionFile.teamSize()
 
                     
                     ret = self.logic_wrapper.create_team(name, team_tag, creator_id, team_size, team_list) 
@@ -103,12 +103,12 @@ Try again!!
                 case "4": 
                     ID=self.functionFile.checkTeamID()
                     if ID == False:
-                        return
+                        continue
                     self.edit_team_menu(ID) 
                 case "5": 
                     ID=self.functionFile.checkTeamID()
                     if ID == False:
-                        return
+                        continue
                     x=input("Are you sure? (Y/N)")
                     if x.lower() == "y":
                         self.logic_wrapper.delete_team(ID) 
@@ -157,7 +157,7 @@ Try again!!
                 case "1": 
                     teamID = self.functionFile.checkTeamID()
                     if teamID == False:
-                        return
+                        continue
                     team = self.logic_wrapper.get_team_by_ID(teamID)
                     if isinstance(team, Team):
                         print(f"Team ID: {team.id}")  # call funtion for specific team to check out
@@ -307,7 +307,7 @@ Try again!!
                             member=self.functionFile.check_excistingID()
                             if member==False:
                                 print("Addition of member canceled!")
-                                return
+                                continue
                             else:
                                 temp.member_list.append(member)
 
@@ -322,7 +322,7 @@ Try again!!
                             member=self.functionFile.check_excistingID()
                             if member==False:
                                 print("Removal of player canceled!")
-                                return
+                                continue
                             else:
                                 temp.member_list.remove(member)
                     case "3": 
@@ -331,14 +331,14 @@ Try again!!
                             temp.name=imp
                         if imp == False:
                             print("Name change aborted!")
-                            return
+                            continue
                     case "4": 
                         imp=self.functionFile.inputTeamTag()
                         if isinstance(imp,str):
                             temp.tag=imp
                         if imp == False:
                             print("Team tag change aborted!")
-                            return
+                            continue
                             
                     case "5": 
                         pass
@@ -386,14 +386,14 @@ Try again!!
                 case "1":
                     name = self.functionFile.inputClubName()
                     if name == False:
-                        return
+                        continue
                     club_color = self.functionFile.inputClubColor()
                     if club_color == False:
-                        return
+                        continue
                     team_list=[] 
                     team=self.functionFile.checkTeamID()
                     if team==False:
-                        return
+                        continue
                     else:
                         team_list.append(team)
 
@@ -404,7 +404,7 @@ Try again!!
                 case "3": 
                     club_id=self.functionFile.inputClubID()
                     if club_id==False:
-                        return
+                        continue
                     else:
                         club_info=self.logic_wrapper.get_club_by_ID(club_id) # view club by id
                         if isinstance(club_info,Club):
@@ -466,17 +466,17 @@ Try again!!
                         if isinstance(inp,str):
                             temp.name=inp
                         if inp == False:
-                            return
+                            continue
                     case "2": 
                         inp = self.functionFile.inputClubColor()
                         if isinstance(inp,str):
                             temp.colours=inp
                         if inp == False:
-                            return
+                            continue
                     case "3": 
                         team=self.functionFile.checkTeamID()
                         if team==False:
-                            return
+                            continue
                         else:
                             temp.teams.append(team)
                     case "4": 
@@ -487,10 +487,10 @@ Try again!!
                                 counter += 1
                             if counter == 0:
                                 print("Clubs are empty")
-                                return
+                                continue
                             team = self.functionFile.checkTeamID()
                             if team==False:
-                                return
+                                continue
                             else:
                                 temp.teams.remove(team)
                     case "b": 
