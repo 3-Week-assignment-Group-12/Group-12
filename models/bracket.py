@@ -5,12 +5,16 @@ from dataclasses import dataclass, asdict
 @dataclass
 class Bracket:
     """    
-    This class encapsulates all information related to a bracket  
-    
+    Represents a knockout bracket in the system.
+
     Attributes:
-        id (int): bracket id
-        machups: list[tuple[int,int]]: list of matchups
-        tournament_id: int: tournament id
+        id (int):
+            Unique identifier for the bracket.
+        matchups (list[tuple[int, int]]):
+            List of matchups, each represented as a pair of team IDs
+            (team1_id, team2_id).
+        tournament_id (int):
+            ID of the tournament this bracket belongs to.
     """
     
 
@@ -22,7 +26,23 @@ class Bracket:
 
     @staticmethod
     def from_dict(data: dict) -> Bracket:
+        """Create a Bracket instance from a dictionary.
+
+        Args:
+            data (dict):
+                Dictionary containing bracket data with keys matching
+                the Bracket fields.
+
+        Returns:
+            Bracket: A Bracket instance populated with the given data.
+        """
         return Bracket(**data)
 
     def to_dict(self) -> dict:
+        """Convert the Bracket instance into a dictionary.
+
+        Returns:
+            dict: Dictionary representation of the Bracket, suitable
+            for JSON serialization.
+        """
         return asdict(self)

@@ -34,6 +34,8 @@ class player_handler:
         # 1. Validate Input (Business Logic)     
         day=int(ID[0:2])
         month=int(ID[2:4])
+
+        # Determine century based on last digit of ID
         if ID[-1]=="0":
             year = int("20"+ID[4:6])
         else:

@@ -5,11 +5,38 @@ from models.tournament import Tournament
 class tournament_handler:
     
     def create_tournament(self, name:str, start_date:str, end_date:str, venue:str, contact_id:str, contact_email:str, contact_phone:str,existing_tournaments: list[Tournament] , team_list:list[int],matches:list[list[int]]) -> Tournament| int:
-        """ this function creates a tournament object after validating the inputs
-
-
+        """ Create a new tournament with validation.
+        
+        Args:
+            name (str):
+                Name of the tournament.
+            start_date (str):
+                Tournament start date, expected in dot-separated format (e.g., 'dd.mm.yyyy').
+            end_date (str):
+                Tournament end date, same format as start_date.
+            venue (str):
+                Venue or location of the tournament.
+            contact_id (str):
+                National ID of the main organizer. Must be 10 characters.
+            contact_email (str):
+                Email address of the organizer. Must contain exactly one '@'.
+            contact_phone (str):
+                Phone number of the organizer. Must be a 7-digit string.
+            existing_tournaments (list[Tournament]):
+                Used to determine the next unique tournament ID.
+            team_list (list[int]):
+                List of participating team IDs.
+            matches (list[list[int]]):
+                Nested list representing match IDs grouped by tournament rounds.
+        
         Returns:
-            Tournament| bool: returns the created tournament object or False if validation fails
+            Tournament | int:
+                * Tournament: A newly created Tournament instance if validation succeeds.
+                * int: Error code if validation fails:
+                    - -2: Invalid contact_id length.
+                    - -4: Invalid email format (must contain exactly one '@').
+                    - -5: contact_phone must be a 7-digit string.
+                    - -6: start_date contains non-numeric segments.
         """
         # 1. Validate Input (Business Logic)        
         if len(contact_id) != 10:
@@ -54,8 +81,18 @@ class tournament_handler:
     def generate_bracket(self, tournament: Tournament, previus_matches: list[Match]) -> list[tuple[int,int]] | int:
         """Generate a knockout bracket for the tournament.
         
+        Args:
+            tournament (Tournament):
+                Tournament instance from which bracket rules and team list are derived.
+            previus_matches (list[Match]):
+                List of Match objects from previous rounds, used to determine available teams.
+
         Returns:
-            list[tuple[int,int]] | int: A list of tuples representing match pairings,
-            int for errors.
+            list[tuple[int, int]] | int:
+                * list[tuple[int, int]]: Each tuple represents (team1_id, team2_id).
+                * int: Error code defined by Tournament.generate_knockout_bracket():
+                    - 2: Bracket already complete.
+                    - -1: Not enough teams.
+                    - -2: Odd number of teams.
         """
         return tournament.generate_knockout_bracket(previus_matches)
