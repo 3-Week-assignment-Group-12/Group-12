@@ -142,7 +142,7 @@ class functionFile:
                 
 
     
-    def check_excistingID(self):
+    def check_existingID(self):
         """Gets ID for existing player"""
         playersID=input("Enter National ID: ")
         if playersID=="q":
