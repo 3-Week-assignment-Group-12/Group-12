@@ -74,13 +74,20 @@ class functionFile:
 
 
     def inputTournamentID(self):
-        tournamentID=int(input("Enter Tournament ID: "))
-        check= self.logic_wrapper.get_tournament_by_ID(tournamentID)
-        while check is False:
-            print("Tournament does not exist, Try different ID")
-            tournamentID=int(input("Enter Tournament ID: "))
-            check= self.logic_wrapper.get_tournament_by_ID(tournamentID)
-        return tournamentID
+        while True:
+            tournamentID=input("Enter Tournament ID: ")
+            if tournamentID == "q":
+                return False
+            try:
+                tournamentID = int(tournamentID)
+                check= self.logic_wrapper.get_tournament_by_ID(tournamentID)
+                while check is False:
+                    print("Tournament does not exist, Try different ID")
+                    tournamentID=int(input("Enter Tournament ID: "))
+                    check= self.logic_wrapper.get_tournament_by_ID(tournamentID)
+                return tournamentID
+            except:
+                print("Tournament ID can only contain digits!")
     
 
     def check_for_team_name(self):
