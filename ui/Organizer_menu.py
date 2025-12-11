@@ -10,13 +10,36 @@ from ui.tournament_management import TournamentManagement
 
 
 class OrganizerMenu():
+    """Organizer-facing menu for managing players and tournaments.
+
+    This class is responsible for:
+        - Displaying the organizer main menu.
+        - Routing to player management functions.
+        - Routing to tournament management menu.
+    """
     def __init__(self,low : LogicWrapper,functionFile:functionFile) -> None:
+        """Initialize OrganizerMenu with dependencies.
+
+        Args:
+            low (LogicWrapper):
+                Shared logic layer facade used to perform business operations.
+            functionFile (functionFile):
+                Helper object providing shared input/validation functions.
+        """
         self.logic_wrapper = low
         self.functionFile = functionFile
         self.tournament_menu = TournamentManagement(low,self.functionFile)
         
     def show_organizer_menu(self):
+        """Display the main Organizer menu and handle user navigation.
 
+        Options:
+            1 -> Player Management menu
+            2 -> Tournament Management menu
+            b -> Back to previous menu / caller
+
+        The method loops until the user chooses 'b' / 'B'.
+        """
         while True:
             print(
 """ 
@@ -54,8 +77,18 @@ Try again!!
     
 
     def player_management_menu(self):
+        """Display the Player Management menu and handle user actions.
 
-        
+        Options:
+            1 -> Add player
+            2 -> Edit player information
+            3 -> Delete player
+            4 -> View players
+            b -> Back
+
+        Uses functionFile helpers for input/validation and LogicWrapper
+        for the actual CRUD operations.
+        """
         while True:
             print(
 """ 
@@ -152,8 +185,23 @@ Try again!!
                     return
 
     def edit_player_menu(self,Player_ID:str):
+        """Display the Edit Player menu for a specific player.
 
+        Args:
+            Player_ID (str):
+                National ID of the player to edit.
 
+        Options:
+            1 -> Edit Name
+            2 -> Edit Phone Number
+            3 -> Edit Address
+            4 -> Edit Email
+            5 -> Edit Player Handle (not implemented)
+            6 -> Edit Player Link (not implemented)
+            b -> Back
+
+        On successful edit, the updated player is persisted via LogicWrapper.
+        """
         temp : Player|int = self.logic_wrapper.get_player_by_ID(Player_ID)  
         while True:
             print(
