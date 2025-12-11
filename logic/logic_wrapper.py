@@ -540,12 +540,14 @@ class LogicWrapper:
                     return True
             
     def check_for_team_tag(self,tag):
+        if len(tag) > 5:
+            return "1"
         list_of_teams=self.get_teams()
         for teamID in list_of_teams:
             teaminfo=self.get_team_by_ID(teamID.id)
             if isinstance(teaminfo,Team):
                 if tag == teaminfo.tag: 
-                    return False
+                    return "2"
                 else:
                     return True
     #--------------Player checks --------------------
