@@ -102,6 +102,8 @@ Try again!!
                     
                 case "4": 
                     ID=self.functionFile.checkTeamID()
+                    if ID == False:
+                        return
                     self.edit_team_menu(ID) 
                 case "5": 
                     ID=self.functionFile.checkTeamID()
@@ -212,7 +214,7 @@ Try again!!
                 case "2": 
                     pass # funtion rewardslog
                 case "b": 
-                    pass
+                    return
             
 
     def register_for_tournament_menu(self):
@@ -250,7 +252,7 @@ Try again!!
                 case "2": 
                     pass
                 case "b": 
-                    pass
+                    return
           
 
     def edit_team_menu(self,teamID:int):
@@ -303,6 +305,7 @@ Try again!!
                         else:
                             member=self.functionFile.check_excistingID()
                             if member==False:
+                                print("Addition of member canceled!")
                                 return
                             else:
                                 temp.member_list.append(member)
@@ -317,6 +320,7 @@ Try again!!
                                 continue
                             member=self.functionFile.check_excistingID()
                             if member==False:
+                                print("Removal of player canceled!")
                                 return
                             else:
                                 temp.member_list.remove(member)
@@ -325,13 +329,16 @@ Try again!!
                         if isinstance(imp,str):
                             temp.name=imp
                         if imp == False:
+                            print("Name change aborted!")
                             return
                     case "4": 
                         imp=self.functionFile.inputTeamTag()
                         if isinstance(imp,str):
                             temp.tag=imp
                         if imp == False:
+                            print("Team tag change aborted!")
                             return
+                            
                     case "5": 
                         pass
                     case "b": 

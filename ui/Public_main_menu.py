@@ -441,6 +441,8 @@ Try again!!
                             counter+=1
                 case "2":
                     contactID=self.functionFile.input_contact_ID()
+                    if contactID == False:
+                        return
                     tournaments=self.logic_wrapper.get_tournaments()
                     for tournament in tournaments:
                         if tournament.contact_id==contactID:

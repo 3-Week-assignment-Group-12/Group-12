@@ -278,8 +278,12 @@ class functionFile:
             if tag=="q":
                 return False
             check=self.logic_wrapper.check_for_team_tag(tag)
-            if check=="-1":
-                print("Too many letters/numbers")
+            if check=="1":
+                print("Too many letters/numbers!")
+                return False
+            if check=="2":
+                print("Team tag already exists!")
+                return False
             else:
                 return tag
             
@@ -346,7 +350,7 @@ class functionFile:
                 return False
             check = self.logic_wrapper.valid_kt(contactID)
             if check == "1":
-                print("Contact ID must be 10 numbers long!")
+                print("Contact ID should be exactly 10 numbers!")
             elif check == "2":
                 print("ID must only contain numbers!")
             elif check == "3":

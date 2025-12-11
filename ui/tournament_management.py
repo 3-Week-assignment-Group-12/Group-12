@@ -516,7 +516,7 @@ Try again!!
                         print(f"Date: {x.date}, match time: {x.match_time}, server id: {x.server_id}")
                         print()
                 case "b": 
-                    pass
+                    return
             
 
 
