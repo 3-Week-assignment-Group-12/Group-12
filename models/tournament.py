@@ -86,13 +86,13 @@ class Tournament:
     def generate_knockout_bracket(self, previus_matches:list[Match]) -> list[tuple[int, int]]|int:
         """Generate a knockout bracket for the tournament.
         
-        This function determines the next round matchups. It either uses
+        This function determines the next round matchup. It either uses
         the winners of previous matches or, if no previous matches exist,
         the tournament's registered team list.
 
         Returns:
             list[tuple[int, int]] | int:
-                A list of (team1_id, team2_id) pairs representing matchups.
+                A list of (team1_id, team2_id) pairs representing matchup.
 
                 Or an error code:
                     2   — Bracket is complete (final winner determined)
