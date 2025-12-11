@@ -426,7 +426,14 @@ class functionFile:
             for p in players:
             
                 for k in p.dynamic_data.keys():
-                    grouped_data[k] += p.dynamic_data[k]
+                    
+                    try:
+                        grouped_data[k] += p.dynamic_data[k]
+                    
+                    except:
+                        grouped_data[k] = 0
+                        grouped_data[k] += p.dynamic_data[k]
+                    
             return grouped_data
         
         else:
