@@ -124,17 +124,21 @@ class functionFile:
 
     def checkTeamID(self):
         """ takes a team id and checks if the id exists in the system"""
-        teamID=int(input("Enter Team ID: "))
-        if teamID=="q":
-            return False
-        check= self.logic_wrapper.get_team_by_ID(teamID)
-        while check is False:
-            print("Team does not exist, Try different ID")
-            teamID=int(input("Enter Team ID: "))
+        while True:
+            teamID=input("Enter Team ID: ")
             if teamID=="q":
-                return False
-            check= self.logic_wrapper.get_team_by_ID(teamID)
-        return teamID
+                    return False
+            try:
+                teamID = int(teamID)
+                check= self.logic_wrapper.get_team_by_ID(teamID)
+                if check == False:
+                    print("Team does not exist, Try different ID")
+                else:
+                    return teamID
+            except:
+                print("TeamID must be digits only!")
+                
+
     
     def check_excistingID(self):
         """Gets ID for existing player"""
@@ -145,6 +149,8 @@ class functionFile:
         while not isinstance(check, Player):
             print("Player does not exist, Try different ID")
             playersID=input("Enter National ID: ")
+            if playersID == "q":
+                return False
             check= self.logic_wrapper.get_player_by_ID(playersID)
         return playersID
     
@@ -346,4 +352,9 @@ class functionFile:
                 print("Month date in ID is invalid!")
             else:
                 return contactID
+            
+
+    def string_to_int(self,string):
+        converted = int(string)
+        return converted
             

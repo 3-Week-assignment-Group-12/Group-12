@@ -464,22 +464,6 @@ class LogicWrapper:
         return -3 # error in cenerating bracket
     
     
-    
-    
-
-    def inputTeamID(self):
-        teamID=int(input("Enter Team ID: "))
-        if teamID=="q":
-            return False
-        check= self.get_team_by_ID(teamID)
-        while check is False:
-            print("Team does not exist, Try different ID")
-            teamID=int(input("Enter Team ID: "))
-            if teamID=="q":
-                return False
-            check= self.get_team_by_ID(teamID)
-        return teamID
-    
 
     def check_for_club_ID(self):
         clubID=int(input("Enter Team ID: "))
