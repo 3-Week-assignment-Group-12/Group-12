@@ -16,14 +16,43 @@ from ui.function_file import functionFile
 
 
 class PublicMainMenu():
+    """Public-facing menu for viewing tournament-related data.
 
+    This class contains read-only menus for:
+        - Viewing players and their statistics.
+        - Viewing teams and team-related statistics.
+        - Viewing tournaments, schedules, and derived statistics.
+        - Viewing clubs and aggregated statistics by club.
+        - Viewing organizers and basic scoreboard info.
+    """
     def __init__(self,low : LogicWrapper,functionFile:functionFile) -> None:
+        """Initialize PublicMainMenu with shared dependencies.
+
+        Args:
+            low (LogicWrapper):
+                Shared logic layer facade used for data retrieval and
+                higher-level operations.
+            functionFile (functionFile):
+                Helper instance containing input utilities and statistics helpers.
+        """
         self.logic_wrapper = low
         self.functionFile = functionFile
 
     #-----------------------Public Main menu----------------------------
-    def public_menu(self):
+    def public_menu(self) -> None:
+        """Display the public main menu and route to sub-menus.
 
+        Options:
+            1 -> View Players
+            2 -> View Teams
+            3 -> View Tournaments
+            4 -> View Clubs
+            5 -> View Scoreboard (partially implemented)
+            6 -> View Organizers (partially implemented)
+            b -> Back
+
+        The method loops until the user chooses 'b' / 'B'.
+        """
         while True:
             print(""" 
 Public main menu
@@ -79,8 +108,21 @@ Try again!!
 
 
 
-    def view_players_menu(self):
+    def view_players_menu(self)-> None:
+        """Display the View Players menu and handle user actions.
 
+        Options:
+            1 -> View all players (basic info)
+            2 -> View players grouped by team (incl. dynamic_data)
+            3 -> View players grouped by tournament
+            4 -> View a specific player's basic info
+            5 -> View statistics for all players (dynamic_data)
+            6 -> View statistics for a single player (dynamic_data)
+            b -> Back
+
+        Uses LogicWrapper to fetch players, teams, and tournaments,
+        and prints information directly to the console.
+        """
         while True:
             print(
 """ 
@@ -208,7 +250,17 @@ Try again!!
 
 
 
-    def view_team_menu(self):
+    def view_team_menu(self) -> None:
+        """Display the View Team menu and handle user actions.
+
+        Options:
+            1 -> View all teams
+            2 -> View teams grouped by tournaments
+            3 -> View visual tournaments (not implemented)
+            4 -> View team statistics (aggregated dynamic_data)
+            5 -> View specific team details
+            b -> Back
+        """
         while True:
             print(
 """ 
@@ -282,8 +334,18 @@ b. Back
 
 
 
-    def view_tournaments_menu(self):
+    def view_tournaments_menu(self) -> None:
+        """Display the View Tournament menu and handle user actions.
 
+        Options:
+            1 -> View all tournaments
+            2 -> View visual tournament tree (not implemented)
+            3 -> View visual match results (not implemented)
+            4 -> View tournament-wide statistics (aggregated dynamic_data)
+            5 -> View teams in a tournament
+            6 -> View schedule in a tournament
+            b -> Back
+        """
         while True:
             print(
 """ 
@@ -445,8 +507,20 @@ Try again!!
 
 
 
-    def view_clubs(self):
+    def view_clubs(self) -> bool | None:
+        """Display the View Clubs menu and handle user actions.
 
+        Options:
+            1 -> View all clubs
+            2 -> View club by ID
+            3 -> View aggregated statistics per club (dynamic_data)
+            b -> Back
+
+        Returns:
+            bool | None:
+                False when the user cancels an inner prompt with 'q',
+                otherwise None when returning normally.
+        """
         while True:
             print(
 """ 
@@ -537,6 +611,15 @@ Try again!!
         
 #-----------------------View Organizer ----------------------------
     def view_organizers(self):
+        """Display organizer contact information.
+
+        Options:
+            1 -> View all organizers (from tournaments contact info)
+            2 -> View a specific organizer by contact ID
+            b -> Back
+
+        Organizers are implicitly modeled via Tournament.contact_* fields.
+        """
         print(
 """ 
 View All Organizers Menu
@@ -586,6 +669,15 @@ Try again!!
                     return
     #----------------------- View Scoreboard ----------------------------     
     def view_scoreboard(self):
+        """Display basic scoreboard-related menu.
+
+        Options:
+            1 -> View all tournaments (as a simple list)
+            b -> Back
+
+        Note:
+            Functionality is marked as 'not fully implemented'.
+        """
         print(
 """ 
 View Clubs Menu

@@ -8,14 +8,44 @@ from models.player import Player
 
 
 class TeamLeader():
+    """Menu and actions available for team leaders.
+
+    This class provides interactive menus for team leaders to:
+        - View their teams and tournaments.
+        - Create, edit, and delete teams.
+        - Manage club membership and club data.
+        - Access reward-related menus (currently placeholders).
+    """
     def __init__(self,low : LogicWrapper,functionFile:functionFile) -> None:
+        """Initialize TeamLeader menu with shared dependencies.
+
+        Args:
+            low (LogicWrapper):
+                Logic wrapper instance responsible for business logic and
+                data access operations.
+            functionFile (functionFile):
+                Helper instance for user input and shared utility functions.
+        """
         self.logic_wrapper = low
         self.functionFile = functionFile
 
 
 
-    def teamleader_menu(self):
+    def teamleader_menu(self) -> None:
+        """Display the top-level Team Leader menu and route to sub-menus.
 
+        Options:
+            1 -> View My Team Info (shortcut into public view)
+            2 -> Register for Tournaments (currently placeholder)
+            3 -> Create Team
+            4 -> Edit Team
+            5 -> Delete Team
+            6 -> Manage Club
+            7 -> Reward menu (not implemented)
+            b -> Back
+
+        The loop continues until the user chooses 'b' / 'B'.
+        """
         while True:
             print(
 """ 
@@ -118,8 +148,14 @@ Try again!!
     
     
 
-    def view_team_teamleader_menu(self):
+    def view_team_teamleader_menu(self) -> None:
+        """Display view-only options for the current team leader.
 
+        Options:
+            1 -> View my team info (full team details and members)
+            2 -> View the tournaments my team participates in
+            b -> Back
+        """
         while True:
             print(
 """ 
@@ -177,7 +213,19 @@ Try again!!
     
 
 
-    def edit_team_menu(self,teamID:int):
+    def edit_team_menu(self,teamID:int) -> None:
+        """Display and handle the Edit Team menu for a specific team.
+
+        Allows:
+            - Adding members to the team.
+            - Removing members from the team.
+            - Changing the team name.
+            - Changing the team tag.
+            - Placeholder for ASCII art modification.
+
+        Args:
+            teamID (int): ID of the team to edit.
+        """
         temp: Team | int = self.logic_wrapper.get_team_by_ID(teamID)
         while True:
             print(
@@ -267,8 +315,16 @@ Try again!!
                 print("Team has been modified!")
            
                
-    def club_menu(self):
+    def club_menu(self) -> None:
+        """Display the club management menu for team leaders.
 
+        Options:
+            1 -> Create club (single-use; removed after creation)
+            2 -> Join club (placeholder)
+            3 -> View my club info
+            4 -> Edit club
+            b -> Back
+        """
         while True:
             print(
 """ 
@@ -343,7 +399,18 @@ Try again!!
                     return
             
     
-    def edit_club_menu(self, clubID:int):
+    def edit_club_menu(self, clubID:int) -> None:
+        """Display and handle the Edit Club menu.
+
+        Allows:
+            - Changing club name.
+            - Changing club colour.
+            - Adding a team to the club.
+            - Removing a team from the club.
+
+        Args:
+            clubID (int): ID of the club to edit.
+        """
         temp : Club | int = self.logic_wrapper.get_club_by_ID(clubID)
         while True:
             print(

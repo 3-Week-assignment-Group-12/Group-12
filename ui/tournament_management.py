@@ -14,7 +14,23 @@ from ui.function_file import functionFile
 
 
 class TournamentManagement():
+    """Menu and operations for managing tournaments.
+
+    This class provides organizer-facing functionality for:
+
+    - Creating, editing, and cancelling tournaments.
+    - Selecting a tournament to manage schedules and results.
+    - Generating brackets and recording match outcomes.
+    """
     def __init__(self,low : LogicWrapper,functionFile:functionFile) -> None:
+        """Initialize the TournamentManagement menu.
+
+        Args:
+            low (LogicWrapper):
+                Logic wrapper responsible for business logic and data access.
+            functionFile (functionFile):
+                Helper object for reusable input and utility functions.
+        """
         self.logic_wrapper = low
         self.functionFile = functionFile
         
@@ -32,9 +48,18 @@ class TournamentManagement():
 
 
 
-    def tournament_management_menu(self):
-        
-        
+    def tournament_management_menu(self) -> None:
+        """Display and handle the top-level Tournament Management menu.
+
+        Options:
+            1 -> Create Tournament
+            2 -> Edit Tournament information
+            3 -> Cancel Tournament
+            4 -> Select Tournament
+            b -> Back
+
+        The loop continues until the user chooses 'b' / 'B'.
+        """
         while True:
             print(
 """ 
@@ -164,7 +189,22 @@ b. Back
 
 
 
-    def edit_tournament_menu(self,tournamentID: int):
+    def edit_tournament_menu(self,tournamentID: int | str) -> None:
+        """Display and handle the Edit Tournament menu for a specific tournament.
+
+        Provides editing of:
+            - Name
+            - Start / end date
+            - Venue
+            - Contact information
+            - Team list (rebuild)
+            - Match list (append new match bundle)
+
+        Args:
+            tournamentID (int | str):
+                Tournament ID to edit. If a string is provided, it is
+                converted to int where possible.
+        """
         if isinstance(tournamentID, str):
             try:
                 tournamentID = int(tournamentID)
@@ -343,7 +383,17 @@ Try again!!
 
 
 
-    def select_tournament_menu(self, ID:int):
+    def select_tournament_menu(self, ID:int) -> None:
+        """Display and handle the menu for a selected tournament.
+
+        Allows:
+            - Generating and recording bracket-based schedules.
+            - Recording custom game results.
+            - Viewing existing match records.
+
+        Args:
+            ID (int): Tournament ID to select.
+        """
         tourn = self.logic_wrapper.get_tournament_by_ID(ID)
         if isinstance(tourn, bool):
             print("error fetching team")

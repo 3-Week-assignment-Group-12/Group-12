@@ -12,7 +12,36 @@ from ui.function_file import functionFile
 
 
 class MainMenu:
+    """Entry point for the console-based UI.
+
+    This class is responsible for:
+        - Instantiating the LogicWrapper and UI helper classes.
+        - Displaying the main menu.
+        - Routing the user to Organizer, Team Leader, or Public menus.
+    """
     def __init__(self):
+        """Initialize the main menu and all sub-menus.
+
+        Creates a LogicWrapper instance and wires it into:
+            - OrganizerMenu
+            - TeamLeader
+            - PublicMainMenu
+            - functionFile helper
+
+        Attributes:
+            logic_wrapper (LogicWrapper):
+                Logic layer facade used by all UI components.
+            backlist (list):
+                Stack/list intended for back navigation (currently unused).
+            functionFile (functionFile):
+                Helper for input/validation functions shared across menus.
+            my_organizer_menu (OrganizerMenu):
+                UI menu for organizer-related actions.
+            teamleader_menu (TeamLeader):
+                UI menu for team leader actions.
+            public_menu (PublicMainMenu):
+                UI menu for public/readonly viewing actions.
+        """
         # The UI creates an instance of the Logic Wrapper
         self.logic_wrapper = LogicWrapper()
         self.backlist = []
@@ -27,7 +56,21 @@ class MainMenu:
 
 
     def run(self):
+        """Run the main application loop.
 
+        Displays the ASCII art banner and the top-level menu, then
+        routes user input to the appropriate submenu:
+
+            1 -> Organizer menu
+            2 -> Team Leader menu
+            3 -> Public menu
+            q -> Quit application
+
+        The method loops indefinitely until the user chooses to quit.
+
+        Returns:
+            None
+        """
         while True:
             
             print( """
