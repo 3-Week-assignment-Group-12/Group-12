@@ -659,6 +659,8 @@ class LogicWrapper:
                 False if the link already exists,
                 True otherwise.
         """
+        if player_link=="":
+            return True
         list_of_players = self.get_players()
         for player in list_of_players:
             player_info = self.get_player_by_ID(player.id)
