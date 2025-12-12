@@ -621,7 +621,9 @@ class functionFile:
         """
         play = self.logic_wrapper.get_player_by_ID(player_id)
         if isinstance(play,Player):
+            
             play.dynamic_data[key] += value
+            
             self.logic_wrapper.modify_player(play)
             
         
