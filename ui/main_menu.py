@@ -91,7 +91,7 @@ q. Quit
 
 
 """)
-            choice = input("Enter input: ")
+            choice = input("Enter input (q to stop): ")
             if choice not in ["1","2","3","q","q"]:
 
                  print(

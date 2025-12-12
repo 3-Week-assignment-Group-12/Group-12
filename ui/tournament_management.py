@@ -68,7 +68,7 @@ b. Back
 
 
 """)
-            choice = input("Enter input: ")
+            choice = input("Enter input (q to stop): ")
             if choice not in ["1","2","3","4","b","B"]:
                 print(
 """ 
@@ -100,7 +100,7 @@ Try again!!
                     if endDate == False:
                         continue
 
-                    venue = input("Location of Tournament: ")
+                    venue = input("Location of Tournament (q to stop): ")
                     if venue == "q":
                         continue
 
@@ -117,7 +117,7 @@ Try again!!
                         continue
                              
                     team_list:list[int] = []
-                    choice = input("Add teams? (y/n): ").lower()
+                    choice = input("Add teams? (y/n, q to stop): ").lower()
                     
                     if choice == "y":
                         existing_teams = self.logic_wrapper.get_teams()
@@ -149,7 +149,7 @@ Try again!!
                                 print()
                     
                     matches:list[int] = []
-                    choice = input("add matches? (y/n): ").lower()
+                    choice = input("add matches? (y/n, q to stop): ").lower()
                     if choice == "y":
                         existing_matches = self.logic_wrapper.get_match()
                         while True:
@@ -194,7 +194,7 @@ Try again!!
                     if ID is None:
                         continue
 
-                    x = input("Are you sure? (Y/N): ").lower()
+                    x = input("Are you sure? (Y/N) (q to stop): ").lower()
                     if x == "y":
                         self.logic_wrapper.delete_tournament(int(ID))
                         print("Tournament has been canceled!")
@@ -274,7 +274,7 @@ b. Back
 
 
 """)
-            choice = input("Enter input: ")
+            choice = input("Enter input (q to stop): ")
             if choice not in ["1","2","3","4","5","6","7","8","9","b","B"]:
 
                  print(
@@ -467,7 +467,7 @@ b. Back
 
 
 """)
-            choice = input("Enter input: ")
+            choice = input("Enter input (q to stop): ")
             if choice not in ["1","2","3","b","B"]:
 
                 print(
@@ -496,13 +496,13 @@ Try again!!
                         print(bracket.matchups)
                         
 
-                        inp = input("bracket generated, use? (y/n): ")
+                        inp = input("bracket generated, use? (y/n, q to stop): ")
 
                             
                         if inp.lower() == "y":
                             self.logic_wrapper.data_wrapper.write_bracket(bracket)
                             
-                            inp2 = input("enter Results now? (y/n): ")
+                            inp2 = input("enter Results now? (y/n, q to stop): ")
                             if inp2.lower() == "y":
                                 match_bundle = []
                                 for matchup in bracket.matchups:

@@ -25,9 +25,9 @@ class functionFile:
     def create_team(self):
         """Create a new team via user input and send it to the logic layer."""
         
-        id_of_user= input("Enter Captains National ID: ")
-        name = input("Enter team name: ")
-        tag = input("Enter team tag (max 20 char): ")
+        id_of_user= input("Enter Captains National ID (q to stop): ")
+        name = input("Enter team name (q to stop): ")
+        tag = input("Enter team tag (max 20 char) (q to stop): ")
         while True:
 
             team_size=self.teamSize()
@@ -60,7 +60,7 @@ class functionFile:
             int | bool -- int as output valid team size, false otherwise
         """
         while True:
-            team_size = input("Enter team size(q to cancel): ")
+            team_size = input("Enter team size (q to stop): ")
             if team_size=="q":
                 return False
             
@@ -76,7 +76,7 @@ class functionFile:
         Returns:
             int | str -- int as output valid id, str if contact id had to change
         """
-        ID = input("Contact ID(q to cancel): ")
+        ID = input("Contact ID (q to stop): ")
         list_of_tournaments=self.logic_wrapper.get_tournaments()
         while True:
             
@@ -88,8 +88,7 @@ class functionFile:
                 if isinstance(tournament_info,Tournament):
                     if ID == tournament_info.id: 
                         print("This tournament ID already exists!")
-                        ID = input("Enter different Contact ID")
-
+                        ID = input("Enter different Contact ID (q to stop): ")
                     else:
                         return ID
     
@@ -102,7 +101,7 @@ class functionFile:
         Returns:
             str: A team name that does not already exist in the system.
         """
-        name = input("Enter team name(q to cancel): ")
+        name = input("Enter team name (q to stop): ")
         list_of_teams=self.logic_wrapper.get_teams()
         if list_of_teams.__len__() == 0:
             return name
@@ -113,14 +112,13 @@ class functionFile:
                     if isinstance(teaminfo,Team):
                         if name == teaminfo.name:
                             print("Name already exists!")
-                            name = input("Enter different team name: ")
-
+                            name = input("Enter different team name (q to stop): ")
                         else:
                             return name
                         
                     else:
                         print("invalid name")
-                        name = input("Enter different team name: ")
+                        name = input("Enter different team name (q to stop): ")
             
     def check_for_team_tag(self) -> str: # function to handle and prevent invalid input
         """function to handle and prevent invalid input
@@ -128,7 +126,7 @@ class functionFile:
         Returns:
             str -- outputs valid tag
         """
-        tag = input("Enter team tag(q to cancel): ")
+        tag = input("Enter team tag (q to stop): ")
         list_of_teams=self.logic_wrapper.get_teams()
         while True: 
             
@@ -139,7 +137,7 @@ class functionFile:
                 if isinstance(teaminfo,Team):
                     if tag == teaminfo.tag: 
                         print("Tag already exists!")
-                        tag = input("Enter different team tag: ")
+                        tag = input("Enter different team tag (q to stop): ")
                     else:
                         return tag
                     
@@ -152,7 +150,7 @@ class functionFile:
             int | Literal[False] -- int as output of valid id, false otherwise
         """
         while True:
-            teamID=input("Enter Team ID(q to cancel): ")
+            teamID=input("Enter Team ID (q to stop): ")
             if teamID=="q":
                     return False
             try:
@@ -173,14 +171,14 @@ class functionFile:
         Returns:
             str | Literal[False] -- str as output of valid id, false otherwise
         """
-        playersID = input("Enter National ID(q to cancel): ")
-        if playersID == "q":
+        playersID=input("Enter National ID (q to stop): ")
+        if playersID=="q":
             return False
         
         check = self.logic_wrapper.get_player_by_ID(playersID)
         while not isinstance(check, Player):
             print("Player does not exist, Try different ID")
-            playersID = input("Enter National ID: ")
+            playersID=input("Enter National ID (q to stop): ")
             if playersID == "q":
                 return False
 
@@ -244,8 +242,8 @@ class functionFile:
             str | Literal[False] -- str as output valid phone number, false otherwise
         """
         while True:
-            number:str = input("Phone number(q to cancel):")
-            if number == "q":
+            number:str=input("Phone number (q to stop):")
+            if number=="q":
                 return False
             
             check = self.logic_wrapper.check_phone_nr(number)
@@ -269,8 +267,8 @@ class functionFile:
             str | Literal[False] -- str as valid name, false otherwise
         """
         while True:
-            name:str = input("Name(q to cancel): ")
-            if name == "q":
+            name:str=input("Name (q to stop): ")
+            if name=="q":
                 return False
             
             check = self.logic_wrapper.check_name(name)
@@ -289,8 +287,8 @@ class functionFile:
         check2 = False
         email =""
         while check2 == False :
-            email:str = input("Email(q to cancel): ")
-            if email == "q":
+            email:str=input("Email (q to stop): ")
+            if email=="q":
                 return False
             
             check1 = self.logic_wrapper.check_email(email)
@@ -317,7 +315,7 @@ class functionFile:
             str | Literal[False] -- str as valid id, false otherwise
         """
         while True:
-            playersID = input("Enter National ID(q to cancel): ")
+            playersID=input("Enter National ID (q to stop): ")
             if playersID=="q":
                 return False
             
@@ -344,7 +342,7 @@ class functionFile:
             str | Literal[False] -- str as valid handle, false otherwise
         """
         while True:
-            player_handle:str = input("Enter player handle(q to cancel): ")
+            player_handle:str = input("Enter player handle (q to stop): ")
             if player_handle == "q":
                 return False
             
@@ -362,7 +360,7 @@ class functionFile:
             str | Literal[False] -- str as valid link, false otherwise
         """
         while True:
-            player_link:str = input("Enter player link(q to cancel): ")
+            player_link:str = input("Enter player link (q to stop): ")
             if player_link == "q":
                 return False
             
@@ -385,8 +383,8 @@ class functionFile:
             str | Literal[False] -- str as valid name, false otherwise
         """
         while True:
-            name:str = input("Name(q to cancel): ")
-            if name == "q":
+            name:str=input("Name (q to stop): ")
+            if name=="q":
                 return False
             
             if len(name)>20:
@@ -408,8 +406,8 @@ class functionFile:
             str |Literal[False] -- str as valid tag, false otherwise
         """
         while True:
-            tag:str = input("Enter Tag ( max 5 letters/numbers )(q to cancel): ")
-            if tag == "q":
+            tag:str=input("Enter Tag ( max 5 letters/numbers ) (q to stop): ")
+            if tag=="q":
                 return False
             
             check = self.logic_wrapper.check_for_team_tag(tag)
@@ -430,7 +428,7 @@ class functionFile:
             str -- str as valid creator id
         """
         while True:
-            creatorID=input("Enter Creator National ID(q to cancel): ")
+            creatorID=input("Enter Creator National ID (q to stop): ")
             if creatorID == "q":
                 return False
             
@@ -460,8 +458,8 @@ class functionFile:
             str | Literal[False] -- str as valid club name, false otherwise
         """
         while True:
-            name:str = input("Name(q to cancel): ")
-            if name == "q":
+            name:str=input("Name (q to stop): ")
+            if name=="q":
                 return False
             
             if len(name) > 20:
@@ -490,8 +488,8 @@ class functionFile:
             str | Literal[False] -- str as valid colour
         """
         while True:
-            color:str = input("Color(q to cancel): ")
-            if color == "q":
+            color:str=input("Color (q to stop): ")
+            if color=="q":
                 return False
             
             check1 = self.logic_wrapper.check_name(color)
@@ -510,8 +508,8 @@ class functionFile:
             str | Literal[False] -- str as valid name, false otherwise
         """
         while True:
-            tournament_name:str = input("Tournament name(q to cancel): ")
-            if tournament_name == "q":
+            tournament_name:str=input("Tournament name (q to stop): ")
+            if tournament_name=="q":
                 return False
             
             check = self.logic_wrapper.check_for_tournament_name(tournament_name)
@@ -529,7 +527,7 @@ class functionFile:
             str | Literal[False] -- str as valid start date, false otherwise
         """
         while True:
-            startDate = input("Enter Start Date(q to cancel): ")
+            startDate = input("Enter Start Date (q to stop): ")
             if startDate == "q":
                 return False
             
@@ -551,7 +549,7 @@ class functionFile:
             str | Literal[False] -- str as valid end date, false for otherwise
         """
         while True:
-            endDate = input("Enter End Date(q to cancel): ")
+            endDate = input("Enter End Date (q to stop): ")
             if endDate == "q":
                 return False
             
@@ -573,7 +571,7 @@ class functionFile:
             str | Literal[False] -- str as valid time, false otherwise
         """
         while True:
-            matchTime = input("Enter Match Time (MM:SS)(q to cancel): ")
+            matchTime = input("Enter Match Time (MM:SS) (q to stop): ")
             if matchTime == "q":
                 return False
             
@@ -592,7 +590,7 @@ class functionFile:
             str |Literal[False] -- str as valid id, false otherwise
         """
         while True:
-            contactID=input("Enter Contact ID(q to cancel): ")
+            contactID=input("Enter Contact ID (q to stop): ")
             if contactID == "q":
                 return False
             
@@ -619,7 +617,7 @@ class functionFile:
             str | Literal[False] -- str as valid email, false otherwise
         """
         while True:
-            contactEmail = input("Enter Contact Email(q to cancel): ")
+            contactEmail = input("Enter Contact Email (q to stop): ")
             if contactEmail == "q":
                 return False
             
@@ -637,7 +635,7 @@ class functionFile:
             str | Literal[False] -- str as valid phone, false otherwise
         """
         while True:
-            contactPhone = input("Enter Contact Phone Number (q to cancel): ")
+            contactPhone = input("Enter Contact Phone Number (q to stop): ")
             if contactPhone == "q":
                 return False
             
@@ -742,8 +740,8 @@ class functionFile:
             int | Literal[False] -- int as valid id, false otherwise
         """
         while True:
-            clubID = input("Enter Club ID (q to cancel):: ")
-            if clubID == "q":
+            clubID=input("Enter Club ID (q to stop): ")
+            if clubID=="q":
                 return False
             try:
                 clubID = int(clubID)
@@ -788,8 +786,8 @@ class functionFile:
             int | Literal[False] -- int as valid score, false otherwise
         """
         while True:
-            score = input("Enter score (q to cancel):: ")
-            if score == "q":
+            score = input("Enter score (q to stop): ")
+            if score=="q":
                 return False
             
             try:
@@ -806,8 +804,8 @@ class functionFile:
             int | Literal[False] -- int as valid winner id, false otherwise
         """
         while True:
-            winner = input("Enter winner id (q to cancel): ")
-            if winner == "q":
+            winner = input("Enter winner id (q to stop): ")
+            if winner=="q":
                 return False
             
             try:
