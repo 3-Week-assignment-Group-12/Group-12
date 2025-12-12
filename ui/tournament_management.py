@@ -453,8 +453,7 @@ Selected: "{tourn.name}"
 
 1. Generate Schedule
 2. Record Game Results
-3. Manage Rewards [not implamanted]
-4. Retrieve Records [not implamanted]
+3. Retrieve Records
 b. Back 
 
 
@@ -619,9 +618,3 @@ Try again!!
                 case "b": 
                     return
             
-
-
-
-# ------------------Functions----------------------
-
-
