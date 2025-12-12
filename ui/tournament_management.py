@@ -115,29 +115,41 @@ Try again!!
                     contactPhone = self.functionFile.input_contact_phone_nr()
                     if contactPhone == False:
                         continue
-                           
+                             
                     team_list:list[int] = []
                     choice = input("Add teams? (y/n): ").lower()
                     
                     if choice == "y":
                         existing_teams = self.logic_wrapper.get_teams()
+                        counter = len(existing_teams)
+
                         while True:
-                            
+                            print(f"current teams in tournament: {counter}")
                             val = input("Enter team id (q to stop): ")
+
                             if val.lower() == "q":
                                 break
-                            
+                            found = False
                             for x in existing_teams:
-                                if val == str(x.id) and x.id not in team_list:
-                                    team_list.append(int(val))
-                                    continue
-                                
-                            print("team id not registered")
-                            print()
+                                if val == str(x.id):
+                                    if x.id not in team_list:
+                                        team_list.append(x.id)
+                                        counter += 1
+
+                                    found = True
+                                    break
+
+                            if not found:
+                                print("team id not registered")
+
+                            else:
+                                print(f"team id {val} added.")
+
+                                print(team_list)
+                                print()
                     
                     matches:list[int] = []
                     choice = input("add matches? (y/n): ").lower()
-                    
                     if choice == "y":
                         existing_matches = self.logic_wrapper.get_match()
                         while True:
@@ -149,16 +161,18 @@ Try again!!
                             for x in existing_matches:
                                 if val == str(x.id) and x.id not in matches:
                                     matches.append(int(val))
-                                    continue
+                                    print("match has been added")
+                                else:
+                                    print("match id already exists")
                                 
-                            print("match id not registered")
+                            
                             print()
 
                     barches:list[list[int]] = []
                     barches.append(matches)
+                        
                     
-                    
-                    ret =self.logic_wrapper.create_tournament(name,startDate,endDate,venue,contactID,contactEmail,contactPhone,team_list,barches)
+                    ret = self.logic_wrapper.create_tournament(name,startDate,endDate,venue,contactID,contactEmail,contactPhone,team_list,barches)
                     if ret == 1:
                         print("Tournament created successfully!")
 
@@ -309,7 +323,6 @@ Try again!!
                 case "3": 
                     tournament = self.logic_wrapper.get_tournament_by_ID(tournamentID)
                     if isinstance(tournament,Tournament):
-                        start_date = tournament.start_date
                         new_end = self.functionFile.input_end_date(tournament.start_date)
                         if new_end == False:
                             cancel_flag = True
@@ -352,9 +365,10 @@ Try again!!
                 case "8": 
                     print("Alert! existing teams will be cleared")
                     new_teams: list[int] = []
+                    counter = len(new_teams)
                     existing_teams = self.logic_wrapper.get_teams()
                     while True:
-                        
+                        print(f"Amount of teams in new list: {counter}")
                         val = input("Enter team id (q to stop): ")
                         if val.lower() == "q":
                             break
@@ -364,6 +378,7 @@ Try again!!
                             if val == str(x.id):
                                 if x.id not in new_teams:
                                     new_teams.append(x.id)
+                                    counter += 1
 
                                 found = True
                                 break
