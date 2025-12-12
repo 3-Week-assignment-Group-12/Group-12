@@ -358,7 +358,7 @@ View Tournament menu
 1. View All tournaments
 2. View Statistics for tournament
 3. View teams in tournament
-4. View schedule in tournament
+4. View Tournament Results
 b. Back
 
 
@@ -375,7 +375,7 @@ View Tournament menu
 1. View All tournaments
 2. View Statistics for tournament
 3. View teams in tournament
-4. View schedule in tournament
+4. View Tournament Results
 b. Back
 
 Try again!!
