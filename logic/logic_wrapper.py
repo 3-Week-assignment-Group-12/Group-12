@@ -504,13 +504,6 @@ class LogicWrapper:
             
             return -3 # error in cenerating bracket
     
-
-    
-
-
-   
-    
-
     
     #--------------team checks --------------------
 
@@ -545,9 +538,9 @@ class LogicWrapper:
         
         Returns:
             str | bool:
-                * "1": Tag is longer than 5 characters.
-                * "2": Tag already exists.
-                * True: Tag is valid and available.
+                 "1": Tag is longer than 5 characters.
+                 "2": Tag already exists.
+                 True: Tag is valid and available.
         """
         if len(tag) > 5:
             return "1"
@@ -563,17 +556,6 @@ class LogicWrapper:
                     return True
                 
 
-
-    #--------------Player checks --------------------
-    # def check_for_player_kt(self,kt):
-    #     list_of_players=self.get_players()
-    #     for player in list_of_players:
-    #         playerinfo=self.get_player_by_ID(player.id)
-    #         if isinstance(playerinfo,Player):
-    #             if kt == playerinfo.id: 
-    #                 return False
-    #             else:
-    #                 return True
                 
     def valid_kt(self,NID: str) -> str | bool:
         """Validate a national ID (Kennitala).
@@ -583,11 +565,11 @@ class LogicWrapper:
         
         Returns:
             str | bool:
-                * "1": ID length is not 10 characters.
-                * "2": ID contains non-digit characters.
-                * "3": Day part (first two digits) is invalid.
-                * "4": Month part (digits 3–4) is invalid.
-                * True: ID format is valid.
+                "1": ID length is not 10 characters.
+                "2": ID contains non-digit characters.
+                "3": Day part (first two digits) is invalid.
+                "4": Month part (digits 3–4) is invalid.
+                True: ID format is valid.
         """
         if len(str(NID)) != 10:
             return "1"
@@ -617,10 +599,10 @@ class LogicWrapper:
         
         Returns:
             str | bool:
-                * "1": Phone number has invalid length.
-                * "2": Phone number contains non-digit characters.
-                * "3": Phone number already exists for another player.
-                * True: Phone number is valid and unique.
+                "1": Phone number has invalid length.
+                "2": Phone number contains non-digit characters.
+                "3": Phone number already exists for another player.
+                True: Phone number is valid and unique.
         """
         players = self.get_players()
         
@@ -645,9 +627,9 @@ class LogicWrapper:
         
         Returns:
             str | bool:
-                * "1": Phone number has invalid length.
-                * "2": Phone number contains non-digit characters.
-                * True: Phone number is valid.
+                "1": Phone number has invalid length.
+                "2": Phone number contains non-digit characters.
+                True: Phone number is valid.
         """
        
         if len(number) != 7:
@@ -667,8 +649,8 @@ class LogicWrapper:
         
         Returns:
             str | bool:
-                * "1": Name contains non-letter characters.
-                * True: Name is valid.
+                "1": Name contains non-letter characters.
+                True: Name is valid.
         """
         if name.isalpha() == False:
             return "1"
@@ -754,8 +736,8 @@ class LogicWrapper:
         
         Returns:
             str | bool:
-                * "1": Email does not contain exactly one '@' symbol.
-                * True: Email passes this basic validation.
+                "1": Email does not contain exactly one '@' symbol.
+                True: Email passes this basic validation.
         """
         nr_of_at = 0
         for i in email:
@@ -776,8 +758,8 @@ class LogicWrapper:
         
         Returns:
             str | bool:
-                * "-1": Tag is longer than 5 characters.
-                * True: Tag length is valid.
+                "-1": Tag is longer than 5 characters.
+                True: Tag length is valid.
         """
         if len(tag) > 5:
             return "-1"
@@ -834,7 +816,15 @@ class LogicWrapper:
 
      #----------dates-----------    
 
-    def validateDate(self,date:str):
+    def validateDate(self,date:str) -> str | None:
+        """check whether date is valid
+
+        Args:
+            date {str} -- Date to check
+
+        Returns:
+            str | None -- Str for valid date, None otherwise
+        """
         counter = 0
         for i in date:
             if i == ".":
@@ -865,7 +855,17 @@ class LogicWrapper:
             return date
         
 
-    def validEndDate(self,startDate,endDate):
+    def validEndDate(self,startDate:str ,endDate:str ) -> bool:
+        """check whether date is valid based on start date
+
+        Args:
+            startDate {str} -- date bo base by
+            endDate {str} -- date to check
+
+        Returns:
+            bool -- return status
+        """
+
         if int(startDate[6:10]) > int(endDate[6:10]):
             return False
         
@@ -879,7 +879,15 @@ class LogicWrapper:
             return True
         
         
-    def validateMatchTime(self,time:str):
+    def validateMatchTime(self,time:str) -> None | str:
+        """check whether time is valid
+
+        Args:
+            time {str} -- time to validate
+
+        Returns:
+            None | str -- None if not valid, str otherwise
+        """
         counter = 0
         for i in time:
             if i == ":":
