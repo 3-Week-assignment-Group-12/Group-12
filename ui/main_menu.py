@@ -88,7 +88,7 @@ class MainMenu:
             print(
             
 """ 
-Welcome To the menu. 
+Welcome to the Main Menu. 
 
 1. Organizer Menu
 2. Team Leader Menu

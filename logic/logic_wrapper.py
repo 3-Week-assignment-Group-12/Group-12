@@ -611,6 +611,28 @@ class LogicWrapper:
             if i.phone==number:
                 return "3"
         return True
+    
+
+
+    def check_contact_phone_nr(self,number: str) -> str | bool:
+        """Validate a phone number and check for duplicates.
+        
+        Args:
+            number (str): Phone number to validate.
+        
+        Returns:
+            str | bool:
+                * "1": Phone number has invalid length.
+                * "2": Phone number contains non-digit characters.
+                * True: Phone number is valid.
+        """
+       
+        if len(number) != 7:
+            return "1"
+        elif number.isdigit() == False:
+            return "2"
+        else:
+            return True
         
     def check_name(self,name: str) -> str | bool:
         """Validate that a name only contains alphabetic characters.
@@ -713,25 +735,6 @@ class LogicWrapper:
             return "1"
         else:
             return True
-        
-    def check_nID(self,NID: str) -> str | bool:
-        """Validate a national ID for length and digit-only content.
-        
-        Args:
-            NID (str): National ID to validate.
-        
-        Returns:
-            str | bool:
-                * "1": ID length is not 10 characters.
-                * "2": ID contains non-digit characters.
-                * True: ID passes this basic validation.
-        """
-        if len(str(NID)) != 10:
-            return "1"
-        elif NID.isdigit() == False:
-            return "2"
-        else:
-            return True
              
     def check_tag(self,tag: str) -> str | bool:
         """Validate a generic tag length.
@@ -794,6 +797,37 @@ class LogicWrapper:
                     return True
                 
 
-    
+    def validateDate(self,date:str):
+        counter = 0
+        for i in date:
+            if i == ".":
+                counter += 1
+        if counter != 2:
+            return None
+        elif date[0:2].isdigit() == False:
+            return None
+        elif date[3:5].isdigit() == False:
+            return None
+        elif date[6:10].isdigit() == False:
+            return None
+        elif int(date[0:2]) < 0 or int(date[0:2]) > 31:
+            return None
+        elif int(date[3:5]) < 0 or int(date[3:5]) > 12:
+            return None
+        elif int(date[6:10]) < 2025:
+            return None
+        else:
+            return date
+        
+    def validEndDate(self,startDate,endDate):
+        if int(startDate[6:10]) > int(endDate[6:10]):
+            return False
+        elif int(startDate[3:5]) > int(endDate[3:5]):
+            return False
+        elif int(startDate[0:2]) > int(endDate[0:2]):
+            return False
+        else:
+            return True
+
     
 
