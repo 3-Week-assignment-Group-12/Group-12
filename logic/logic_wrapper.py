@@ -605,7 +605,7 @@ class LogicWrapper:
         
         if len(number) != 7:
             return "1"
-        elif number.isdigit() == True:
+        elif number.isdigit() == False:
             return "2"
         for i in players:
             if i.phone==number:

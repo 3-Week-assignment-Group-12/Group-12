@@ -453,8 +453,7 @@ Selected: "{tourn.name}"
 
 1. Generate Schedule
 2. Record Game Results
-3. Manage Rewards [not implamanted]
-4. Retrieve Records [not implamanted]
+3. Retreive Records
 b. Back 
 
 
@@ -470,9 +469,7 @@ Select {tourn.name}
 
 1. Generate Schedule
 2. Record Game Results
-3. Manage Rewards [not implamanted]
-4. Retrieve Records
-b. Back 
+3. Retreive Records
 
 Try again!!
 """)
@@ -609,9 +606,6 @@ Try again!!
                         self.logic_wrapper.modify_tournament(tourn)
                     
                 case "3": 
-                    pass
-
-                case "4": 
                     
                     for x in self.logic_wrapper.get_matches_by_tournament_ID(ID):
                         print(f"Match: {x.id}")
