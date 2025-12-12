@@ -29,15 +29,7 @@ class OrganizerMenu():
         self.logic_wrapper = low
         self.functionFile = functionFile
         self.tournament_menu = TournamentManagement(low,self.functionFile)
-
-
-
-
-#----------------------------Organizer menu-----------------------------
         
-
-
-
     def show_organizer_menu(self):
         """Display the main Organizer menu and handle user navigation.
 
@@ -84,14 +76,6 @@ Try again!!
                     return
     
 
-
-
-
-#----------------------------Management menu-----------------------------
-        
-
-
-        
     def player_management_menu(self):
         """Display the Player Management menu and handle user actions.
 
@@ -138,7 +122,7 @@ Try again!!
                  
             match choice:
                 case "1": 
-                    nid = self.functionFile.inputplayersID()
+                    nid=self.functionFile.inputplayersID()
                     if nid == False:
                         continue
                     name=self.functionFile.input_name()
@@ -199,13 +183,6 @@ Try again!!
                         count +=1  
                 case "b": 
                     return
-
-
-
-
-#----------------------------Edit player menu-----------------------------
-        
-        
 
     def edit_player_menu(self,Player_ID:str):
         """Display the Edit Player menu for a specific player.
@@ -269,7 +246,7 @@ Try again!!
                         inp=self.functionFile.input_name() 
                         if isinstance(inp,str):
                             temp.name=inp
-                        if inp == False:
+                        if inp== False:
                             return
                     case "2": 
                         inp=self.functionFile.input_phone_nr()

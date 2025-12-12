@@ -483,3 +483,4 @@ Try again!!
                 self.logic_wrapper.modify_club(temp)
                 print("Club has been modified!")
     
+    #-------------Functions-----------------
