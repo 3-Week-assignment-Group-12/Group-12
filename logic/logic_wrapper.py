@@ -848,7 +848,7 @@ class LogicWrapper:
         elif int(date[3:5]) < 0 or int(date[3:5]) > 12:
             return None
         
-        elif int(date[6:10]) < 2025:
+        elif int(date[6:10]) < 2001:
             return None
         
         else:
