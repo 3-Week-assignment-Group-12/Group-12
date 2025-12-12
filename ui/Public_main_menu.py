@@ -624,7 +624,8 @@ Try again!!
 
         Organizers are implicitly modeled via Tournament.contact_* fields.
         """
-        print(
+        while True:
+            print(
 """ 
 View All Organizers Menu
 
@@ -634,7 +635,7 @@ b. Back
 
 
 """)
-        while True:
+        
             choice = input("Enter input: ")
             if choice not in ["1","2","b","B"]:
                 
@@ -656,12 +657,14 @@ Try again!!
                     tournaments = self.logic_wrapper.get_tournaments() 
                     counter = 1
                     if tournaments == []:
+                        print("There are no tournaments!")
                         continue
 
                     else:
                         for tournament in tournaments:
                             print(f"Organizer:{counter}, Email:{tournament.contact_email}, Phone:{tournament.contact_phone}, National ID:{tournament.contact_id}")
-                            counter+=1
+                            counter += 1
+                    continue
 
                 case "2":
                     contactID = self.functionFile.input_contact_ID()
@@ -672,6 +675,7 @@ Try again!!
                     for tournament in tournaments:
                         if tournament.contact_id == contactID:
                             print(f"Email:{tournament.contact_email}, Phone:{tournament.contact_phone}, National ID:{tournament.contact_id}")
+                    continue
 
                 case "b": 
                     return
@@ -709,7 +713,7 @@ b. Back
 
 Try again!!
 """)
-
+                
             match choice.lower():
                 case "1": 
                     tournaments = self.logic_wrapper.get_tournaments()
@@ -718,6 +722,7 @@ Try again!!
                         if isinstance(tournamentinfo,Tournament):
                             print(tournamentinfo.name)
                             continue
+                    continue
                     
                 case "b": 
                     return
