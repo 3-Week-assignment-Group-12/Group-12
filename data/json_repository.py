@@ -1,4 +1,4 @@
-from encodings import utf_16
+
 import json
 import os
 from pathlib import Path
