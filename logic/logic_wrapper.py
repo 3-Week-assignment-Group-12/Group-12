@@ -774,7 +774,7 @@ class LogicWrapper:
                     return True
 
 
-#----------clubs-----------
+    #----------clubs-----------
     def check_for_club_name(self,name: str) -> bool | None:
         """Check whether a club name is already in use.
         
