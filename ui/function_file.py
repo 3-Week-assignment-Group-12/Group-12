@@ -207,8 +207,8 @@ class functionFile:
 
         Returns:
             str | bool:
-                * str: Valid player national ID.
-                * False: If the user cancels with 'q'.
+                str: Valid player national ID.
+                False: If the user cancels with 'q'.
         """
         playersID=input("Enter National ID: ")
         if playersID=="q":

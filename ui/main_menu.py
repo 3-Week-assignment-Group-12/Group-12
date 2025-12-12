@@ -32,7 +32,7 @@ class MainMenu:
             logic_wrapper (LogicWrapper):
                 Logic layer facade used by all UI components.
             backlist (list):
-                Stack/list intended for back navigation (currently unused).
+                Stack/list intended for back navigation.
             functionFile (functionFile):
                 Helper for input/validation functions shared across menus.
             my_organizer_menu (OrganizerMenu):

@@ -34,7 +34,7 @@ class Player:
     handle: str
     link:str
     dob: str
-    phone: int
+    phone: str
     address: str
     email: str
     

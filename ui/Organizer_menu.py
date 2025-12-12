@@ -23,6 +23,7 @@ class OrganizerMenu():
         Args:
             low (LogicWrapper):
                 Shared logic layer facade used to perform business operations.
+
             functionFile (functionFile):
                 Helper object providing shared input/validation functions.
         """
@@ -51,7 +52,7 @@ b. Back
 
 
 """)
-            choice=input("Enter input: ")
+            choice = input("Enter input: ")
             if choice not in ["1","2","b","B"]:
 
                  print(
@@ -70,8 +71,10 @@ Try again!!
             match choice:
                 case "1": 
                     self.player_management_menu()
+
                 case "2": 
                     self.tournament_menu.tournament_management_menu()
+
                 case "b": 
                     return
     
@@ -102,7 +105,7 @@ b. Back
 
 
 """)
-            choice=input("Enter input: ")
+            choice = input("Enter input: ")
             if choice not in ["1","2","3","4","b","B"]:
 
                  print(
@@ -122,27 +125,34 @@ Try again!!
                  
             match choice:
                 case "1": 
-                    nid=self.functionFile.inputplayersID()
-                    if nid == False:
-                        continue
-                    name=self.functionFile.input_name()
+                    nid = self.functionFile.inputplayersID()  # case 1 will ask the user for each and every variable that is needed for creating a player 
+                    if nid == False:                          # if user wants to quit anytime it will return false, when it return false it takes us to the 
+                        continue                              # Player Management menu (it stops the loop and restarts it) from there you can go back by pressing b.
+
+                    name = self.functionFile.input_name()
                     if name == False:
                         continue
-                    handle=self.functionFile.inputPlayerHandle()
+
+                    handle = self.functionFile.inputPlayerHandle()
                     if handle == False:
                         continue
-                    link=self.functionFile.inputPlayerLink()
+
+                    link = self.functionFile.inputPlayerLink()
                     if link == False:
                         continue
-                    phone=self.functionFile.input_phone_nr()
+
+                    phone = self.functionFile.input_phone_nr()
                     if phone == False:
                         continue
-                    address:str=input("Address: ")
+
+                    address:str=input("Address: ")             
                     if address == "q":
                         continue
-                    email=self.functionFile.input_email()
+
+                    email = self.functionFile.input_email()
                     if email == False:
                         continue 
+
                     print("Adding Player...")
                     ret = self.logic_wrapper.create_player(nid,name,handle,link,phone,address,email)
                     
@@ -150,37 +160,53 @@ Try again!!
                     print(ret)
                     if ret == 1:
                         print("Player added!!")
+
                     elif ret == -1:
                         print("Error adding player")
+
                     elif ret == -2:
                         print("Validation failed, player not added")
+
                     elif ret == -3:
                         print("Invalid ID length, player not added")
+
                     elif ret == -4:
                         print("Duplicate player found, player not added")
+
                     else:
                         print("Player added!!")
                     
                 case "2": 
-                    id=self.functionFile.check_existingID()
-                    if isinstance(id,str):
-                        self.edit_player_menu(id)  #Asks the user for Players National Id before going to the edit page
+                    id = self.functionFile.check_existingID()     # case 2 check if playerID exists in system, but it will ask untill you find a player
+                    if id == False:                               # when found it will go to the edit_player_menu(). 
+                        continue
+
+                    else:   
+                        self.edit_player_menu(id) 
+
+                case "3":                                          # same as case 2 but when you find a player you are asked if you are sure want to delete player
+                    ID = self.functionFile.check_existingID()      # if typed in "y" or uppercase "Y", it will delete the player otherwise go back to menu
+                    if ID == False:
+                        continue
+
+                    x = input("Are you sure? (Y/N)").lower()
+                    if x == "y":                                
+                        self.logic_wrapper.delete_player(ID) 
+                        print("Player has been deleted!")
+
                     else:
-                        print("error: player not found")
-                case "3":
-                    ID=self.functionFile.check_existingID()
-                    if isinstance(ID,str):
-                        x=input("Are you sure? (Y/N)")
-                        if x=="y" or x=="Y":
-                            self.logic_wrapper.delete_player(ID) 
-                            print("Player has been deleted!")
-                        return   
-                case "4":
-                    list_of_players=self.logic_wrapper.get_players() #view all players
+                        print("Player was not deleted.(canceled)")
+                        continue
+
+                        
+
+                case "4":                                             # case 4n Gets list of player, goes through it and prints allt players in system
+                    list_of_players = self.logic_wrapper.get_players() 
                     count = 1
-                    for i in list_of_players:
-                        print(f"{count}: {i.name}, ID: {i.id}")
-                        count +=1  
+                    for player in list_of_players:                  
+                        print(f"{count}: {player.name}, ID: {player.id}")
+                        count += 1  
+
                 case "b": 
                     return
 
@@ -218,7 +244,7 @@ b. Back
 
 
 """)
-            choice=input("Enter input: ")
+            choice = input("Enter input: ")
             if choice not in ["1","2","3","4","5","6","b","B"]:
                 
                 print(
@@ -241,37 +267,50 @@ Try again!!
                 print("Player not found")
             else:
                 
-                match choice:
+                match choice:                       # edit player ask for only one atribute at a time and updates it if found valid input otherwise back to edit menu 
                     case "1": 
-                        inp=self.functionFile.input_name() 
-                        if isinstance(inp,str):
-                            temp.name=inp
-                        if inp== False:
-                            return
-                    case "2": 
-                        inp=self.functionFile.input_phone_nr()
-                        if isinstance(inp,int):
-                            temp.phone=inp
+                        inp = self.functionFile.input_name() 
                         if inp == False:
-                            return
+                            continue
+                           
+                        temp.name = inp
+
+                    case "2": 
+                        inp = self.functionFile.input_phone_nr()
+                        if inp == False:
+                            continue
+                      
+                        temp.phone = inp
+
                     case "3": 
                         temp.address = input("Enter New address: ") 
-                        if temp.address== "q":
-                            return    
+                        if temp.address == "q":
+                            continue  
+
                     case "4": 
                         inp = self.functionFile.input_email()
-                        if isinstance(inp,str):
-                            temp.email=inp
                         if inp == False:
-                            return
+                            continue
+
+                        temp.email = inp
+
                     case "5": 
-                        pass 
+                        inp = self.functionFile.inputPlayerHandle()
+                        if inp == False:
+                            continue
+                            
+                        temp.handle = inp
+          
                     case "6": 
-                        pass
-                    case "7": 
-                        pass
+                        inp = self.functionFile.inputPlayerLink()
+                        if inp == False:
+                            continue
+
+                        temp.link = inp
+                    
                     case "b": 
                         return
+                    
                 self.logic_wrapper.modify_player(temp)
                 print("Player has been modified!")
 
