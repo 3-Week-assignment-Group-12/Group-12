@@ -4,7 +4,7 @@ import datetime
 
 class player_handler:
     
-    def create_player(self, ID:str ,name:str ,handle:str ,link:str ,phone: int,address: str,email:str, existing_playerList:list[Player]) ->Player| int:
+    def create_player(self, ID:str ,name:str ,handle:str , link:str, phone: str, address: str, email:str, existing_playerList:list[Player]) ->Player| int:
         """Create a new player with basic validation and date-of-birth extraction.
         
         Args:
@@ -16,7 +16,7 @@ class player_handler:
                 Player's in-game handle.
             link (str):
                 Player's profile link.
-            phone (int):
+            phone (str):
                 Player's phone number.
             address (str):
                 Player's residential address.
@@ -32,9 +32,11 @@ class player_handler:
                        (currently no explicit validation codes — future expansion allowed).
         """
         # 1. Validate Input (Business Logic)     
-        day=int(ID[0:2])
-        month=int(ID[2:4])
-        if ID[-1]=="0":
+        day = int(ID[0:2])
+        month = int(ID[2:4])
+
+        # Determine century based on last digit of ID
+        if ID[-1] == "0":
             year = int("20"+ID[4:6])
         else:
             year = int("19"+ID[4:6])  

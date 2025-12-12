@@ -1,10 +1,10 @@
-from encodings import utf_16
+
 import json
 import os
 from pathlib import Path
 from typing import Type
 
-# made this after getting tired from macing repeted CRUD methods and wanted a general solution
+# made this after getting tired from macing repeated CRUD methods and wanted a general solution
 # found this in a example online, and modified it to my needs
 
 class JsonRepository:

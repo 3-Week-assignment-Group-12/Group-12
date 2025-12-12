@@ -1,1 +1,6 @@
-print( [1,2,3,4,5,6,7,8].__len__() > 2)
+gendict= {}
+
+otherdict = {"value": 1}
+
+gendict["value"] += otherdict["value"]
+print(gendict)

@@ -1,10 +1,5 @@
-from __future__ import annotations
-# ui_layer/main_menu.py
 from logic.logic_wrapper import LogicWrapper
-from models.team import Team
-from models.tournament import Tournament
 
-from models.player import Player
 from ui.Organizer_menu import OrganizerMenu
 from ui.Public_main_menu import PublicMainMenu
 from ui.team_leader_menu import TeamLeader
@@ -12,10 +7,38 @@ from ui.function_file import functionFile
 
 
 class MainMenu:
+    """Entry point for the console-based UI.
+
+    This class is responsible for:
+        - Instantiating the LogicWrapper and UI helper classes.
+        - Displaying the main menu.
+        - Routing the user to Organizer, Team Leader, or Public menus.
+    """
     def __init__(self):
-        # The UI creates an instance of the Logic Wrapper
+        """Initialize the main menu and all sub-menus.
+
+        Creates a LogicWrapper instance and passes it into:
+            - OrganizerMenu
+            - TeamLeader
+            - PublicMainMenu
+            - functionFile helper
+
+        Attributes:
+            logic_wrapper (LogicWrapper):
+                Logic layer facade used by all UI components.
+            backlist (list):
+                Stack/list intended for back navigation.
+            functionFile (functionFile):
+                Helper for input/validation functions shared across menus.
+            my_organizer_menu (OrganizerMenu):
+                UI menu for organizer-related actions.
+            teamleader_menu (TeamLeader):
+                UI menu for team leader actions.
+            public_menu (PublicMainMenu):
+                UI menu for public/readonly viewing actions.
+        """
+        # The UI creates an instance of the Logic Wrapper and sub-menus
         self.logic_wrapper = LogicWrapper()
-        self.backlist = []
         self.functionFile = functionFile(self.logic_wrapper)
         self.my_organizer_menu = OrganizerMenu(self.logic_wrapper,self.functionFile)
         self.teamleader_menu = TeamLeader(self.logic_wrapper,self.functionFile)
@@ -27,17 +50,31 @@ class MainMenu:
 
 
     def run(self):
+        """Run the main application loop.
 
+        Displays the ASCII art banner and the top-level menu, then
+        routes user input to the appropriate submenu:
+
+            1 -> Organizer menu
+            2 -> Team Leader menu
+            3 -> Public menu
+            q -> Quit application
+
+        The method loops indefinitely until the user chooses to quit.
+
+        Returns:
+            None
+        """
         while True:
             
-            print( """
+            print( r"""
 +---------------------------------------------------+
 |                                                   |
 |  ____  _   _        ____                   _      |
 | |  _ \| | | |   ___/ ___| _ __   ___  _ __| |_    |
 | | |_) | | | |  / _ \___ \| '_ \ / _ \| '__| __|   |
 | |  _ <| |_| | |  __/___) | |_) | (_) | |  | |_    |
-| |_| \_\\____/   \___|____/| .__/ \___/|_|   \__|   |
+| |_| \_\\____/  \___|____/| .__/ \___/|_|   \__|   |
 |                          |_|                      |
 |                                                   |
 +---------------------------------------------------+
@@ -45,7 +82,7 @@ class MainMenu:
             print(
             
 """ 
-Welcome To the menu. 
+Welcome to the Main Menu. 
 
 1. Organizer Menu
 2. Team Leader Menu
@@ -54,7 +91,7 @@ q. Quit
 
 
 """)
-            choice=input("Enter input: ")
+            choice = input("Enter input (q to stop): ")
             if choice not in ["1","2","3","q","q"]:
 
                  print(
@@ -78,8 +115,6 @@ Try again!!
                     self.teamleader_menu.teamleader_menu()
                 case "3": 
                     self.public_menu.public_menu()
-                #case "4": 
-                    #self.enable_high_quality_menu() # Mögulega laga því fer bara á mainscreen, mögulega myndum senda bara beint í function
                 case "q": 
                     print("Goodbye!")
                     quit()

@@ -152,25 +152,82 @@ Writer: Aron Bjarki Ingvason
 
 ---
 
-date: 9.12.2025
 
-Writer: Breki Hlynsson
+Date  06.12.2025
+ 
+    1. Checking code in UI and making small fixes
 
-forgot to add things i had done
+Writer: Aron Bjarki Ingvason
 
-general list:
+--------------------------------------------------
 
-    rewwamped the entire data layer to have dynamic CRUD and to use JSON
-    added clubs
-    added brackets
-    added match
-    added tournaments
-    added dummy data handeleing for every model but only have data for players and teams
-    added bunch of logic layer stuff
-    did some ui layer fixes
-    probobly some more bur i forgot, sorry for forgetting to log here
+Date  07.12.2025
 
-i have been assisting others and doing peer teaching as a more experienced programer, unknown houres
+    1. Keep going with going down the requirement list and making adjustments
+
+Writer: Aron Bjarki Ingvason
 
 
----
+--------------------------------------------------
+
+
+Date  08.12.2025
+
+    1. Split up the ui layers in different files and went down the requirement list, mostly making the create tournament and club and made fixes in data layer
+
+Writer: Aron Bjarki Ingvason
+
+
+--------------------------------------------------
+
+
+
+Date  09.12.2025
+
+    1. Started making brackets to create scedule 
+    2. Going through the code and making small fixes
+
+Writer: Aron Bjarki Ingvason
+
+
+--------------------------------------------------
+
+
+Date  10.12.2025
+    
+    1. Code almost finished and we just going through all minor problems in the code
+    2. Fixing usecases and happypath
+    3. Making schedules function and implementing in the ui
+
+Writer: Aron Bjarki Ingvason
+
+
+--------------------------------------------------
+
+
+Date  11.12.2025
+
+    1. Code almost finished and we just going through all minor problems in the code
+    2. Fixing usecases and happypath
+    3. Making view organizers
+    4. Making sure code is beautiful and nice to read
+    5. Making doc string and comments in code
+
+Writer: Aron Bjarki Ingvason
+
+
+--------------------------------------------------
+
+
+Date  12.12.2025
+
+    1. Code  finished and we just going through all minor problems in the code
+    2. Fixing usecases and happypath
+    3. Making view organizers
+    4. Making sure code is beautiful and nice to read
+    5. Making doc string and comments in code
+    6. Creating the report and video
+    7. Fixing diagrams
+    8. Just finish everything and making everything look good
+
+Writer: Aron Bjarki Ingvason
