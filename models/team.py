@@ -34,6 +34,8 @@ class Team:
     
     @staticmethod
     def from_dict(data: dict) -> Team:
+        
+        
         """Create a Team instance from a dictionary.
 
         Args:

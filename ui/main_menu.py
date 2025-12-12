@@ -1,10 +1,7 @@
 from __future__ import annotations
 # ui_layer/main_menu.py
 from logic.logic_wrapper import LogicWrapper
-from models.team import Team
-from models.tournament import Tournament
 
-from models.player import Player
 from ui.Organizer_menu import OrganizerMenu
 from ui.Public_main_menu import PublicMainMenu
 from ui.team_leader_menu import TeamLeader
@@ -44,7 +41,6 @@ class MainMenu:
         """
         # The UI creates an instance of the Logic Wrapper
         self.logic_wrapper = LogicWrapper()
-        self.backlist = []
         self.functionFile = functionFile(self.logic_wrapper)
         self.my_organizer_menu = OrganizerMenu(self.logic_wrapper,self.functionFile)
         self.teamleader_menu = TeamLeader(self.logic_wrapper,self.functionFile)
