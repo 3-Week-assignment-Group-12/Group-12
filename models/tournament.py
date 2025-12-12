@@ -105,7 +105,7 @@ class Tournament:
             - When the last round list is empty, the bracket is considered done.
         """
         # If the last match round is empty, bracket is complete
-        if len(self.matches[-1]) == 0:
+        if len(self.matches[-1]) == 0 and self.matches.__len__() != 1 :
             self.matches.append([])
             return 2
         
