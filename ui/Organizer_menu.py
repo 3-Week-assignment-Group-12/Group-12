@@ -1,8 +1,6 @@
 from __future__ import annotations
 # ui_layer/main_menu.py
 from logic.logic_wrapper import LogicWrapper
-from models.team import Team
-from models.tournament import Tournament
 from models.player import Player
 from ui.function_file import functionFile
 
@@ -100,13 +98,14 @@ Player Management
 1. Add player
 2. Edit player information
 3. Delete player
-4. View players (view menu shortcut)
+4. View players
+5. Get dummy data
 b. Back 
 
 
 """)
             choice = input("Enter input: ")
-            if choice not in ["1","2","3","4","b","B"]:
+            if choice not in ["1","2","3","4","5","b","B"]:
 
                  print(
 """ 
@@ -117,7 +116,8 @@ Player Management
 1. Add player
 2. Edit player information
 3. Delete player
-4. View players (view menu shortcut)
+4. View players
+5. Get dummy data
 b. Back 
 
 Try again!!
@@ -206,6 +206,18 @@ Try again!!
                     for player in list_of_players:                  
                         print(f"{count}: {player.name}, ID: {player.id}")
                         count += 1  
+                        
+                case "5":
+                    print("Warning!")
+                    print("This will wipe currently existing data")
+                    val = input("Confirm? (y/n)")
+                    if val.lower() == "y":
+                        self.logic_wrapper.get_dummy_data()
+                        print("Dummy data loaded")
+                        continue
+                    else:
+                        print("Dummy data has not been loaded")
+                    
 
                 case "b": 
                     return
