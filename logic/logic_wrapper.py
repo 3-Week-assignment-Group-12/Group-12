@@ -51,6 +51,7 @@ class LogicWrapper:
         new_player = self.player_handler.create_player(KT, name,handle,link, phone, address, email, self.data_wrapper.get_players())
         if isinstance(new_player, Player):
             return self.data_wrapper.write_player(new_player)
+        
         return new_player  # Indicate failure due to validation
         
     def create_team(self, name: str, tag: str, creator_id: str, team_size: int, team_list: list[str]) -> int:
@@ -69,6 +70,7 @@ class LogicWrapper:
         new_team: Team|int = self.team_handler.create_team(name, tag, creator_id, team_size, self.data_wrapper.get_teams(), team_list)
         if isinstance(new_team, Team):
             return self.data_wrapper.write_team(new_team)
+        
         return -2 # Indicate failure due to validation
         
         
@@ -112,6 +114,7 @@ class LogicWrapper:
         
         if isinstance(new_tournament, Tournament):
             return self.data_wrapper.write_tournament(new_tournament)
+        
         return new_tournament # Indicate failure due to validation
 
     def create_club(self, name: str, colour:str , team_list: list[int]) -> int:
@@ -129,6 +132,7 @@ class LogicWrapper:
         new_club: Club|int = self.club_handler.create_club(name,colour,team_list,self.get_clubs())
         if isinstance(new_club, Club):
             return self.data_wrapper.write_club(new_club)
+        
         return -2 # Indicate failure due to validation   
 
         

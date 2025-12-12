@@ -601,6 +601,7 @@ class functionFile:
             check = self.logic_wrapper.validateMatchTime(matchTime)       
             if check == None:
                 print("Match Time format is wrong! (example of correct format: MM:SS - minutes:seconds)") 
+                continue
             else:
                 return matchTime
 
