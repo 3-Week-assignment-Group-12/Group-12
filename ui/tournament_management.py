@@ -1,13 +1,7 @@
-from __future__ import annotations
 from random import randint
-from re import Match
-# ui_layer/main_menu.py
 from models.bracket import Bracket
 from logic.logic_wrapper import LogicWrapper
-
-
 from models.tournament import Tournament
-
 from models.team import Team
 from ui.function_file import functionFile
 
