@@ -63,6 +63,7 @@ class functionFile:
             team_size = input("Enter team size: ")
             if team_size=="q":
                 return False
+            
             try:
                 team_size=int(team_size)
                 return team_size
@@ -81,12 +82,14 @@ class functionFile:
             
             if list_of_tournaments is None or list_of_tournaments == []:
                 return ID
+            
             for tournamentID in list_of_tournaments:
                 tournament_info=self.logic_wrapper.get_team_by_ID(tournamentID.id)
                 if isinstance(tournament_info,Tournament):
                     if ID == tournament_info.id: 
                         print("This tournament ID already exists!")
                         ID = input("Enter different Contact ID")
+
                     else:
                         return ID
     
@@ -111,8 +114,10 @@ class functionFile:
                         if name == teaminfo.name:
                             print("Name already exists!")
                             name = input("Enter different team name: ")
+
                         else:
                             return name
+                        
                     else:
                         print("invalid name")
                         name = input("Enter different team name: ")
@@ -168,16 +173,17 @@ class functionFile:
         Returns:
             str | Literal[False] -- str as output of valid id, false otherwise
         """
-        playersID=input("Enter National ID: ")
-        if playersID=="q":
+        playersID = input("Enter National ID: ")
+        if playersID == "q":
             return False
-        check= self.logic_wrapper.get_player_by_ID(playersID)
+        
+        check = self.logic_wrapper.get_player_by_ID(playersID)
         while not isinstance(check, Player):
             print("Player does not exist, Try different ID")
-            playersID=input("Enter National ID: ")
+            playersID = input("Enter National ID: ")
             if playersID == "q":
                 return False
-            check= self.logic_wrapper.get_player_by_ID(playersID)
+
         return playersID
     
 
@@ -194,12 +200,14 @@ class functionFile:
         list_of_players= self.logic_wrapper.get_players()
         if list_of_players is None or list_of_players == []:
             return True
+        
         for player in list_of_players:
-            playerinfo=self.logic_wrapper.get_player_by_ID(player.id)
+            playerinfo = self.logic_wrapper.get_player_by_ID(player.id)
             if isinstance(playerinfo,Player):
                 if nID == playerinfo.id: 
                     print("This national ID already exists!")
                     return False
+                
                 else:
                     return True
             
@@ -215,14 +223,16 @@ class functionFile:
         Returns:
             bool -- true if it is available, false if not
         """
-        list_of_players=self.logic_wrapper.get_players()
+        list_of_players = self.logic_wrapper.get_players()
         if list_of_players is None or list_of_players == []:
             return True
+        
         for player in list_of_players:
-            playerinfo=self.logic_wrapper.get_player_by_ID(player.id)
+            playerinfo = self.logic_wrapper.get_player_by_ID(player.id)
             if isinstance(playerinfo,Player):
                 if email == playerinfo.email: 
                     return False
+                
         return True
                 
     
@@ -234,16 +244,20 @@ class functionFile:
             str | Literal[False] -- str as output valid phone number, false otherwise
         """
         while True:
-            number:str=input("Phone number:")
-            if number=="q":
+            number:str = input("Phone number:")
+            if number == "q":
                 return False
+            
             check = self.logic_wrapper.check_phone_nr(number)
             if check == "1":
                 print("Phone number is not the correct length!")
+
             elif check == "2":
                 print("Only digits in phone number allowed!")
+
             elif check=="3":
                 print("Number already exists!")
+
             else:
                 return number
         
@@ -255,12 +269,14 @@ class functionFile:
             str | Literal[False] -- str as valid name, false otherwise
         """
         while True:
-            name:str=input("Name: ")
-            if name=="q":
+            name:str = input("Name: ")
+            if name == "q":
                 return False
+            
             check = self.logic_wrapper.check_name(name)
             if check == "1":
                 print("Numbers are not allowed in name!")
+
             else:
                 return name
                 
@@ -270,21 +286,25 @@ class functionFile:
         Returns:
             str | Literal[False] -- str as valid email, false otherwise
         """
-        check2= False
-        email=""
+        check2 = False
+        email =""
         while check2 == False :
-            email:str=input("Email: ")
-            if email=="q":
+            email:str = input("Email: ")
+            if email == "q":
                 return False
-            check1=self.logic_wrapper.check_email(email)
+            
+            check1 = self.logic_wrapper.check_email(email)
             if check1 == "1":
                 print("Email must contain @ symbol!")
+
             else:
                 check2=self.check_for_player_email(email)
                 if check2 == False:
                     print("Email already exists in system!")
+
                 else:
                     return email
+                
         return False
     
 
@@ -297,19 +317,23 @@ class functionFile:
             str | Literal[False] -- str as valid id, false otherwise
         """
         while True:
-            playersID=input("Enter National ID: ")
+            playersID = input("Enter National ID: ")
             if playersID=="q":
                 return False
-            check1=self.logic_wrapper.valid_kt(playersID)
-            if check1 =="1":
+            
+            check1 = self.logic_wrapper.valid_kt(playersID)
+            if check1 == "1":
                 print("National ID needs to be exactly 10 numbers")
-            elif check1=="2":
+
+            elif check1 == "2":
                 print("National ID cant have letters")
-            elif check1=="3" or check1=="4":
+
+            elif check1 == "3" or check1 == "4":
                 print("This ID does not exist")
+
             else:
-                check2=self.check_for_player_kt(playersID)
-                if check2==True:
+                check2 = self.check_for_player_kt(playersID)
+                if check2 == True:
                     return playersID
                 
                 
@@ -323,9 +347,11 @@ class functionFile:
             player_handle:str = input("Enter player handle: ")
             if player_handle == "q":
                 return False
+            
             check = self.logic_wrapper.check_player_handle(player_handle)
             if check == False:
                 print("Player handle is taken!")
+
             else:
                 return player_handle
             
@@ -339,9 +365,12 @@ class functionFile:
             player_link:str = input("Enter player link: ")
             if player_link == "q":
                 return False
+            
             check = self.logic_wrapper.check_player_link(player_link)
             if check == False:
+
                 print("Player link is taken!")
+
             else:
                 return player_link
             
@@ -356,16 +385,18 @@ class functionFile:
             str | Literal[False] -- str as valid name, false otherwise
         """
         while True:
-            name:str=input("Name: ")
-            if name=="q":
+            name:str = input("Name: ")
+            if name == "q":
                 return False
+            
             if len(name)>20:
                 print("Team name too long!")
                 print("can not be longer then 20")
             
             check= self.logic_wrapper.check_for_team_name(name)
-            if check ==False:
+            if check == False:
                 print("Team name already exists!")
+
             else:
                 return name
         ## check if team name is already in use, create a function in logiclayer for that and call it here
@@ -377,16 +408,18 @@ class functionFile:
             str |Literal[False] -- str as valid tag, false otherwise
         """
         while True:
-            tag:str=input("Enter Tag ( max 5 letters/numbers ): ")
-            if tag=="q":
+            tag:str = input("Enter Tag ( max 5 letters/numbers ): ")
+            if tag == "q":
                 return False
-            check=self.logic_wrapper.check_for_team_tag(tag)
-            if check=="1":
+            
+            check = self.logic_wrapper.check_for_team_tag(tag)
+            if check == "1":
                 print("Too many letters/numbers!")
-                return False
-            if check=="2":
+                continue
+            
+            if check == "2":
                 print("Team tag already exists!")
-                return False
+                continue
             else:
                 return tag
             
@@ -400,16 +433,20 @@ class functionFile:
             creatorID=input("Enter Creator National ID: ")
             if creatorID == "q":
                 return False
+            
             check1 = self.logic_wrapper.valid_kt(creatorID)
-            if check1 =="1":
+            if check1 == "1":
                 print("National ID needs to be exactly 10 numbers")
                 continue
+
             elif check1=="2":
                 print("National ID cant have letters")
                 continue
+
             elif check1=="3" or check1=="4":
                 print("This ID does not exist")  
                 continue
+
             else:
                 return creatorID
         
@@ -423,19 +460,26 @@ class functionFile:
             str | Literal[False] -- str as valid club name, false otherwise
         """
         while True:
-            name:str=input("Name: ")
-            if name=="q":
+            name:str = input("Name: ")
+            if name == "q":
                 return False
-            if len(name)>20:
+            
+            if len(name) > 20:
                 print("club name too long!")
                 print("can not be longer then 20")
+                continue
+
             check1 = self.logic_wrapper.check_name(name)
             if check1 == "1":
                 print("Club name can only contain letters!")
+                continue
+
             else:
                 check2= self.logic_wrapper.check_for_club_name(name)
                 if check2 ==False:
                     print("club name already exists!")
+                    continue
+
                 else:
                     return name
             
@@ -446,12 +490,15 @@ class functionFile:
             str | Literal[False] -- str as valid colour
         """
         while True:
-            color:str=input("Color: ")
-            if color=="q":
+            color:str = input("Color: ")
+            if color == "q":
                 return False
+            
             check1 = self.logic_wrapper.check_name(color)
             if check1 == "1":
                 print("Club color can only contain letters!")
+                continue
+
             else:
                 return color
 
@@ -463,12 +510,14 @@ class functionFile:
             str | Literal[False] -- str as valid name, false otherwise
         """
         while True:
-            tournament_name:str=input("Tournament name: ")
-            if tournament_name=="q":
+            tournament_name:str = input("Tournament name: ")
+            if tournament_name == "q":
                 return False
+            
             check = self.logic_wrapper.check_for_tournament_name(tournament_name)
             if check == False:
                 print("Tournament name already exists!")
+
             else:
                 return tournament_name
             
@@ -483,9 +532,12 @@ class functionFile:
             startDate = input("Enter Start Date: ")
             if startDate == "q":
                 return False
+            
             check = self.logic_wrapper.validateDate(startDate)       
             if check == None:
                 print("Date format is wrong! (example of correct format: dd.mm.yyyy)") 
+                continue
+
             else:
                 return startDate
 
@@ -502,12 +554,15 @@ class functionFile:
             endDate = input("Enter End Date: ")
             if endDate == "q":
                 return False
+            
             check = self.logic_wrapper.validateDate(endDate)       
             if check == None:
                 print("Date format is wrong! (example of correct format: dd.mm.yyyy)") 
+
             check2 = self.logic_wrapper.validEndDate(startDate,endDate)
             if check2 == False:
                 print("EndDate cannot occur before StartDate!")
+
             else:
                 return endDate
         
@@ -521,10 +576,12 @@ class functionFile:
             matchTime = input("Enter Match Time (MM:SS): ")
             if matchTime == "q":
                 return False
+            
             check = self.logic_wrapper.validateMatchTime(matchTime)       
             if check == None:
                 print("Match Time format is wrong! (example of correct format: MM:SS - minutes:seconds)") 
                 continue
+
             else:
                 return matchTime
 
@@ -538,15 +595,20 @@ class functionFile:
             contactID=input("Enter Contact ID: ")
             if contactID == "q":
                 return False
+            
             check = self.logic_wrapper.valid_kt(contactID)
             if check == "1":
                 print("Contact ID should be exactly 10 numbers!")
+
             elif check == "2":
                 print("ID must only contain numbers!")
+
             elif check == "3":
                 print("Day date in ID is invalid!")
+
             elif check == "4":
                 print("Month date in ID is invalid!")
+
             else:
                 return contactID
             
@@ -560,9 +622,11 @@ class functionFile:
             contactEmail = input("Enter Contact Email: ")
             if contactEmail == "q":
                 return False
+            
             check = self.logic_wrapper.check_email(contactEmail)
             if check == "1":
                 print("Email must have 1 @ symbol!")
+
             else:
                 return contactEmail
             
@@ -576,11 +640,14 @@ class functionFile:
             contactPhone = input("Enter Contact Phone Number: ")
             if contactPhone == "q":
                 return False
+            
             check = self.logic_wrapper.check_contact_phone_nr(contactPhone)
             if check == "1":
                 print("Phone number must be exactly 7 digits long!")
+
             elif check == "2":
                 print("Phone number cannot contain any letters!")
+
             else:
                 return contactPhone
 
@@ -675,14 +742,15 @@ class functionFile:
             int | Literal[False] -- int as valid id, false otherwise
         """
         while True:
-            clubID=input("Enter Club ID: ")
-            if clubID=="q":
+            clubID = input("Enter Club ID: ")
+            if clubID == "q":
                 return False
             try:
-                clubID=int(clubID)
-                check= self.logic_wrapper.get_club_by_ID(clubID)
+                clubID = int(clubID)
+                check = self.logic_wrapper.get_club_by_ID(clubID)
                 if check == False:
                     print("Club does not exist, Try different ID")
+
                 else:
                     return clubID
             except:
@@ -696,7 +764,7 @@ class functionFile:
             int | None -- int as valid id, false otherwise
         """
         while True:
-            tournamentID=input("Enter Tournament ID(q for cancel): ")
+            tournamentID = input("Enter Tournament ID(q for cancel): ")
             if tournamentID.lower() == "q":
                 return None
 
@@ -721,11 +789,13 @@ class functionFile:
         """
         while True:
             score = input("Enter score: ")
-            if score=="q":
+            if score == "q":
                 return False
+            
             try:
-                score=int(score)
+                score = int(score)
                 return score
+            
             except:
                 print("score must be digits only!")
 
@@ -737,11 +807,13 @@ class functionFile:
         """
         while True:
             winner = input("Enter winner id: ")
-            if winner=="q":
+            if winner == "q":
                 return False
+            
             try:
-                winner=int(winner)
+                winner = int(winner)
                 return winner
+            
             except:
                 print("winner id must be digits only!")
 
