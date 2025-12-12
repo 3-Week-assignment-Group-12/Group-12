@@ -436,6 +436,98 @@ class functionFile:
                 value += p.dynamic_data[key]
             return value 
 
+    def input_start_date(self):
+        while True:
+            startDate = input("Enter Start Date: ")
+            if startDate == "q":
+                return False
+            check = self.logic_wrapper.validateDate(startDate)       
+            if check == "1":
+                print("Date format is wrong! (example of correct format: 11.12.2025)") 
+            elif check == "2":
+                print("Date format is wrong! (example of correct format: 11.12.2025)") 
+            elif check == "3":
+                print("Date format is wrong! (example of correct format: 11.12.2025)") 
+            elif check == "4":
+                print("Date format is wrong! (example of correct format: 11.12.2025)") 
+            elif check == "5":
+                print("Date format is wrong! (example of correct format: 11.12.2025)") 
+            elif check == "6":
+                print("Date format is wrong! (example of correct format: 11.12.2025)") 
+            elif check == "7":
+                print("Date format is wrong! (example of correct format: 11.12.2025)") 
+            else:
+                return startDate
+
+    def input_end_date(self, startDate):
+        while True:
+            endDate = input("Enter End Date: ")
+            if endDate == "q":
+                return False
+            check = self.logic_wrapper.validateDate(endDate)       
+            if check == None:
+                print("Date format is wrong! (example of correct format: 12.12.2025)") 
+            check2 = self.logic_wrapper.validEndDate(startDate,endDate)
+            if check2 == False:
+                print("EndDate cannot occur before StartDate!")
+            else:
+                return endDate
+
+    def input_contact_ID(self):
+        """Prompt user for a contact ID (organizer ID) and validate it.
+
+        Validation:
+            - Delegates to LogicWrapper.valid_kt().
+            - Must be exactly 10 digits and a valid "date" encoding.
+
+        Returns:
+            str | bool:
+                * str: Valid contact ID.
+                * False: If the user cancels with 'q'.
+        """
+        while True:
+            contactID=input("Enter Contact ID: ")
+            if contactID == "q":
+                return False
+            check = self.logic_wrapper.valid_kt(contactID)
+            if check == "1":
+                print("Contact ID should be exactly 10 numbers!")
+            elif check == "2":
+                print("ID must only contain numbers!")
+            elif check == "3":
+                print("Day date in ID is invalid!")
+            elif check == "4":
+                print("Month date in ID is invalid!")
+            else:
+                return contactID
+            
+    def input_contact_email(self):
+        while True:
+            contactEmail = input("Enter Contact Email: ")
+            if contactEmail == "q":
+                return False
+            check = self.logic_wrapper.check_email(contactEmail)
+            if check == "1":
+                print("Email must have 1 @ symbol!")
+            else:
+                return contactEmail
+            
+    def input_contact_phone_nr(self):
+        while True:
+            contactPhone = input("Enter Contact Phone Number: ")
+            if contactPhone == "q":
+                return False
+            check = self.logic_wrapper.check_contact_phone_nr(contactPhone)
+            if check == "1":
+                print("Phone number must be exactly 7 digits long!")
+            elif check == "2":
+                print("Phone number cannot contain any letters!")
+            else:
+                return contactPhone
+
+
+            
+
     def add_data_to_team_int(self,team_id:int,key:str, value:int):
         """assigns data to all players in team
 
@@ -730,49 +822,6 @@ class functionFile:
                         return ID
         
     
-    def input_tournament_name(self):
-        """Prompt user for a tournament name and ensure it is unique.
-
-        Returns:
-            str | bool:
-                * str: Valid tournament name.
-                * False: If the user cancels with 'q'.
-        """
-        while True:
-            tournament_name:str=input("Tournament name: ")
-            if tournament_name=="q":
-                return False
-            check = self.logic_wrapper.check_for_tournament_name(tournament_name)
-            if check == False:
-                print("Tournament name already exists!")
-            else:
-                return tournament_name
-            
-
-    def input_contact_ID(self):
-        """Prompt user for a contact ID (organizer ID) and validate it.
-
-        Validation:
-            - Delegates to LogicWrapper.valid_kt().
-            - Must be exactly 10 digits and a valid "date" encoding.
-
-        Returns:
-            str | bool:
-                * str: Valid contact ID.
-                * False: If the user cancels with 'q'.
-        """
-        while True:
-            contactID=input("Enter Contact ID: ")
-            if contactID == "q":
-                return False
-            check = self.logic_wrapper.valid_kt(contactID)
-            if check == "1":
-                print("Contact ID should be exactly 10 numbers!")
-            elif check == "2":
-                print("ID must only contain numbers!")
-            elif check == "3":
-                print("Day date in ID is invalid!")
-            elif check == "4":
-                print("Month date in ID is invalid!")
-            else:
-                return contactID
+        
+        
+  

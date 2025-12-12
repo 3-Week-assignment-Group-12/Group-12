@@ -81,16 +81,22 @@ b. Back
                     name = self.functionFile.input_tournament_name()
                     if name == False:
                         continue
-                    startDate = input("Start date: ")
-                    endDate = input("End date: ")
+                    startDate = self.functionFile.input_start_date()
+                    if startDate == False:
+                        continue
+                    endDate = self.functionFile.input_end_date(startDate)
+                    if endDate == False:
+                        continue
                     venue=input("Location of Tournament: ")
+                    if venue == "q":
+                        continue
                     contactID = self.functionFile.input_contact_ID()
                     if contactID == False:
                         continue
-                    contactEmail = self.functionFile.input_email()
+                    contactEmail = self.functionFile.input_contact_email()
                     if contactEmail == False:
                         continue
-                    contactPhone = self.functionFile.input_phone_nr()
+                    contactPhone = self.functionFile.input_contact_phone_nr()
                     if contactPhone == False:
                         continue
                     
