@@ -58,7 +58,7 @@ Team Leader Menu
 5. Manage Club
 b. Back 
 """)
-            choice=input("Enter input: ")
+            choice = input("Enter input: ")
             if choice not in ["1","2","3","4","5","b","B"]:
 
                 print(
@@ -80,73 +80,87 @@ Try again!!
             match choice:
                 case "1": 
                     self.view_team_teamleader_menu() 
+
                 case "2": 
-                    #new
                     name = self.functionFile.inputTeamName()
-                    if name ==False:
+                    if name == False:
                         continue
+
                     team_tag = self.functionFile.inputTeamTag()
-                    if team_tag ==False:
+                    if team_tag == False:
                         continue
-                    creator_id = self.functionFile.input_creatorID() # type: ignore
-                    if creator_id ==False:
+
+                    creator_id = self.functionFile.input_creatorID()
+                    if creator_id == False:
                         continue
                     
-                    team_list=[] #laga team list 
-                    val = input("add members? (y/n)")
+                    team_list = []
+                    val = input("Add members? (y/n): ")
                     if val.lower() == "y":
                         while True:
                             team_size = self.functionFile.teamSize()
                             if team_size > 21:
-                                print("team too big")
+                                print("Team too big")
                                 continue
+
                             if team_size > self.logic_wrapper.get_players().__len__():
-                                print("not enough players in system for team size")
+                                print("Not enough players in system for team size")
+
                             else:
                                 break
+
                         while team_list.__len__() != team_size:
                             team_list.append(self.functionFile.inputplayersID())
+
                     else:
                         team_size = self.functionFile.teamSize()
 
-                    
                     ret = self.logic_wrapper.create_team(name, team_tag, creator_id, team_size, team_list) 
                     if ret == 1:
                         print("Team has been created!") 
+
                     elif ret == -1:
                         print("Error creating team!")
+
                     elif ret == -2:
                         print("Validation failed, team not created!")
+
                     elif ret == -3:
                         print("tag already exists")
+
                     elif ret == -4:
                         print("invalid format")
+
                     elif ret == -5:
-                        print("team size to big")
+                        print("team size too big")
                     
                 case "3": 
-                    ID=self.functionFile.checkTeamID()
+                    ID = self.functionFile.checkTeamID()
                     if ID == False:
                         continue
+
                     self.edit_team_menu(ID) 
+
                 case "4": 
-                    ID=self.functionFile.checkTeamID()
+                    ID = self.functionFile.checkTeamID()
                     if ID == False:
                         continue
-                    x=input("Are you sure? (Y/N)")
+
+                    x = input("Are you sure? (Y/N): ")
                     if x.lower() == "y":
                         self.logic_wrapper.delete_team(ID) 
                         print("Team has been removed!")
+
                     else:
                         print("Deletion, canceled")
+                        continue
                     
                 case "5": 
                     self.club_menu() 
+
                 case "b": 
                     return
            
-    
-    
 
     def view_team_teamleader_menu(self) -> None:
         """Display view-only options for the current team leader.
@@ -165,7 +179,7 @@ View Team
 2. View My Tournaments
 b. Back 
 """)
-            choice=input("Enter input: ")
+            choice = input("Enter input: ")
             if choice not in ["1","2","b","B"]:
 
                 print(
@@ -186,31 +200,35 @@ Try again!!
                     teamID = self.functionFile.checkTeamID()
                     if teamID == False:
                         continue
+
                     team = self.logic_wrapper.get_team_by_ID(teamID)
+                    if team == False:
+                        continue
+
                     if isinstance(team, Team):
                         print(f"Team ID: {team.id}")  # call function for specific team to check out
                         print(f"Team name: {team.name}")
                         print(f"Team tag: {team.tag}")
                         print(f"Creator ID: {team.creator_id}")
                         print(f"Team size: {team.team_size}")
-                        print("Team members ")
+                        print("Team members")
                         counter = 1
                         for id in team.member_list:
                             member = self.logic_wrapper.get_player_by_ID(id)
                             if isinstance(member,Player):
                                 print(f"Member {counter}: {member.name}")
                                 counter += 1
+
                 case "2": 
                     teamID = self.functionFile.checkTeamID()
-                    list_of_tournaments= self.logic_wrapper.get_tournaments()
+                    list_of_tournaments = self.logic_wrapper.get_tournaments()
                     for tournament in list_of_tournaments:
-                        listOfTeamID=tournament.team_list
+                        listOfTeamID = tournament.team_list
                         if teamID in listOfTeamID:
                             print(tournament.name)
+
                 case "b": 
                     return
-           
-    
 
 
     def edit_team_menu(self,teamID:int) -> None:
@@ -240,7 +258,7 @@ b. Back
 
 
 """)
-            choice=input("Enter input: ")
+            choice = input("Enter input: ")
             if choice not in ["1","2","3","4","b","B"]:
                 
                 print(
@@ -257,57 +275,63 @@ b. Back
 
 Try again!!
 """)
+                
             if isinstance(temp, int):
                 print("Player not found")
+
             else:
                 match choice:
                     case "1": 
-                    
-                        counter=0
+                        counter = 0
                         for _ in temp.member_list:
-                            counter+=1
-                        if counter==temp.team_size:
+                            counter += 1
+
+                        if counter == temp.team_size:
                             print("Team is full")
                             continue
+
                         else:
-                            member=self.functionFile.check_existingID()
-                            if member==False:
+                            member = self.functionFile.check_existingID()
+                            if member == False:
                                 print("Addition of member canceled!")
                                 continue
+
                             else:
                                 temp.member_list.append(member)
 
-                            
                     case "2": 
-                            counter=0
+                            counter = 0
                             for _ in temp.member_list:
-                                counter+=1
-                            if counter==0:
+                                counter += 1
+
+                            if counter == 0:
                                 print("Team is empty")
                                 continue
-                            member=self.functionFile.check_existingID()
-                            if member==False:
+
+                            member = self.functionFile.check_existingID()
+                            if member == False:
                                 print("Removal of player canceled!")
                                 continue
+
                             else:
                                 temp.member_list.remove(member)
+
                     case "3": 
-                        imp =self.functionFile.inputTeamName()
-                        if isinstance(imp,str):
-                            temp.name=imp
+                        imp = self.functionFile.inputTeamName()
                         if imp == False:
                             print("Name change aborted!")
                             continue
+                        
+                        temp.name = imp
+
                     case "4": 
-                        imp=self.functionFile.inputTeamTag()
-                        if isinstance(imp,str):
-                            temp.tag=imp
+                        imp = self.functionFile.inputTeamTag()
                         if imp == False:
                             print("Team tag change aborted!")
                             continue
-                            
-                    case "5": 
-                        pass
+
+                        temp.tag = imp
+
                     case "b": 
                         return
                 
@@ -338,8 +362,8 @@ b. Back
 
 
 """)
-            choice=input("Enter input: ")
-            if choice not in ["1","2","3","4","b","B"]:
+            choice = input("Enter input: ")
+            if choice not in ["1","2","3","b","B"]:
                 
                 print(
 """ 
@@ -348,9 +372,8 @@ Invalid Input!!
 Club Menu
 
 1. Create Club
-2. Join Club
-3. View My Club Info
-4. Edit Club
+2. View My Club Info
+3. Edit Club
 b. Back 
 
 Try again!!
@@ -361,40 +384,41 @@ Try again!!
                     name = self.functionFile.inputClubName()
                     if name == False:
                         continue
+
                     club_color = self.functionFile.inputClubColor()
                     if club_color == False:
                         continue
-                    team_list=[] 
-                    team=self.functionFile.checkTeamID()
-                    if team==False:
+
+                    team_list = [] 
+                    team = self.functionFile.checkTeamID()
+                    if team == False:
                         continue
+
                     else:
                         team_list.append(team)
 
                     self.logic_wrapper.create_club(name,club_color,team_list) #create club function
                     print("Club has been created!")
+
                 case "2": 
-                    pass # join club function
-                case "3": 
-                    club_id=self.functionFile.inputClubID()
-                    if club_id==False:
+                    club_id = self.functionFile.inputClubID()
+                    if club_id == False:
                         continue
+
                     else:
-                        club_info=self.logic_wrapper.get_club_by_ID(club_id) # view club by id
+                        club_info = self.logic_wrapper.get_club_by_ID(club_id) # view club by id
                         if isinstance(club_info,Club):
                             print(f"Club name: {club_info.name}")
                             print(f"Club colour: {club_info.colours}")
                             for team_ID in club_info.teams:
-                                team=self.logic_wrapper.get_team_by_ID(team_ID)
+                                team = self.logic_wrapper.get_team_by_ID(team_ID)
                                 if isinstance(team, Team):
                                     print(team.name)
                                 
-
-
-
-                case "4": 
+                case "3": 
                     clubID = self.functionFile.checkTeamID()
                     self.edit_club_menu(clubID)
+
                 case "b": 
                     return
             
@@ -425,7 +449,7 @@ b. Back
 
 
 """)
-            choice=input("Enter input: ")
+            choice = input("Enter input: ")
             if choice not in ["1","2","3","4","b","B"]:
                 
                 print(
@@ -442,45 +466,60 @@ b. Back
 
 Try again!!
 """)
+                
             if isinstance(temp,int):
                 print("Club not found")
+
             else:
                 match choice.lower():
                     case "1": 
                         inp = self.functionFile.inputClubName()
-                        if isinstance(inp,str):
-                            temp.name=inp
                         if inp == False:
                             continue
+                        
+                        temp.name = inp
+
+                        if inp == False:
+                            continue
+
                     case "2": 
                         inp = self.functionFile.inputClubColor()
-                        if isinstance(inp,str):
-                            temp.colours=inp
                         if inp == False:
                             continue
+
+                        temp.colours = inp
+
                     case "3": 
-                        team=self.functionFile.checkTeamID()
-                        if team==False:
+                        team = self.functionFile.checkTeamID()
+                        if team == False:
                             continue
+
                         else:
                             temp.teams.append(team)
+
                     case "4": 
                         club = self.logic_wrapper.get_club_by_ID(clubID)
+                        if club == False:
+                            continue
+
                         counter = 0
-                        if isinstance(club,Club):
+                        if isinstance(club,Club):       
                             for _ in club.teams:
                                 counter += 1
+
                             if counter == 0:
                                 print("Clubs are empty")
                                 continue
+
                             team = self.functionFile.checkTeamID()
-                            if team==False:
+                            if team == False:
                                 continue
+
                             else:
                                 temp.teams.remove(team)
+
                     case "b": 
                         return
+                    
                 self.logic_wrapper.modify_club(temp)
                 print("Club has been modified!")
-    
-    #-------------Functions-----------------
