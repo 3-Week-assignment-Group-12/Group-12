@@ -390,21 +390,28 @@ class functionFile:
             else:
                 return tag
             
-    def input_creatorID(self) -> str: # function to handle and prevent invalid input
+    def input_creatorID(self) -> str | Literal[False]: # function to handle and prevent invalid input
         """function to receive creator id
 
         Returns:
             str -- str as valid creator id
         """
-        creatorID=input("Enter Creator National ID: ")
-        check1 = self.logic_wrapper.valid_kt(creatorID)
-        if check1 =="1":
-            print("National ID needs to be exactly 10 numbers")
-        elif check1=="2":
-            print("National ID cant have letters")
-        elif check1=="3" or check1=="4":
-            print("This ID does not exist")  
-        return creatorID
+        while True:
+            creatorID=input("Enter Creator National ID: ")
+            if creatorID == "q":
+                return False
+            check1 = self.logic_wrapper.valid_kt(creatorID)
+            if check1 =="1":
+                print("National ID needs to be exactly 10 numbers")
+                continue
+            elif check1=="2":
+                print("National ID cant have letters")
+                continue
+            elif check1=="3" or check1=="4":
+                print("This ID does not exist")  
+                continue
+            else:
+                return creatorID
         
 
     
