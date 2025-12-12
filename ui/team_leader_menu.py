@@ -355,9 +355,8 @@ Try again!!
 Club Menu
 
 1. Create Club
-2. Join Club
-3. View My Club Info
-4. Edit Club
+2. View My Club Info
+3. Edit Club
 b. Back 
 
 
@@ -374,7 +373,7 @@ Club Menu
 1. Create Club
 2. View My Club Info
 3. Edit Club
-b. Back 
+b. Back  
 
 Try again!!
 """)
@@ -416,7 +415,10 @@ Try again!!
                                     print(team.name)
                                 
                 case "3": 
-                    clubID = self.functionFile.checkTeamID()
+                    clubID = self.functionFile.inputClubID()
+                    if clubID == False:
+                        continue
+                    
                     self.edit_club_menu(clubID)
 
                 case "b": 
