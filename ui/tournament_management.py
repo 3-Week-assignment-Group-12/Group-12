@@ -520,7 +520,9 @@ Try again!!
                                             print(f"Team numbers: team1: {matchup[0]} vs team2: {matchup[1]}")
                                         
                                         date = tourn.start_date
-                                        time = input("enter match time(MM:SS): ")
+                                        time = self.functionFile.input_match_time()
+                                        if isinstance(time, bool):
+                                            break
                                         server_id = randint(1,10)
                                         winner_id = self.functionFile.winner()
                                         while winner_id != matchup[0] and winner_id != matchup[1]:
