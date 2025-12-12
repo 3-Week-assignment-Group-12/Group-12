@@ -35,9 +35,6 @@ class TournamentManagement():
         self.functionFile = functionFile
         
 
-    #--------------Menus--------------------
-
-
 
 
 
@@ -372,6 +369,7 @@ Try again!!
             if not cancel_flag:
                 self.logic_wrapper.modify_tournament(temp)
                 print("Tournament has been modified!")
+                
           
 
           
@@ -381,7 +379,7 @@ Try again!!
 
 
 
-
+    
 
     def select_tournament_menu(self, ID:int) -> None:
         """Display and handle the menu for a selected tournament.
@@ -577,8 +575,5 @@ Try again!!
                     return
             
 
-
-
-# ------------------Functions----------------------
 
 

@@ -7,6 +7,7 @@ from models.team import Team
 
 
 class functionFile:
+    
     """Helper class for UI input and validation.
 
     This class encapsulates functions that:
@@ -27,61 +28,9 @@ class functionFile:
 
 
         #------------------Functions--------------------------#
-    def create_team(self):
-        """Create a new team via user input and send it to the logic layer.
 
-        Prompts the user for team information (captain ID, name, tag,
-        team size, and optional list of members) and calls
-        LogicWrapper.create_team().
 
-        Returns:
-            None
-        """
-        id_of_user= input("Enter Captains National ID: ")
-        name = input("Enter team name: ")
-        tag = input("Enter team tag (max 20 char): ")
-        while True:
-
-            team_size=self.teamSize()
-            team_list = []
-            choice = input("add members? (y/n): ").lower()
-            
-            if choice == "y":
-                existing_players = self.logic_wrapper.get_players()
-                while True:
-                    
-                    val = input("Enter team member Kennitala (q to stop): ")
-                    if val.lower() == "q":
-                        break
-                    
-                    for x in existing_players:
-                        if val == str(x.id) and x.id not in team_list:
-                            team_list.append(int(val))
-                            continue
-                        
-                    print("player id not registered")
-                    print()
-                        
-            self.logic_wrapper.create_team(name,tag,id_of_user,team_size,team_list)
-            
-
-    def teamSize(self):
-            while True:
-                team_size = input("Enter team size: ")
-                if team_size=="q":
-                    return False
-                try:
-                    team_size=int(team_size)
-                    return team_size
-                except:
-                    print("Team size must be digits only!")
-                
-        
-        
-        
-    
-        
-
+#----------------------------Players-----------------------------
     def get_players(self): #Requirement 4
         """Trigger retrieval of all players from the logic layer.
 
@@ -95,109 +44,24 @@ class functionFile:
         # UI talks ONLY to Logic
         self.logic_wrapper.get_players()
 
-    def check_for_tournament_ID(self):
-        """Request a contact/tournament ID and ensure it is unique.
-
-        Prompts the user for an ID and checks against existing tournaments.
-        If the ID is already in use, repeatedly asks for a new one.
-
-        Returns:
-            str:
-                A contact/tournament ID that does not conflict with
-                existing tournaments.
-        """
-        ID = input("Contact ID")
-        list_of_tournaments=self.logic_wrapper.get_tournaments()
-        while True:
-            
-            if list_of_tournaments is None or list_of_tournaments == []:
-                return ID
-            for tournamentID in list_of_tournaments:
-                tournament_info=self.logic_wrapper.get_team_by_ID(tournamentID.id)
-                if isinstance(tournament_info,Tournament):
-                    if ID == tournament_info.id: 
-                        print("This tournament ID already exists!")
-                        ID = input("Enter different Contact ID")
-                    else:
-                        return ID
     
-
-    
-
-    def check_for_team_name(self):
-        """Prompt for a team name and ensure it is unique.
-
-        Returns:
-            str:
-                A team name that does not already exist in the system.
-        """
-        name = input("Enter team name: ")
-        list_of_teams=self.logic_wrapper.get_teams()
-        if list_of_teams.__len__() == 0:
-            return name
-        else:
-            while True:
-                for team in list_of_teams:
-                    teaminfo=self.logic_wrapper.get_team_by_ID(team.id)
-                    if isinstance(teaminfo,Team):
-                        if name == teaminfo.name:
-                            print("Name already exists!")
-                            name = input("Enter different team name: ")
-                        else:
-                            return name
-                    else:
-                        print("invalid name")
-                        name = input("Enter different team name: ")
-            
-    def check_for_team_tag(self):
-        """Prompt for a team tag and ensure it is unique.
-
-        Returns:
-            str:
-                A team tag that does not already exist in the system.
-        """
-        tag = input("Enter team tag: ")
-        list_of_teams=self.logic_wrapper.get_teams()
-        while True: 
-            
-            if list_of_teams is None or list_of_teams == []:
-                    return tag
-            for teamID in list_of_teams:
-                teaminfo=self.logic_wrapper.get_team_by_ID(teamID.id)
-                if isinstance(teaminfo,Team):
-                    if tag == teaminfo.tag: 
-                        print("Tag already exists!")
-                        tag = input("Enter different team tag: ")
-                    else:
-                        return tag
-                    
-
-
-    def checkTeamID(self):
-        """Ask for a team ID and verify that it exists in the system.
-
-        The user can enter 'q' to cancel the operation.
-
-        Returns:
-            int | bool:
-                * int: Valid team ID if the team exists.
-                * False: If user cancels with 'q'.
-        """
-        while True:
-            teamID=input("Enter Team ID: ")
-            if teamID=="q":
-                    return False
-            try:
-                teamID = int(teamID)
-                check= self.logic_wrapper.get_team_by_ID(teamID)
-                if check == False:
-                    print("Team does not exist, Try different ID")
-                else:
-                    return teamID
-            except:
-                print("TeamID must be digits only!")
                 
+    def add_data_to_player_int(self,player_id:str, key:str, value:int):
+        """assign data to single player
 
+        Args:
+            player_id (str): player id
+            key (str): what key to the value under
+            value (int): the value, is additive
+
+        Returns:
+            None
+        """
+        play = self.logic_wrapper.get_player_by_ID(player_id)
+        if isinstance(play,Player):
+            play.dynamic_data[key] += value
+            self.logic_wrapper.modify_player(play)  
+        
     
     def check_existingID(self):
         """Request an existing player ID and validate it.
@@ -459,8 +323,8 @@ class functionFile:
 
         Returns:
             str | bool:
-                * str: Valid team tag.
-                * False: If the user cancels with 'q' or validation fails.
+                str: Valid team tag.
+                False: If the user cancels with 'q' or validation fails.
         """
         while True:
             tag:str=input("Enter Tag ( max 5 letters/numbers ): ")
@@ -476,30 +340,200 @@ class functionFile:
             else:
                 return tag
             
-    def input_creatorID(self):
-        """Prompt user for a creator (captain) national ID and validate it.
+    def create_team(self):
+        """Create a new team via user input and send it to the logic layer.
 
-        Validation:
-            - Delegates to LogicWrapper.valid_kt() for format checks.
+        Prompts the user for team information (captain ID, name, tag,
+        team size, and optional list of members) and calls
+        LogicWrapper.create_team().
+
+        Returns:
+            None
+        """
+        id_of_user= input("Enter Captains National ID: ")
+        name = input("Enter team name: ")
+        tag = input("Enter team tag (max 20 char): ")
+        while True:
+
+            team_size=self.teamSize()
+            team_list = []
+            choice = input("add members? (y/n): ").lower()
+            
+            if choice == "y":
+                existing_players = self.logic_wrapper.get_players()
+                while True:
+                    
+                    val = input("Enter team member Kennitala (q to stop): ")
+                    if val.lower() == "q":
+                        break
+                    
+                    for x in existing_players:
+                        if val == str(x.id) and x.id not in team_list:
+                            team_list.append(int(val))
+                            continue
+                        
+                    print("player id not registered")
+                    print()
+                        
+            self.logic_wrapper.create_team(name,tag,id_of_user,team_size,team_list)
+            
+
+    def teamSize(self):
+            """Gets Team size
+            
+            Returns: 
+                int|False: 
+
+            
+            """
+            while True:
+                team_size = input("Enter team size: ")
+                if team_size=="q":
+                    return False
+                try:
+                    team_size=int(team_size)
+                    return team_size
+                except:
+                    print("Team size must be digits only!")
+    
+    def get_data_from_team(self,team_id:int, key:str="") -> dict[str,int]|int|bool:
+        """Gets totaled dynamic data
+
+        Args:
+            team_id (int): team id
+            key (str, optional): key from where to get data. Defaults to "".
+
+        Returns:
+            dict|int|bool: 
+                dict of all data if key is not provided
+                int of total data if key is provided
+                bool for failure
+        """
+        players = self.logic_wrapper.get_players_by_team_ID(team_id)
+        if isinstance(players,bool):
+            return False
+            
+        if key == "": #case: no key provided
+            
+            grouped_data = {}
+            for p in players:
+            
+                for k in p.dynamic_data.keys():
+                    
+                    try:
+                        grouped_data[k] += p.dynamic_data[k]
+                    
+                    except:
+                        grouped_data[k] = 0
+                        grouped_data[k] += p.dynamic_data[k]
+                    
+            return grouped_data
+        
+        else:
+            value = 0
+            for p in players:
+
+                value += p.dynamic_data[key]
+            return value 
+
+    def add_data_to_team_int(self,team_id:int,key:str, value:int):
+        """assigns data to all players in team
+
+        Args:
+            team_id (int): team id
+            key (str): what key to the value under
+            value (int): the value, is additive
+
+        Returns:
+            None
+        """
+        
+        team = self.logic_wrapper.get_team_by_ID(team_id)
+        if isinstance(team,Team):
+            for p in team.member_list:
+                play = self.logic_wrapper.get_player_by_ID(p)
+                if isinstance(play,Player):
+                    play.dynamic_data[key] += value
+                    self.logic_wrapper.modify_player(play)
+    
+
+    def check_for_team_name(self):
+        """Prompt for a team name and ensure it is unique.
 
         Returns:
             str:
-                The entered creator national ID (even if invalid; validation
-                feedback is printed but value is still returned).
+                A team name that does not already exist in the system.
         """
-        creatorID=input("Enter Creator National ID: ")
-        check1 = self.logic_wrapper.valid_kt(creatorID)
-        if check1 =="1":
-            print("National ID needs to be exactly 10 numbers")
-        elif check1=="2":
-            print("National ID cant have letters")
-        elif check1=="3" or check1=="4":
-            print("This ID does not exist")  
-        return creatorID
-        
+        name = input("Enter team name: ")
+        list_of_teams=self.logic_wrapper.get_teams()
+        if list_of_teams.__len__() == 0:
+            return name
+        else:
+            while True:
+                for team in list_of_teams:
+                    teaminfo=self.logic_wrapper.get_team_by_ID(team.id)
+                    if isinstance(teaminfo,Team):
+                        if name == teaminfo.name:
+                            print("Name already exists!")
+                            name = input("Enter different team name: ")
+                        else:
+                            return name
+                    else:
+                        print("invalid name")
+                        name = input("Enter different team name: ")
+            
+    def check_for_team_tag(self):
+        """Prompt for a team tag and ensure it is unique.
 
+        Returns:
+            str:
+                A team tag that does not already exist in the system.
+        """
+        tag = input("Enter team tag: ")
+        list_of_teams=self.logic_wrapper.get_teams()
+        while True: 
+            
+            if list_of_teams is None or list_of_teams == []:
+                    return tag
+            for teamID in list_of_teams:
+                teaminfo=self.logic_wrapper.get_team_by_ID(teamID.id)
+                if isinstance(teaminfo,Team):
+                    if tag == teaminfo.tag: 
+                        print("Tag already exists!")
+                        tag = input("Enter different team tag: ")
+                    else:
+                        return tag
+                    
+
+
+    def checkTeamID(self):
+        """Ask for a team ID and verify that it exists in the system.
+
+        The user can enter 'q' to cancel the operation.
+
+        Returns:
+            int | bool:
+                int: Valid team ID if the team exists.
+                False: If user cancels with 'q'.
+        """
+        while True:
+            teamID=input("Enter Team ID: ")
+            if teamID=="q":
+                    return False
+            try:
+                teamID = int(teamID)
+                check= self.logic_wrapper.get_team_by_ID(teamID)
+                if check == False:
+                    print("Team does not exist, Try different ID")
+                else:
+                    return teamID
+            except:
+                print("TeamID must be digits only!")
     
-    #-----------Clubs----------
+
+#----------------------------Clubs-----------------------------
+        
+        
     def inputClubName(self):
         """Prompt user for a club name and validate it.
 
@@ -547,8 +581,155 @@ class functionFile:
                 print("Club color can only contain letters!")
             else:
                 return color
+            
+    
+    def inputClubID(self):
+        """Prompt user for a club ID and validate existence.
+
+        The user can enter 'q' to cancel the operation.
+
+        Returns:
+            int | bool:
+                * int: Valid club ID.
+                * False: If the user cancels with 'q'.
+        """
+        while True:
+            clubID=input("Enter Club ID: ")
+            if clubID=="q":
+                return False
+            try:
+                clubID=int(clubID)
+                check= self.logic_wrapper.get_club_by_ID(clubID)
+                if check == False:
+                    print("Club does not exist, Try different ID")
+                else:
+                    return clubID
+            except:
+                print("ClubID must be digits only!")
+
+    
+    
+
+        
+#----------------------------Tournaments-----------------------------
+        
+    def input_creatorID(self):
+        """Prompt user for a creator (captain) national ID and validate it.
+
+        Validation:
+            - Delegates to LogicWrapper.valid_kt() for format checks.
+
+        Returns:
+            str:
+                The entered creator national ID (even if invalid; validation
+                feedback is printed but value is still returned).
+        """
+        creatorID=input("Enter Creator National ID: ")
+        check1 = self.logic_wrapper.valid_kt(creatorID)
+        if check1 =="1":
+            print("National ID needs to be exactly 10 numbers")
+        elif check1=="2":
+            print("National ID cant have letters")
+        elif check1=="3" or check1=="4":
+            print("This ID does not exist")  
+        return creatorID     
 
 
+    def inputTournamentID(self) -> int | None:
+        """Prompt user for a tournament ID and validate existence.
+
+        The user can enter 'q' to cancel the operation.
+
+        Returns:
+            int | None:
+                * int: Valid tournament ID.
+                * None: If the user cancels with 'q'.
+        """
+        while True:
+            tournamentID=input("Enter Tournament ID(q for cancel): ")
+            if tournamentID.lower() == "q":
+                return None
+
+            if not tournamentID.isdigit():
+                print("Please enter a numeric tournament ID")
+                continue
+
+            tid = int(tournamentID)
+            check = self.logic_wrapper.get_tournament_by_ID(tid)
+            if check is False:
+                print("Tournament does not exist, Try different ID")
+                continue
+           
+            return tid
+                
+    
+    def score(self):
+        """Execute Flake8 on the files in git's index.
+
+    Determine which files are about to be committed and run Flake8 over them
+    to check for violations.
+
+    :param lazy:
+        Find files not added to the index prior to committing. This is useful
+        if you frequently use ``git commit -a`` for example. This defaults to
+        False since it will otherwise include files not in the index.
+    :param strict:
+        If True, return the total number of errors/violations found by Flake8.
+        This will cause the hook to fail.
+    :returns:
+        Total number of errors found during the run.
+    """
+        while True:
+            score = input("Enter score: ")
+            if score=="q":
+                return False
+            try:
+                score=int(score)
+                return score
+            except:
+                print("score must be digits only!")
+
+    def winner(self):
+        """
+
+        """
+        while True:
+            winner = input("Enter winner id: ")
+            if winner=="q":
+                return False
+            try:
+                winner=int(winner)
+                return winner
+            except:
+                print("winner id must be digits only!")
+
+    def check_for_tournament_ID(self):
+        """Request a contact/tournament ID and ensure it is unique.
+
+        Prompts the user for an ID and checks against existing tournaments.
+        If the ID is already in use, repeatedly asks for a new one.
+
+        Returns:
+            str:
+                A contact/tournament ID that does not conflict with
+                existing tournaments.
+        """
+        ID = input("Contact ID")
+        list_of_tournaments=self.logic_wrapper.get_tournaments()
+        while True:
+            
+            if list_of_tournaments is None or list_of_tournaments == []:
+                return ID
+            for tournamentID in list_of_tournaments:
+                tournament_info=self.logic_wrapper.get_team_by_ID(tournamentID.id)
+                if isinstance(tournament_info,Tournament):
+                    if ID == tournament_info.id: 
+                        print("This tournament ID already exists!")
+                        ID = input("Enter different Contact ID")
+                    else:
+                        return ID
+        
+    
     def input_tournament_name(self):
         """Prompt user for a tournament name and ensure it is unique.
 
@@ -595,162 +776,3 @@ class functionFile:
                 print("Month date in ID is invalid!")
             else:
                 return contactID
-            
-
-            
-    def add_data_to_team_int(self,team_id:int,key:str, value:int):
-        """assigns data to all players in team
-
-        Args:
-            team_id (int): team id
-            key (str): what key to the value under
-            value (int): the value, is additive
-
-        Returns:
-            None
-        """
-        
-        team = self.logic_wrapper.get_team_by_ID(team_id)
-        if isinstance(team,Team):
-            for p in team.member_list:
-                play = self.logic_wrapper.get_player_by_ID(p)
-                if isinstance(play,Player):
-                    play.dynamic_data[key] += value
-                    self.logic_wrapper.modify_player(play)
-        
-    def add_data_to_player_int(self,player_id:str, key:str, value:int):
-        """assign data to single player
-
-        Args:
-            player_id (str): player id
-            key (str): what key to the value under
-            value (int): the value, is additive
-
-        Returns:
-            None
-        """
-        play = self.logic_wrapper.get_player_by_ID(player_id)
-        if isinstance(play,Player):
-            play.dynamic_data[key] += value
-            self.logic_wrapper.modify_player(play)
-            
-        
-    def get_data_from_team(self,team_id:int, key:str="") -> dict[str,int]|int|bool:
-        """Gets totaled dynamic data
-
-        Args:
-            team_id (int): team id
-            key (str, optional): key from where to get data. Defaults to "".
-
-        Returns:
-            dict|int|bool: 
-                dict of all data if key is not provided
-                int of total data if key is provided
-                bool for failure
-        """
-        players = self.logic_wrapper.get_players_by_team_ID(team_id)
-        if isinstance(players,bool):
-            return False
-            
-        if key == "": #case: no key provided
-            
-            grouped_data = {}
-            for p in players:
-            
-                for k in p.dynamic_data.keys():
-                    
-                    try:
-                        grouped_data[k] += p.dynamic_data[k]
-                    
-                    except:
-                        grouped_data[k] = 0
-                        grouped_data[k] += p.dynamic_data[k]
-                    
-            return grouped_data
-        
-        else:
-            value = 0
-            for p in players:
-
-                value += p.dynamic_data[key]
-            return value            
-              
-    
-    def inputClubID(self):
-        """Prompt user for a club ID and validate existence.
-
-        The user can enter 'q' to cancel the operation.
-
-        Returns:
-            int | bool:
-                * int: Valid club ID.
-                * False: If the user cancels with 'q'.
-        """
-        while True:
-            clubID=input("Enter Club ID: ")
-            if clubID=="q":
-                return False
-            try:
-                clubID=int(clubID)
-                check= self.logic_wrapper.get_club_by_ID(clubID)
-                if check == False:
-                    print("Club does not exist, Try different ID")
-                else:
-                    return clubID
-            except:
-                print("ClubID must be digits only!")
-
-    
-    def inputTournamentID(self) -> int | None:
-        """Prompt user for a tournament ID and validate existence.
-
-        The user can enter 'q' to cancel the operation.
-
-        Returns:
-            int | None:
-                * int: Valid tournament ID.
-                * None: If the user cancels with 'q'.
-        """
-        while True:
-            tournamentID=input("Enter Tournament ID(q for cancel): ")
-            if tournamentID.lower() == "q":
-                return None
-
-            if not tournamentID.isdigit():
-                print("Please enter a numeric tournament ID")
-                continue
-
-            tid = int(tournamentID)
-            check = self.logic_wrapper.get_tournament_by_ID(tid)
-            if check is False:
-                print("Tournament does not exist, Try different ID")
-                continue
-
-            return tid
-                
-    
-    def score(self):
-        while True:
-            score = input("Enter score: ")
-            if score=="q":
-                return False
-            try:
-                score=int(score)
-                return score
-            except:
-                print("score must be digits only!")
-
-    def winner(self):
-        while True:
-            winner = input("Enter winner id: ")
-            if winner=="q":
-                return False
-            try:
-                winner=int(winner)
-                return winner
-            except:
-                print("winner id must be digits only!")
-
-        
-    
-  

@@ -29,6 +29,7 @@ class club_handler:
         for x in existing_clubs:
             if x.id > highest:
                 highest = x.id
+                
         highest+=1 # find new id
 
         if isinstance(name,int) or isinstance(colour,int):
