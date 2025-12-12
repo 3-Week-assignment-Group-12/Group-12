@@ -127,30 +127,37 @@ Try again!!
                 case "1": 
                     nid = self.functionFile.inputplayersID()  # case 1 will ask the user for each and every variable that is needed for creating a player 
                     if nid == False:                          # if user wants to quit anytime it will return false, when it return false it takes us to the 
-                        continue                              # Player Management menu (it stops the loop and restarts it) from there you can go back by pressing b.
+                        print("Player creation canceled!")    # Player Management menu (it stops the loop and restarts it) from there you can go back by pressing b.
+                        continue                              
 
                     name = self.functionFile.input_name()
                     if name == False:
+                        print("Player creation canceled!")
                         continue
 
                     handle = self.functionFile.inputPlayerHandle()
                     if handle == False:
+                        print("Player creation canceled!")
                         continue
 
                     link = self.functionFile.inputPlayerLink()
                     if link == False:
+                        print("Player creation canceled!")
                         continue
 
                     phone = self.functionFile.input_phone_nr()
                     if phone == False:
+                        print("Player creation canceled!")
                         continue
 
                     address:str=input("Address: ")             
                     if address == "q":
+                        print("Player creation canceled!")
                         continue
 
                     email = self.functionFile.input_email()
                     if email == False:
+                        print("Player creation canceled!")
                         continue 
 
                     print("Adding Player...")
