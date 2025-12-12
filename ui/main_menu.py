@@ -93,7 +93,7 @@ q. Quit
 
 
 """)
-            choice=input("Enter input: ")
+            choice = input("Enter input: ")
             if choice not in ["1","2","3","q","q"]:
 
                  print(
