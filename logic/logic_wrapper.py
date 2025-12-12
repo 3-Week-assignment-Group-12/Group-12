@@ -49,7 +49,6 @@ class LogicWrapper:
         """
         
         new_player = self.player_handler.create_player(KT, name,handle,link, phone, address, email, self.data_wrapper.get_players())
-        print("New player created:", new_player)  # Debug statement
         if isinstance(new_player, Player):
             return self.data_wrapper.write_player(new_player)
         return new_player  # Indicate failure due to validation
