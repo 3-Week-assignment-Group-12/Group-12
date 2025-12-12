@@ -62,7 +62,7 @@ Public main menu
 b. Back
 
 """)
-            choice = input("Enter input: ")
+            choice = input("Enter input (q to stop): ")
             if choice not in ["1","2","3","4","5","6","b","B"]:
                 
                 print(
@@ -141,7 +141,7 @@ b. Back
 
 
 """)
-            choice = input("Enter input: ")
+            choice = input("Enter input (q to stop): ")
             if choice not in ["1","2","3","4","5","6","b","B"]:
                 
                 print(
@@ -278,7 +278,7 @@ b. Back
 
 
 """)
-            choice = input("Enter input: ")
+            choice = input("Enter input (q to stop): ")
 
             match choice:
                 case "1":                      
@@ -359,7 +359,7 @@ b. Back
 
 
 """)
-            choice = input("Enter input: ")
+            choice = input("Enter input (q to stop): ")
             if choice not in ["1","2","3","4","b","B"]:
                 
                 print(
@@ -534,7 +534,7 @@ b. Back
 
 
 """)
-            choice = input("Enter input: ")
+            choice = input("Enter input (q to stop): ")
             if choice not in ["1","2","3","b","B"]:
                 
                 print(
@@ -632,7 +632,7 @@ b. Back
 
 """)
         
-            choice = input("Enter input: ")
+            choice = input("Enter input (q to stop): ")
             if choice not in ["1","2","b","B"]:
                 
                 print(
@@ -696,7 +696,7 @@ b. Back
 
 """)
         while True:
-            choice = input("Enter input: ")
+            choice = input("Enter input (q to stop): ")
             if choice not in ["1","b","B"]:  
                 print(
 """ 

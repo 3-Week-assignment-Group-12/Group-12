@@ -56,7 +56,7 @@ Team Leader Menu
 5. Manage Club
 b. Back 
 """)
-            choice = input("Enter input: ")
+            choice = input("Enter input (q to stop): ")
             if choice not in ["1","2","3","4","5","b","B"]:
 
                 print(
@@ -93,7 +93,7 @@ Try again!!
                         continue
                     
                     team_list = []
-                    val = input("Add members? (y/n): ")
+                    val = input("Add members? (y/n) (q to stop): ")
                     if val.lower() == "y":
                         while True:
                             team_size = self.functionFile.teamSize()
@@ -144,7 +144,7 @@ Try again!!
                     if ID == False:
                         continue
 
-                    x = input("Are you sure? (Y/N): ")
+                    x = input("Are you sure? (Y/N) (q to stop): ")
                     if x.lower() == "y":
                         self.logic_wrapper.delete_team(ID) 
                         print("Team has been removed!")
@@ -177,7 +177,7 @@ View Team
 2. View My Tournaments
 b. Back 
 """)
-            choice = input("Enter input: ")
+            choice = input("Enter input (q to stop): ")
             if choice not in ["1","2","b","B"]:
 
                 print(
@@ -256,7 +256,7 @@ b. Back
 
 
 """)
-            choice = input("Enter input: ")
+            choice = input("Enter input (q to stop): ")
             if choice not in ["1","2","3","4","b","B"]:
                 
                 print(
@@ -359,7 +359,7 @@ b. Back
 
 
 """)
-            choice = input("Enter input: ")
+            choice = input("Enter input (q to stop): ")
             if choice not in ["1","2","3","b","B"]:
                 
                 print(
@@ -449,7 +449,7 @@ b. Back
 
 
 """)
-            choice = input("Enter input: ")
+            choice = input("Enter input (q to stop): ")
             if choice not in ["1","2","3","4","b","B"]:
                 
                 print(

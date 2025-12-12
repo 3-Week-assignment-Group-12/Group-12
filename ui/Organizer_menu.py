@@ -48,7 +48,7 @@ b. Back
 
 
 """)
-            choice = input("Enter input: ")
+            choice = input("Enter input (q to stop): ")
             if choice not in ["1","2","b","B"]:
 
                  print(
@@ -102,7 +102,7 @@ b. Back
 
 
 """)
-            choice = input("Enter input: ")
+            choice = input("Enter input (q to stop): ")
             if choice not in ["1","2","3","4","5","b","B"]:
 
                  print(
@@ -148,7 +148,7 @@ Try again!!
                         print("Player creation canceled!")
                         continue
 
-                    address:str=input("Address: ")             
+                    address:str=input("Address (q to stop): ")             
                     if address == "q":
                         print("Player creation canceled!")
                         continue
@@ -194,7 +194,7 @@ Try again!!
                     if ID == False:
                         continue
 
-                    x = input("Are you sure? (Y/N)").lower()
+                    x = input("Are you sure? (Y/N) (q to stop)").lower()
                     if x == "y":                                
                         self.logic_wrapper.delete_player(ID) 
                         print("Player has been deleted!")
@@ -215,7 +215,7 @@ Try again!!
                 case "5":
                     print("Warning!")
                     print("This will wipe currently existing data")
-                    val = input("Confirm? (y/n)")
+                    val = input("Confirm? (y/n) (q to stop)")
                     if val.lower() == "y":
                         self.logic_wrapper.get_dummy_data()
                         print("Dummy data loaded")
@@ -261,7 +261,7 @@ b. Back
 
 
 """)
-            choice = input("Enter input: ")
+            choice = input("Enter input (q to stop): ")
             if choice not in ["1","2","3","4","5","6","b","B"]:
                 
                 print(
@@ -300,7 +300,7 @@ Try again!!
                         temp.phone = inp
 
                     case "3": 
-                        temp.address = input("Enter New address: ") 
+                        temp.address = input("Enter New address (q to stop): ") 
                         if temp.address == "q":
                             continue  
 
