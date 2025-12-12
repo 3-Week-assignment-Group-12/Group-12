@@ -121,7 +121,7 @@ Try again!!
                     
                     if choice == "y":
                         existing_teams = self.logic_wrapper.get_teams()
-                        counter = len(existing_teams)
+                        counter = 0
 
                         while True:
                             print(f"current teams in tournament: {counter}")
@@ -340,7 +340,7 @@ Try again!!
 
                 case "5": 
                     new_contact_id = self.functionFile.input_creatorID()
-                    if new_contact_id.lower() == "q":
+                    if new_contact_id == False:
                         cancel_flag = True
 
                     else:
