@@ -1,5 +1,3 @@
-from __future__ import annotations
-# ui_layer/main_menu.py
 from logic.logic_wrapper import LogicWrapper
 from models.player import Player
 from ui.function_file import functionFile
@@ -35,7 +33,7 @@ class OrganizerMenu():
         Options:
             1 -> Player Management menu
             2 -> Tournament Management menu
-            b -> Back to previous menu / caller
+            b -> Back to previous menu
 
         The method loops until the user chooses 'b' / 'B'.
         """
