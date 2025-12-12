@@ -1,42 +1,30 @@
 
 
+from typing import Literal
 from logic.logic_wrapper import LogicWrapper
 from models.tournament import Tournament
 from models.player import Player
 from models.team import Team
+from typing import Literal
 
 
 class functionFile:
-    """Helper class for UI input and validation.
-
-    This class encapsulates functions that:
-    - Collect user input from the console.
-    - Call the LogicWrapper to validate or manipulate data.
-    - Return cleaned/validated values back to UI menus.
-    """
+    """Helper class for UI input and validation."""
 
     def __init__(self,logic_wrapper:LogicWrapper) -> None:
         """Initialize functionFile with a LogicWrapper instance.
 
         Args:
-            logic_wrapper (LogicWrapper):
-                The logic layer interface used to access and modify data.
+            logic_wrapper (LogicWrapper): The logic layer interface used to access and modify data.
         """
         self.logic_wrapper = logic_wrapper
 
 
 
-        #------------------Functions--------------------------#
+    #------------------Functions--------------------------#
     def create_team(self):
-        """Create a new team via user input and send it to the logic layer.
-
-        Prompts the user for team information (captain ID, name, tag,
-        team size, and optional list of members) and calls
-        LogicWrapper.create_team().
-
-        Returns:
-            None
-        """
+        """Create a new team via user input and send it to the logic layer."""
+        
         id_of_user= input("Enter Captains National ID: ")
         name = input("Enter team name: ")
         tag = input("Enter team tag (max 20 char): ")
@@ -54,7 +42,7 @@ class functionFile:
                     if val.lower() == "q":
                         break
                     
-                    for x in existing_players:
+                    for x in existing_players: # check if team already exists in list, if not then player gets added
                         if val == str(x.id) and x.id not in team_list:
                             team_list.append(int(val))
                             continue
@@ -65,46 +53,27 @@ class functionFile:
             self.logic_wrapper.create_team(name,tag,id_of_user,team_size,team_list)
             
 
-    def teamSize(self):
-            while True:
-                team_size = input("Enter team size: ")
-                if team_size=="q":
-                    return False
-                try:
-                    team_size=int(team_size)
-                    return team_size
-                except:
-                    print("Team size must be digits only!")
-                
-        
-        
-        
-    
-        
-
-    def get_players(self): #Requirement 4
-        """Trigger retrieval of all players from the logic layer.
-
-        Note:
-            This function delegates to LogicWrapper.get_players().
-            It does not return or print the list by itself.
+    def teamSize(self) -> int | Literal[False]:  # function to handle and prevent invalid input
+        """function to handle and prevent invalid input
 
         Returns:
-            None
+            int | bool -- int as output valid team size, false otherwise
         """
-        # UI talks ONLY to Logic
-        self.logic_wrapper.get_players()
+        while True:
+            team_size = input("Enter team size: ")
+            if team_size=="q":
+                return False
+            try:
+                team_size=int(team_size)
+                return team_size
+            except:
+                print("Team size must be digits only!")
 
-    def check_for_tournament_ID(self):
-        """Request a contact/tournament ID and ensure it is unique.
-
-        Prompts the user for an ID and checks against existing tournaments.
-        If the ID is already in use, repeatedly asks for a new one.
+    def check_for_tournament_ID(self) -> int | str: # function to handle and prevent invalid input
+        """function to handle and prevent invalid input
 
         Returns:
-            str:
-                A contact/tournament ID that does not conflict with
-                existing tournaments.
+            int | str -- int as output valid id, str if contact id had to change
         """
         ID = input("Contact ID")
         list_of_tournaments=self.logic_wrapper.get_tournaments()
@@ -124,12 +93,11 @@ class functionFile:
 
     
 
-    def check_for_team_name(self):
+    def check_for_team_name(self) -> str: # function to handle and prevent invalid input
         """Prompt for a team name and ensure it is unique.
 
         Returns:
-            str:
-                A team name that does not already exist in the system.
+            str: A team name that does not already exist in the system.
         """
         name = input("Enter team name: ")
         list_of_teams=self.logic_wrapper.get_teams()
@@ -149,12 +117,11 @@ class functionFile:
                         print("invalid name")
                         name = input("Enter different team name: ")
             
-    def check_for_team_tag(self):
-        """Prompt for a team tag and ensure it is unique.
+    def check_for_team_tag(self) -> str: # function to handle and prevent invalid input
+        """function to handle and prevent invalid input
 
         Returns:
-            str:
-                A team tag that does not already exist in the system.
+            str -- outputs valid tag
         """
         tag = input("Enter team tag: ")
         list_of_teams=self.logic_wrapper.get_teams()
@@ -173,15 +140,11 @@ class functionFile:
                     
 
 
-    def checkTeamID(self):
-        """Ask for a team ID and verify that it exists in the system.
-
-        The user can enter 'q' to cancel the operation.
+    def checkTeamID(self) -> int | Literal[False]: # function to handle and prevent invalid input
+        """function to handle and prevent invalid input
 
         Returns:
-            int | bool:
-                * int: Valid team ID if the team exists.
-                * False: If user cancels with 'q'.
+            int | Literal[False] -- int as output of valid id, false otherwise
         """
         while True:
             teamID=input("Enter Team ID: ")
@@ -199,16 +162,11 @@ class functionFile:
                 
 
     
-    def check_existingID(self):
-        """Request an existing player ID and validate it.
-
-        Prompts until a valid player ID is entered or 'q' is used
-        to cancel.
+    def check_existingID(self) -> str | Literal[False]: # function to handle and prevent invalid input
+        """function to handle and prevent invalid input
 
         Returns:
-            str | bool:
-                str: Valid player national ID.
-                False: If the user cancels with 'q'.
+            str | Literal[False] -- str as output of valid id, false otherwise
         """
         playersID=input("Enter National ID: ")
         if playersID=="q":
@@ -224,42 +182,38 @@ class functionFile:
     
 
 
-    def check_for_player_kt(self,nID):
-            """Check if a national ID (KT) is already in use.
+    def check_for_player_kt(self,nID: str) -> bool:# function to handle and prevent invalid input
+        """function to check if id is available
 
-            Args:
-                nID (str):
-                    National ID to be checked.
-
-            Returns:
-                bool:
-                    * True: ID is not in use and can be used.
-                    * False: ID already exists in the system.
-            """
-            list_of_players= self.logic_wrapper.get_players()
-            if list_of_players is None or list_of_players == []:
-                return True
-            for player in list_of_players:
-                playerinfo=self.logic_wrapper.get_player_by_ID(player.id)
-                if isinstance(playerinfo,Player):
-                    if nID == playerinfo.id: 
-                        print("This national ID already exists!")
-                        return False
-                    else:
-                        return True
-                        
-
-    def check_for_player_email(self,email):
-        """Check if an email is already in use by another player.
-
-        Args:
-            email (str):
-                Email to check for uniqueness.
+        Arguments:
+            nID {str} -- player id to check for
 
         Returns:
-            bool:
-                * True: Email is not in use.
-                * False: Email already exists in the system.
+            bool -- true if id is available, false if not
+        """
+        list_of_players= self.logic_wrapper.get_players()
+        if list_of_players is None or list_of_players == []:
+            return True
+        for player in list_of_players:
+            playerinfo=self.logic_wrapper.get_player_by_ID(player.id)
+            if isinstance(playerinfo,Player):
+                if nID == playerinfo.id: 
+                    print("This national ID already exists!")
+                    return False
+                else:
+                    return True
+            
+        return False
+                        
+
+    def check_for_player_email(self,email:str) -> bool:# function to handle and prevent invalid input
+        """function to check if id is available
+
+        Arguments:
+            email {str} -- email to check for
+
+        Returns:
+            bool -- true if it is available, false if not
         """
         list_of_players=self.logic_wrapper.get_players()
         if list_of_players is None or list_of_players == []:
@@ -273,18 +227,11 @@ class functionFile:
                 
     
 
-    def input_phone_nr(self):
-        """Prompt user for a phone number and validate it.
-
-        Validation:
-            - Must be length 7.
-            - Must contain digits only.
-            - Must not already exist in the system.
+    def input_phone_nr(self) -> str | Literal[False]:# function to handle and prevent invalid input
+        """function to receive phone number and validate it
 
         Returns:
-            str | bool:
-                * str: Valid phone number.
-                * False: If the user cancels with 'q'.
+            str | Literal[False] -- str as output valid phone number, false otherwise
         """
         while True:
             number:str=input("Phone number:")
@@ -301,16 +248,11 @@ class functionFile:
                 return number
         
 
-    def input_name(self):
-        """Prompt user for a name and validate it.
-
-        Validation:
-            - Name must contain letters only (no digits).
+    def input_name(self) -> str | Literal[False]:# function to handle and prevent invalid input
+        """function to receive name and to validate it
 
         Returns:
-            str | bool:
-                * str: Valid name string.
-                * False: If the user cancels with 'q'.
+            str | Literal[False] -- str as valid name, false otherwise
         """
         while True:
             name:str=input("Name: ")
@@ -322,17 +264,11 @@ class functionFile:
             else:
                 return name
                 
-    def input_email(self):
-        """Prompt user for an email and validate format + uniqueness.
-
-        Validation:
-            - Must contain exactly one '@'.
-            - Must not already exist in the system.
+    def input_email(self) -> str | Literal[False]:# function to handle and prevent invalid input
+        """function to receive email and to validate it
 
         Returns:
-            str | bool:
-                * str: Valid and unique email address.
-                * False: If the user cancels with 'q'.
+            str | Literal[False] -- str as valid email, false otherwise
         """
         check2= False
         email=""
@@ -354,17 +290,11 @@ class functionFile:
 
 
 
-    def inputplayersID(self):
-        """Prompt user for a player national ID and validate it.
-
-        Validation:
-            - Delegates format checks to LogicWrapper.valid_kt().
-            - Ensures ID is not already in use.
+    def inputplayersID(self) -> str | Literal[False]:# function to handle and prevent invalid input
+        """function to receive player id and validate it
 
         Returns:
-            str | bool:
-                * str: Valid and unique national ID.
-                * False: If the user cancels with 'q'.
+            str | Literal[False] -- str as valid id, false otherwise
         """
         while True:
             playersID=input("Enter National ID: ")
@@ -383,13 +313,11 @@ class functionFile:
                     return playersID
                 
                 
-    def inputPlayerHandle(self):
-        """Prompt user for a player handle and ensure it is unique.
+    def inputPlayerHandle(self) -> str | Literal[False]:# function to handle and prevent invalid input
+        """function to receive player handle
 
         Returns:
-            str | bool:
-                * str: Valid and unique player handle.
-                * False: If the user cancels with 'q'.
+            str | Literal[False] -- str as valid handle, false otherwise
         """
         while True:
             player_handle:str = input("Enter player handle: ")
@@ -401,13 +329,11 @@ class functionFile:
             else:
                 return player_handle
             
-    def inputPlayerLink(self):
-        """Prompt user for a player link and ensure it is unique.
+    def inputPlayerLink(self) -> str | Literal[False]:# function to handle and prevent invalid input
+        """function to receive player link
 
         Returns:
-            str | bool:
-                * str: Valid and unique player link.
-                * False: If the user cancels with 'q'.
+            str | Literal[False] -- str as valid link, false otherwise
         """
         while True:
             player_link:str = input("Enter player link: ")
@@ -423,17 +349,11 @@ class functionFile:
     
     #-----------------TeamLeader------------------
 
-    def inputTeamName(self):
-        """Prompt user for a team name and validate it for length and uniqueness.
-
-        Validation:
-            - Name length must be <= 20.
-            - Name must not already exist.
+    def inputTeamName(self) -> str | Literal[False]: # function to handle and prevent invalid input
+        """function to receive team name
 
         Returns:
-            str | bool:
-                * str: Valid team name.
-                * False: If the user cancels with 'q'.
+            str | Literal[False] -- str as valid name, false otherwise
         """
         while True:
             name:str=input("Name: ")
@@ -450,17 +370,11 @@ class functionFile:
                 return name
         ## check if team name is already in use, create a function in logiclayer for that and call it here
             
-    def inputTeamTag(self):
-        """Prompt user for a team tag and validate it via logic layer.
-
-        Validation (by logic layer):
-            - Tag length must be <= 5.
-            - Tag must be unique.
+    def inputTeamTag(self) -> str |Literal[False]:
+        """function to receive team tag
 
         Returns:
-            str | bool:
-                * str: Valid team tag.
-                * False: If the user cancels with 'q' or validation fails.
+            str |Literal[False] -- str as valid tag, false otherwise
         """
         while True:
             tag:str=input("Enter Tag ( max 5 letters/numbers ): ")
@@ -476,16 +390,11 @@ class functionFile:
             else:
                 return tag
             
-    def input_creatorID(self):
-        """Prompt user for a creator (captain) national ID and validate it.
-
-        Validation:
-            - Delegates to LogicWrapper.valid_kt() for format checks.
+    def input_creatorID(self) -> str: # function to handle and prevent invalid input
+        """function to receive creator id
 
         Returns:
-            str:
-                The entered creator national ID (even if invalid; validation
-                feedback is printed but value is still returned).
+            str -- str as valid creator id
         """
         creatorID=input("Enter Creator National ID: ")
         check1 = self.logic_wrapper.valid_kt(creatorID)
@@ -500,18 +409,11 @@ class functionFile:
 
     
     #-----------Clubs----------
-    def inputClubName(self):
-        """Prompt user for a club name and validate it.
-
-        Validation:
-            - Length must be <= 20.
-            - Only letters allowed.
-            - Club name must be unique.
+    def inputClubName(self) -> str | Literal[False]: # function to handle and prevent invalid input
+        """function to receive club name
 
         Returns:
-            str | bool:
-                * str: Valid club name.
-                * False: If the user cancels with 'q'.
+            str | Literal[False] -- str as valid club name, false otherwise
         """
         while True:
             name:str=input("Name: ")
@@ -530,13 +432,11 @@ class functionFile:
                 else:
                     return name
             
-    def inputClubColor(self):
-        """Prompt user for club colour and validate it as letters-only.
+    def inputClubColor(self) -> str | Literal[False]:# function to handle and prevent invalid input
+        """function to receive club colour
 
         Returns:
-            str | bool:
-                * str: Valid club colour string.
-                * False: If the user cancels with 'q'.
+            str | Literal[False] -- str as valid colour
         """
         while True:
             color:str=input("Color: ")
@@ -549,13 +449,11 @@ class functionFile:
                 return color
 
 
-    def input_tournament_name(self):
-        """Prompt user for a tournament name and ensure it is unique.
+    def input_tournament_name(self) -> str | Literal[False]:# function to handle and prevent invalid input
+        """function to receive tournament name
 
         Returns:
-            str | bool:
-                * str: Valid tournament name.
-                * False: If the user cancels with 'q'.
+            str | Literal[False] -- str as valid name, false otherwise
         """
         while True:
             tournament_name:str=input("Tournament name: ")
@@ -568,7 +466,12 @@ class functionFile:
                 return tournament_name
             
 
-    def input_start_date(self):
+    def input_start_date(self) -> str | Literal[False]:# function to handle and prevent invalid input
+        """function to receive start date
+
+        Returns:
+            str | Literal[False] -- str as valid start date, false otherwise
+        """
         while True:
             startDate = input("Enter Start Date: ")
             if startDate == "q":
@@ -579,7 +482,15 @@ class functionFile:
             else:
                 return startDate
 
-    def input_end_date(self, startDate):
+    def input_end_date(self, startDate:str) -> str | Literal[False]: # function to handle and prevent invalid input
+        """function to receive end date
+
+        Arguments:
+            startDate {str} -- start date to base by
+
+        Returns:
+            str | Literal[False] -- str as valid end date, false for otherwise
+        """
         while True:
             endDate = input("Enter End Date: ")
             if endDate == "q":
@@ -593,7 +504,12 @@ class functionFile:
             else:
                 return endDate
         
-    def input_match_time(self):
+    def input_match_time(self) -> str | Literal[False]: # function to handle and prevent invalid input
+        """function to receive match time
+
+        Returns:
+            str | Literal[False] -- str as valid time, false otherwise
+        """
         while True:
             matchTime = input("Enter Match Time (MM:SS): ")
             if matchTime == "q":
@@ -604,17 +520,11 @@ class functionFile:
             else:
                 return matchTime
 
-    def input_contact_ID(self):
-        """Prompt user for a contact ID (organizer ID) and validate it.
-
-        Validation:
-            - Delegates to LogicWrapper.valid_kt().
-            - Must be exactly 10 digits and a valid "date" encoding.
+    def input_contact_ID(self) -> str |Literal[False]:# function to handle and prevent invalid input
+        """function to receive contact id
 
         Returns:
-            str | bool:
-                * str: Valid contact ID.
-                * False: If the user cancels with 'q'.
+            str |Literal[False] -- str as valid id, false otherwise
         """
         while True:
             contactID=input("Enter Contact ID: ")
@@ -632,7 +542,12 @@ class functionFile:
             else:
                 return contactID
             
-    def input_contact_email(self):
+    def input_contact_email(self) -> str | Literal[False]: # function to handle and prevent invalid input
+        """function to receive contact email
+
+        Returns:
+            str | Literal[False] -- str as valid email, false otherwise
+        """
         while True:
             contactEmail = input("Enter Contact Email: ")
             if contactEmail == "q":
@@ -643,7 +558,12 @@ class functionFile:
             else:
                 return contactEmail
             
-    def input_contact_phone_nr(self):
+    def input_contact_phone_nr(self) -> str | Literal[False]:# function to handle and prevent invalid input
+        """function to receive contact phone
+
+        Returns:
+            str | Literal[False] -- str as valid phone, false otherwise
+        """
         while True:
             contactPhone = input("Enter Contact Phone Number: ")
             if contactPhone == "q":
@@ -660,10 +580,10 @@ class functionFile:
             
 
             
-    def add_data_to_team_int(self,team_id:int,key:str, value:int):
+    def add_data_to_team_int(self,team_id:int,key:str, value:int) -> None: # add data to dynamic data in team
         """assigns data to all players in team
 
-        Args:
+        Arguments:
             team_id (int): team id
             key (str): what key to the value under
             value (int): the value, is additive
@@ -680,10 +600,10 @@ class functionFile:
                     play.dynamic_data[key] += value
                     self.logic_wrapper.modify_player(play)
         
-    def add_data_to_player_int(self,player_id:str, key:str, value:int):
+    def add_data_to_player_int(self,player_id:str, key:str, value:int) -> None:# add data to dynamic data
         """assign data to single player
 
-        Args:
+        Arguments:
             player_id (str): player id
             key (str): what key to the value under
             value (int): the value, is additive
@@ -697,10 +617,10 @@ class functionFile:
             self.logic_wrapper.modify_player(play)
             
         
-    def get_data_from_team(self,team_id:int, key:str="") -> dict[str,int]|int|bool:
+    def get_data_from_team(self,team_id:int, key:str="") -> dict[str,int]|int|bool: # gets dynamic data
         """Gets totaled dynamic data
 
-        Args:
+        Arguments:
             team_id (int): team id
             key (str, optional): key from where to get data. Defaults to "".
 
@@ -738,15 +658,11 @@ class functionFile:
             return value            
               
     
-    def inputClubID(self):
-        """Prompt user for a club ID and validate existence.
-
-        The user can enter 'q' to cancel the operation.
+    def inputClubID(self) -> int | Literal[False]: # add data to dynamic data in team
+        """function to receive club id
 
         Returns:
-            int | bool:
-                * int: Valid club ID.
-                * False: If the user cancels with 'q'.
+            int | Literal[False] -- int as valid id, false otherwise
         """
         while True:
             clubID=input("Enter Club ID: ")
@@ -763,15 +679,11 @@ class functionFile:
                 print("ClubID must be digits only!")
 
     
-    def inputTournamentID(self) -> int | None:
-        """Prompt user for a tournament ID and validate existence.
-
-        The user can enter 'q' to cancel the operation.
+    def inputTournamentID(self) -> int | None: # add data to dynamic data in team
+        """function to receive tournament id
 
         Returns:
-            int | None:
-                * int: Valid tournament ID.
-                * None: If the user cancels with 'q'.
+            int | None -- int as valid id, false otherwise
         """
         while True:
             tournamentID=input("Enter Tournament ID(q for cancel): ")
@@ -791,7 +703,12 @@ class functionFile:
             return tid
                 
     
-    def score(self):
+    def score(self) -> int | Literal[False]: # add data to dynamic data in team
+        """function to receive score
+
+        Returns:
+            int | Literal[False] -- int as valid score, false otherwise
+        """
         while True:
             score = input("Enter score: ")
             if score=="q":
@@ -802,7 +719,12 @@ class functionFile:
             except:
                 print("score must be digits only!")
 
-    def winner(self):
+    def winner(self) -> int | Literal[False]: # add data to dynamic data in team
+        """function to receive winner id
+
+        Returns:
+            int | Literal[False] -- int as valid winner id, false otherwise
+        """
         while True:
             winner = input("Enter winner id: ")
             if winner=="q":

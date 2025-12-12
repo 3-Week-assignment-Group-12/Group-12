@@ -1,8 +1,4 @@
-from __future__ import annotations
-from re import Match
 from xmlrpc.client import Boolean
-# ui_layer/main_menu.py
-from models.bracket import Bracket
 from models.club import Club
 from logic.logic_wrapper import LogicWrapper
 from models.team import Team

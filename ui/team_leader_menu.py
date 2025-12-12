@@ -1,5 +1,3 @@
-from __future__ import annotations
-# ui_layer/main_menu.py
 from logic.logic_wrapper import LogicWrapper
 from models.team import Team
 from ui.function_file import functionFile

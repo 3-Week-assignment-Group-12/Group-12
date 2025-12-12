@@ -1,5 +1,3 @@
-from __future__ import annotations
-# ui_layer/main_menu.py
 from logic.logic_wrapper import LogicWrapper
 
 from ui.Organizer_menu import OrganizerMenu
@@ -19,7 +17,7 @@ class MainMenu:
     def __init__(self):
         """Initialize the main menu and all sub-menus.
 
-        Creates a LogicWrapper instance and wires it into:
+        Creates a LogicWrapper instance and passes it into:
             - OrganizerMenu
             - TeamLeader
             - PublicMainMenu
@@ -39,7 +37,7 @@ class MainMenu:
             public_menu (PublicMainMenu):
                 UI menu for public/readonly viewing actions.
         """
-        # The UI creates an instance of the Logic Wrapper
+        # The UI creates an instance of the Logic Wrapper and sub-menus
         self.logic_wrapper = LogicWrapper()
         self.functionFile = functionFile(self.logic_wrapper)
         self.my_organizer_menu = OrganizerMenu(self.logic_wrapper,self.functionFile)
