@@ -527,7 +527,7 @@ Try again!!
                                             print(f"Winner must be one ether: {matchup[0]} or {matchup[1]}")
                                             winner_id = self.functionFile.winner()
                                             
-                                            self.functionFile.add_data_to_team_int(winner_id,"win",1)
+                                            self.functionFile.add_data_to_team_int(winner_id,"wins",1)
                                             loser = [matchup[0],matchup[1]]
                                             loser.remove(winner_id)
                                             self.functionFile.add_data_to_team_int(loser[0],"losses",1)
