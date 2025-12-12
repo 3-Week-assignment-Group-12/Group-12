@@ -37,13 +37,16 @@ class team_handler:
         for x in teams:
             if x.id > highest:
                 highest = x.id
-        highest+=1 # find new id
+
+        highest += 1 # find new id
          
         for t in teams:
             if t.tag == tag or t.name == name:
                 return -3
+            
         if isinstance(tag,int) or isinstance(name,int) or not isinstance(creator_id,str) or not isinstance(team_size,int):
             return -4
+        
         if team_size>21:
             return -5
         

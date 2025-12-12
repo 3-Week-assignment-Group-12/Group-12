@@ -32,11 +32,11 @@ class player_handler:
                        (currently no explicit validation codes — future expansion allowed).
         """
         # 1. Validate Input (Business Logic)     
-        day=int(ID[0:2])
-        month=int(ID[2:4])
+        day = int(ID[0:2])
+        month = int(ID[2:4])
 
         # Determine century based on last digit of ID
-        if ID[-1]=="0":
+        if ID[-1] == "0":
             year = int("20"+ID[4:6])
         else:
             year = int("19"+ID[4:6])  
