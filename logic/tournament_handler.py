@@ -46,12 +46,13 @@ class tournament_handler:
         for x in existing_tournaments:
             if x.id > highest:
                 highest = x.id
-        highest+=1 # find new id
+
+        highest += 1 # find new id
         
 
         
         
-        nr_of_at=0
+        nr_of_at = 0
         for i in contact_email:
             if i =="@":
                 nr_of_at+=1

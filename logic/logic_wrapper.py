@@ -51,6 +51,7 @@ class LogicWrapper:
         new_player = self.player_handler.create_player(KT, name,handle,link, phone, address, email, self.data_wrapper.get_players())
         if isinstance(new_player, Player):
             return self.data_wrapper.write_player(new_player)
+        
         return new_player  # Indicate failure due to validation
         
     def create_team(self, name: str, tag: str, creator_id: str, team_size: int, team_list: list[str]) -> int:
@@ -69,6 +70,7 @@ class LogicWrapper:
         new_team: Team|int = self.team_handler.create_team(name, tag, creator_id, team_size, self.data_wrapper.get_teams(), team_list)
         if isinstance(new_team, Team):
             return self.data_wrapper.write_team(new_team)
+        
         return -2 # Indicate failure due to validation
         
         
@@ -112,6 +114,7 @@ class LogicWrapper:
         
         if isinstance(new_tournament, Tournament):
             return self.data_wrapper.write_tournament(new_tournament)
+        
         return new_tournament # Indicate failure due to validation
 
     def create_club(self, name: str, colour:str , team_list: list[int]) -> int:
@@ -129,6 +132,7 @@ class LogicWrapper:
         new_club: Club|int = self.club_handler.create_club(name,colour,team_list,self.get_clubs())
         if isinstance(new_club, Club):
             return self.data_wrapper.write_club(new_club)
+        
         return -2 # Indicate failure due to validation   
 
         
@@ -394,6 +398,9 @@ class LogicWrapper:
     
     
     # ------------------- Delete Methods ------------------ #
+
+
+
     def delete_player(self, ID: str) -> bool:
         """Delete a player by their ID.
         
@@ -462,6 +469,8 @@ class LogicWrapper:
         
     
     # ------------------- Specialized Methods ------------------ #
+
+
     def generate_bracket(self, tournament: Tournament,) -> Bracket | int:
         """Generate a knockout bracket for a tournament.
         
@@ -487,12 +496,12 @@ class LogicWrapper:
         bracket_data: list[tuple[int, int]] | int = self.tournament_handler.generate_bracket(tournament, prev_matches)
         if isinstance(bracket_data,int):
             return bracket_data
+        
         else:
-            
             # long fucking check to do bracket_data == list[tuple[int,int]]
             if isinstance(bracket_data, list) and all( isinstance(t, tuple) and len(t) == 2 and isinstance(t[0], int) and isinstance(t[1], int) for t in bracket_data):
-                
                 return self.bracket_handler.create_bracket(bracket_data,tournament.id,self.get_brackets())
+            
             return -3 # error in cenerating bracket
     
 
@@ -504,6 +513,9 @@ class LogicWrapper:
 
     
     #--------------team checks --------------------
+
+
+
     def check_for_team_name(self,name:str) -> bool | None:
         """Check whether a team name is already in use.
         
@@ -515,12 +527,13 @@ class LogicWrapper:
                 False if the name already exists,
                 True otherwise.
         """
-        list_of_teams=self.get_teams()
+        list_of_teams = self.get_teams()
         for teamID in list_of_teams:
-            teaminfo=self.get_team_by_ID(teamID.id)
+            teaminfo = self.get_team_by_ID(teamID.id)
             if isinstance(teaminfo,Team):
                 if name == teaminfo.name:
                     return False
+                
                 else:
                     return True
             
@@ -538,14 +551,19 @@ class LogicWrapper:
         """
         if len(tag) > 5:
             return "1"
-        list_of_teams=self.get_teams()
+        
+        list_of_teams = self.get_teams()
         for teamID in list_of_teams:
-            teaminfo=self.get_team_by_ID(teamID.id)
+            teaminfo = self.get_team_by_ID(teamID.id)
             if isinstance(teaminfo,Team):
                 if tag == teaminfo.tag: 
                     return "2"
+                
                 else:
                     return True
+                
+
+
     #--------------Player checks --------------------
     # def check_for_player_kt(self,kt):
     #     list_of_players=self.get_players()
@@ -573,12 +591,16 @@ class LogicWrapper:
         """
         if len(str(NID)) != 10:
             return "1"
+        
         elif NID.isdigit() == False:
             return "2"
+        
         elif 0 >= int(NID[0:2]) or int(NID[0:2]) > 31:
             return "3"
+        
         elif 0 >= int(NID[2:4]) or int(NID[2:4]) > 12:
             return "4"
+        
         else:
             return True
 
@@ -600,15 +622,18 @@ class LogicWrapper:
                 * "3": Phone number already exists for another player.
                 * True: Phone number is valid and unique.
         """
-        players=self.get_players()
+        players = self.get_players()
         
         if len(number) != 7:
             return "1"
+        
         elif number.isdigit() == True:
             return "2"
+        
         for i in players:
-            if i.phone==number:
+            if i.phone == number:
                 return "3"
+            
         return True
     
 
@@ -628,8 +653,10 @@ class LogicWrapper:
        
         if len(number) != 7:
             return "1"
+        
         elif number.isdigit() == False:
             return "2"
+        
         else:
             return True
         
@@ -646,6 +673,7 @@ class LogicWrapper:
         """
         if name.isalpha() == False:
             return "1"
+        
         else:
             return True
         
@@ -666,9 +694,11 @@ class LogicWrapper:
             if isinstance(player_info,Player):
                 if player_handle == player_info.handle:
                     return False
+                
                 else:
                     return True
                 
+
     def check_player_link(self,player_link: str) -> bool| None:
         """Check whether a player link is already in use.
         
@@ -680,14 +710,16 @@ class LogicWrapper:
                 False if the link already exists,
                 True otherwise.
         """
-        if player_link=="":
+        if player_link == "":
             return True
+        
         list_of_players = self.get_players()
         for player in list_of_players:
             player_info = self.get_player_by_ID(player.id)
             if isinstance(player_info,Player):
                 if player_link == player_info.link:
                     return False
+                
                 else:
                     return True
 
@@ -705,12 +737,13 @@ class LogicWrapper:
                 False if the ID already exists,
                 True otherwise.
         """
-        list_of_tournaments=self.get_tournaments()
+        list_of_tournaments = self.get_tournaments()
         for tournamentID in list_of_tournaments:
-            tournament_info=self.get_team_by_ID(tournamentID.id)
+            tournament_info = self.get_team_by_ID(tournamentID.id)
             if isinstance(tournament_info,Tournament):
                 if ID == tournament_info.id: 
                     return False
+                
                 else:
                     return True
     
@@ -725,13 +758,14 @@ class LogicWrapper:
                 * "1": Email does not contain exactly one '@' symbol.
                 * True: Email passes this basic validation.
         """
-        nr_of_at=0
+        nr_of_at = 0
         for i in email:
             if i =="@":
                 nr_of_at+=1
     
         if nr_of_at!=1:
             return "1"
+        
         else:
             return True
              
@@ -746,8 +780,9 @@ class LogicWrapper:
                 * "-1": Tag is longer than 5 characters.
                 * True: Tag length is valid.
         """
-        if len(tag) >5:
+        if len(tag) > 5:
             return "-1"
+        
         else: 
             return True
         
@@ -762,13 +797,14 @@ class LogicWrapper:
                 False if the name already exists,
                 True otherwise.
         """
-        list_of_tournaments=self.get_tournaments()
+        list_of_tournaments = self.get_tournaments()
         
         for tournamentID in list_of_tournaments:
-            tournamentinfo=self.get_tournament_by_ID(tournamentID.id)
+            tournamentinfo = self.get_tournament_by_ID(tournamentID.id)
             if isinstance(tournamentinfo,Tournament):
                 if name == tournamentinfo.name:
                     return False
+                
                 else:
                     return True
 
@@ -788,59 +824,80 @@ class LogicWrapper:
         list_of_clubs=self.get_clubs()
         
         for clubID in list_of_clubs:
-            clubinfo=self.get_team_by_ID(clubID.id)
+            clubinfo = self.get_team_by_ID(clubID.id)
             if isinstance(clubinfo,Club):
                 if name == clubinfo.name:
                     return False
+                
                 else:
                     return True
-                
+
+
+     #----------dates-----------    
 
     def validateDate(self,date:str):
         counter = 0
         for i in date:
             if i == ".":
                 counter += 1
+
         if counter != 2:
             return None
+        
         elif date[0:2].isdigit() == False:
             return None
+        
         elif date[3:5].isdigit() == False:
             return None
+        
         elif date[6:10].isdigit() == False:
             return None
+        
         elif int(date[0:2]) < 0 or int(date[0:2]) > 31:
             return None
+        
         elif int(date[3:5]) < 0 or int(date[3:5]) > 12:
             return None
+        
         elif int(date[6:10]) < 2025:
             return None
+        
         else:
             return date
         
+
     def validEndDate(self,startDate,endDate):
         if int(startDate[6:10]) > int(endDate[6:10]):
             return False
+        
         elif int(startDate[3:5]) > int(endDate[3:5]):
             return False
+        
         elif int(startDate[0:2]) > int(endDate[0:2]):
             return False
+        
         else:
             return True
+        
         
     def validateMatchTime(self,time:str):
         counter = 0
         for i in time:
             if i == ":":
                 counter += 1
+
         if counter != 1:
             return None
+        
         elif time[0:2].isdigit() == False:
             return None
+        
         elif time[3:5].isdigit() == False:
             return None
+        
         elif int(time[3:5]) < 0 or int(time[3:5]) > 59:
             return None
+        
         else:
             return time
 

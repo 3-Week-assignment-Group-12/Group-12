@@ -40,7 +40,8 @@ class match_handler:
         for x in existing_matches:
             if x.id > highest:
                 highest = x.id
-        highest+=1 # find new id
+
+        highest += 1 # find new id
 
         
         
@@ -48,6 +49,7 @@ class match_handler:
         for i in string_splitted_at_dots:
             try:
                 assert type(int(i)) == int
+
             except:
                 return -3
         
@@ -55,6 +57,7 @@ class match_handler:
         for i in string_splitted:
             try:
                 assert type(int(i)) == int
+                
             except:
                 return -4
 

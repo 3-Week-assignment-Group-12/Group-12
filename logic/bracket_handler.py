@@ -23,7 +23,8 @@ class bracket_handler:
         for x in existing_brackets:
             if x.id > highest:
                 highest = x.id
-        highest+=1 # Assign next unique ID
+
+        highest += 1 # Assign next unique ID
         
         # 2. Create Model Object
         new_bracket = Bracket(highest, matchups ,tournament_id)
