@@ -460,7 +460,7 @@ b. Back
 
 """)
             choice = input("Enter input: ")
-            if choice not in ["1","2","3","4","5","b","B"]:
+            if choice not in ["1","2","3","b","B"]:
 
                 print(
 f""" 
@@ -470,8 +470,7 @@ Select {tourn.name}
 
 1. Generate Schedule
 2. Record Game Results
-3. Manage Rewards [not implamanted]
-4. Retrieve Records
+3. Retrieve Records
 b. Back 
 
 Try again!!
@@ -607,11 +606,8 @@ Try again!!
                         
                         tourn.matches[-1].append(ret)
                         self.logic_wrapper.modify_tournament(tourn)
-                    
-                case "3": 
-                    pass
 
-                case "4": 
+                case "3": 
                     
                     for x in self.logic_wrapper.get_matches_by_tournament_ID(ID):
                         print(f"Match: {x.id}")
@@ -619,6 +615,7 @@ Try again!!
                         print(f"Winner Team: {x.winner_id}, Score: {x.Score}")
                         print(f"Date: {x.date}, match time: {x.match_time}, server id: {x.server_id}")
                         print()
+                        
                 case "b": 
                     return
             
