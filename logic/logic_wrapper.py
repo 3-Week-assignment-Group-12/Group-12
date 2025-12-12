@@ -828,6 +828,22 @@ class LogicWrapper:
             return False
         else:
             return True
+        
+    def validateMatchTime(self,time:str):
+        counter = 0
+        for i in time:
+            if i == ":":
+                counter += 1
+        if counter != 1:
+            return None
+        elif time[0:2].isdigit() == False:
+            return None
+        elif time[3:5].isdigit() == False:
+            return None
+        elif int(time[3:5]) < 0 or int(time[3:5]) > 59:
+            return None
+        else:
+            return time
 
     
 

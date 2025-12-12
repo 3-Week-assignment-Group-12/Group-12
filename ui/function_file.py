@@ -574,20 +574,8 @@ class functionFile:
             if startDate == "q":
                 return False
             check = self.logic_wrapper.validateDate(startDate)       
-            if check == "1":
-                print("Date format is wrong! (example of correct format: 11.12.2025)") 
-            elif check == "2":
-                print("Date format is wrong! (example of correct format: 11.12.2025)") 
-            elif check == "3":
-                print("Date format is wrong! (example of correct format: 11.12.2025)") 
-            elif check == "4":
-                print("Date format is wrong! (example of correct format: 11.12.2025)") 
-            elif check == "5":
-                print("Date format is wrong! (example of correct format: 11.12.2025)") 
-            elif check == "6":
-                print("Date format is wrong! (example of correct format: 11.12.2025)") 
-            elif check == "7":
-                print("Date format is wrong! (example of correct format: 11.12.2025)") 
+            if check == None:
+                print("Date format is wrong! (example of correct format: dd.mm.yyyy)") 
             else:
                 return startDate
 
@@ -598,12 +586,23 @@ class functionFile:
                 return False
             check = self.logic_wrapper.validateDate(endDate)       
             if check == None:
-                print("Date format is wrong! (example of correct format: 12.12.2025)") 
+                print("Date format is wrong! (example of correct format: dd.mm.yyyy)") 
             check2 = self.logic_wrapper.validEndDate(startDate,endDate)
             if check2 == False:
                 print("EndDate cannot occur before StartDate!")
             else:
                 return endDate
+        
+    def input_match_time(self):
+        while True:
+            matchTime = input("Enter Match Time (MM:SS): ")
+            if matchTime == "q":
+                return False
+            check = self.logic_wrapper.validateMatchTime(matchTime)       
+            if check == None:
+                print("Match Time format is wrong! (example of correct format: MM:SS - minutes:seconds)") 
+            else:
+                return matchTime
 
     def input_contact_ID(self):
         """Prompt user for a contact ID (organizer ID) and validate it.
