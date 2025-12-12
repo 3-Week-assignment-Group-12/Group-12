@@ -574,7 +574,7 @@ class LogicWrapper:
         """
         if len(str(NID)) != 10:
             return "1"
-        elif NID.isalpha():
+        elif NID.isdigit() == False:
             return "2"
         elif 0 >= int(NID[0:2]) or int(NID[0:2]) > 31:
             return "3"
@@ -605,7 +605,7 @@ class LogicWrapper:
         
         if len(number) != 7:
             return "1"
-        elif number.isalpha() == True:
+        elif number.isdigit() == True:
             return "2"
         for i in players:
             if i.phone==number:
@@ -728,7 +728,7 @@ class LogicWrapper:
         """
         if len(str(NID)) != 10:
             return "1"
-        elif NID.isalpha() ==True:
+        elif NID.isdigit() == False:
             return "2"
         else:
             return True
@@ -771,7 +771,7 @@ class LogicWrapper:
                     return True
 
 
-#----------clubs-----------
+    #----------clubs-----------
     def check_for_club_name(self,name: str) -> bool | None:
         """Check whether a club name is already in use.
         
